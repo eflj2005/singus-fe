@@ -1,11 +1,26 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 
-const routes: Routes = [];
+
+import { LoginComponent } from './usuarios/login/login.component'
+
+//Rutas para redirecciones por url
+const rutas: Routes =[
+  
+  { path:'', redirectTo:'login', pathMatch:'full' },
+
+  { path:'login', component:LoginComponent},/*
+      { path:'recuperarClave', component:RecuperarClaveComponent},
+      { path:'codigoVerificacion', component:CodigoVerificacionComponent},
+      { path:'restablecerClave', component:RestablecerClaveComponent}
+      */
+];
+
+
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(rutas, {preloadingStrategy: PreloadAllModules, useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
