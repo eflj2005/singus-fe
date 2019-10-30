@@ -1,5 +1,5 @@
 <!-- modal contenedor -->
-<div id="id01" class="modal">
+<div id="div_login_modal" class="modal">
 
     <div class="modal-content animate">
         <!-- contenedor de imagen -->
@@ -21,31 +21,12 @@
                 <div>Sistema de Información de Graduados Uniminuto para Seguimiento</div>
             </strong>
         </div>
-
-        <!-- contenedor para login normal -->
-
-        <div *ngIf="modo == 1" class="container">
-            <label><b>Usuario</b></label>
-            <input type="text" class="form-control" [(ngModel)]="usuario" placeholder="Ingrese el nombre de usuario" required>
-            <br>
-            <label><b>Contraseña</b></label>
-            <input type="password" class="form-control" [(ngModel)]="clave" placeholder="Ingrese la contraseña" required>
+ 
+         <!-- contenedor para procesos -->
+        <div class="contenido">
+            <router-outlet></router-outlet>
         </div>
-
-
-        <!-- contenedor para opciones o botones de login normal-->
-        
-        <div  *ngIf="modo == 1" class="container" style="background-color:#e2e2e2ee">
-            <button *ngIf="procesando == false" (click)="ValidarLogin()">Ingresar</button>
-            <button *ngIf="procesando == true" ><i class="fa fa-spinner fa-spin"></i></button>
-            <span class="psw"><a routerLink="/recuperarClave">Recuperar contraseña</a></span>
-        </div>
-
-        <!-- contenedor para registro de administrador -->        
-
-        <div *ngIf="modo == 2" class="container">
-            <button *ngIf="procesando == false" (click)="ActivarRegitroAdministrador()">Registrar Nuevo Administrador</button>
-        </div>        
+         
 
     </div>
 

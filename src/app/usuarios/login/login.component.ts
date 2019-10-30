@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -7,41 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  usuario:string= null;
-  clave:string= null;
-
-      /*
-      Modo de inicio
-        1 = Login normal
-        2 = Nuevo Administrador
-        */
+  /*
+  Modo de inicio
+    1 = Login normal
+    2 = Nuevo Administrador
+  */
   modo:number=null;
 
-  procesando:boolean=null;
-
-  constructor() {
-    this.usuario="";
-    this.clave="";
-    this.procesando=false;
-
+  constructor(
+    private rutas: Router,
+    private rutaActiva: ActivatedRoute
+  ) {
+    
     this.ValidarAdministrador();
   }
 
   ngOnInit() {
+    this.rutas.navigate( ['inicio_sesion/'], { relativeTo: this.rutaActiva, queryParams: { modo: this.modo },  skipLocationChange: true } );
   }
 
   ValidarAdministrador(){
-    this.modo = 1;
+    this.modo=2;
   }
 
-  ValidarLogin(){
-    alert("envio formulario Login");
-    this.procesando=true;
-    
-  }
-
-  ActivarRegitroAdministrador(){
-    alert("Activar Nuevo Administrador");
-    
-  }  
 }

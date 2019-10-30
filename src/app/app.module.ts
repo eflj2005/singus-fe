@@ -6,11 +6,15 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './usuarios/login/login.component';
 
 import { FormsModule } from '@angular/forms';
+import { RegitroAdministradorComponent } from './usuarios/regitro-administrador/regitro-administrador.component';
+import { InicioSesionComponent } from './usuarios/inicio-sesion/inicio-sesion.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    RegitroAdministradorComponent,
+    InicioSesionComponent
   ],
   imports: [
     BrowserModule,

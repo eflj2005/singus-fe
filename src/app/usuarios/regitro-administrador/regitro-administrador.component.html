@@ -1,0 +1,20 @@
+
+        <!-- contenedor para formulario de registro -->
+
+        <div class="container">
+            <label><b>Id</b></label>
+            <input type="text" class="form-control" [(ngModel)]="id" placeholder="Ingrese el Id Uniminuto del Administrador" required>
+            <label><b>Nombres</b></label>
+            <input type="text" class="form-control" [(ngModel)]="nombres" placeholder="Ingrese los nombres del administrador" required>
+            <label><b>Nombres</b></label>
+            <input type="text" class="form-control" [(ngModel)]="apellidos" placeholder="Ingrese los apellidos del administrador" required>            
+        </div>
+
+
+        <!-- contenedor para opciones o botones de login normal-->
+        
+        <div  class="container" style="background-color:#e2e2e2ee">
+            <button *ngIf="procesando == false" (click)="RegistrarAdministrador()">Registrar</button>
+            <button *ngIf="procesando == true" ><i class="fa fa-spinner fa-spin"></i></button>
+        </div>
+    
