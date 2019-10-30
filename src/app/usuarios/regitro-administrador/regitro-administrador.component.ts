@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+//import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-regitro-administrador',
@@ -26,6 +27,8 @@ export class RegitroAdministradorComponent implements OnInit {
 
   RegistrarAdministrador(){
     this.procesando=true;
+
+    //this.modalService.open(content, { centered: true });
   }
 
 

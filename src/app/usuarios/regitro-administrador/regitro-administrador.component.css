@@ -1,5 +1,27 @@
 body {font-family: Arial, Helvetica, sans-serif;}
 
+.titulo {
+    text-align: center;
+    color: white;
+    padding: 10px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.titulo .nombre {
+   color: #ffce00;
+   font-size: 40px ;
+}
+
+.container input {
+    display: initial;
+    width: 70%;
+}
+
+.container label {
+    width: 28%;
+}
+
 
 /* Set a style for all buttons */
 button {
@@ -19,34 +41,14 @@ button:hover {
 
 
 .container {
-    padding: 16px;
+    padding: 10px;
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
 }
 
-.rec {
-     height: 16px;
-}
-.rec .recpsw {
-    float: right;
-}
-.rec .recid {
-    float: left;
-}
+
 
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 450px) {
-    .rec {
-        height: 32px;
-        text-align: center;
-   }
 
-    .rec .recpsw {
-        display: block;
-        float: none;
-    }
-    .rec .recid {
-        display: block;
-        float: none;
-    }    
 }

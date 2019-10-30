@@ -11,11 +11,11 @@ export class InicioSesionComponent implements OnInit {
   clave:string= null;
   suscrito:any=null;
 
-      /*
-      Modo de inicio
-        1 = Login normal
-        2 = Nuevo Administrador
-        */
+  /*
+  Modo de inicio
+    1 = Login normal
+    2 = Nuevo Administrador
+  */
   modo:number=null;
 
   procesando:boolean=null;

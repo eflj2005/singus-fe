@@ -1,10 +1,16 @@
 
+    <div class="titulo">
+        <strong>
+            <div class="nombre">S.In.G.U.S</div>
+            <div>Sistema de Información de Graduados Uniminuto para Seguimiento</div>
+        </strong>
+    </div>
+
     <!-- contenedor para login normal -->
 
     <div *ngIf="modo == 1" class="container">
         <label><b>Usuario</b></label>
         <input type="text" class="form-control" [(ngModel)]="usuario" placeholder="Ingrese el nombre de usuario" required>
-        <br>
         <label><b>Contraseña</b></label>
         <input type="password" class="form-control" [(ngModel)]="clave" placeholder="Ingrese la contraseña" required>
     </div>
