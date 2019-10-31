@@ -7,18 +7,10 @@ import {Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  /*
-  Modo de inicio
-    1 = Login normal
-    2 = Nuevo Administrador
-  */
-  modo:number=null;
-
-  constructor(
-    private rutas: Router,
-    private rutaActiva: ActivatedRoute
-  ) {
+  
+  modo:number=null;   //Modo de inicio =>  1 = Login normal, 2 = Nuevo Administrador
+  
+  constructor( private rutas: Router, private rutaActiva: ActivatedRoute) {
     
     this.ValidarAdministrador();
   }
@@ -28,7 +20,15 @@ export class LoginComponent implements OnInit {
   }
 
   ValidarAdministrador(){
-    this.modo=2;
+    /*
+
+      AQUI VA EL LLAMADO PARA IDENTIFICAR SI HAY ADMINISTRADOR O NO
+
+
+    */
+
+    this.modo=2;    //este valor es para pruebas
+
   }
 
 }

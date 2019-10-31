@@ -1,48 +1,56 @@
 
-            <div class="titulo">
-                <strong>
-                    <div>Registro de Nuevo Administrador</div>
-                </strong>
-            </div>
-        
-        <!-- contenedor para formulario de registro -->
+<div class="titulo">
+    <strong>
+        <div>Registro de Nuevo Administrador</div>
+    </strong>
+</div>
 
-        <div class="container">
-             <label><b>Id</b></label>
-            <input type="text" class="form-control" [(ngModel)]="id" placeholder="Ingrese el Id Uniminuto" required>
-            <label><b>Nombres</b></label>
-            <input type="text" class="form-control" [(ngModel)]="nombres" placeholder="Ingrese los nombres" required>
-            <label><b>Apellidos</b></label>
-            <input type="text" class="form-control" [(ngModel)]="apellidos" placeholder="Ingrese los apellidos" required>            
-            <label><b>Documento</b></label>
-            <input type="number" class="form-control" [(ngModel)]="documento" placeholder="Ingrese el No. de documento" required>            
-            <label><b>Correo</b></label>
-            <input type="email" class="form-control" [(ngModel)]="correo" placeholder="Ingrese el email" required>            
-            <label><b>Telefono</b></label>
-            <input type="number" class="form-control" [(ngModel)]="telefono" placeholder="Ingrese telefono de contacto" required>     
-        </div>
-        
+<!-- contenedor para formulario de registro -->
+
+<div class="container">
+    <label><b>Documento</b></label>
+    <input type="number" class="form-control" [(ngModel)]="documento" placeholder="Ingrese el No. de documento" required>            
+    <label><b>Nombres</b></label>
+    <input type="text" class="form-control" [(ngModel)]="nombres" placeholder="Ingrese los nombres" required>
+    <label><b>Apellidos</b></label>
+    <input type="text" class="form-control" [(ngModel)]="apellidos" placeholder="Ingrese los apellidos" required>            
+    <label><b>Correo</b></label>
+    <input type="email" class="form-control" [(ngModel)]="correo" placeholder="Ingrese el email" required>            
+    <label><b>Telefono</b></label>
+    <input type="number" class="form-control" [(ngModel)]="telefono" placeholder="Ingrese telefono de contacto" required>     
+</div>
 
 
-        <!-- contenedor para opciones o botones de login normal-->
-        
-        <div  class="container" style="background-color:#e2e2e2ee">
-            <button *ngIf="procesando == false" (click)="RegistrarAdministrador()">Registrar</button>
-            <button *ngIf="procesando == true" ><i class="fa fa-spinner fa-spin"></i></button>
-        </div>
+<!-- contenedor para opciones o botones de login normal-->
 
-        <!-- emergente de confirmación -->
-        <ng-template #content let-modal>
-                <div class="modal-header">
-                  <h4 class="modal-title">Modal title</h4>
-                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p>One fine body&hellip;</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-                </div>
-              </ng-template>
+<div  class="container" style="background-color:#e2e2e2ee">
+    <button class="mibutton" *ngIf="procesando == false" (click)="RegistrarAdministrador(confirmador,notificador)">Registrar</button>
+    <button class="mibutton" *ngIf="procesando == true" ><i class="fa fa-spinner fa-spin"></i></button>
+</div>
+
+<!-- emergente para confirmación -->
+<ng-template #confirmador let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirmación</h4>
+  </div>
+  <div class="modal-body">
+    <p>Esta seguro de crear el administrador '{{ nombres }}'' con documento '{{ documento }}'. Esta acción no se puede reversar.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close('SI')">Si</button>            
+    <button type="button" ngbAutofocus  class="btn btn-outline-secondary" (click)="modal.dismiss('NO')">No</button>            
+  </div>
+</ng-template>
+
+<!-- emergente para continuar -->
+<ng-template #notificador let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Notificación</h4>
+  </div>
+  <div class="modal-body">
+    <p>Se ha enviado un mensaje a '{{ this.correo }}' con el codigo de confirmación.</p>
+  </div>
+  <div class="modal-footer">       
+    <button type="button" ngbAutofocus  class="btn btn-danger" (click)="modal.dismiss('SI')">Continuar</button>            
+  </div>
+</ng-template>

@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './usuarios/login/login.component';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 import { FormsModule } from '@angular/forms';
 import { RegitroAdministradorComponent } from './usuarios/regitro-administrador/regitro-administrador.component';
 import { InicioSesionComponent } from './usuarios/inicio-sesion/inicio-sesion.component';
@@ -17,6 +19,7 @@ import { InicioSesionComponent } from './usuarios/inicio-sesion/inicio-sesion.co
     InicioSesionComponent
   ],
   imports: [
+    NgbModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule

@@ -7,28 +7,18 @@ import {Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./inicio-sesion.component.css']
 })
 export class InicioSesionComponent implements OnInit {
-  usuario:string= null;
+  documento:string= null;
   clave:string= null;
   suscrito:any=null;
-
-  /*
-  Modo de inicio
-    1 = Login normal
-    2 = Nuevo Administrador
-  */
-  modo:number=null;
+    
+  modo:number=null;   //Modo de inicio =>  1 = Login normal, 2 = Nuevo Administrador
 
   procesando:boolean=null;
 
-  constructor(
-    private rutas: Router,
-    private rutaActiva: ActivatedRoute    
-  ) {
-    this.usuario="";
+  constructor( private rutas: Router, private rutaActiva: ActivatedRoute ){
+    this.documento="";
     this.clave="";
     this.procesando=false;
-
-    this.ValidarAdministrador();
   }
 
   ngOnInit() {
@@ -41,10 +31,6 @@ export class InicioSesionComponent implements OnInit {
 
   ngOnDestroy() {
     this.suscrito.unsubscribe();
-  }
-
-  ValidarAdministrador(){
-    this.modo = 1;
   }
 
   ValidarLogin(){
