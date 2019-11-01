@@ -66,7 +66,7 @@ export class RegitroAdministradorComponent implements OnInit {
             (result) => { /* Se recibe close */ }, 
             (reason) => { // Se recibe dismiss
               if(reason == 'CONTINUAR'){ //se recibe close             
-                console.log(this.rutaActiva);
+
                   this.procesando=false;
                   this.procesoLogeo.paso = 3;
                 /*

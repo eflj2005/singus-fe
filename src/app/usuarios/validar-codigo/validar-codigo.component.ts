@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ValidarCodigoComponent implements OnInit {
 
-  constructor() { }
+  procesando:boolean=null;
+
+  codigoModelo:string=null;
+
+  constructor() {
+    this.codigoModelo="[A-Z0-9]{3}-[A-Z0-9]{3}";
+    this.procesando=false;
+   }
 
   ngOnInit() {
   }
 
+  ValidarCodigo(){
+    this.procesando=true;
+  }
 }

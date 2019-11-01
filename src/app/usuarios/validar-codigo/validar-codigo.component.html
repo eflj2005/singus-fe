@@ -1,6 +1,24 @@
 
 <div class="titulo">
     <strong>
-        <div>Validar Codigo</div>
+        <div>Validación de codigo</div>
     </strong>
+</div>
+
+<!-- contenedor para formulario de registro -->
+
+<div class="container">
+    <input type="text" class="form-control" [(ngModel)]="codigo" placeholder="___-___" [pattern]="codigoModelo" #codigoMensaje="ngModel" required> 
+    <label><b>CODIGO</b></label>
+    <div *ngIf="codigoMensaje.errors?.pattern"> 
+           El codigo debe tener el formato "???-???"
+    </div> 
+</div>
+
+
+<!-- contenedor para opciones o botones de login normal-->
+
+<div  class="container" style="background-color:#e2e2e2ee">
+    <button class="mibutton" *ngIf="procesando == false" (click)="ValidarCodigo()">Validar</button>
+    <button class="mibutton" *ngIf="procesando == true" ><i class="fa fa-spinner fa-spin"></i></button>
 </div>

@@ -5,3 +5,23 @@
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
 }
+
+.container {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.container input {
+    display: initial;
+    text-align: center;
+    width: 60%;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.container label {
+
+    text-align: center;
+    width: 60%;
+    min-width: 100px;
+}
