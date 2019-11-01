@@ -22,10 +22,12 @@ export class InicioSesionComponent implements OnInit {
   }
 
   ngOnInit() {
+    /*
     this.suscrito = this.rutaActiva.queryParams.subscribe(params => {
       // Defaults to 0 if no query param provided.
       this.modo = +params['modo'];
     }); 
+    */
   }    
 
 
@@ -38,11 +40,6 @@ export class InicioSesionComponent implements OnInit {
     this.procesando=true;
     
   }
-
-  ActivarRegitroAdministrador(){
-    this.rutas.navigate( ['registro_administrador/'], { relativeTo: this.rutaActiva.parent, skipLocationChange: true } );
-    
-  }  
 
 }
 

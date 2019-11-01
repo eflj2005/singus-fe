@@ -10,7 +10,13 @@
 
          <!-- contenedor para procesos -->
         <div class="contenido">
-            <router-outlet></router-outlet>
+            <!-- <router-outlet></router-outlet> -->
+            <div *ngIf="modo == 1">
+                <app-inicio-sesion></app-inicio-sesion>
+            </div>
+            <div *ngIf="modo == 2">
+                <app-regitro-administrador></app-regitro-administrador>
+            </div>
         </div>
          
 

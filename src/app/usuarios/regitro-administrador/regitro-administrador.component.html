@@ -5,29 +5,37 @@
     </strong>
 </div>
 
+    <!-- contenedor para registro de administrador -->        
+
+  <div *ngIf="paso == 1" class="container">
+      <button class="mibutton" *ngIf="procesando == false" (click)="ActivarRegitroAdministrador()">Registrar Nuevo Administrador</button>
+  </div>   
+
+
 <!-- contenedor para formulario de registro -->
+<div *ngIf="paso == 2">
+  <div class="container">
+      <label><b>Documento</b></label>
+      <input type="number" class="form-control" [(ngModel)]="documento" placeholder="Ingrese el No. de documento" required>            
+      <label><b>Nombres</b></label>
+      <input type="text" class="form-control" [(ngModel)]="nombres" placeholder="Ingrese los nombres" required>
+      <label><b>Apellidos</b></label>
+      <input type="text" class="form-control" [(ngModel)]="apellidos" placeholder="Ingrese los apellidos" required>            
+      <label><b>Correo</b></label>
+      <input type="email" class="form-control" [(ngModel)]="correo" placeholder="Ingrese el email" required>            
+      <label><b>Telefono</b></label>
+      <input type="number" class="form-control" [(ngModel)]="telefono" placeholder="Ingrese telefono de contacto" required>     
+  </div>
 
-<div class="container">
-    <label><b>Documento</b></label>
-    <input type="number" class="form-control" [(ngModel)]="documento" placeholder="Ingrese el No. de documento" required>            
-    <label><b>Nombres</b></label>
-    <input type="text" class="form-control" [(ngModel)]="nombres" placeholder="Ingrese los nombres" required>
-    <label><b>Apellidos</b></label>
-    <input type="text" class="form-control" [(ngModel)]="apellidos" placeholder="Ingrese los apellidos" required>            
-    <label><b>Correo</b></label>
-    <input type="email" class="form-control" [(ngModel)]="correo" placeholder="Ingrese el email" required>            
-    <label><b>Telefono</b></label>
-    <input type="number" class="form-control" [(ngModel)]="telefono" placeholder="Ingrese telefono de contacto" required>     
+
+  <!-- contenedor para opciones o botones de login normal-->
+
+  <div  class="container" style="background-color:#e2e2e2ee">
+      <button class="mibutton" *ngIf="procesando == false" (click)="RegistrarAdministrador(confirmador,notificador)">Registrar</button>
+      <button class="mibutton" *ngIf="procesando == true" ><i class="fa fa-spinner fa-spin"></i></button>
+  </div>
+
 </div>
-
-
-<!-- contenedor para opciones o botones de login normal-->
-
-<div  class="container" style="background-color:#e2e2e2ee">
-    <button class="mibutton" *ngIf="procesando == false" (click)="RegistrarAdministrador(confirmador,notificador)">Registrar</button>
-    <button class="mibutton" *ngIf="procesando == true" ><i class="fa fa-spinner fa-spin"></i></button>
-</div>
-
 <!-- emergente para confirmación -->
 <ng-template #confirmador let-modal>
   <div class="modal-header">
@@ -51,6 +59,6 @@
     <p>Se ha enviado un mensaje a '{{ this.correo }}' con el codigo de confirmación.</p>
   </div>
   <div class="modal-footer">       
-    <button type="button" ngbAutofocus  class="btn btn-danger" (click)="modal.dismiss('SI')">Continuar</button>            
+    <button type="button" ngbAutofocus  class="btn btn-danger" (click)="modal.dismiss('CONTINUAR')">Continuar</button>            
   </div>
 </ng-template>

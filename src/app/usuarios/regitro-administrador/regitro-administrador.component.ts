@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-regitro-administrador',
@@ -8,17 +9,23 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class RegitroAdministradorComponent implements OnInit {
 
+  paso:number= null;
+
   documento:number= null;
   nombres:string= null;
   apellidos:string= null;
   correo:string= null;
   telefono:string= null;  
 
+
   procesando:boolean=null;
 
   constructor(
-    private servicioEmergentes: NgbModal
+    private servicioEmergentes: NgbModal,
+    private rutas: Router, private rutaActiva: ActivatedRoute
   ) {
+    this.paso = 1;
+
     this.documento=null;
     this.nombres="";
     this.apellidos="";
@@ -54,8 +61,10 @@ export class RegitroAdministradorComponent implements OnInit {
           respuestaB.result.then(
             (result) => { /* Se recibe close */ }, 
             (reason) => { // Se recibe dismiss
-              if(reason == 'SI'){ //se recibe close             
-                
+              if(reason == 'CONTINUAR'){ //se recibe close             
+                alert("AQUI");
+                   this.rutas.navigate( ['validar_codigo/'], { relativeTo: this.rutaActiva.parent, skipLocationChange: true } );
+                   //this.rutas.navigate( ['inicio_sesion/'], { relativeTo: this.rutaActiva, queryParams: { modo: this.modo },  skipLocationChange: true } );                   
               }
             }
           );
@@ -70,5 +79,8 @@ export class RegitroAdministradorComponent implements OnInit {
     );
   }
 
+  ActivarRegitroAdministrador(){
+    this.paso = 2;   
+  }  
 
 }

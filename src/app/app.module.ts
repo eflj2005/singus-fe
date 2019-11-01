@@ -10,13 +10,15 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { RegitroAdministradorComponent } from './usuarios/regitro-administrador/regitro-administrador.component';
 import { InicioSesionComponent } from './usuarios/inicio-sesion/inicio-sesion.component';
+import { ValidarCodigoComponent } from './usuarios/validar-codigo/validar-codigo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegitroAdministradorComponent,
-    InicioSesionComponent
+    InicioSesionComponent,
+    ValidarCodigoComponent
   ],
   imports: [
     NgbModule,

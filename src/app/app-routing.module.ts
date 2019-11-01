@@ -4,6 +4,7 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { LoginComponent } from './usuarios/login/login.component';
 import { InicioSesionComponent } from './usuarios/inicio-sesion/inicio-sesion.component';
 import { RegitroAdministradorComponent } from './usuarios/regitro-administrador/regitro-administrador.component';
+import { ValidarCodigoComponent } from './usuarios/validar-codigo/validar-codigo.component';
 
 //Rutas para redirecciones por url
 const rutas: Routes =[
@@ -12,8 +13,10 @@ const rutas: Routes =[
 
   { path:'login', component: LoginComponent, children:[
     { path:'inicio_sesion', component: InicioSesionComponent},
-    { path:'registro_administrador', component: RegitroAdministradorComponent }
-  ]}
+    { path:'registro_administrador', component: RegitroAdministradorComponent },
+    { path:'validar_codigo', component: ValidarCodigoComponent},
+    { path:'cambiar_clave', component: RegitroAdministradorComponent }    
+  ]},
 
 
 
