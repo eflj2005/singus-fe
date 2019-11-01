@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 import { LoginComponent } from './usuarios/login/login.component';
-import { InicioSesionComponent } from './usuarios/inicio-sesion/inicio-sesion.component';
 import { RegitroAdministradorComponent } from './usuarios/regitro-administrador/regitro-administrador.component';
 import { ValidarCodigoComponent } from './usuarios/validar-codigo/validar-codigo.component';
 
@@ -11,15 +10,18 @@ const rutas: Routes =[
   
   { path:'', redirectTo:'login', pathMatch:'full' },
 
+  { path:'login', component: LoginComponent }
+
+
+/*
+
   { path:'login', component: LoginComponent, children:[
-    { path:'inicio_sesion', component: InicioSesionComponent},
-    { path:'registro_administrador', component: RegitroAdministradorComponent },
-    { path:'validar_codigo', component: ValidarCodigoComponent},
+    { path:'validar_codigo', component: ValidarCodigoComponent}
     { path:'cambiar_clave', component: RegitroAdministradorComponent }    
-  ]},
+  ]}
 
 
-
+*/
 
   /*
       { path:'recuperarClave', component:RecuperarClaveComponent},

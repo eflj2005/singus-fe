@@ -11,11 +11,19 @@
          <!-- contenedor para procesos -->
         <div class="contenido">
             <!-- <router-outlet></router-outlet> -->
-            <div *ngIf="modo == 1">
+            <div *ngIf="procesoLogeo.modo == 1">
                 <app-inicio-sesion></app-inicio-sesion>
             </div>
-            <div *ngIf="modo == 2">
-                <app-regitro-administrador></app-regitro-administrador>
+            <div *ngIf="procesoLogeo.modo == 2">
+
+                <div *ngIf="procesoLogeo.paso == 1 || procesoLogeo.paso == 2">
+                    <app-regitro-administrador></app-regitro-administrador>
+                </div>
+
+                <div *ngIf="procesoLogeo.paso == 3">
+                    <app-validar-codigo></app-validar-codigo>
+                </div>
+
             </div>
         </div>
          

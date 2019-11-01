@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {Router, ActivatedRoute } from '@angular/router';
 
+import { ProcesoLogeoService }     from './../proceso-logeo.service';
+
 @Component({
   selector: 'app-regitro-administrador',
   templateUrl: './regitro-administrador.component.html',
   styleUrls: ['./regitro-administrador.component.css']
 })
 export class RegitroAdministradorComponent implements OnInit {
-
-  paso:number= null;
 
   documento:number= null;
   nombres:string= null;
@@ -22,9 +22,9 @@ export class RegitroAdministradorComponent implements OnInit {
 
   constructor(
     private servicioEmergentes: NgbModal,
-    private rutas: Router, private rutaActiva: ActivatedRoute
+    private rutas: Router, private rutaActiva: ActivatedRoute,
+    private procesoLogeo: ProcesoLogeoService
   ) {
-    this.paso = 1;
 
     this.documento=null;
     this.nombres="";
@@ -37,6 +37,10 @@ export class RegitroAdministradorComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  ActivarRegitroAdministrador(){
+    this.procesoLogeo.paso = 2;   
+  }  
 
   RegistrarAdministrador(contenidoConfirmador: any, contenidoNotificador: any){
 
@@ -62,9 +66,13 @@ export class RegitroAdministradorComponent implements OnInit {
             (result) => { /* Se recibe close */ }, 
             (reason) => { // Se recibe dismiss
               if(reason == 'CONTINUAR'){ //se recibe close             
-                alert("AQUI");
-                   this.rutas.navigate( ['validar_codigo/'], { relativeTo: this.rutaActiva.parent, skipLocationChange: true } );
-                   //this.rutas.navigate( ['inicio_sesion/'], { relativeTo: this.rutaActiva, queryParams: { modo: this.modo },  skipLocationChange: true } );                   
+                console.log(this.rutaActiva);
+                  this.procesando=false;
+                  this.procesoLogeo.paso = 3;
+                /*
+                   this.rutas.navigate( ['login/validar_codigo/'] );
+                   //this.rutas.navigate( ['inicio_sesion/'], { relativeTo: this.rutaActiva, queryParams: { modo: this.modo },  skipLocationChange: true } );     
+                   */              
               }
             }
           );
@@ -79,8 +87,6 @@ export class RegitroAdministradorComponent implements OnInit {
     );
   }
 
-  ActivarRegitroAdministrador(){
-    this.paso = 2;   
-  }  
+
 
 }

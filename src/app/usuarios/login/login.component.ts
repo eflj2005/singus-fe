@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProcesoLogeoService }     from './../proceso-logeo.service';
 
 @Component({
   selector: 'app-login',
@@ -7,14 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
   
-  modo:number=null;   //Modo de inicio =>  1 = Login normal, 2 = Nuevo Administrador
+ 
   
-  constructor( ) {
+  constructor( private procesoLogeo: ProcesoLogeoService ) {
     
     this.ValidarAdministrador();
   }
 
   ngOnInit() {
+
   }
 
   ValidarAdministrador(){
@@ -25,7 +27,9 @@ export class LoginComponent implements OnInit {
 
     */
 
-    this.modo=2;    //este valor es para pruebas
+    //estos valores son para pruebas
+    this.procesoLogeo.modo=2;
+    this.procesoLogeo.paso=1;
 
   }
 
