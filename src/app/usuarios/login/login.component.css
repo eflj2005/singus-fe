@@ -1,12 +1,12 @@
 /* Center the image and position the close button */
 .imgcontainer {
-    text-align: center;
-    margin: 20px 0 10px 0;
+    text-align: right;
+    margin: 10px;
     position: relative;
 }
 
 img.avatar {
-    width: 60%;
+    width: 150px;
     border-radius: 10%;
 }
 
