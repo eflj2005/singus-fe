@@ -12,5 +12,10 @@
 .container label {
     text-align: left;
     width: 28%;
-    min-width: 100px;
+    min-width: 110px;
 }
+
+:host >>> .alert-custom {
+    background-color: #f169b4;
+    border-color: #800040;
+  }

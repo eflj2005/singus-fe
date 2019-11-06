@@ -1,5 +1,5 @@
 
-    <div class="titulo">
+    <div class="tituloPrincipal">
         <strong>
             <div class="nombre">S.In.G.U.S</div>
             <div>Sistema de Información de Graduados Uniminuto para Seguimiento</div>
@@ -7,16 +7,16 @@
     </div>
 
 
-    <div class="titulo">
-        <div>&nbsp;</div>
-            <strong>
-                   <div><I>INICIO DE SESION</I></div>
-            </strong>
-        </div>
-
     <!-- contenedor para login normal -->
 
-    <div class="container">
+    <div class="container contenido roundUp">
+        <div class="tituloSecundario">
+            <strong>
+                    <div><I>INICIO DE SESION</I></div>
+            </strong>
+            <div>&nbsp;</div>
+        </div>
+
         <label><b>Documento</b></label>
         <input type="text" class="form-control" [(ngModel)]="documento" placeholder="Ingrese el nombre de usuario" required>
         <label><b>Contraseña</b></label>
@@ -26,7 +26,7 @@
 
     <!-- contenedor para opciones o botones de login normal-->
     
-    <div class="container" style="background-color:#e2e2e2ee">
+    <div class="container opcionesPie roundDown ">
         <div *ngIf="procesando == false">
             <button class="mibutton"  (click)="ValidarLogin()">Ingresar</button>
             <div class="recpsw"><a routerLink="/recuperarClave">Recuperar contraseña</a></div>

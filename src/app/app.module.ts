@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { RegitroAdministradorComponent } from './usuarios/regitro-administrador/regitro-administrador.component';
 import { InicioSesionComponent } from './usuarios/inicio-sesion/inicio-sesion.component';
 import { ValidarCodigoComponent } from './usuarios/validar-codigo/validar-codigo.component';
+import { CambioClaveComponent } from './usuarios/cambio-clave/cambio-clave.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ValidarCodigoComponent } from './usuarios/validar-codigo/validar-codigo
     LoginComponent,
     RegitroAdministradorComponent,
     InicioSesionComponent,
-    ValidarCodigoComponent
+    ValidarCodigoComponent,
+    CambioClaveComponent
   ],
   imports: [
     NgbModule,

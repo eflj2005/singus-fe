@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ProcesoLogeoService }     from './../proceso-logeo.service';
+
 @Component({
   selector: 'app-validar-codigo',
   templateUrl: './validar-codigo.component.html',
@@ -7,12 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ValidarCodigoComponent implements OnInit {
 
+  codigo:number=null;
+  codigoModelo:string=null;
+  codigoError:string=null;
+
   procesando:boolean=null;
 
-  codigoModelo:string=null;
 
-  constructor() {
+
+  constructor(private procesoLogeo: ProcesoLogeoService) {
     this.codigoModelo="[A-Z0-9]{3}-[A-Z0-9]{3}";
+    
     this.procesando=false;
    }
 
@@ -21,5 +28,21 @@ export class ValidarCodigoComponent implements OnInit {
 
   ValidarCodigo(){
     this.procesando=true;
+
+    /*
+
+
+    AQUI SE PROCESA EL CODIGO
+
+
+    */
+
+    //en caso de error
+    //this.codigoError = "El codigo digitado no coincide con el enviado"
+    
+    //en caso de OK
+    this.procesoLogeo.paso++;
+    this.procesando=false;
+
   }
 }

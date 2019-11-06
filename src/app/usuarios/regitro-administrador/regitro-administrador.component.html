@@ -1,16 +1,8 @@
 
-<div class="titulo">
+<div class="tituloPrincipal">
     <strong>
         <div class="nombre">S.In.G.U.S</div>
         <div>Sistema de Información de Graduados Uniminuto para Seguimiento</div>
-    </strong>
-</div>
-
-
-<div *ngIf="procesoLogeo.paso == 2" class="titulo">
-    <div>&nbsp;</div>
-    <strong>
-           <div><i>REGISTRO DE ADMINISTRADOR</i></div>
     </strong>
 </div>
 
@@ -23,7 +15,15 @@
 
 <!-- contenedor para formulario de registro -->
 <div *ngIf="procesoLogeo.paso == 2">
-  <div class="container">
+
+  <div class="container contenido">
+      <div class="tituloSecundario">
+          <strong>
+                 <div><i>REGISTRO DE ADMINISTRADOR</i></div>
+          </strong>
+          <div>&nbsp;</div>        
+      </div>
+
       <label><b>Documento</b></label>
       <input type="number" class="form-control" [(ngModel)]="documento" placeholder="Ingrese el No. de documento" required>            
       <label><b>Nombres</b></label>
@@ -39,7 +39,7 @@
 
   <!-- contenedor para opciones o botones de login normal-->
 
-  <div  class="container" style="background-color:#e2e2e2ee">
+  <div  class="container opcionesPie roundDown">
       <button class="mibutton" *ngIf="procesando == false" (click)="RegistrarAdministrador(confirmador,notificador)">Registrar</button>
       <button class="mibutton" *ngIf="procesando == true" ><i class="fa fa-spinner fa-spin"></i></button>
   </div>

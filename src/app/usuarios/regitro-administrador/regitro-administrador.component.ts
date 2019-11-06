@@ -39,7 +39,7 @@ export class RegitroAdministradorComponent implements OnInit {
   }
 
   ActivarRegitroAdministrador(){
-    this.procesoLogeo.paso = 2;   
+    this.procesoLogeo.paso++;   
   }  
 
   RegistrarAdministrador(contenidoConfirmador: any, contenidoNotificador: any){
@@ -68,7 +68,7 @@ export class RegitroAdministradorComponent implements OnInit {
               if(reason == 'CONTINUAR'){ //se recibe close             
 
                   this.procesando=false;
-                  this.procesoLogeo.paso = 3;
+                  this.procesoLogeo.paso++;
                 /*
                    this.rutas.navigate( ['login/validar_codigo/'] );
                    //this.rutas.navigate( ['inicio_sesion/'], { relativeTo: this.rutaActiva, queryParams: { modo: this.modo },  skipLocationChange: true } );     

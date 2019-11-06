@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
     //estos valores son para pruebas
     this.procesoLogeo.modo=2;
-    this.procesoLogeo.paso=1;
+    this.procesoLogeo.paso=4;
 
   }
 

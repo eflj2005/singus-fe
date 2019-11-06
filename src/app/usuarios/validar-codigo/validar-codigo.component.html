@@ -1,24 +1,26 @@
 
-<div class="titulo">
-    <strong>
-        <div><I>VALIDACION DE CODIGO</I></div>
-    </strong>
-</div>
 
 <!-- contenedor para formulario de registro -->
 
-<div class="container">
+<div class="container contenido">
+    <div class="titulo">
+        <strong>
+            <div><I>VALIDACION DE CODIGO</I></div>
+        </strong>
+        <div>&nbsp;</div>
+    </div>
+            
     <input type="text" class="form-control" [(ngModel)]="codigo" placeholder="___-___" [pattern]="codigoModelo" #codigoMensaje="ngModel" required> 
-    <label><b>CODIGO</b></label>
-    <div *ngIf="codigoMensaje.errors?.pattern"> 
-           El codigo debe tener el formato "???-???"
-    </div> 
+    <label><b>Ingrese el codigo recibido</b></label>
+    <ngb-alert  *ngIf="codigoMensaje.errors?.pattern" type="custom" [dismissible]="false">El codigo debe tener el formato "???-???"</ngb-alert>
+    <ngb-alert  *ngIf="codigoError != null" type="custom" [dismissible]="false">{{ codigoError }}</ngb-alert>
 </div>
 
 
 <!-- contenedor para opciones o botones de login normal-->
 
-<div  class="container" style="background-color:#e2e2e2ee">
-    <button class="mibutton" *ngIf="procesando == false" (click)="ValidarCodigo()">Validar</button>
-    <button class="mibutton" *ngIf="procesando == true" ><i class="fa fa-spinner fa-spin"></i></button>
+<div  class="container opcionesPie roundDown">
+    <button class="mibutton" *ngIf="codigoMensaje.errors?.pattern || codigo == null" (click)="ValidarCodigo()" disabled><del>Validar</del></button>
+    <button class="mibutton" *ngIf="!codigoMensaje.errors?.pattern && codigo != null && procesando == false" (click)="ValidarCodigo()" >Validar</button>
+    <button class="mibutton" *ngIf="!codigoMensaje.errors?.pattern && codigo != null && procesando == true" ><i class="fa fa-spinner fa-spin"></i></button>
 </div>
