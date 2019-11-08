@@ -13,6 +13,7 @@ import { InicioSesionComponent } from './usuarios/inicio-sesion/inicio-sesion.co
 import { ValidarCodigoComponent } from './usuarios/validar-codigo/validar-codigo.component';
 import { CambioClaveComponent } from './usuarios/cambio-clave/cambio-clave.component';
 import { RecuperarClaveComponent } from './usuarios/recuperar-clave/recuperar-clave.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { RecuperarClaveComponent } from './usuarios/recuperar-clave/recuperar-cl
     InicioSesionComponent,
     ValidarCodigoComponent,
     CambioClaveComponent,
-    RecuperarClaveComponent
+    RecuperarClaveComponent,
+    DashboardComponent
   ],
   imports: [
     NgbModule,
