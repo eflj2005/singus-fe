@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ProcesoLogeoService }     from './../proceso-logeo.service';
+import { UsuariosService }     from './../usuarios.service';
 
 @Component({
   selector: 'app-validar-codigo',
@@ -17,7 +17,7 @@ export class ValidarCodigoComponent implements OnInit {
 
 
 
-  constructor(private procesoLogeo: ProcesoLogeoService) {
+  constructor(private procesoLogeo: UsuariosService) {
     this.codigoModelo="[A-Z0-9]{3}-[A-Z0-9]{3}";
     
     this.procesando=false;

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {Router, ActivatedRoute } from '@angular/router';
 
-import { ProcesoLogeoService }     from './../proceso-logeo.service';
+import { UsuariosService }     from './../usuarios.service';
 
 @Component({
   selector: 'app-regitro-administrador',
@@ -23,7 +23,7 @@ export class RegitroAdministradorComponent implements OnInit {
   constructor(
     private servicioEmergentes: NgbModal,
     private rutas: Router, private rutaActiva: ActivatedRoute,
-    private procesoLogeo: ProcesoLogeoService
+    private procesoLogeo: UsuariosService
   ) {
 
     this.documento=null;

@@ -6,18 +6,21 @@
 
 .container input {
     display: initial;
+    text-align: center;
     width: 60%;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .container label {
-    text-align: left;
-    width: 28%;
-    min-width: 110px;
+
+    text-align: center;
+    width: 60%;
+    min-width: 100px;
 }
 
 :host >>> .alert-custom {
     background-color: #f169b4;
     border-color: #800040;
-    padding: 0px;
-    margin: 0px;
-  }
+    font-weight: bold;
+ }

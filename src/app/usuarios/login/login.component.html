@@ -23,13 +23,26 @@
                 <div *ngIf="procesoLogeo.paso == 3">
                     <app-validar-codigo></app-validar-codigo>
                 </div>
-
                 
                 <div *ngIf="procesoLogeo.paso == 4">
                         <app-cambio-clave></app-cambio-clave>
                 </div>
 
             </div>
+            <div *ngIf="procesoLogeo.modo == 3">
+
+                <div *ngIf="procesoLogeo.paso == 1">
+                    <app-recuperar-clave></app-recuperar-clave>
+                </div>
+
+                <div *ngIf="procesoLogeo.paso == 2">
+                    <app-validar-codigo></app-validar-codigo>
+                </div>
+
+                <div *ngIf="procesoLogeo.paso == 3">
+                        <app-cambio-clave></app-cambio-clave>
+                </div>                
+            </div>            
         </div>
          
 

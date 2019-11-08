@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute } from '@angular/router';
 
+import { UsuariosService } from "./../usuarios.service"
+
 @Component({
   selector: 'app-inicio-sesion',
   templateUrl: './inicio-sesion.component.html',
@@ -15,7 +17,7 @@ export class InicioSesionComponent implements OnInit {
 
   procesando:boolean=null;
 
-  constructor( private rutas: Router, private rutaActiva: ActivatedRoute ){
+  constructor( private rutas: Router, private rutaActiva: ActivatedRoute, private servicioUsuarios: UsuariosService ){
     this.documento="";
     this.clave="";
     this.procesando=false;
@@ -32,13 +34,18 @@ export class InicioSesionComponent implements OnInit {
 
 
   ngOnDestroy() {
-    this.suscrito.unsubscribe();
+    //this.suscrito.unsubscribe();
   }
 
   ValidarLogin(){
     alert("envio formulario Login");
     this.procesando=true;
     
+  }
+
+  RecuperarClave(){
+    this.servicioUsuarios.modo=3;
+    this.servicioUsuarios.paso=1;
   }
 
 }

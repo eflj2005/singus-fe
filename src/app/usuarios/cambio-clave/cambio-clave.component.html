@@ -6,49 +6,47 @@
         <strong>
                 <div><i>CAMBIO DE CONTRASEÑA</i></div>
         </strong>
-        <div>&nbsp;</div>        
+        <div>&nbsp;</div>
     </div>
 
+    <div *ngIf = "servicioUsuarios.modo == 1">
+        <label><b>Actual</b></label>
+        <input type="password" class="form-control" [(ngModel)]="claveActual" placeholder="Contraseña Actual" [pattern]="claveModelo" #claveMensajeA="ngModel" required>
+        <ngb-alert  *ngIf="claveMensajeA.errors?.pattern || claveActual=='' " type="custom" [dismissible]="false">La contraseña no puede estar vacia, debe tener Mayusculas, Minusculas, Numeros y Minimo 6 caracteres</ngb-alert>
+        <div>&nbsp;</div>
+    </div>
     <div>
-
-    <label><b>Actual</b></label>
-    <input type="password" class="form-control" [(ngModel)]="claveActual" placeholder="Contraseña Actual" [pattern]="claveModelo" #claveMensajeA="ngModel" required>      
-    <ngb-alert  *ngIf="claveMensajeA.errors?.pattern || claveActual=='' || claveActual==null " type="custom" [dismissible]="false">La contraseña no puede estar vacia, debe tener Mayusculas, Minusculas, Numeros y Minimo 6 caracteres"</ngb-alert>
-    <label><b>Nueva</b></label>
-    <input type="password" class="form-control" [(ngModel)]="claveNueva" placeholder="Nueva Contraseña" [pattern]="claveModelo" #claveMensajeN="ngModel" required>
-    <ngb-alert  *ngIf="claveMensajeN.errors?.pattern" type="custom" [dismissible]="false">La contraseña debe tener Mayusculas, Minusculas, Numeros y Minimo 6 caracteres"</ngb-alert>
-    <label><b>Confirmación</b></label>
-    <input type="password" class="form-control" [(ngModel)]="claveConfirmada" placeholder="Confirmar Contraseña" [pattern]="claveModelo" #claveMensajeC="ngModel" required>
-    <ngb-alert  *ngIf="claveMensajeC.errors?.pattern" type="custom" [dismissible]="false">La contraseña debe tener Mayusculas, Minusculas, Numeros y Minimo 6 caracteres"</ngb-alert>
+        <label><b>Nueva</b></label>
+        <input type="password" class="form-control" [(ngModel)]="claveNueva" placeholder="Nueva Contraseña" [pattern]="claveModelo" #claveMensajeN="ngModel" required>
+        <ngb-alert  *ngIf="claveMensajeN.errors?.pattern || claveNueva=='' " type="custom" [dismissible]="false">La contraseña debe tener Mayusculas, Minusculas, Numeros y Minimo 6 caracteres</ngb-alert>
+        <div>&nbsp;</div>
+    </div>
+    <div>
+        <label><b>Confirmación</b></label>
+        <input type="password" class="form-control" [(ngModel)]="claveConfirmada" placeholder="Confirmar Contraseña" required>
+        <ngb-alert  *ngIf="claveNueva!=claveConfirmada || claveConfirmada=='' " type="custom" [dismissible]="false">La contraseña de confirmación no coincide o esta vacia</ngb-alert>
+    </div>    
 </div>
-
 
 <!-- contenedor para opciones o botones de login normal-->
 
 <div  class="container opcionesPie roundDown">
-    <button class="mibutton" 
-            *ngIf=  "   ( claveMensajeA.errors?.pattern || claveMensajeN.errors?.pattern || claveMensajeC.errors?.pattern ) ||
-                        ( claveActual=='' || claveActual==null ) ||
-                        ( claveNueva=='' || claveNueva==null ) ||
-                        ( claveConfirmada=='' || claveConfirmada==null )"
-            disabled
-    >
-        <del>Validar</del>
-    </button>
+    <button 
+        class       =   "mibutton" 
+        *ngIf       =   "this.servicioUsuarios.modo == 1  && procesando == false"
+        [disabled]  =   "( claveMensajeA.errors?.pattern || claveMensajeN.errors?.pattern || claveActual=='' || claveNueva=='' || claveNueva != claveConfirmada )"
+        (click)     =   "ConfirmarCambio()"
+    >Crear Contraseña</button>
 
     <button 
-    class="mibutton" 
-    *ngIf="
-        ( claveMensajeN.errors?.pattern || claveMensajeC.errors?.pattern ) ||
-        ( claveNueva=='' || claveNueva==null ) ||
-        ( claveConfirmada=='' || claveConfirmada==null )
-    " 
-    disabled
->
-    <del>Validar</del>
-</button>       
-    <button class="mibutton" *ngIf="procesando == false" (click)="ConfirmarCambio(confirmador)">Modificar</button>
-    <button class="mibutton" *ngIf="procesando == true" ><i class="fa fa-spinner fa-spin"></i></button>
+        class       =   "mibutton" 
+        *ngIf       =   "this.servicioUsuarios.modo != 1 && procesando == false"
+        [disabled]  =   "( claveMensajeN.errors?.pattern  || claveNueva=='' || claveNueva != claveConfirmada )"
+        (click)     =   "ConfirmarCambio()"
+    >Modificar Contraseña</button>
+  
+
+    <button class="mibutton" *ngIf="procesando == true" disabled ><i class="fa fa-spinner fa-spin"></i></button>
 </div>
 
 

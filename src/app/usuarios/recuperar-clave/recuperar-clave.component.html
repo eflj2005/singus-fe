@@ -1,0 +1,37 @@
+<!-- contenedor para formulario de registro -->
+
+<div class="container contenido">
+    <div class="titulo">
+        <strong>
+            <div><I>RECUPERACION DE CLAVE</I></div>
+        </strong>
+        <div>&nbsp;</div>
+    </div>
+            
+    <input type="text" class="form-control" [(ngModel)]="documento"  [pattern]="documentoModelo" #documentoMensaje="ngModel" required> 
+    <label><b>Ingrese documento registrado</b></label>
+    <ngb-alert  *ngIf="documentoMensaje.errors?.pattern" type="custom" [dismissible]="false">Debe registrar un documento</ngb-alert>
+
+
+</div>
+
+
+<!-- contenedor para opciones o botones de login normal -->
+
+<div  class="container opcionesPie roundDown">
+    <button class="mibutton" *ngIf="procesando == false" (click)="RecuperarClave(notificador)" [disabled]="documentoMensaje.errors?.pattern || documento == null || documento == ''">Recuperar</button>
+    <button class="mibutton" *ngIf="procesando == true" ><i class="fa fa-spinner fa-spin"></i></button>
+</div>
+
+<!-- emergente para continuar -->
+<ng-template #notificador let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Notificación</h4>
+    </div>
+    <div class="modal-body">
+      <p>{{ this.mensaje }}</p>
+    </div>
+    <div class="modal-footer">       
+      <button type="button" ngbAutofocus  class="btn btn-danger" (click)="modal.dismiss('CONTINUAR')">Continuar</button>            
+    </div>
+  </ng-template>
