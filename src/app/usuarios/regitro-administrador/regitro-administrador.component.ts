@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {Router, ActivatedRoute } from '@angular/router';
 
-import { UsuariosService }     from './../usuarios.service';
+import { UsuariosService } from '@servicios/usuarios.service'
 
 @Component({
   selector: 'app-regitro-administrador',

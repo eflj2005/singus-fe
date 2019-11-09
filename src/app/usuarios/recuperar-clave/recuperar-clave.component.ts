@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { UsuariosService }     from './../usuarios.service';
+import { UsuariosService } from '@servicios/usuarios.service'
 
 @Component({
   selector: 'app-recuperar-clave',

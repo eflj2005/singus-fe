@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute } from '@angular/router';
 
-import { UsuariosService } from "./../usuarios.service"
+import { UsuariosService } from '@servicios/usuarios.service'
 
 @Component({
   selector: 'app-inicio-sesion',

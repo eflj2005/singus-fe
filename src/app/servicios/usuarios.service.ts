@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject }    from 'rxjs';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsuariosService {
   paso:number =null;  //pasos de registro de administrador =>  1 = Registro, 2 = Validación código
