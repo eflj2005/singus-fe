@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
-import { LoginComponent } from './usuarios/login/login.component';
-import { RegitroAdministradorComponent } from './usuarios/regitro-administrador/regitro-administrador.component';
-import { ValidarCodigoComponent } from './usuarios/validar-codigo/validar-codigo.component';
+import { InicioPrincipalComponent } from '@mecanicas/inicio/inicio-principal/inicio-principal.component';
+
 
 //Rutas para redirecciones por url
 const rutas: Routes =[
   
   { path:'', redirectTo:'login', pathMatch:'full' },
 
-  { path:'login', component: LoginComponent }
+  { path:'login', component: InicioPrincipalComponent }
 
 
 /*

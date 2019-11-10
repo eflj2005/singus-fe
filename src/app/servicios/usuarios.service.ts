@@ -5,11 +5,11 @@ import { Subject }    from 'rxjs';
   providedIn: 'root',
 })
 export class UsuariosService {
+  modo:number =null;  //Modo de inicio =>  1 = Login normal, 2 = Nuevo Administrador, 3 = Recuperación Clave  
   paso:number =null;  //pasos de registro de administrador =>  1 = Registro, 2 = Validación código
-  modo:number =null;  //Modo de inicio =>  1 = Login normal, 2 = Nuevo Administrador, 3 = Recuperación Clave
 
   constructor() {
-    this.modo = 3;
+    this.modo = 1;
     this.paso = 1;
   }
 }

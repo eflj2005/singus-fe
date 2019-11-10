@@ -21,7 +21,10 @@
 
     "paths":{
       "@app/*" : [ "src/app/*" ],
-      "@servicios/*" : [ "src/app/servicios/*" ]
+      "@servicios/*" : [ "src/app/servicios/*" ],
+      "@mecanicas/*" : [ "src/app/mecanicas/*" ],
+      "@modelos/*"   : [ "src/app/modelos/*" ],
+      "@generales/*" : [ "src/app/generales/*" ]
     }
 
 
