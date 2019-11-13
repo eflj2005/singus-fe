@@ -9,7 +9,7 @@ export class UsuariosService {
   paso:number =null;  //pasos de registro de administrador =>  1 = Registro, 2 = Validación código
 
   constructor() {
-    this.modo = 1;
+    this.modo = 2;
     this.paso = 1;
   }
 }
