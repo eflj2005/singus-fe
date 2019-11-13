@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { UsuariosService } from '@servicios/usuarios.service'
+import { AmbienteService } from '@app/servicios/ambiente.service'
 
 @Component({
   selector: 'app-inicio-loguear',
@@ -17,7 +17,7 @@ export class InicioLoguearComponent implements OnInit {
 
   procesando:boolean=null;
 
-  constructor( private rutas: Router, private rutaActiva: ActivatedRoute, private servicioUsuarios: UsuariosService ){
+  constructor( private rutas: Router, private rutaActiva: ActivatedRoute, private datosAmbiente: AmbienteService ){
     this.documento="";
     this.clave="";
     this.procesando=false;
@@ -44,8 +44,8 @@ export class InicioLoguearComponent implements OnInit {
   }
 
   RecuperarClave(){
-    this.servicioUsuarios.modo=3;
-    this.servicioUsuarios.paso=1;
+    this.datosAmbiente.inicioModo=3;
+    this.datosAmbiente.InicioPaso=1;
   }
 
 }

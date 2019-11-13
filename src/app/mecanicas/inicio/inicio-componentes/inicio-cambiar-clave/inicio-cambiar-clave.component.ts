@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
 
-import { UsuariosService } from '@servicios/usuarios.service';
+import { AmbienteService } from '@app/servicios/ambiente.service';
 
 @Component({
   selector: 'app-inicio-cambiar-clave',
@@ -23,7 +23,7 @@ export class InicioCambiarClaveComponent implements OnInit {
 
   constructor( 
     private servicioEmergentes: NgbModal,
-    private servicioUsuarios: UsuariosService, 
+    private datosAmbiente: AmbienteService, 
     private rutas: Router 
   ) { 
     this.claveModelo="(?=\\D*\\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,}";
@@ -50,11 +50,11 @@ export class InicioCambiarClaveComponent implements OnInit {
 
     */
 
-    if(this.servicioUsuarios.modo != 1){
+    if(this.datosAmbiente.inicioModo != 1){
       
       
-      this.servicioUsuarios.modo = 1; //eliminar
-      this.servicioUsuarios.paso = 1; //eliminar
+      this.datosAmbiente.inicioModo = 1; //eliminar
+      this.datosAmbiente.InicioPaso = 1; //eliminar
 
       this.RecargarComponente();
     }

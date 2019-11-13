@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuariosService } from '@servicios/usuarios.service';
+import { AmbienteService } from '@app/servicios/ambiente.service';
 
 @Component({
   selector: 'app-inicio-principal',
@@ -11,7 +11,7 @@ export class InicioPrincipalComponent implements OnInit {
  
   
   constructor( 
-    private procesoLogeo: UsuariosService
+    private datosAmbiente: AmbienteService
   ) {
     
     this.ValidarAdministrador();

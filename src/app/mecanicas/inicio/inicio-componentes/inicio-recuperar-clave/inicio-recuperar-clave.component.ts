@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { UsuariosService } from '@servicios/usuarios.service'
+import { AmbienteService } from '@app/servicios/ambiente.service'
 
 @Component({
   selector: 'app-inicio-recuperar-clave',
@@ -18,7 +18,7 @@ export class InicioRecuperarClaveComponent implements OnInit {
 
 
   constructor(
-     private procesoLogeo: UsuariosService, 
+     private datosAmbiente: AmbienteService, 
      private servicioEmergentes: NgbModal,
   ) {
 
@@ -65,7 +65,7 @@ export class InicioRecuperarClaveComponent implements OnInit {
       (reason) => { // Se recibe dismiss  
         
         this.procesando=false;
-        this.procesoLogeo.paso++;
+        this.datosAmbiente.InicioPaso++;
 
       }
     );

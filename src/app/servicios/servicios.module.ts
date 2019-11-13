@@ -1,6 +1,6 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsuariosService } from './usuarios.service';
+import { UsuariosService } from './ambiente.service';
 
 
 @NgModule({

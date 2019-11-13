@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UsuariosService } from '@servicios/usuarios.service'
+import { AmbienteService } from '@app/servicios/ambiente.service'
 
 @Component({
   selector: 'app-inicio-validar-codigo',
@@ -17,7 +17,7 @@ export class InicioValidarCodigoComponent implements OnInit {
 
 
 
-  constructor(private procesoLogeo: UsuariosService) {
+  constructor(private datosAmbiente: AmbienteService) {
     this.codigoModelo="[A-Z0-9]{3}-[A-Z0-9]{3}";
     
     this.procesando=false;
@@ -41,7 +41,7 @@ export class InicioValidarCodigoComponent implements OnInit {
     //this.codigoError = "El codigo digitado no coincide con el enviado"
     
     //en caso de OK
-    this.procesoLogeo.paso++;
+    this.datosAmbiente.InicioPaso++;
     this.procesando=false;
 
   }

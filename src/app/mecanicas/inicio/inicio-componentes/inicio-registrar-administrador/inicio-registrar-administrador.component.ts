@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {Router, ActivatedRoute } from '@angular/router';
 
-import { UsuariosService } from '@servicios/usuarios.service'
+import { AmbienteService } from '@app/servicios/ambiente.service'
 
 @Component({
   selector: 'app-inicio-registrar-administrador',
@@ -23,7 +23,7 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
   constructor(
     private servicioEmergentes: NgbModal,
     private rutas: Router, private rutaActiva: ActivatedRoute,
-    private procesoLogeo: UsuariosService
+    private datosAmbiente: AmbienteService
   ) {
 
     this.documento=null;
@@ -39,7 +39,7 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
   }
 
   ActivarRegitroAdministrador(){
-    this.procesoLogeo.paso++;   
+    this.datosAmbiente.InicioPaso++;   
   }  
 
   RegistrarAdministrador(contenidoConfirmador: any, contenidoNotificador: any){
@@ -68,7 +68,7 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
               if(reason == 'CONTINUAR'){ //se recibe close             
 
                   this.procesando=false;
-                  this.procesoLogeo.paso++;
+                  this.datosAmbiente.InicioPaso++;
                 /*
                    this.rutas.navigate( ['login/validar_codigo/'] );
                    //this.rutas.navigate( ['inicio_sesion/'], { relativeTo: this.rutaActiva, queryParams: { modo: this.modo },  skipLocationChange: true } );     
