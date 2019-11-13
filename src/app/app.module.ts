@@ -11,6 +11,8 @@ import { ServiciosModule } from '@servicios/servicios.module';
 import { GeneralesModule  } from '@generales/generales.module';
 import { MecanicasModule } from '@mecanicas/mecanicas.module';
 
+import { ModelosModule } from '@modelos/modelos.module'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +23,8 @@ import { MecanicasModule } from '@mecanicas/mecanicas.module';
     AppRoutingModule,
     ServiciosModule,
     GeneralesModule,
-    MecanicasModule
+    MecanicasModule,
+    ModelosModule
   ],
   providers: [  ],
   bootstrap: [AppComponent]

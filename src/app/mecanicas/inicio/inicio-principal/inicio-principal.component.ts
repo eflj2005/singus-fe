@@ -10,7 +10,9 @@ export class InicioPrincipalComponent implements OnInit {
   
  
   
-  constructor( private procesoLogeo: UsuariosService ) {
+  constructor( 
+    private procesoLogeo: UsuariosService
+  ) {
     
     this.ValidarAdministrador();
   }
