@@ -22,4 +22,8 @@ export class AmbienteService {
     this.inicioModo = 2;
     this.InicioPaso = 1;
   }
+
+  obtenerUrlRecurso(){
+    return this.urlRecursos[this.urlMode];
+  }
 }
