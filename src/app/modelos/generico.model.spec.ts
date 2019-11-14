@@ -1,7 +1,7 @@
-import { GenericoModelo } from './generico.model';
+import { GenericoModel } from './generico.model';
 
-describe('GenericoModelo', () => {
+describe('GenericoModel', () => {
   it('should create an instance', () => {
-    expect(new GenericoModelo()).toBeTruthy();
+    expect(new GenericoModel()).toBeTruthy();
   });
 });

@@ -13,7 +13,7 @@ import { ServiciosModule } from '@servicios/servicios.module';
 import { GeneralesModule  } from '@generales/generales.module';
 import { MecanicasModule } from '@mecanicas/mecanicas.module';
 
-import { ModelosModule } from '@modelos/modelos.module'
+import { ModelosModule } from '@app/modelos/modelos.module'
 
 @NgModule({
   declarations: [
