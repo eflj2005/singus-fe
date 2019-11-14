@@ -1,6 +1,6 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsuariosService } from './ambiente.service';
+import { AmbienteService } from './ambiente.service';
 
 
 @NgModule({
@@ -9,7 +9,7 @@ import { UsuariosService } from './ambiente.service';
   ],
   declarations: [
   ],
-  providers: [ UsuariosService ]  
+  providers: [ AmbienteService ]  
 })
 export class ServiciosModule {
 

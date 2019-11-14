@@ -23,7 +23,7 @@ export class AmbienteService {
     this.InicioPaso = 1;
   }
 
-  obtenerUrlRecurso(){
+  getUrlRecursos(){
     return this.urlRecursos[this.urlMode];
   }
 }

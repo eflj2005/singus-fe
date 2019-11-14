@@ -1,4 +1,4 @@
-import { HttpClient , HttpHeaders} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Component, OnInit } from '@angular/core';
 import { AmbienteService } from '@app/servicios/ambiente.service';
@@ -14,7 +14,7 @@ export class InicioPrincipalComponent implements OnInit {
   
   constructor( 
     private datosAmbiente: AmbienteService,
- //   private http :HttpClient
+    private llamadoHttp :HttpClient
   ) {
     
     this.ValidarAdministrador();
@@ -26,6 +26,12 @@ export class InicioPrincipalComponent implements OnInit {
 
   ValidarAdministrador(){
 
+
+    let respuest = this.llamadoHttp.get(this.datosAmbiente.getUrlRecursos()+"pasarela.php?accion=inicio").subscribe(
+      response =>{
+         console.log(response);
+      }
+  );
    // let respuesta = this.http.get(this.ruta+'validar.php?accion=consultarParentescos' )
 
     /*

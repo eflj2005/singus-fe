@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { HttpClientModule } from '@angular/common/http';
 
 import { ServiciosModule } from '@servicios/servicios.module';
 import { GeneralesModule  } from '@generales/generales.module';
@@ -26,7 +27,9 @@ import { ModelosModule } from '@modelos/modelos.module'
     MecanicasModule,
     ModelosModule
   ],
-  providers: [  ],
+  providers: [ 
+    HttpClientModule
+   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
