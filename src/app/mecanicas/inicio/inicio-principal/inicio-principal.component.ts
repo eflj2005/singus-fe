@@ -37,32 +37,21 @@ export class InicioPrincipalComponent implements OnInit {
     // },
     // 5000);
 
-    // let respuest = this.llamadoHttp.get(this.datosAmbiente.getUrlRecursos()+"pasarela.php?accion=inicio").subscribe(
-    //   respuesta => {  
-    //     this.datosAmbiente.inicioModo=1;
-    //     this.datosAmbiente.InicioPaso=1;        
-    //     console.log(respuesta);
-    //   },
-    //   error     => {  
-    //     if(error.status != 0 ){
-    //       let miError =  error.error;
-    //       switch (miError.codigo){
-    //         case 404:
-    //           console.log(this.datosAmbiente.inicioModo); 
-      
-    //           this.datosAmbiente.inicioModo=2;
-    //           this.datosAmbiente.InicioPaso=1;
-    //           console.log(this.datosAmbiente.inicioModo); 
-      
-    //         break;
-    //       }
+    let respuest = this.llamadoHttp.get(this.datosAmbiente.getUrlRecursos()+"pasarela.php?accion=inicio").subscribe(
+      respuesta => {  
+        this.datosAmbiente.inicioModo=1;
+        this.datosAmbiente.inicioPaso=1;        
+      },
+      error     => {  
+        if(error.status != 0 ){
+          let miError =  error.error;
 
-    //     }
-    //     console.log(error); 
-      
-    //   },
-    //   ()        => {  console.log("Completado");    }
-    // );
+          this.datosAmbiente.inicioModo=2;
+          this.datosAmbiente.inicioPaso=1;
+        }
+      },
+      ()        => {  console.log("Completado");    }
+    );
 
 
    // let respuesta = this.http.get(this.ruta+'validar.php?accion=consultarParentescos' )

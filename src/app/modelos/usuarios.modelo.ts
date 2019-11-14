@@ -1,6 +1,6 @@
 import { ModeloGenerico } from './generico.modelo';
 
-export interface UsuariosInterface {
+export interface IUsuariosInterface {
     id: number;
     documento: Number;
     nombres: String;
@@ -14,8 +14,7 @@ export interface UsuariosInterface {
   
   export class UsuariosControlador extends ModeloGenerico{
   
-    registroActual: UsuariosInterface = null;
-    registros: UsuariosInterface[]= [];
+    registros: IUsuariosInterface[]= [];
 
     public ExisteAdministrador(){
 
