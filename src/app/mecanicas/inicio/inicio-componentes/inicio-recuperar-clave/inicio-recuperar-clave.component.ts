@@ -65,7 +65,7 @@ export class InicioRecuperarClaveComponent implements OnInit {
       (reason) => { // Se recibe dismiss  
         
         this.procesando=false;
-        this.datosAmbiente.InicioPaso++;
+        this.datosAmbiente.inicioPaso++;
 
       }
     );

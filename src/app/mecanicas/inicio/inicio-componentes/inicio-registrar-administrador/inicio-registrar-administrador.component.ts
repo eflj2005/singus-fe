@@ -68,7 +68,7 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
               if(reason == 'CONTINUAR'){ //se recibe close             
 
                   this.procesando=false;
-                  this.datosAmbiente.InicioPaso++;
+                  this.datosAmbiente.inicioPaso++;
                 /*
                    this.rutas.navigate( ['login/validar_codigo/'] );
                    //this.rutas.navigate( ['inicio_sesion/'], { relativeTo: this.rutaActiva, queryParams: { modo: this.modo },  skipLocationChange: true } );     
