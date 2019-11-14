@@ -10,6 +10,6 @@ import { DashboardWorkspaceComponent } from './dashboard-workspace/dashboard-wor
   declarations: [DashboardEncabezadoComponent, DashboardMenuComponent, DashboardWorkspaceComponent],
   imports: [
     CommonModule
-  ]
+  ],exports:[DashboardEncabezadoComponent,DashboardMenuComponent,DashboardWorkspaceComponent]
 })
 export class DashboardComponentesModule { }

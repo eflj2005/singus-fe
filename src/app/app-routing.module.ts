@@ -8,7 +8,7 @@ import {DashboardPrincipalComponent} from '@app/mecanicas/dashboard/dashboard-pr
 //Rutas para redirecciones por url
 const rutas: Routes =[
   
-  { path:'', redirectTo:'login', pathMatch:'full' },
+  { path:'', redirectTo:'dashboard', pathMatch:'full' },
 
   { path:'login', component: InicioPrincipalComponent },
   { path:'dashboard', component: DashboardPrincipalComponent }
