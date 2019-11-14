@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DashboardPrincipalComponent } from './dashboard-principal.component';
 
-describe('PrincipalComponent', () => {
+describe('DashboardPrincipalComponent', () => {
   let component: DashboardPrincipalComponent;
   let fixture: ComponentFixture<DashboardPrincipalComponent>;
 
