@@ -53,8 +53,8 @@ export class InicioCambiarClaveComponent implements OnInit {
     if(this.datosAmbiente.inicioModo != 1){
       
       
-      this.datosAmbiente.inicioModo = 1; //eliminar
-      this.datosAmbiente.InicioPaso = 1; //eliminar
+      this.datosAmbiente.inicioModo = 1; 
+      this.datosAmbiente.inicioPaso = 1; 
 
       this.RecargarComponente();
     }
