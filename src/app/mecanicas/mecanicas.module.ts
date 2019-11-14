@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import {DashboardModule} from '@mecanicas/dashboard/dashboard.module'
 import { InicioModule } from "./inicio/inicio.module";
 
 
@@ -8,7 +8,8 @@ import { InicioModule } from "./inicio/inicio.module";
   declarations: [],
   imports: [
     CommonModule,
-    InicioModule
+    InicioModule,
+    DashboardModule
   ]
 })
 export class MecanicasModule { }
