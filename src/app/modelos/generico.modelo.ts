@@ -1,4 +1,4 @@
-export class ModeloGenerico{
+export class GenericoControlador{
     protected posicionActual = null;
     protected cantidad = null;
 

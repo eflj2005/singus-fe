@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ModeloGenerico } from "./generico.modelo";
+import { GenericoControlador } from "./generico.modelo";
 import { UsuariosControlador  } from "./usuarios.modelo";
 
 
@@ -9,7 +9,7 @@ import { UsuariosControlador  } from "./usuarios.modelo";
   declarations: [],
   imports: [
     CommonModule,
-    ModeloGenerico,
+    GenericoControlador,
     UsuariosControlador,
   ]
 })

@@ -1,4 +1,4 @@
-import { ModeloGenerico } from './generico.modelo';
+import { GenericoControlador } from './generico.modelo';
 
 export interface IUsuariosInterface {
     id: number;
@@ -12,7 +12,7 @@ export interface IUsuariosInterface {
   }
   
   
-  export class UsuariosControlador extends ModeloGenerico{
+  export class UsuariosControlador extends GenericoControlador{
   
     registros: IUsuariosInterface[]= [];
 
