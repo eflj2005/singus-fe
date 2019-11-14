@@ -8,13 +8,13 @@
 
     <!-- contenedor para registro de administrador -->        
 
-  <div *ngIf="procesoLogeo.paso == 1" class="container">
+  <div *ngIf="datosAmbiente.inicioPaso == 1" class="container">
       <button class="mibutton" *ngIf="procesando == false" (click)="ActivarRegitroAdministrador()">Registrar Nuevo Administrador</button>
   </div>   
 
 
 <!-- contenedor para formulario de registro -->
-<div *ngIf="procesoLogeo.paso == 2">
+<div *ngIf="datosAmbiente.inicioPaso == 2">
 
   <div class="container contenido">
       <div class="tituloSecundario">
