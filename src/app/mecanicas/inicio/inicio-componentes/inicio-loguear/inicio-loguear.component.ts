@@ -45,7 +45,7 @@ export class InicioLoguearComponent implements OnInit {
 
   RecuperarClave(){
     this.datosAmbiente.inicioModo=3;
-    this.datosAmbiente.InicioPaso=1;
+    this.datosAmbiente.inicioPaso=1;
   }
 
 }

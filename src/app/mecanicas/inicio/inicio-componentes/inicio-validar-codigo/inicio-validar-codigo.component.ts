@@ -41,7 +41,7 @@ export class InicioValidarCodigoComponent implements OnInit {
     //this.codigoError = "El codigo digitado no coincide con el enviado"
     
     //en caso de OK
-    this.datosAmbiente.InicioPaso++;
+    this.datosAmbiente.inicioPaso++;
     this.procesando=false;
 
   }

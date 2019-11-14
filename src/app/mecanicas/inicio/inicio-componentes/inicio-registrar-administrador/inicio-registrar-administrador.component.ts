@@ -39,7 +39,7 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
   }
 
   ActivarRegitroAdministrador(){
-    this.datosAmbiente.InicioPaso++;   
+    this.datosAmbiente.inicioPaso++;   
   }  
 
   RegistrarAdministrador(contenidoConfirmador: any, contenidoNotificador: any){
