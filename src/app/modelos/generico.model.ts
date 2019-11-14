@@ -4,7 +4,6 @@ export class GenericoModel {
 
     protected registros:any[] = []
 
-
     public AsignarAtributo( nombreAtributo:String, valorAtributo:any ){
         this.registros[this.posicionActual].nombreAtributo = valorAtributo;
     }
