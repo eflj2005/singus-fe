@@ -1,0 +1,36 @@
+#encabezado{
+    background: rgb(22, 38, 68);
+    position: sticky;  
+   
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .boton {
+    position: absolute;
+    color: #fff;
+    
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+  }
+  
+  .dropdown:hover .boton {
+    display: block;
+  }
+  
+  
+  
+  .imgcontainer {
+    text-align: left;
+    margin: 10px;
+    position: relative;
+  }
+  
+  img.avatar {
+    width: 80px;
+    border-radius: 10%;
+  }
