@@ -15,7 +15,7 @@ export class AutenticacionService {
   public usuarioActual: Observable<UsuariosControlador>
 
   constructor(
-    private llamadoHttp: HttpClient;
+    private llamadoHttp: HttpClient,
     private datosAmbiente: AmbienteService
   ) { 
     this.usuarioActualIntermediario = new BehaviorSubject<UsuariosControlador>(JSON.parse(localStorage.getItem('currentUser')));
