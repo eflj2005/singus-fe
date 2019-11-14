@@ -1,5 +1,4 @@
 import { HttpClient } from '@angular/common/http';
-
 import { Component, OnInit } from '@angular/core';
 import { AmbienteService } from '@app/servicios/ambiente.service';
 
@@ -31,7 +30,9 @@ export class InicioPrincipalComponent implements OnInit {
       response =>{
          console.log(response);
       }
-  );
+    );
+
+
    // let respuesta = this.http.get(this.ruta+'validar.php?accion=consultarParentescos' )
 
     /*
