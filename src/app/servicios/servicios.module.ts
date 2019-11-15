@@ -1,6 +1,11 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { AmbienteService } from './ambiente.service';
+import { AutenticacionService } from './autenticacion.service';
+import { ErrorInterceptorService } from './error.interceptor';
+import { GuardianService } from './guardian.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 @NgModule({
@@ -9,7 +14,12 @@ import { AmbienteService } from './ambiente.service';
   ],
   declarations: [
   ],
-  providers: [ AmbienteService ]  
+  providers: [ 
+    AmbienteService,
+    AutenticacionService,
+    GuardianService,
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true  }
+  ]  
 })
 export class ServiciosModule {
 

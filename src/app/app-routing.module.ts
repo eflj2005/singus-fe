@@ -11,6 +11,7 @@ const rutas: Routes =[
   { path:'', redirectTo:'dashboard', pathMatch:'full' },
 
   { path:'login', component: InicioPrincipalComponent },
+  
   { path:'dashboard', component: DashboardPrincipalComponent }
 
 
