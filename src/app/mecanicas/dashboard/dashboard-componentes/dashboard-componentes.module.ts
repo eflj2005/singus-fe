@@ -7,6 +7,7 @@ import { DashboardWorkspaceComponent } from './dashboard-workspace/dashboard-wor
 
 
 
+
 @NgModule({
   declarations: [DashboardEncabezadoComponent, DashboardMenuComponent, DashboardWorkspaceComponent],
   imports: [

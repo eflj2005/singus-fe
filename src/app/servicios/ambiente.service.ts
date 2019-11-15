@@ -19,8 +19,8 @@ export class AmbienteService {
 
     this.urlMode = "DEV";
 
-    this.inicioModo = 2;
-    this.inicioPaso = 1;
+    this.inicioModo = 0;
+    this.inicioPaso = 0;
   }
 
   getUrlRecursos(){

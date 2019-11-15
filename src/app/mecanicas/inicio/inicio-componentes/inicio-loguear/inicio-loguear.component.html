@@ -29,7 +29,7 @@
     <div class="container opcionesPie roundDown ">
         <div *ngIf="procesando == false">
             <button class="mibutton"  (click)="ValidarLogin()">Ingresar</button>
-            <div class="recpsw"><a href="#" (click)="RecuperarClave()">Recuperar contraseña</a></div>
+            <div class="recpsw"><span class="link" (click)="RecuperarClave()">Recuperar contraseña</span></div>
         </div>
         <div *ngIf="procesando == true">
             <button class="mibutton"><i class="fa fa-spinner fa-spin"></i></button>
