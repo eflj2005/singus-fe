@@ -9,7 +9,8 @@ import { RouterModule, Routes } from '@angular/router';
   declarations: [DashboardPrincipalComponent],
   imports: [
     CommonModule,
-    DashboardComponentesModule
+    DashboardComponentesModule,
+    RouterModule
   ]
 })
 export class DashboardModule { }
