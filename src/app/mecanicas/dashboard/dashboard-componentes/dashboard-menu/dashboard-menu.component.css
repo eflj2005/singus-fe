@@ -4,8 +4,8 @@
     .fa {
     position: relative;
     display: table-cell;
-    width: 60px;
-    height: 36px;
+    width: 40px;
+    height: 16px;
     text-align: center;
     vertical-align: middle;
     font-size:20px;
@@ -25,7 +25,7 @@
     bottom:0;
     
     left:0;
-    width:60px;
+    width:36px;
     overflow:hidden;
     -webkit-transition:width .05s linear;
     transition:width .05s linear;
@@ -49,7 +49,7 @@
     display:table;
     border-collapse:collapse;
     border-spacing:0;
-    color:#999;
+    color:yellow;
      font-family: arial;
     font-size: 14px;
     text-decoration:none;
@@ -58,22 +58,25 @@
     transition:all .1s linear;
       
     }
+  
     
     .main-menu .nav-icon {
     position:relative;
     display:table-cell;
-    width:60px;
-    height:36px;
+    width:20px;
+    height:6px;
     text-align:center;
     vertical-align:middle;
     font-size:18px;
     }
-    
+    .nav-text{
+        color: yellow;
+    }
     .main-menu .nav-text {
     position:relative;
     display:table-cell;
     vertical-align:middle;
-    width:190px;
+    width:240px;
       font-family: 'Titillium Web', sans-serif;
     }
     
@@ -109,11 +112,32 @@
     margin:0;
     padding:0;
     }
+
     .main-menu li:hover>a,nav.main-menu li.active>a,.dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus,.dropdown-menu>.active>a,.dropdown-menu>.active>a:hover,.dropdown-menu>.active>a:focus,.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,.dashboard-page nav.dashboard-menu ul li.active a {
-    color:#fff;
-    background-color:#5fa2db;
+    color:yellow;
+    background-color:blue;
     }
-  
+    .aop{
+        color:white;
+    }
+    .aop:hover{
+         color:white;
+    }
+    .opciones{
+        
+        font-family: arial;
+        font-size: 14px;
+        color:white;
+        font-family: 'Titillium Web', sans-serif;
+    }
+.opciones:hover{
+   
+    font-family: arial;
+    font-size: 14px;
+    color:#fff;
+    background-color:blue;
+    font-family: 'Titillium Web', sans-serif;
+}
     @font-face {
       font-family: 'Titillium Web';
       font-style: normal;
