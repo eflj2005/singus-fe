@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AmbienteService } from '@app/servicios/ambiente.service'
+import { UsuariosController } from '@app/modelos/usuarios.controller';
+import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
 
 @Component({
   selector: 'app-inicio-loguear',
@@ -17,7 +19,12 @@ export class InicioLoguearComponent implements OnInit {
 
   procesando:boolean=null;
 
-  constructor( private rutas: Router, private rutaActiva: ActivatedRoute, private datosAmbiente: AmbienteService ){
+  constructor( 
+    private rutas: Router, 
+    private rutaActiva: ActivatedRoute, 
+    private datosAmbiente: AmbienteService,
+    private controladorUsuarios: UsuariosController
+  ){
     this.documento="";
     this.clave="";
     this.procesando=false;
@@ -40,6 +47,7 @@ export class InicioLoguearComponent implements OnInit {
   ValidarLogin(){
     alert("envio formulario Login");
     this.procesando=true;
+    this.controladorUsuarios.InciarSesion(Number(this.documento),this.clave);
     
   }
 

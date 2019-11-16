@@ -37,6 +37,9 @@ export class UsuariosController extends GenericoModel {
         this.datosAmbiente.inicioPaso=1;          
       }
     );
+  }
+
+  public InciarSesion(documento:number, clave:string){
 
   }
 }
