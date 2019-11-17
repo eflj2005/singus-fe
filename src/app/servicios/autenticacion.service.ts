@@ -41,6 +41,8 @@ export class AutenticacionService {
         console.log(error);
       }
     );
+
+    return llamado;
   }  
 
   IniciarSesion(documento:number, clave: string){
@@ -50,23 +52,17 @@ export class AutenticacionService {
     llamado.subscribe(
       (respuesta: IRespuesta) => {
         var notificacion:IRespuesta = null;
-        var usuario:UsuarioInterface = null;
 
         switch (respuesta.codigo){
           case 1:
-            usuario = respuesta.mensaje;
+            let usuario:UsuarioInterface = respuesta.mensaje;
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('usuarioActual', JSON.stringify(usuario));
             this.usuarioActualIntermediario.next(usuario);            
             
             notificacion.codigo = respuesta.codigo;
             notificacion.mensaje = null;
-          break;
-          case 2:         //es estudiante
-            usuario = respuesta.mensaje;
-            notificacion.codigo = respuesta.codigo;
-            notificacion.mensaje = usuario.correo; 
-          break;          
+          break;    
           case 3:         //autenticación erronea
               notificacion.codigo = respuesta.codigo;
               notificacion.mensaje = "Documento o clave erronea. Verifique e intente de nuevo";

@@ -1,8 +1,9 @@
 
 import { Component, OnInit } from '@angular/core';
 
-import { UsuariosController } from '@app/modelos/usuarios.controller';
 import { AmbienteService } from '@app/servicios/ambiente.service';
+import { AutenticacionService } from '@app/servicios/autenticacion.service';
+
 
 
 @Component({
@@ -14,12 +15,15 @@ export class InicioPrincipalComponent implements OnInit {
 
   
   constructor( 
-    private controladorUsuarios: UsuariosController,
+    private auntenticador: AutenticacionService,
     private datosAmbiente: AmbienteService
+
   ) { }
 
   ngOnInit() {
-    this.controladorUsuarios.ValidarAdministrador();
+    this.auntenticador.ValidarAdministrador();
+
+
   }
 
 }

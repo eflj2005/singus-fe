@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 import { ServiciosModule } from '@servicios/servicios.module';
@@ -14,6 +14,7 @@ import { GeneralesModule  } from '@generales/generales.module';
 import { MecanicasModule } from '@mecanicas/mecanicas.module';
 
 import { ModelosModule } from '@app/modelos/modelos.module'
+import { ErrorInterceptorService } from './servicios/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { ModelosModule } from '@app/modelos/modelos.module'
     ModelosModule
   ],
   providers: [ 
-    
+
    ],
   bootstrap: [AppComponent]
 })
