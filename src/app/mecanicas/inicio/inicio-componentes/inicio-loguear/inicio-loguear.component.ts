@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AmbienteService } from '@app/servicios/ambiente.service'
-import { UsuariosController } from '@app/modelos/usuarios.controller';
-import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
+import { AutenticacionService } from '@app/servicios/autenticacion.service';
+import { IRespuesta } from '@app/modelos/respuesta.interface';
 
 @Component({
   selector: 'app-inicio-loguear',
@@ -23,7 +23,7 @@ export class InicioLoguearComponent implements OnInit {
     private rutas: Router, 
     private rutaActiva: ActivatedRoute, 
     private datosAmbiente: AmbienteService,
-    private controladorUsuarios: UsuariosController
+    private auntenticador: AutenticacionService
   ){
     this.documento="";
     this.clave="";
@@ -47,7 +47,28 @@ export class InicioLoguearComponent implements OnInit {
   ValidarLogin(){
     alert("envio formulario Login");
     this.procesando=true;
-    this.controladorUsuarios.InciarSesion(Number(this.documento),this.clave);
+
+    const respuesta = this.auntenticador.IniciarSesion(Number(this.documento),this.clave).subscribe(;
+      (notificacion:IRespuesta) => {
+        switch (notificacion.codigo){
+          case 1:         //login ok
+            this.rutas.navigate(["/dashboard"]);
+          break;
+          case 2:         //es estudiante
+
+          break;          
+          case 3:         //autenticación erronea
+
+          break;
+          case 4:         //usuario bloqueado
+
+          break;          
+        }
+      }
+
+    )
+
+    
     
   }
 

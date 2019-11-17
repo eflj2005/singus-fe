@@ -1,11 +1,13 @@
 export interface UsuarioInterface {
     id: number;
-    documento: Number;
-    nombres: String;
-    apellidos: String;
+    documento: number;
+    nombres: string;
+    apellidos: string;
     telefono: Date;
+    correo: string;
     fechacreacion: string;
     roles_id:number;
     areas_id:number;
-    token:string;
+    estado:number;
+    token?:string;
 }
