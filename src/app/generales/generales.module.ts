@@ -1,19 +1,33 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CambiarClaveComponent } from './cambiar-clave/cambiar-clave.component';
 
 import { FormsModule } from '@angular/forms';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { ArrayFilterPipe } from './arrayfilter.pipe';
 
 @NgModule({
-  declarations: [CambiarClaveComponent],
+  declarations: [
+    CambiarClaveComponent,
+    ArrayFilterPipe
+  ],
   imports: [
     CommonModule,
     FormsModule,
-    NgbAlertModule
+    NgbAlertModule,
+  
   ],
   exports: [
-    CambiarClaveComponent
+    CambiarClaveComponent,
+    ArrayFilterPipe
   ]
 })
-export class GeneralesModule { }
+export class GeneralesModule {
+
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: GeneralesModule,
+      providers: [  ]
+    };
+  }
+}

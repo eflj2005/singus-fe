@@ -5,14 +5,17 @@ import { InicioModule } from "./inicio/inicio.module";
 import {PersonasModule} from '@mecanicas/personas/personas.module';
 
 
+
+
 @NgModule({
-  declarations: [],
+  declarations: [
+    
+  ],
   imports: [
     CommonModule,
     InicioModule,
     DashboardModule,
     PersonasModule
-
   ]
 })
 export class MecanicasModule { }

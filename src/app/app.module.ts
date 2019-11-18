@@ -18,9 +18,11 @@ import { ErrorInterceptorService } from './servicios/error.interceptor';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
+
   ],
   imports: [
     NgbModule,
@@ -28,7 +30,7 @@ import { ErrorInterceptorService } from './servicios/error.interceptor';
     HttpClientModule,
     AppRoutingModule,
     ServiciosModule,
-    GeneralesModule,
+    GeneralesModule.forRoot(),
     MecanicasModule,
     ModelosModule
   

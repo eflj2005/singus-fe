@@ -11,7 +11,7 @@ import {PersonasActualizacionModule} from '@mecanicas/personas/personas-actualiz
   declarations: [],
   imports: [
     CommonModule,
-    PersonasActualizacionModule
+    PersonasActualizacionModule,
   ]
 })
 export class PersonasModule { }

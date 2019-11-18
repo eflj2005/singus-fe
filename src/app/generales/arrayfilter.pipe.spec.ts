@@ -1,4 +1,4 @@
-import { ArrayFilterPipe } from './array-filter.pipe';
+import { ArrayFilterPipe } from './arrayfilter.pipe';
 
 describe('ArrayFilterPipe', () => {
   it('create an instance', () => {
