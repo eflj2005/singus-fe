@@ -14,7 +14,11 @@ export class ErrorInterceptorService implements HttpInterceptor {
   ) { }
 
   intercept(solicitud: HttpRequest<any>, next: HttpHandler ): Observable<HttpEvent<any>>{
-    return next.handle(solicitud).pipe(
+    console.log(solicitud);
+    console.log(next);
+
+
+    const observable = next.handle(solicitud).pipe(
       catchError(
         respuestaError => {
           
@@ -30,6 +34,10 @@ export class ErrorInterceptorService implements HttpInterceptor {
           return throwError(error);          
         }
       )
-    )
+    );
+
+    console.log(observable);
+    
+    return observable;
   }
 }
