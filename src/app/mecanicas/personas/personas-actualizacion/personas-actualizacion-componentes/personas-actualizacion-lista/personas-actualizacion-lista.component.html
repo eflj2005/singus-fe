@@ -1,102 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<body>
   <!-- tabla de o lista de empleados -->
-  <div>
-    <h1 align='center'><strong>Empleados</strong></h1>
-    <div class="botonNuevo">
-      <button class="btn btn-primary" (click)="nuevoEmpleado()" *ngIf="RolPropio == 'Administrador'">Nuevo empleado</button>
-    </div>
-    <br>
+  <div class="row">
+      <div>
+        <h1 align='center'><strong>Lista Personas</strong></h1>
 
-    <table class="table table-striped">
-      <!-- titulo de las columnas -->
-      <thead>
-          <tr>
-              <th>&nbsp;</th>
-              <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.Documento" ></th>
-              <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.Nombres" ></th>
-              <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.Apellidos" ></th>
-              <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.NombreCargo" ></th>
-              <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.Especialidad" ></th>
-              <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.TarjetaProfesional" ></th>
-              <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.Celular" ></th>
-              <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.CorreoElectronico" ></th>
-              <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.Direccion"></th>
-              <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.NombreCiudad"></th>
-              <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.Titular"></th>
-              <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.Rol" *ngIf="RolPropio == 'Administrador'"></th>
-              <th></th>   
-          </tr>
-        <tr class="colums">
-          <th scope="col">#</th>
-          <th scope="col">Numero de cedula</th>
-          <th scope="col">Nombres</th>
-          <th scope="col">Apellidos</th>
-          <th scope="col">Cargo</th>
-          <th scope="col">Especialidad</th>
-          <th scope="col">Tarjeta Profesional</th>
-          <th scope="col">Celular</th>
-          <th scope="col">Correo Electronico</th>
-          <th scope="col">Direccion</th>
-          <th scope="col">Ciudad</th>
-          <th scope="col">Titular</th> 
-          <th scope="col" *ngIf="RolPropio == 'Administrador'">Rol</th>
-          <th scope="col" *ngIf="RolPropio == 'Administrador'">&nbsp;</th>
-          <th scope="col"></th>
+        <br>
+    
+        <table class="table table-striped">
+          <!-- titulo de las columnas -->
+          <thead>
+              <tr>
+                  <th>&nbsp;</th>
+                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Cohorte" ></th>
+                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Id" ></th>
+                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Sede" ></th>
+                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Nombre" ></th>
+                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Cedula" ></th>
+                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Programa" ></th>
+                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Celular"></th>
+                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.CorreoInstitucional"></th>
+                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.CorreoPersonal"></th>
+                  <th></th>   
+              </tr>
+            <tr class="colums">
+              <th scope="col">#</th>
+              <th scope="col">Cohorte</th>
+              <th scope="col">ID</th>
+              <th scope="col">Sede</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Cedula</th>
+              <th scope="col">Programa</th>
+              <th scope="col">Celular</th>
+              <th scope="col">Correo Institucional</th>
+              <th scope="col">Correo Personal</th> 
+              <th scope="col"></th>
+            </tr>
+          </thead>
+    
+          <!-- informacion de la tabla o listado de empleados -->
+          <tbody>
+              <tr>
+            <tr *ngFor="let persona of personas | arrayFilter : 
+                { 
+                  Cohorte:                   searchObjectPersonas.Cohorte,  
+                  Id:                        searchObjectPersonas.Id,
+                  Sede:                      searchObjectPersonas.Sede,
+                  Nombre:                    searchObjectPersonas.Nombre,
+                  Cedula:                    searchObjectPersonas.Cedula,
+                  Programa:                  searchObjectPersonas.Programa,
+                  Celular:                   searchObjectPersonas.Celular,
+                  CorreoInstitucional:       searchObjectPersonas.CorreoInstitucional,
+                  CorreoPersonal:            searchObjectPersonas.CorreoPersonal
+                 
+                };
+                let indice=index"
+            >
+              <th scope="row">{{persona.IdPersona}}</th>
+              <td>{{persona.Cohorte}}</td>
+              <td>{{persona.Id}}</td>
+              <td>{{persona.Sede}}</td>
+              <td>{{persona.Nombre}}</td>
+              <td>{{persona.Cedula}}</td>
+              <td>{{persona.Programa}}</td>
+              <td>{{persona.Celular}}</td>
+              <td>{{persona.CorreoInstitucional}}</td>
+              <td>{{persona.CorreoPersonal}}</td>
+              <td><button class="btn btn-primary" (click)="verPersona({id : persona.IdPersona, modo:2})">Editar</button></td>
         </tr>
-      </thead>
-
-      <!-- informacion de la tabla o listado de empleados -->
-      <tbody>
-        <tr *ngFor="let Empleado of listaEmpleados | arrayFilter : 
-            { 
-              Documento:          searchObjectEmpleados.Documento,  
-              Nombres:            searchObjectEmpleados.Nombres,
-              Apellidos:          searchObjectEmpleados.Apellidos,
-              NombreCargo:        searchObjectEmpleados.NombreCargo,
-              Especialidad:     searchObjectEmpleados.Especialidad,
-              TarjetaProfesional: searchObjectEmpleados.TarjetaProfesional,
-              Celular:            searchObjectEmpleados.Celular,
-              CorreoElectronico:  searchObjectEmpleados.CorreoElectronico,
-              Direccion:          searchObjectEmpleados.Direccion,
-              NombreCiudad:       searchObjectEmpleados.NombreCiudad,
-              Titular:            searchObjectEmpleados.Titular,
-              Rol:                searchObjectEmpleados.Rol
-            };
-            let indice=index"
-        >
-          <th scope="row">{{Empleado.IdEmpleado}}</th>
-          <td>{{Empleado.Documento}}</td>
-          <td>{{Empleado.Nombres}}</td>
-          <td>{{Empleado.Apellidos}}</td>
-          <td>{{Empleado.NombreCargo}}</td>
-          <td>{{Empleado.Especialidad}}</td>
-          <td>{{Empleado.TarjetaProfesional}}</td>
-          <td>{{Empleado.Celular}}</td>
-          <td>{{Empleado.CorreoElectronico}}</td>
-          <td>{{Empleado.Direccion}}</td>
-          <td>{{Empleado.NombreCiudad}}</td>
-          <td>{{Empleado.Titular}}</td>
-          <td *ngIf="RolPropio == 'Administrador'">{{Empleado.Rol}}</td>
-          <td *ngIf="Empleado['Usuario']=='No' && RolPropio == 'Administrador'" >
-              <select class="form-control" [(ngModel)]="listaEmpleados[indice].IdRol">
-                  <option value="0" disabled >--Seleccione Rol--</option>
-                  <option value="{{TipoRol.Id}}" *ngFor="let TipoRol of Roles">{{TipoRol.Descripcion}}</option>
-              </select>
-            <button class="btn btn-danger" (click)="crearUsuario(Empleado.IdEmpleado,indice)">Crear usuario</button>
-          </td>
-          <td *ngIf="Empleado['Usuario']=='Si' && RolPropio == 'Administrador'"><button class="btn btn-success" disabled>Usuario ya creado</button></td>
-          <td><button class="btn btn-primary" (click)="verEmpleado(Empleado.IdEmpleado)">editar</button></td>
-        </tr>
-      </tbody>
-
-    </table>
+          </tbody>
+    
+        </table>
+      </div>
   </div>
-  <div align='center' >
-    <div *ngIf="listaEmpleados==null" class="loader"></div>
-  </div>
-</body>
-
-</html>
+      <div align='center' >
+        <div *ngIf="listaEmpleados==null" class="loader"></div>
+      </div>
+    

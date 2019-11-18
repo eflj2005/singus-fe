@@ -4,12 +4,14 @@ import { DashboardPrincipalComponent } from './dashboard-principal/dashboard-pri
 import {DashboardComponentesModule} from '@mecanicas/dashboard/dashboard-componentes/dashboard-componentes.module'
 import { RouterModule, Routes } from '@angular/router';
 import { PersonasActualizacionPrincipalComponent } from '@mecanicas/personas/personas-actualizacion/personas-actualizacion-principal/personas-actualizacion-principal.component';
+import { CambiarClaveComponent } from '@app/generales/cambiar-clave/cambiar-clave.component';
 
 //Rutas para redirecciones por url
 const rutas: Routes =[
   
     { path:'', component: DashboardPrincipalComponent , children:[
       { path:'lista', component:PersonasActualizacionPrincipalComponent},
+      { path:'cambiar', component:CambiarClaveComponent}
     ]}
 
 /*

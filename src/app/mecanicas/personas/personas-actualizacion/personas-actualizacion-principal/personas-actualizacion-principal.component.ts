@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AmbienteService} from '@servicios/ambiente.service'
 
 @Component({
   selector: 'app-personas-actualizacion-principal',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./personas-actualizacion-principal.component.css']
 })
 export class PersonasActualizacionPrincipalComponent implements OnInit {
-modo: any;
-  constructor() { 
-    this.modo =1;
+
+
+  constructor(private datosAmbiente: AmbienteService) { 
+
+
+
   }
+
 
   ngOnInit() {
   }
