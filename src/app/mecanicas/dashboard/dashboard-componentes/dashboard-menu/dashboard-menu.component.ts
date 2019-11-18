@@ -64,7 +64,7 @@ this.usuario = "Juan Bustos";
         if(grupo['orden'] == opcion['orden']){
           grupo['opciones'].push(opcion);
           cantidad++;
-          console.log(grupo['opciones']);
+         
         }
         
       }

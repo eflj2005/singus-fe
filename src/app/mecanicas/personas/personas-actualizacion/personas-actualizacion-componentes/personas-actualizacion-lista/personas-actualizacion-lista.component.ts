@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'personas-actualizacion-lista',
@@ -7,41 +6,49 @@ import { Router } from '@angular/router';
   styleUrls: ['./personas-actualizacion-lista.component.css']
 })
 export class PersonasActualizacionListaComponent implements OnInit {
-  searchObjectEmpleados: any ={
-    Documento:"",
-    Nombres:"",
-    Apellidos:"",
-    NombreCargo:"",
-    Especialidad:"",
-    TarjetaProfesional:"",
+  searchObjectPersonas: any ={
+    IdPersona:"",
+    Cohorte:"",
+    Id:"",
+    Sede:"",
+    Nombre:"",
+    Cedula:"",
+    Programa:"",
     Celular:"",
-    CorreoElectronico:"",
-    Direccion:"",
-    Estado:"",
-    NombreCiudad:"",
-    Titular:"",
-    Rol:""
+    CorreoInstitucional:"",
+    CorreoPersonal:""
   };
 
-  personas: any = {
-    IdPersona:1,
-    Cohorte:123456,
-    Id:123412,
+  personas: Array<Object> = [{
+    IdPersona:"1",
+    Cohorte:"123456",
+    Id:"123412",
     Sede:"Medellin",
     Nombre:"Juan Carlos Bustos Tovio",
-    Cedula:1007405687,
+    Cedula:"1007405687",
     Programa:"Ing. Sistemas",
-    Celular:3223542148,
+    Celular:"3223542148",
     CorreoInstitucional:"ASDKASJKDHA@SSDASD.COM",
-    CorreoPersonal:"ASDKASJKDHA@SSDASD.COM",
-  };
+    CorreoPersonal:"ASDKASJKDHA@SSDASD.COM"
+  },
+  {
+    IdPersona:"2",
+    Cohorte:"1221456",
+    Id:"5623",
+    Sede:"Bogta",
+    Nombre:"Ppeptiyo flors xdsa",
+    Cedula:"42321",
+    Programa:"Ing. Sistemas",
+    Celular:"76543451",
+    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
+    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+  }];
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit() {
   }
-  verEmpleado(id){
-    this.router.navigateByUrl('/editarEmpleado/'+id)
-    
+  verPersona(datos){
+
   }
 }

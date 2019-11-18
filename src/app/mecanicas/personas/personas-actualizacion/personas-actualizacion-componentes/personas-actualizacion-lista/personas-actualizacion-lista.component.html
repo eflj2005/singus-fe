@@ -11,15 +11,15 @@
           <thead>
               <tr>
                   <th>&nbsp;</th>
-                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.Cohorte" ></th>
-                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.Id" ></th>
-                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.Sede" ></th>
-                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.Nombre" ></th>
-                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.Cedula" ></th>
-                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.Programa" ></th>
-                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.Celular"></th>
-                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.CorreoInstitucional"></th>
-                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectEmpleados.CorreoPersonal"></th>
+                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Cohorte" ></th>
+                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Id" ></th>
+                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Sede" ></th>
+                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Nombre" ></th>
+                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Cedula" ></th>
+                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Programa" ></th>
+                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Celular"></th>
+                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.CorreoInstitucional"></th>
+                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.CorreoPersonal"></th>
                   <th></th>   
               </tr>
             <tr class="colums">
@@ -40,32 +40,32 @@
           <!-- informacion de la tabla o listado de empleados -->
           <tbody>
               <tr>
-            <!-- <tr *ngFor="let Empleado of listaEmpleados | arrayFilter : 
+            <tr *ngFor="let persona of personas | arrayFilter : 
                 { 
-                  Documento:          searchObjectEmpleados.Cohorte,  
-                  Nombres:            searchObjectEmpleados.Id,
-                  Apellidos:          searchObjectEmpleados.Sede,
-                  Especialidad:     searchObjectEmpleados.Nombre,
-                  TarjetaProfesional: searchObjectEmpleados.Cedula,
-                  CorreoElectronico:  searchObjectEmpleados.Programa,
-                  Direccion:          searchObjectEmpleados.Celular,
-                  NombreCiudad:       searchObjectEmpleados.CorreoInstitucional,
-                  Titular:            searchObjectEmpleados.CorreoPersonal,
+                  Cohorte:                   searchObjectPersonas.Cohorte,  
+                  Id:                        searchObjectPersonas.Id,
+                  Sede:                      searchObjectPersonas.Sede,
+                  Nombre:                    searchObjectPersonas.Nombre,
+                  Cedula:                    searchObjectPersonas.Cedula,
+                  Programa:                  searchObjectPersonas.Programa,
+                  Celular:                   searchObjectPersonas.Celular,
+                  CorreoInstitucional:       searchObjectPersonas.CorreoInstitucional,
+                  CorreoPersonal:            searchObjectPersonas.CorreoPersonal
                  
                 };
                 let indice=index"
-            > -->
-              <th scope="row">{{personas.IdPersona}}</th>
-              <td>{{personas.Cohorte}}</td>
-              <td>{{personas.Id}}</td>
-              <td>{{personas.Sede}}</td>
-              <td>{{personas.Nombre}}</td>
-              <td>{{personas.Cedula}}</td>
-              <td>{{personas.Programa}}</td>
-              <td>{{personas.Celular}}</td>
-              <td>{{personas.CorreoInstitucional}}</td>
-              <td>{{personas.CorreoPersonal}}</td>
-              <td><button class="btn btn-primary" (click)="verPersona(persona.IdPersona)">Editar</button></td>
+            >
+              <th scope="row">{{persona.IdPersona}}</th>
+              <td>{{persona.Cohorte}}</td>
+              <td>{{persona.Id}}</td>
+              <td>{{persona.Sede}}</td>
+              <td>{{persona.Nombre}}</td>
+              <td>{{persona.Cedula}}</td>
+              <td>{{persona.Programa}}</td>
+              <td>{{persona.Celular}}</td>
+              <td>{{persona.CorreoInstitucional}}</td>
+              <td>{{persona.CorreoPersonal}}</td>
+              <td><button class="btn btn-primary" (click)="verPersona(persona)">Editar</button></td>
         </tr>
           </tbody>
     
