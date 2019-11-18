@@ -15,4 +15,8 @@ import { DashboardWorkspaceComponent } from './dashboard-workspace/dashboard-wor
     RouterModule
   ],exports:[DashboardEncabezadoComponent,DashboardMenuComponent,DashboardWorkspaceComponent]
 })
-export class DashboardComponentesModule { }
+export class DashboardComponentesModule { 
+
+
+
+}

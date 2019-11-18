@@ -8,6 +8,7 @@ import { GuardianService } from './guardian.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
+
 @NgModule({
   imports: [
     CommonModule
@@ -19,7 +20,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     AutenticacionService,
     GuardianService,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true  }
-  ]  
+  ], exports :[
+
+  ] 
 })
 export class ServiciosModule {
 

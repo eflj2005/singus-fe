@@ -15,9 +15,7 @@ const rutas: Routes =[
   { path:'', redirectTo:'dashboard', pathMatch:'full' },
 
   { path:'login', component: InicioPrincipalComponent },
-  { path:'dashboard', component: DashboardPrincipalComponent, children:[
-    { path:'cambiar', loadChildren : './mecanicas/dashboard/dashboard.module#DashboardModule'}]}
-
+  { path:'dashboard', component: DashboardPrincipalComponent }
 
 /*
 

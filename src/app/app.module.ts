@@ -16,6 +16,8 @@ import { MecanicasModule } from '@mecanicas/mecanicas.module';
 import { ModelosModule } from '@app/modelos/modelos.module'
 import { ErrorInterceptorService } from './servicios/error.interceptor';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +31,7 @@ import { ErrorInterceptorService } from './servicios/error.interceptor';
     GeneralesModule,
     MecanicasModule,
     ModelosModule
+  
   ],
   providers: [ 
 

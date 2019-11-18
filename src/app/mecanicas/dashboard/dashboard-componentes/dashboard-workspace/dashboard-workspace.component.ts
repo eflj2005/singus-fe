@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardWorkspaceComponent implements OnInit {
 
   constructor() { }
-
+  mensaje : any = "XD";
   ngOnInit() {
   }
 

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import {Router} from '@angular/router';
+
 
 
 @Component({
@@ -19,7 +22,7 @@ export class DashboardMenuComponent {
     agrupamiento:"",
   }
   
-  constructor() {
+  constructor(private router: Router, private ruta: ActivatedRoute) {
  
 
 
@@ -27,7 +30,7 @@ export class DashboardMenuComponent {
 this.usuario = "Juan Bustos";
 
   this.menu  = [
-    { opcion: 'Cargue1'                  , url: '/cambiar'                  , icon: "fa-file-archive-o"                 , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"        , orden: 1  },
+    { opcion: 'Cargue1'                  , url:'/lista'                  , icon: "fa-file-archive-o"                 , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"        , orden: 1  },
     { opcion: 'Cargue2'            , url: '/'+this.usuario+'/login'            , icon: "fa-file-archive-o"                 , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"        , orden: 1  },
     { opcion: 'Cargue3'                  , url: '/'+this.usuario+'/clientes'                  , icon: "fa-file-archive-o"            , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"        , orden: 1  },
     { opcion: 'Cargue4'       , url: '/'+this.usuario+'/empleados'                 , icon: "fa-file-archive-o"               , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"        , orden: 1  },
@@ -61,14 +64,15 @@ this.usuario = "Juan Bustos";
         if(grupo['orden'] == opcion['orden']){
           grupo['opciones'].push(opcion);
           cantidad++;
+          console.log(grupo['opciones']);
         }
         
       }
       grupo['numeroOpciones'] = cantidad;
       this.nuevoMenu.push(grupo);  
-      // console.log(this.nuevoMenu);
+     
     }
-    console.log(this.nuevoMenu);
+    
 }
 
   
