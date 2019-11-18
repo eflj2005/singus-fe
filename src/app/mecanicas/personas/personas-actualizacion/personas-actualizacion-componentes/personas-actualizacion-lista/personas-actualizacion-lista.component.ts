@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AmbienteService} from '@servicios/ambiente.service';
+
 
 @Component({
   selector: 'personas-actualizacion-lista',
@@ -44,11 +46,12 @@ export class PersonasActualizacionListaComponent implements OnInit {
     CorreoPersonal:"ddaxcwedd@SSDASD.COM"
   }];
 
-  constructor() { }
+  constructor(private AmbienteService : AmbienteService) { }
 
   ngOnInit() {
   }
   verPersona(datos){
-
+    console.log(datos.modo);
+    this.AmbienteService.actualizacionModo.modo = datos.modo
   }
 }

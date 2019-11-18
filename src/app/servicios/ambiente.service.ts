@@ -9,7 +9,7 @@ export class AmbienteService {
   inicioPaso:number =null;  //pasos de registro de administrador =>  1 = Registro, 2 = Validación código
   actualizacionModo:any = {
                             modo: 0,          // Modo 1 es lista de personas -> Modo 2 es Editar a una persona
-                            datos:[]
+                            datos:null
                               } 
 
   urlRecursos:string[] = [];
@@ -25,9 +25,15 @@ export class AmbienteService {
 
     this.inicioModo = 0;
     this.inicioPaso = 0;
+    this.actualizacionModo = {
+      modo: 1,        
+      datos: null
+        }
   }
 
   getUrlRecursos(){
     return this.urlRecursos[this.urlMode];
   }
+
+
 }

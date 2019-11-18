@@ -31,7 +31,7 @@ this.usuario = "Juan Bustos";
 
   this.menu  = [
     { opcion: 'Cargue1'                  , url:'/lista'                  , icon: "fa-file-archive-o"                 , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"        , orden: 1  },
-    { opcion: 'Cargue2'            , url: '/'+this.usuario+'/login'            , icon: "fa-file-archive-o"                 , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"        , orden: 1  },
+    { opcion: 'Cargue2'            , url: '/cambiar'            , icon: "fa-file-archive-o"                 , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"        , orden: 1  },
     { opcion: 'Cargue3'                  , url: '/'+this.usuario+'/clientes'                  , icon: "fa-file-archive-o"            , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"        , orden: 1  },
     { opcion: 'Cargue4'       , url: '/'+this.usuario+'/empleados'                 , icon: "fa-file-archive-o"               , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"        , orden: 1  },
     { opcion: 'Cargue5'          , url: '/'+this.usuario+'/tiposDocumentos'           , icon: "fa-file-archive-o"          , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"        , orden: 1  },
