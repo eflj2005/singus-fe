@@ -7,6 +7,8 @@ import { AmbienteService } from '@servicios/ambiente.service';
 import { UsuarioInterface } from '@modelos/usuario.interface';
 import { IRespuesta } from '@app/modelos/respuesta.interface';
 
+import * as jwt_decode from 'jwt-decode';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,7 +31,7 @@ export class AutenticacionService {
 
   public ValidarAdministrador(){
 
-    const llamado = this.llamadoHttp.get(this.datosAmbiente.getUrlRecursos()+"pasarela.php?accion=inicio");
+    const llamado = this.llamadoHttp.get(this.datosAmbiente.GetUrlRecursos()+"pasarela.php?accion=inicio");
     
     llamado.subscribe(
       (respuesta: IRespuesta  ) => {    
@@ -47,30 +49,54 @@ export class AutenticacionService {
 
   IniciarSesion(documento:number, clave: string){
     
-    const llamado =  this.llamadoHttp.post<IRespuesta>( this.datosAmbiente.getUrlRecursos + "pasarela.php?accion=inicio_sesion", { documento , clave } );
+    let datosEnviados =  { accion:'iniciar_sesion', documento: documento, clave : clave };
+    console.log(datosEnviados);
+
+    const llamado =  this.llamadoHttp.post<IRespuesta>( this.datosAmbiente.GetUrlRecursos() + "pasarela.php", datosEnviados );
     
+    alert(llamado);
+
     llamado.subscribe(
       (respuesta: IRespuesta) => {
-        var notificacion:IRespuesta = null;
+        var notificacion:IRespuesta;
 
-        switch (respuesta.codigo){
-          case 1:
-            let usuario:UsuarioInterface = respuesta.mensaje;
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('usuarioActual', JSON.stringify(usuario));
-            this.usuarioActualIntermediario.next(usuario);            
+        console.log(respuesta);   
+
+        if (respuesta.codigo == 200){
+
+            let token = respuesta.mensaje;
+            let decoded = jwt_decode(token); 
+            console.log(decoded);   
+            // var base64Url = this.token.split('.')[1];
+            // var base64 = base64Url.replace('-', '+').replace('_', '/');
+            // base64 = JSON.parse(atob(base64))
+            // // console.log(base64);
+            // this.idUsuario = base64.data.IdUsuario;
+            // this.usuario = base64.data.usuario;
+            // this.idEmpleado = base64.data.IdEmpleado;
+            // this.empledo = base64.data.NombreEmpleado;
+            // this.tipoUsuario = base64.data.TipoUsuario;
+
+
+
+            // let usuario:UsuarioInterface = respuesta.mensaje;
+            // // store user details and jwt token in local storage to keep user logged in between page refreshes
+            // localStorage.setItem('usuarioActual', JSON.stringify(usuario));
+            // this.usuarioActualIntermediario.next(usuario);            
             
-            notificacion.codigo = respuesta.codigo;
-            notificacion.mensaje = null;
-          break;    
-          case 3:         //autenticación erronea
+            // notificacion.codigo = respuesta.codigo;
+            // notificacion.mensaje = null;
+
+
+
+
+
+
+        }
+        else{
+          console.log(notificacion);
               notificacion.codigo = respuesta.codigo;
-              notificacion.mensaje = "Documento o clave erronea. Verifique e intente de nuevo";
-          break;
-          case 4:         //usuario bloqueado
-              notificacion.codigo = respuesta.codigo;
-              notificacion.mensaje = "usuario bloqueado o inactivo. Contactese con el administrador";
-          break;          
+              notificacion.mensaje = respuesta.mensaje;
         }
 
        return notificacion;

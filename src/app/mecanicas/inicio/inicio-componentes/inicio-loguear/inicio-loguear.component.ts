@@ -48,7 +48,7 @@ export class InicioLoguearComponent implements OnInit {
 
 
   ValidarLogin(){
-    alert("envio formulario Login");
+  
     this.procesando=true;
 
     const respuesta = this.auntenticador.IniciarSesion(Number(this.documento),this.clave).subscribe(
@@ -62,7 +62,9 @@ export class InicioLoguearComponent implements OnInit {
           break;
           case 3:         //usuario bloqueado
 
-          break;          
+          break;
+         
+          this.procesando = false;
         }
       }
 

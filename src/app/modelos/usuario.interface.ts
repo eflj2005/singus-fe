@@ -1,6 +1,7 @@
 export interface UsuarioInterface {
     id: number;
     documento: number;
+    clave?:string;
     nombres: string;
     apellidos: string;
     telefono: Date;

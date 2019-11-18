@@ -14,10 +14,6 @@ export class ErrorInterceptorService implements HttpInterceptor {
   ) { }
 
   intercept(solicitud: HttpRequest<any>, next: HttpHandler ): Observable<HttpEvent<any>>{
-    console.log(solicitud);
-    console.log(next);
-
-
     const observable = next.handle(solicitud).pipe(
       catchError(
         respuestaError => {
@@ -36,8 +32,6 @@ export class ErrorInterceptorService implements HttpInterceptor {
       )
     );
 
-    console.log(observable);
-    
     return observable;
   }
 }

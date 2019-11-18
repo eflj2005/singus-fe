@@ -17,13 +17,10 @@ export class InicioPrincipalComponent implements OnInit {
   constructor( 
     private auntenticador: AutenticacionService,
     private datosAmbiente: AmbienteService
-
   ) { }
 
   ngOnInit() {
     this.auntenticador.ValidarAdministrador();
-
-
   }
 
 }
