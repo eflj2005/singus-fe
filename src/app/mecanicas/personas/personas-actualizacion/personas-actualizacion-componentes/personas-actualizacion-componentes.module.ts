@@ -6,6 +6,9 @@ import { PersonasActualizacionFiltroComponent } from './personas-actualizacion-f
 import { PersonasActualizacionListaComponent } from './personas-actualizacion-lista/personas-actualizacion-lista.component';
 import { PersonasActualizacionInformacionComponent } from './personas-actualizacion-informacion/personas-actualizacion-informacion.component';
 import { PersonasActualizacionDetalleComponent } from './personas-actualizacion-detalle/personas-actualizacion-detalle.component';
+import { GeneralesModule } from '@app/generales/generales.module';
+
+
 
 
 
@@ -19,7 +22,8 @@ import { PersonasActualizacionDetalleComponent } from './personas-actualizacion-
   imports: [
     FormsModule,
     NgbAlertModule,
-    CommonModule
+    CommonModule,
+    GeneralesModule
   ], exports: [
     PersonasActualizacionFiltroComponent, 
     PersonasActualizacionListaComponent,
