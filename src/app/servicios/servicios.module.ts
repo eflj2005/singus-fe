@@ -3,9 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { AmbienteService } from './ambiente.service';
 import { AutenticacionService } from './autenticacion.service';
-import { ErrorInterceptorService } from './error.interceptor';
+
 import { GuardianService } from './guardian.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 
@@ -18,8 +17,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
   providers: [ 
     AmbienteService,
     AutenticacionService,
-    GuardianService,
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true  }
+    GuardianService
   ], exports :[
 
   ] 

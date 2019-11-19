@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AmbienteService } from '@app/servicios/ambiente.service'
 import { AutenticacionService } from '@app/servicios/autenticacion.service';
-import { IRespuesta } from '@app/modelos/respuesta.interface';
+import { RespuestaInterface } from '@app/modelos/respuesta.interface';
 
 @Component({
   selector: 'app-inicio-loguear',
@@ -24,7 +24,7 @@ export class InicioLoguearComponent implements OnInit {
     // private rutas: Router, 
     // private rutaActiva: ActivatedRoute, 
     private datosAmbiente: AmbienteService,
-    private auntenticador: AutenticacionService
+    private autenticador: AutenticacionService
   ){
     this.documento="";
     this.clave="";
@@ -51,21 +51,22 @@ export class InicioLoguearComponent implements OnInit {
   
     this.procesando=true;
 
-    const respuesta = this.auntenticador.IniciarSesion(Number(this.documento),this.clave).subscribe(
-      (notificacion:IRespuesta) => {
-        switch (notificacion.codigo){
-          case 1:         //login ok
-            //this.rutas.navigate(["/dashboard"]);
-          break;
-          case 2:         //autenticación erronea
+    const respuesta = this.autenticador.IniciarSesion(Number(this.documento),this.clave).subscribe(
+      (notificacion:RespuestaInterface) => {
+        
+        // switch (notificacion.codigo){
+        //   case 1:         //login ok
+        //     //this.rutas.navigate(["/dashboard"]);
+        //   break;
+        //   case 2:         //autenticación erronea
 
-          break;
-          case 3:         //usuario bloqueado
+        //   break;
+        //   case 3:         //usuario bloqueado
 
-          break;
-         
-          this.procesando = false;
-        }
+        //   break;
+        // }
+
+        this.procesando = false;
       }
 
     )

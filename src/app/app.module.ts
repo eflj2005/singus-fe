@@ -14,7 +14,8 @@ import { GeneralesModule  } from '@generales/generales.module';
 import { MecanicasModule } from '@mecanicas/mecanicas.module';
 
 import { ModelosModule } from '@app/modelos/modelos.module'
-import { ErrorInterceptorService } from './servicios/error.interceptor';
+import { ErrorInterceptorService } from '@servicios/error.interceptor';
+import { JwtInterceptorService } from '@servicios/jwt.interceptor';
 
 
 
@@ -36,7 +37,8 @@ import { ErrorInterceptorService } from './servicios/error.interceptor';
   
   ],
   providers: [ 
-
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true  }
    ],
   bootstrap: [AppComponent]
 })

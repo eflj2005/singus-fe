@@ -1,5 +1,5 @@
-export interface IRespuesta{
+export interface RespuestaInterface{
     codigo: number,
     asunto: string,
-    mensaje: any;
+    mensaje: any
 }
