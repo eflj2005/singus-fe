@@ -29,6 +29,7 @@
     <div class="container opcionesPie roundDown ">
         <div *ngIf="procesando == false">
             <button class="mibutton"  (click)="ValidarLogin()">Ingresar</button>
+            <div class="recpsw"><span class="link" (click)="LimpiarToken()">LimpiarToken</span></div>
             <div class="recpsw"><span class="link" (click)="RecuperarClave()">Recuperar contraseña</span></div>
         </div>
         <div *ngIf="procesando == true">
