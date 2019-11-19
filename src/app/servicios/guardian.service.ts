@@ -30,10 +30,10 @@ export class GuardianService implements CanActivate{
         }
         else {
             if(ruta.routeConfig.path != "login")    this.enrutador.navigate( ['/login'] );
-            resultado=true;
+
         }
 
-        return resultado;
+        return true;
     }
 
 
