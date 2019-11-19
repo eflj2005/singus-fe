@@ -25,8 +25,6 @@ export class GuardianService implements CanActivate{
             resultado = true;
         }
 
-        console.log(usuarioActual,ruta);
-
         if(resultado) {     
             if(ruta.routeConfig.path == "login")    this.enrutador.navigate( ['/dashboard'] );            
         }
