@@ -60,7 +60,6 @@ export class AutenticacionService {
 
               let usuarioRecibido:UsuarioInterface = decoded['data'];
               usuarioRecibido.token = respuesta.mensaje;
-              console.log(usuarioRecibido);   
 
               // store user details and jwt token in local storage to keep user logged in between page refreshes
               localStorage.setItem('usuarioActual', JSON.stringify(usuarioRecibido));

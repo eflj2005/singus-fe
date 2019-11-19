@@ -5,6 +5,7 @@ import { InicioPrincipalComponent } from '@mecanicas/inicio/inicio-principal/ini
 import {DashboardPrincipalComponent} from '@app/mecanicas/dashboard/dashboard-principal/dashboard-principal.component';
 import { DashboardWorkspaceComponent} from '@mecanicas/dashboard/dashboard-componentes/dashboard-workspace/dashboard-workspace.component';
 import { CambiarClaveComponent } from './generales/cambiar-clave/cambiar-clave.component';
+import { GuardianService } from './servicios/guardian.service';
 
 
 
@@ -12,10 +13,10 @@ import { CambiarClaveComponent } from './generales/cambiar-clave/cambiar-clave.c
 //Rutas para redirecciones por url
 const rutas: Routes =[
   
-  { path:'', redirectTo:'dashboard', pathMatch:'full' },
+  { path:'', redirectTo:'login', pathMatch:'full' },
 
-  { path:'login', component: InicioPrincipalComponent },
-  { path:'dashboard', component: DashboardPrincipalComponent }
+  { path:'login', component: InicioPrincipalComponent , canActivate: [ GuardianService ]},
+  { path:'dashboard', component: DashboardPrincipalComponent , canActivate: [ GuardianService ]},
 
 /*
 

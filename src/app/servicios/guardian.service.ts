@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute } from '@angular/router';
 
 import { AutenticacionService } from '@servicios/autenticacion.service';
 
@@ -10,6 +10,7 @@ export class GuardianService implements CanActivate{
 
     constructor(
         private enrutador: Router,
+        private rutaActiva: ActivatedRoute,
         private autenticador: AutenticacionService
     ) { }
  
@@ -24,12 +25,16 @@ export class GuardianService implements CanActivate{
             resultado = true;
         }
 
-        if(!resultado) {
-            this.enrutador.navigate(
-                ['/login'], 
-                { queryParams: { returnUrl: estado.url } }
-            );
+        console.log(usuarioActual,ruta);
+
+        if(resultado) {     
+            if(ruta.routeConfig.path == "login")    this.enrutador.navigate( ['/dashboard'] );            
         }
+        else {
+            if(ruta.routeConfig.path != "login")    this.enrutador.navigate( ['/login'] );
+            resultado=true;
+        }
+
         return resultado;
     }
 

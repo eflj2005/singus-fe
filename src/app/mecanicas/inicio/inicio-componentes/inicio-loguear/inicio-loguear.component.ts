@@ -24,7 +24,8 @@ export class InicioLoguearComponent implements OnInit {
     // private rutas: Router, 
     // private rutaActiva: ActivatedRoute, 
     private datosAmbiente: AmbienteService,
-    private autenticador: AutenticacionService
+    private autenticador: AutenticacionService,
+    private rutas: Router
   ){
     this.documento="";
     this.clave="";
@@ -39,6 +40,7 @@ export class InicioLoguearComponent implements OnInit {
       this.modo = +params['modo'];
     }); 
     */
+   console.log(  this.autenticador.usuarioActual, "INICIO" );
   }    
 
 
@@ -54,18 +56,20 @@ export class InicioLoguearComponent implements OnInit {
     const respuesta = this.autenticador.IniciarSesion(Number(this.documento),this.clave).subscribe(
       (notificacion:RespuestaInterface) => {
         
-        // switch (notificacion.codigo){
-        //   case 1:         //login ok
-        //     //this.rutas.navigate(["/dashboard"]);
-        //   break;
-        //   case 2:         //autenticación erronea
+        switch (notificacion.codigo){
+          case 200:         //login ok
+          
+            //this.rutas.navigate(["/dashboard"], { relativeTo: this.rutaActiva, skipLocationChange: true } );
+            this.rutas.navigate(["/dashboard"]);
+          break;
+          case 2:         //autenticación erronea
 
-        //   break;
-        //   case 3:         //usuario bloqueado
+          break;
+          case 3:         //usuario bloqueado
 
-        //   break;
-        // }
-
+          break;
+        }
+        console.log(  this.autenticador.usuarioActual, "LOGEADO" );
         this.procesando = false;
       }
 
@@ -78,6 +82,11 @@ export class InicioLoguearComponent implements OnInit {
   RecuperarClave(){
     this.datosAmbiente.inicioModo=3;
     this.datosAmbiente.inicioPaso=1;
+  }
+
+  
+  LimpiarToken(){
+    this.autenticador.CerrarSesion();
   }
 
 }

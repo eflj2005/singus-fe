@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {Router} from '@angular/router';
+import { AutenticacionService } from '@app/servicios/autenticacion.service';
 
 
 
@@ -22,7 +23,7 @@ export class DashboardMenuComponent {
     agrupamiento:"",
   }
   
-  constructor(private router: Router, private ruta: ActivatedRoute) {
+  constructor(private rutas: Router, private ruta: ActivatedRoute, private autenticador: AutenticacionService) {
  
 
 
@@ -75,5 +76,20 @@ this.usuario = "Juan Bustos";
     
 }
 
+  CerrarSesion(){
+    this.autenticador.CerrarSesion();
+    this.RecargarComponente();
+
+  }
+
+  RecargarComponente(){
+    this.rutas.routeReuseStrategy.shouldReuseRoute = function(){return false;};
+
+    let currentUrl = this.rutas.url + '?';
   
+    this.rutas.navigateByUrl(currentUrl).then(() => {
+      this.rutas.navigated = false;
+      this.rutas.navigate([this.rutas.url]);
+    });
+  }
 }
