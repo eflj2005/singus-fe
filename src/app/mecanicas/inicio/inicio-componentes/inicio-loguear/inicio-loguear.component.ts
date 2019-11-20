@@ -84,7 +84,7 @@ export class InicioLoguearComponent implements OnInit {
       )
     }
     else{
-      this.hayNotificaion = true;
+      this.hayNotificaion = true; //1
       this.notificacionMensaje ="documento o clave no pueden estar vacios";
     }  
     
