@@ -30,23 +30,23 @@ export class DashboardMenuComponent {
 
 this.usuario = "Juan Bustos";
 
-  this.menu  = [
-    { opcion: 'Cargue1'                  , url:'/lista'                  , icon: "fa-file-archive-o"                 , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"        , orden: 1  },
-    { opcion: 'Cargue2'            , url: '/cambiar'            , icon: "fa-file-archive-o"                 , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"        , orden: 1  },
-    { opcion: 'Cargue3'                  , url: '/'+this.usuario+'/clientes'                  , icon: "fa-file-archive-o"            , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"        , orden: 1  },
-    { opcion: 'Cargue4'       , url: '/'+this.usuario+'/empleados'                 , icon: "fa-file-archive-o"               , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"        , orden: 1  },
-    { opcion: 'Cargue5'          , url: '/'+this.usuario+'/tiposDocumentos'           , icon: "fa-file-archive-o"          , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"        , orden: 1  },
-    { opcion: 'Personas'                    , url: '/'+this.usuario+'/paises'                    , icon: "fa-pencil-square-o"                , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"        , orden: 2  },
-    { opcion: 'Agendamientos'             , url: '/'+this.usuario+'/departamentos'             , icon: "fa-window-restore"                  , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"        , orden: 2  },
-    { opcion: 'Eventos'                  , url: '/'+this.usuario+'/ciudades'                  , icon: "fa-users"                  , agrupamiento: "Actividades"       ,iconPrincipal:"fa-suitcase"        , orden: 3  },
-    { opcion: 'Comunicación'                    , url: '/'+this.usuario+'/cargos'                    , icon: ""        , agrupamiento: "Actividades"       ,iconPrincipal:"fa-suitcase"        , orden: 3  },
-    { opcion: 'Alertas'            , url: '/'+this.usuario+'/especialidades'            , icon: ""       , agrupamiento: "Informes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
-    { opcion: 'Informes'      , url: '/'+this.usuario+'/estadosDemandas'           , icon: ""                , agrupamiento: "Informes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
-    { opcion: 'Perzonalizados'       , url: '/'+this.usuario+'/estadosProcesos'           , icon: ""                , agrupamiento: "Informes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
-    { opcion: 'Informe dinamico'   , url: '/'+this.usuario+'/institucionesLaborales'    , icon: " "          , agrupamiento: "Informes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
-    { opcion: 'Maestro'                  , url: '/'+this.usuario+'/juzgados'                  , icon: " "       , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"        , orden: 5  },
-    { opcion: 'Usuario'               , url: '/'+this.usuario+'/parentesco'                , icon: ""               , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"        , orden: 5  },
-    { opcion: 'Auditoria'         , url: '/'+this.usuario+'/tiposProcesos'             , icon: ""                , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"        , orden: 5  },
+  this.menu  = [ 
+    { opcion: 'Cargue1'           , url:'/lista'                      , icon: "fa-download"                , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
+    { opcion: 'Cargue2'           , url: '/cambiar'                   , icon: "fa-cloud-download"          , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
+    { opcion: 'Cargue3'           , url: '/clientes'                  , icon: "fa-file"                    , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
+    { opcion: 'Cargue4'           , url: '/empleados'                 , icon: "fa-stack-overflow"          , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
+    { opcion: 'Cargue5'           , url: '/tiposDocumentos'           , icon: "fa-files-o"                 , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
+    { opcion: 'Personas'          , url: '/lista'                     , icon: "fa-pencil-square-o"         , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"     , orden: 2  },
+    { opcion: 'Agendamientos'     , url: '/agendamiento'              , icon: "fa-window-restore"          , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"     , orden: 2  },
+    { opcion: 'Eventos'           , url: '/ciudades'                  , icon: "fa-users"                   , agrupamiento: "Actividades"       ,iconPrincipal:"fa-suitcase"           , orden: 3  },
+    { opcion: 'Comunicación'      , url: '/cargos'                    , icon: "fa-envelope"                , agrupamiento: "Actividades"       ,iconPrincipal:"fa-suitcase"           , orden: 3  },
+    { opcion: 'Alertas'           , url: '/especialidades'            , icon: "fa-exclamation-circle"      , agrupamiento: "Informes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
+    { opcion: 'Informes'          , url: '/estadosDemandas'           , icon: "fa-file-pdf-o"              , agrupamiento: "Informes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
+    { opcion: 'Perzonalizados'    , url: '/estadosProcesos'           , icon: "fa-file-code-o"             , agrupamiento: "Informes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
+    { opcion: 'Informe dinamico'  , url: '/institucionesLaborales'    , icon: "fa-file-excel-o"            , agrupamiento: "Informes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
+    { opcion: 'Maestro'           , url: '/juzgados'                  , icon: "fa-share-alt-square"        , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
+    { opcion: 'Usuario'           , url: '/parentesco'                , icon: "fa-user-circle-o "          , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
+    { opcion: 'Auditoria'         , url: '/tiposProcesos'             , icon: "fa-bar-chart "              , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
   ];
 
   var menuActual : string;
