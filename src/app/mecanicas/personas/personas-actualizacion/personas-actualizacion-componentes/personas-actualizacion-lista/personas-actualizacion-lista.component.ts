@@ -304,7 +304,7 @@ export class PersonasActualizacionListaComponent implements OnInit {
   ngOnInit() {
   }
   verPersona(datos){
-    console.log(datos.modo);
+    
     this.AmbienteService.actualizacionModo.modo = datos.modo
   }
 }
