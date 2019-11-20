@@ -1,0 +1,31 @@
+.col.edit{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.img-fluid.editperson{
+    width: 10rem;
+    height: auto;
+   
+}
+
+.col-md-11.infoSpace{
+    background-color: rgb(255,255,255); /* Fallback color */
+    background-color: rgba(0,0,0,0.04); /* Black w/ opacity */
+}
+.btn.editperson{
+        width: auto;
+        height: 33%;
+        padding: 1%;
+        margin: 6%;
+}
+
+.btn.editperson:hover{
+    /* background-color:rgba(255,204,2,0.2) ; */
+    background-color:#00529b;
+    
+}
+
+

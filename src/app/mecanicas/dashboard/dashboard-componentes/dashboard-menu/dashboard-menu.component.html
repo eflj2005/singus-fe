@@ -1,25 +1,23 @@
 <nav class="main-menu">
     <ul class="dropdown">
+        <li *ngFor="let grupo of nuevoMenu" >
+            <a href="" class="icon-menu">
+                    <i class="fa {{grupo.iconoP}}  fa-2x"></i>
+            
+                    <span class="nav-text">
+                            {{grupo.nombre}}
+                    </span>
+            </a>
+            <ul >
 
-
-                    <li *ngFor="let grupo of nuevoMenu" >
-                        <a href="">
-                                <i class="fa {{grupo.iconoP}}  fa-2x"></i>
-                        
-                                <span class="nav-text">
-                                        {{grupo.nombre}}
-                                </span>
-                        </a>
-                        <ul >
-
-                            <li *ngFor="let opcionActual of grupo.opciones" class="opciones">
-                                <a routerLink={{opcionActual.url}}>
-                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text"><span class="fa {{opcionActual.icon}}  fa-2x"></span>&nbsp;&nbsp;{{opcionActual.opcion}}</span>
-                                </a>
-                            </li>
-                     
-                        </ul>
-                    </li>
+                <li *ngFor="let opcionActual of grupo.opciones" class="opciones">
+                    <a routerLink={{opcionActual.url}}>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text"><span class="fa {{opcionActual.icon}}  fa-2x"></span>{{opcionActual.opcion}}</span>
+                    </a>
+                </li>
+            
+            </ul>
+        </li>
     </ul>                  
     <ul class="logout">
         <li>

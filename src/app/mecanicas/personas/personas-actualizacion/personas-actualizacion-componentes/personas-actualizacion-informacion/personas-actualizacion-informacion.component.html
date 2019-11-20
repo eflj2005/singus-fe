@@ -1,179 +1,236 @@
-<div class="container">
+<div class="container column">
    
-            <h2 align='center'>Editar De Persona</h2>
-   
-        
-        <div class="form-group row ">
-          <div class="col-md-2">
-            <label> Cohorte:</label>
-            <input type="text" class="form-control"  [(ngModel)]="cohorte" [disabled]="habilitado">
-          </div>
+    <h2 align='center'>Editar Persona</h2>
           
-          <div  class="col-md-3">
-            <label> Sede:</label>
-            <select class="form-control" [(ngModel)]="sede">
-                    <option value="0" disabled >--Seleccione Sede--</option>
-                    <option value="{{sedeBase.Id}}" *ngFor="let sedeBase of sedes">{{sedeBase.Descripcion}}</option>
-            </select>
-          </div>          
-          <div class="col-md-3">
-            <label >Titulo :</label>
-            <select class="form-control" [(ngModel)]="titulo">
-                 <option value="0" disabled >--Seleccione titulo--</option>
-                 <option value="{{tituloBase.Id}}" *ngFor="let tituloBase of titulos">{{tituloBase.Descripcion}}</option>
-            </select>
-          </div>
-          <div class="col-md-4">
-                <label >Programa :</label>
-                <select class="form-control" [(ngModel)]="programa">
-                     <option value="0" disabled >--Seleccione Programa--</option>
-                     <option value="{{programaBase.Id}}" *ngFor="let programaBase of programas">{{programaBase.Descripcion}}</option>
-                </select>
-              </div>
+  <div class="form-group row">
+        <div class="col-md-1 form-group column  " >
+          <button type="button" class="btn editperson active" (click)="cambiarOpcion(1)">
+            <div>
+              <img src="../../../../../../assets/imagenes/persona.png" class="img-fluid editperson" alt="Responsive image">
+            </div>
+          </button>
+          <button type="button" class="btn  editperson" (click)="cambiarOpcion(2)">                
+            <div>
+              <img src="../../../../../../assets/imagenes/estudios.png" class="img-fluid editperson" alt="Responsive image">
+            </div>
+          </button>
+          <button type="button" class="btn editperson" (click)="cambiarOpcion(3)">                
+            <div>
+              <img src="../../../../../../assets/imagenes/trabajo.png" class="img-fluid editperson" alt="Responsive image">
+            </div>
+          </button>         
         </div>
-        <div class="form-group row">
-            <div  class="col-md-1">
-                <label> Id:</label>
-                <input type="text"   class="form-control"  [(ngModel)]="id"  >
-            </div>
-          <div class="col-md-3">
-            <label>Nombres:</label>
-            <input type="text"   class="form-control"   [(ngModel)]="nombres" >
-          </div>
-          
-          <div class="col-md-3">
-            <label>Apellidos:</label>
-            <input type="text"   class="form-control"    [(ngModel)]="apellidos" >
-          </div>
-          <div class="col-md-1">
-                <label>Genero:</label>
-                <select class="form-control" [(ngModel)]="genero">
-                    <option value="0" disabled >--Seleccione genero--</option>
-                    <option value="{{generoBase.Id}}" *ngFor="let generoBase of generos">{{programaBase.Descripcion}}</option>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <label >Correo Institucional:</label>
-                <input type="email" name="email" ngModel [email]="true" class="form-control" [(ngModel)]="correoInstitucional" placeholder="Ejemplo@hotmail.com">
-            </div>
-            
-          </div>
-        
-        <div class="form-group row">
-            <div class="col-md-1">
-                    <label>TipoDoc:</label>
-                    <select class="form-control" [(ngModel)]="genero">
-                        <option value="0" disabled >--Seleccione genero--</option>
-                        <option value="{{generoBase.Id}}" *ngFor="let generoBase of generos">{{programaBase.Descripcion}}</option>
-                    </select>
-            </div>
-            <div class="col-md-2">
-                <label >Documento :</label>
-                <input type="number"   class="form-control"  [(ngModel)]="cedula" name="cedula">
-            </div>
-  
-            <div class="col-md-3">
-                    <label >Expedida :</label>
-                    <select class="form-control" [(ngModel)]="expedicion">
-                        <option value="0" disabled >--Seleccione Expedición--</option>
-                        <option value="{{expedidaBase.Id}}" *ngFor="let expedidaBase of expediciones">{{expedidaBase.Descripcion}}</option>
-                    </select>
-            </div>  
-            <div class="col-md-2">
-                    <label >Fecha Nacimiento :</label>
-                    <input type="date" class="form-control " [(ngModel)]="fechaNacimiento">
-            </div>
-            <div class="col-md-4">
-                    <label >Correo Personal:</label>
-                    <input type="email" name="email" ngModel [email]="true" class="form-control" [(ngModel)]="correoPersonal" placeholder="Ejemplo@hotmail.com">
-            </div>
-        </div>
-        
-        <div class="form-group row">
-            <div class="col-md-4">
-                <label>Direccion:</label>
-                <input type="text"   class="form-control"    [(ngModel)]="direccion" >
-            </div>
-            <div class="col-md-4">
-                <label >Municipio de Residencia:</label>
-                <select class="form-control" [(ngModel)]="residencia">
-                    <option value="0" disabled >--Seleccione Residencia--</option>
-                    <option value="{{residenciaBase.Id}}" *ngFor="let residenciaBase of residencias">{{residenciaBase.Descripcion}}</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <label >Telefono :</label>
-                <input type="number"   class="form-control"  [(ngModel)]="telefono" >
-            </div>
-            <div class="col-md-2">
-                <label >Celular :</label>
-                <input type="number"   class="form-control"  [(ngModel)]="celular" >
-            </div>
-  
-        </div>
-        <div class="form-group row">
-            
-            <div class="col-md-6">
-              <label >Descripción del mecanismo /Proyecto:</label>
-              <textarea type="textarea" class="form-control"  [(ngModel)]="descripcionProyecto" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología">
-              </textarea>
-            </div>
-            <div class="col-md-6">
-                <label >Descripción del mecanismo /Programa:</label>
-                <textarea type="textarea" class="form-control"  [(ngModel)]="descripcionPrograma" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología">
-                </textarea>
-            </div>
-     
-        </div >
-          <div class="form-group row"  >
-            <div class="col-md-4">
-              <label >Empleo  Directamente relacionado con su campo de formación :</label><br/>
-              <textarea type="textarea" class="form-control"  [(ngModel)]="empleoDirecctamente" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología"></textarea>
-            </div>
-            <div class="col-md-4">
-              <label >Empleo  Indirectamente relacionado con su campo de formación :</label><br/>
-              <textarea type="textarea" class="form-control"  [(ngModel)]="empleoRelacionado" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología"></textarea>
-            </div>
-            <div class="col-md-4">
-              <label >Empleo Nada relacionado con su con su campo de formación :</label><br/>
-              <textarea type="textarea" class="form-control"  [(ngModel)]="empleoNoRelacionado" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología"></textarea>
-            </div>
-          </div>
-          <div class="form-group"  class="row">
-            <div class="col-md-2">
-              <label >Desempleado:</label> <br/>
-              <input type="text"   class="form-control"    [(ngModel)]="desempleado" >
-            </div>
-            <div class="col-md-4">
-              <label >Total Ingresos Mensuales :</label><br/>
-              <input type="number"   class="form-control"    [(ngModel)]="salario" >
-            </div>
-            <div class="col-md-3">
-              <label >Asociación a la que pertenece :</label><br/>
-              <input type="text"   class="form-control"    [(ngModel)]="asociasion" >
-            </div>
-            <div class="col-md-3">
-                    <label >Nacional / Internacional:</label><br/>
-                    <input type="text"   class="form-control"    [(ngModel)]="nacional" >
-                </div> 
-            </div>
-            <div class="form-group row" > 
-                  <div class="col-md-3">
-                        <label>Sector:</label>
-                        <input type="text"   class="form-control"    [(ngModel)]="sector" >
+        <div class="col-md-11 infoSpace " >
+            <h3>{{opcion.nombreOpcion}}</h3>
+            <hr>
+
+            <div  *ngIf="opcion.tipo == 1">
+                <div class="form-group row" >
+                    <div class="col-md-1">
+                      <label> Cohorte:</label>
+                      <input type="text" class="form-control"  [(ngModel)]="cohorte" [disabled]="habilitado">
                     </div>
-                <div class="col-md-3">
+                    <div  class="col-md-2">
+                      <label> Sede:</label>
+                      <select class="form-control" [(ngModel)]="sede">
+                              <option value="0" disabled >--Seleccione Sede--</option>
+                              <option value="{{sedeBase.Id}}" *ngFor="let sedeBase of sedes">{{sedeBase.Descripcion}}</option>
+                      </select>
+                    </div>          
+                    <div class="col-md-5">
+                      <label >Titulo :</label>
+                      <select class="form-control" [(ngModel)]="titulo">
+                          <option value="0" disabled >--Seleccione titulo--</option>
+                          <option value="{{tituloBase.Id}}" *ngFor="let tituloBase of titulos">{{tituloBase.Descripcion}}</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                          <label >Programa :</label>
+                          <select class="form-control" [(ngModel)]="programa">
+                              <option value="0" disabled >--Seleccione Programa--</option>
+                              <option value="{{programaBase.Id}}" *ngFor="let programaBase of programas">{{programaBase.Descripcion}}</option>
+                          </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div  class="col-md-2">
+                          <label> Id:</label>
+                          <input type="text"   class="form-control"  [(ngModel)]="id"  >
+                    </div>
+                    <div class="col-md-1">
+                        <label>TipoDoc:</label>
+                        <select class="form-control" [(ngModel)]="genero">
+                            <option value="0" disabled >--Seleccione genero--</option>
+                            <option value="{{generoBase.Id}}" *ngFor="let generoBase of generos">{{programaBase.Descripcion}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label >Documento :</label>
+                        <input type="number"   class="form-control"  [(ngModel)]="cedula" name="cedula">
+                    </div>
+                    <div class="col-md-3">
+                        <label >Expedida :</label>
+                        <select class="form-control" [(ngModel)]="expedicion">
+                            <option value="0" disabled >--Seleccione Expedición--</option>
+                            <option value="{{expedidaBase.Id}}" *ngFor="let expedidaBase of expediciones">{{expedidaBase.Descripcion}}</option>
+                        </select>
+                    </div> 
+                  </div>
+                  <div class="form-group row">
+
+                      <div class="col-md-6">
+                          <label>Nombres:</label>
+                          <input type="text"   class="form-control"   [(ngModel)]="nombres" >
+                        </div>
+                        
+                        <div class="col-md-6">
+                          <label>Apellidos:</label>
+                          <input type="text"   class="form-control"    [(ngModel)]="apellidos" >
+                        </div>
+                        
+                  </div>
+                  <div class="form-group row">
+                      <div class="col-md-1">
+                          <label>Genero:</label>
+                          <select class="form-control" [(ngModel)]="genero">
+                              <option value="0" disabled >--Seleccione genero--</option>
+                              <option value="{{generoBase.Id}}" *ngFor="let generoBase of generos">{{programaBase.Descripcion}}</option>
+                          </select>
+                    </div>
+                    <div class="col-md-2">
+                            <label >Fecha Nacimiento :</label>
+                            <input type="date" class="form-control " [(ngModel)]="fechaNacimiento">
+                    </div>
+
+                  </div>
+                  <hr>
+                  <div class="form-group row">
+                      <div class="col-md-4">
+                          <label >Correo Personal:</label>
+                          <input type="email" name="email" ngModel [email]="true" class="form-control" [(ngModel)]="correoPersonal" placeholder="Ejemplo@hotmail.com">
+                      </div>
+                      <div class="col-md-4">
+                          <label >Correo Institucional:</label>
+                          <input type="email" name="email" ngModel [email]="true" class="form-control" [(ngModel)]="correoInstitucional" placeholder="Ejemplo@hotmail.com">
+                      </div> 
+
+                      <div class="col-md-4">
+                          <label>Direccion:</label>
+                          <input type="text"   class="form-control"    [(ngModel)]="direccion" >
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-4">
+                        <label >Municipio de Residencia:</label>
+                        <select class="form-control" [(ngModel)]="residencia">
+                            <option value="0" disabled >--Seleccione Residencia--</option>
+                            <option value="{{residenciaBase.Id}}" *ngFor="let residenciaBase of residencias">{{residenciaBase.Descripcion}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label >Telefono :</label>
+                        <input type="number"   class="form-control"  [(ngModel)]="telefono" >
+                    </div>
+                    <div class="col-md-2">
+                        <label >Celular :</label>
+                        <input type="number"   class="form-control"  [(ngModel)]="celular" >
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="opcion.tipo == 2" >
+              <h4>Mecanismo de graduación</h4>
+              <div class="form-group row">
+                  <div class="col-md-6">
+                    <label >Descripción del mecanismo /Proyecto:</label>
+                    <textarea type="textarea" class="form-control"  [(ngModel)]="descripcionProyecto" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología">
+                    </textarea>
+                  </div>
+                  <div class="col-md-6">
+                      <label >Descripción del mecanismo /Programa:</label>
+                      <textarea type="textarea" class="form-control"  [(ngModel)]="descripcionPrograma" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología">
+                      </textarea>
+                  </div>
+              </div>
+              <hr>
+              <h4>Reconocimientos y distinciones</h4>
+              <div class="form-group row" > 
+                <div class="col-md-4">
                         <label>Reconocimiento otorgado:</label>
                         <input type="text"   class="form-control"    [(ngModel)]="reconocimiento" >
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                         <label>Motivo del reconocimiento:</label>
                         <input type="text"   class="form-control"    [(ngModel)]="motivo" >
-                    </div>
-                <div class="col-md-3">
+                </div>
+                <div class="col-md-4">
                         <label>Institución que reconoce:</label>
                         <input type="text"   class="form-control"    [(ngModel)]="otorgaReconocimiento" >
-                </div>  
+                </div>
+              </div>
+              <hr>
+              <h4>Comunidades academicas y asociaciones</h4>
+              <div class="form-group row" >
+                  <div class="col-md-4">
+                      <label>Sector:</label>
+                      <input type="text"   class="form-control"    [(ngModel)]="sector" >
+                  </div>
+                  <div class="col-md-4">
+                      <label >Nacional / Internacional:</label><br/>
+                      <input type="text"   class="form-control"    [(ngModel)]="nacional" >
+                  </div>
+                  <div class="col-md-4">
+                      <label >Asociación a la que pertenece :</label><br/>
+                      <input type="text"   class="form-control"    [(ngModel)]="asociasion" >
+                  </div> 
+              </div>  
+            </div>
+          
+            <div *ngIf="opcion.tipo == 3">
+                <div class="form-group row"  >
+                    <div class="col-md-4">
+                      <label >Empleo  Directamente relacionado con su campo de formación :</label><br/>
+                      <textarea type="textarea" class="form-control"  [(ngModel)]="empleoDirecctamente" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología"></textarea>
+                    </div>
+                    <div class="col-md-4">
+                      <label >Empleo  Indirectamente relacionado con su campo de formación :</label><br/>
+                      <textarea type="textarea" class="form-control"  [(ngModel)]="empleoRelacionado" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología"></textarea>
+                    </div>
+                    <div class="col-md-4">
+                      <label >Empleo Nada relacionado con su con su campo de formación :</label><br/>
+                      <textarea type="textarea" class="form-control"  [(ngModel)]="empleoNoRelacionado" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row"  >
+                    <div class="col-md-2">
+                        <label >Desempleado:</label> <br/>
+                        <input type="text"   class="form-control"    [(ngModel)]="desempleado" >
+                    </div>
+                    <div class="col-md-4">
+                        <label >Total Ingresos Mensuales :</label><br/>
+                        <input type="number"   class="form-control"    [(ngModel)]="salario" >
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>  
+<!--       
+     
+  
+        </div>
+          
+
+
+        </div >
+          
+          <div class="form-group"  class="row">
+
+>
+
+            </div>
+ 
             </div>  
             <div class="form-group row" >
                 <div class="col-md-4">
@@ -189,11 +246,14 @@
                         <input type="text"   class="form-control"    [(ngModel)]="encuentaOle" >
                 </div>      
             </div>
-          
-          <br/> 
+           -->
+          <!-- <br/> 
           <div>
-            <button type="button" class="btn btn-success" (click)="GuardarAsociado()">Guardar</button>
-            <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
-          </div>
+
+          </div> -->
       
       </div>
+  
+  <button type="button" class="btn btn-outline-dark" (click)="Cancelar()">Cancelar</button>
+  <button type="button" class="btn btn-primary" (click)="GuardarAsociado()">Guardar</button>
+</div>
