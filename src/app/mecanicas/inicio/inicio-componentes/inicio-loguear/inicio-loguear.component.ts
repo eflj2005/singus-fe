@@ -11,14 +11,20 @@ import { RespuestaInterface } from '@app/modelos/respuesta.interface';
   styleUrls: ['./inicio-loguear.component.css']
 })
 export class InicioLoguearComponent implements OnInit {
+  
+  
+
   documento:string;
   clave:string;
   
-  esEstudiante:boolean;
-    
   modo:number;   //Modo de inicio =>  1 = Login normal, 2 = Nuevo Administrador
+  procesando:boolean;
+  hayNotificaion:boolean;
+  notificacionMensaje:string;
+  
 
-  procesando:boolean=null;
+
+
 
   constructor( 
     // private rutas: Router, 
@@ -31,6 +37,9 @@ export class InicioLoguearComponent implements OnInit {
     this.clave="";
     this.procesando=false;
   
+    this.hayNotificaion = false;
+    this.notificacionMensaje ="";
+
   }
 
   ngOnInit() {
@@ -40,7 +49,7 @@ export class InicioLoguearComponent implements OnInit {
       this.modo = +params['modo'];
     }); 
     */
-   console.log(  this.autenticador.usuarioActual, "INICIO" );
+   //console.log(  this.autenticador.usuarioActual, "INICIO" );
   }    
 
 
@@ -51,31 +60,33 @@ export class InicioLoguearComponent implements OnInit {
 
   ValidarLogin(){
   
-    this.procesando=true;
+    if( this.documento != "" && this.clave != ""  ){
+      this.procesando=true;
 
-    const respuesta = this.autenticador.IniciarSesion(Number(this.documento),this.clave).subscribe(
-      (notificacion:RespuestaInterface) => {
-        
-        switch (notificacion.codigo){
-          case 200:         //login ok
-          
-            //this.rutas.navigate(["/dashboard"], { relativeTo: this.rutaActiva, skipLocationChange: true } );
-            this.rutas.navigate(["/dashboard"]);
-          break;
-          case 2:         //autenticación erronea
-
-          break;
-          case 3:         //usuario bloqueado
-
-          break;
+      const respuesta = this.autenticador.IniciarSesion(Number(this.documento),this.clave).subscribe(
+        (notificacion:RespuestaInterface) => {
+          console.log(notificacion, "RESPUESTA");
+          switch (notificacion.codigo){
+            case 200:         //login ok
+            
+              //this.rutas.navigate(["/dashboard"], { relativeTo: this.rutaActiva, skipLocationChange: true } );
+              this.rutas.navigate(["/dashboard"]);
+            break;
+            case 401:         //autenticación erronea / Usuario Bloqueado / Usuario Inactivo
+              this.hayNotificaion = true;
+              this.notificacionMensaje = notificacion.asunto + ": " + notificacion.mensaje;
+            break;
+          }
+        // console.log(  this.autenticador.usuarioActual, "LOGEADO" );
+          this.procesando = false;
         }
-        console.log(  this.autenticador.usuarioActual, "LOGEADO" );
-        this.procesando = false;
-      }
 
-    )
-
-    
+      )
+    }
+    else{
+      this.hayNotificaion = true;
+      this.notificacionMensaje ="documento o clave no pueden estar vacios";
+    }  
     
   }
 
@@ -87,6 +98,10 @@ export class InicioLoguearComponent implements OnInit {
   
   LimpiarToken(){
     this.autenticador.CerrarSesion();
+  }
+
+  CerrarNotificacio(){
+    this.hayNotificaion = false;
   }
 
 }

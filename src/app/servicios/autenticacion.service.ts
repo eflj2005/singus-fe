@@ -48,12 +48,11 @@ export class AutenticacionService {
   }  
 
   IniciarSesion( documento:number, clave: string ): Observable<RespuestaInterface> {
-    
+      
     let datosEnviados =  { accion:'iniciar_sesion', documento: documento, clave : clave };
     return this.llamadoHttp.post<RespuestaInterface>( this.datosAmbiente.GetUrlRecursos() + "pasarela.php", datosEnviados ).pipe(
       map(
         (respuesta: RespuestaInterface) => {
-          
           if (respuesta.codigo == 200){
               let token = respuesta.mensaje;
               let decoded = jwt_decode(token); 
@@ -63,7 +62,8 @@ export class AutenticacionService {
 
               // store user details and jwt token in local storage to keep user logged in between page refreshes
               localStorage.setItem('usuarioActual', JSON.stringify(usuarioRecibido));
-              this.usuarioActualIntermediario.next(usuarioRecibido);            
+              this.usuarioActualIntermediario.next(usuarioRecibido);
+         
           }
 
           return respuesta;
