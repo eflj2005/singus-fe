@@ -17,6 +17,8 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
   correo:string= null;
   telefono:string= null;  
 
+  documentoModelo:string;
+
 
   procesando:boolean=null;
 
@@ -31,6 +33,8 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
     this.apellidos="";
     this.correo="";
     this.telefono=null;
+
+    this.documentoModelo="^[0-9]*$";
 
     this.procesando=false;
   }
