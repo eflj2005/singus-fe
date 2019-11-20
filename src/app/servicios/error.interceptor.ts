@@ -15,7 +15,6 @@ export class ErrorInterceptorService implements HttpInterceptor {
 
   intercept(solicitud: HttpRequest<any>, next: HttpHandler ): Observable<HttpEvent<any>>{
 
-    
     const observable = next.handle(solicitud).pipe(
        catchError(
         respuestaError => {

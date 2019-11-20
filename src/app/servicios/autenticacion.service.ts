@@ -7,7 +7,7 @@ import { AmbienteService } from '@servicios/ambiente.service';
 import { UsuarioInterface } from '@modelos/usuario.interface';
 import { RespuestaInterface } from '@app/modelos/respuesta.interface';
 
-// import * as jwt_decode from 'jwt-decode';
+import * as jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -48,22 +48,22 @@ export class AutenticacionService {
   }  
 
   IniciarSesion( documento:number, clave: string ): Observable<RespuestaInterface> {
-    
+      
     let datosEnviados =  { accion:'iniciar_sesion', documento: documento, clave : clave };
     return this.llamadoHttp.post<RespuestaInterface>( this.datosAmbiente.GetUrlRecursos() + "pasarela.php", datosEnviados ).pipe(
       map(
         (respuesta: RespuestaInterface) => {
-          
           if (respuesta.codigo == 200){
               let token = respuesta.mensaje;
-              // let decoded = jwt_decode(token); 
+              let decoded = jwt_decode(token); 
 
-              // let usuarioRecibido:UsuarioInterface = decoded['data'];
-              // usuarioRecibido.token = respuesta.mensaje;
+              let usuarioRecibido:UsuarioInterface = decoded['data'];
+              usuarioRecibido.token = respuesta.mensaje;
 
-              // // store user details and jwt token in local storage to keep user logged in between page refreshes
-              // localStorage.setItem('usuarioActual', JSON.stringify(usuarioRecibido));
-              // this.usuarioActualIntermediario.next(usuarioRecibido);            
+              // store user details and jwt token in local storage to keep user logged in between page refreshes
+              localStorage.setItem('usuarioActual', JSON.stringify(usuarioRecibido));
+              this.usuarioActualIntermediario.next(usuarioRecibido);
+         
           }
 
           return respuesta;
