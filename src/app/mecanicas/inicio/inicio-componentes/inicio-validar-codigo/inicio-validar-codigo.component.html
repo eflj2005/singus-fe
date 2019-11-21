@@ -3,15 +3,14 @@
 <!-- contenedor para formulario de registro -->
 
 <div class="container contenido">
-    <div class="titulo">
+    <div class="tituloSecundario ">
         <strong>
-            <div><I>VALIDACION DE CODIGO</I></div>
+            <div>VALIDACIÓN DE CODIGO</div>
         </strong>
         <div>&nbsp;</div>
     </div>
-            
+    <label>Ingrese el codigo recibido</label>
     <input type="text" class="form-control" [(ngModel)]="codigo" placeholder="___-___" [pattern]="codigoModelo" #codigoMensaje="ngModel" required> 
-    <label><b>Ingrese el codigo recibido</b></label>
     <ngb-alert  *ngIf="codigoMensaje.errors?.pattern" type="custom" [dismissible]="false">El codigo debe tener el formato "???-???"</ngb-alert>
 </div>
 
@@ -19,7 +18,7 @@
 <!-- contenedor para opciones o botones de login normal-->
 
 <div  class="container opcionesPie roundDown">
-    <button class="mibutton" *ngIf="codigoMensaje.errors?.pattern || codigo == null" (click)="ValidarCodigo()" disabled><del>Validar</del></button>
+    <button class="mibutton" *ngIf="codigoMensaje.errors?.pattern || codigo == null" (click)="ValidarCodigo()" disabled>Validar</button>
     <button class="mibutton" *ngIf="!codigoMensaje.errors?.pattern && codigo != null && procesando == false" (click)="ValidarCodigo()" >Validar</button>
     <button class="mibutton" *ngIf="!codigoMensaje.errors?.pattern && codigo != null && procesando == true" ><i class="fa fa-spinner fa-spin"></i></button>
 </div>

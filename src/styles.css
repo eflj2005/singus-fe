@@ -4,31 +4,33 @@ body {font-family: 'lato';}
 
 /* Set a style for all buttons */
 .mibutton {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #E4AC34;
+    color: black;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
     cursor: pointer;
     width: 100%;
     border-radius: 10px;
+    text-decoration: none;
 }
 
 .mibutton:hover {
-    opacity: 0.8;
+    background-color: #007bff;
+    color: white;
 }
 
 .container {
     padding: 10px;
 }
 
-.container.contenido {
+/* .container.contenido {
     background-color:rgb(255, 255, 255, 0.9);
 }
 
 .container.opcionesPie{
     background-color:rgba(226, 226, 226, 0.9);
-}
+} */
 
 .container.roundUp {
     border-top-left-radius: 25px;
@@ -48,15 +50,13 @@ body {font-family: 'lato';}
 
 }
 
-.tituloPrincipal .nombre {
-   color: #ffce00;
-   font-size: 40px ;
-}
 
 
 .tituloSecundario {
    text-align: center;
-   color: #000000;
+   color:white;
+   font-size: 20px;
+   margin-bottom: 20px;
 }
 
 h1{

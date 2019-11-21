@@ -1,15 +1,15 @@
 <!-- contenedor para formulario de registro -->
 
 <div class="container contenido">
-    <div class="titulo">
+    <div class="tituloSecundario">
         <strong>
-            <div><I>RECUPERACION DE CLAVE</I></div>
+            <div>RECUPERACION DE CLAVE</div>
         </strong>
         <div>&nbsp;</div>
     </div>
             
-    <input type="text" class="form-control" [(ngModel)]="documento"  [pattern]="documentoModelo" #documentoMensaje="ngModel" required> 
-    <label><b>Ingrese documento registrado</b></label>
+    <input type="text" class="form-control" [(ngModel)]="documento"  placeholder="Ingrese documento registrado"  [pattern]="documentoModelo" #documentoMensaje="ngModel" required> 
+    <!-- <label><b>Ingrese documento registrado</b></label> -->
     <ngb-alert  *ngIf="documentoMensaje.errors?.pattern" type="custom" [dismissible]="false">Debe registrar un documento</ngb-alert>
 
 

@@ -1,11 +1,25 @@
 <!-- modal contenedor -->
-<div id="div_login_modal" class="modal">
+<div id="div_login_modal" class="modal" >
 
     <div class="modal-content animate">
         <!-- contenedor de imagen -->
 
-        <div class="imgcontainer">
-            <img src="../../../../assets/imagenes/logo_uniminuto.png" alt="Avatar" class="avatar">
+        <div class="titlecontainer" >
+            
+            <div class="logocontainer">
+                <!-- <strong> -->
+                <img src="../../../../assets/imagenes/logo_uniminuto.png" alt="Avatar" class="avatar">
+                
+                <div class="nombre col-md-2">
+                    <strong>S.In.G.U.S</strong>
+                </div>
+                    
+            
+                <!-- </strong> -->
+            </div>
+
+            <div id="descripcion">Sistema de Información de Graduados Uniminuto para Seguimiento</div>
+            
         </div>
 
          <!-- contenedor para procesos -->
@@ -13,21 +27,21 @@
             <!-- <router-outlet></router-outlet> -->
 
             
-            <div *ngIf="datosAmbiente.inicioModo == 1">
+            <div *ngIf="datosAmbiente.inicioModo == 2">
                 <app-inicio-loguear></app-inicio-loguear>
             </div>
             
-            <div *ngIf="datosAmbiente.inicioModo == 2">
+            <div *ngIf="datosAmbiente.inicioModo == 1">
 
-                <div *ngIf="datosAmbiente.inicioPaso == 1 || datosAmbiente.inicioPaso == 2">
+                <!-- <div *ngIf="datosAmbiente.inicioPaso == 1 || datosAmbiente.inicioPaso == 2">
                     <app-inicio-registrar-administrador></app-inicio-registrar-administrador>
-                </div>
+                </div> -->
 
                 <div *ngIf="datosAmbiente.inicioPaso == 3">
                     <app-inicio-validar-codigo></app-inicio-validar-codigo>
                 </div>
                 
-                <div *ngIf="datosAmbiente.inicioPaso == 4">
+                <div *ngIf="datosAmbiente.inicioPaso == 1">
                     <app-cambiar-clave></app-cambiar-clave>
                 </div>
 
