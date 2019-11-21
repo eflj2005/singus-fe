@@ -129,7 +129,7 @@
     color:white;
     }
     .main-menu li:hover> .icon-menu{
-        color:#f3ce32;
+        color:rgb(133, 180, 250);
     }
 
     .main-menu li>a { 

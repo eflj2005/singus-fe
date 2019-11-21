@@ -27,5 +27,12 @@
     background-color:#00529b;
     
 }
-
+.buttonGeneral{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.buttonDown{
+    display: flex;
+    direction: rtl;
+}
 
