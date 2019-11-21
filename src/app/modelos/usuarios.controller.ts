@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { GenericoModel } from './generico.model';
@@ -15,9 +15,10 @@ export class UsuariosController extends GenericoModel {
   
   registros: UsuarioInterface[]= [];
 
-  constructor(
-    private llamadoHttp :HttpClient
-  ){ super(); }
+  constructor( private injector:Injector ) {
+    super( injector.get(HttpClient)  , injector.get(AmbienteService) );
+    this.nombreTabla = "areas";
+  }
 
 
 
