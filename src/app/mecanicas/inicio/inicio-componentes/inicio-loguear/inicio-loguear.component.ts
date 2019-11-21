@@ -17,6 +17,8 @@ export class InicioLoguearComponent implements OnInit {
   documento:string;
   clave:string;
   
+  documentoModelo:string;
+
   modo:number;   //Modo de inicio =>  1 = Login normal, 2 = Nuevo Administrador
   procesando:boolean;
   hayNotificaion:boolean;
@@ -35,6 +37,9 @@ export class InicioLoguearComponent implements OnInit {
   ){
     this.documento="";
     this.clave="";
+
+    this.documentoModelo="^[0-9]*$";
+
     this.procesando=false;
   
     this.hayNotificaion = false;
@@ -59,13 +64,11 @@ export class InicioLoguearComponent implements OnInit {
 
 
   ValidarLogin(){
-  
-    if( this.documento != "" && this.clave != ""  ){
-      this.procesando=true;
+    this.procesando=true;
 
+    if( this.documento != "" && this.clave != ""  ){
       const respuesta = this.autenticador.IniciarSesion(Number(this.documento),this.clave).subscribe(
         (notificacion:RespuestaInterface) => {
-          console.log(notificacion, "RESPUESTA");
           switch (notificacion.codigo){
             case 200:         //login ok
             
@@ -85,7 +88,8 @@ export class InicioLoguearComponent implements OnInit {
     }
     else{
       this.hayNotificaion = true; 
-      this.notificacionMensaje ="documento o clave no pueden estar vacios";
+      this.notificacionMensaje ="Documento o Clave no pueden estar vacios";
+      this.procesando = false;
     }  
     
   }

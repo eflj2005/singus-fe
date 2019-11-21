@@ -25,7 +25,8 @@
       </div>
 
       <label><b>Documento</b></label>
-      <input type="number" class="form-control" [(ngModel)]="documento" placeholder="Ingrese el No. de documento" required>            
+      <input type="text" class="form-control" [(ngModel)]="documento" placeholder="Ingrese el No. de documento" [pattern]="documentoModelo" #documentoMensaje="ngModel" required>
+      <ngb-alert  *ngIf="documentoMensaje.errors?.pattern" type="custom" [dismissible]="false">Debe registrar un documento</ngb-alert>               
       <label><b>Nombres</b></label>
       <input type="text" class="form-control" [(ngModel)]="nombres" placeholder="Ingrese los nombres" required>
       <label><b>Apellidos</b></label>
