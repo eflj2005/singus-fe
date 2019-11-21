@@ -7,7 +7,7 @@ export class GenericoModel {
     protected registros:any[] = []
 
     constructor(){
-        this.nombreTabla= GenericoModel.name;
+        //this.nombreTabla= GenericoModel.name;
     }
 
     public CargarFromDB(){
