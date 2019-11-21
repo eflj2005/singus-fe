@@ -1,6 +1,6 @@
 <div class="container column">
    
-    <h2 align='center'>Editar Persona</h2>
+    <h1 align='center'>Editar Persona</h1>
           
   <div class="form-group row">
         <div class="col-md-1 form-group column  " >
@@ -20,7 +20,7 @@
             </div>
           </button>         
         </div>
-        <div class="col-md-11 infoSpace " >
+        <div class=" col-md-11 infoSpace " >
             <h3>{{opcion.nombreOpcion}}</h3>
             <hr>
 
@@ -253,7 +253,9 @@
           </div> -->
       
       </div>
-  
-  <button type="button" class="btn btn-outline-dark" (click)="Cancelar()">Cancelar</button>
-  <button type="button" class="btn btn-primary" (click)="GuardarAsociado()">Guardar</button>
+  <div class="buttonDown">
+    <button type="button" class="btn btn-primary butonGeneral" (click)="GuardarAsociado()">Guardar</button>
+    <button type="button" class="btn btn-outline-dark buttonGeneral" (click)="Cancelar()">Cancelar</button>
+  </div>
+
 </div>

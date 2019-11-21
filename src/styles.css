@@ -58,3 +58,10 @@ body {font-family: 'lato';}
    text-align: center;
    color: #000000;
 }
+
+h1{
+    font-family: 'lato';
+    padding: 1rem;
+    display: BLOCK;
+    color: #00529b;
+}
