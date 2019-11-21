@@ -27,21 +27,21 @@
             <!-- <router-outlet></router-outlet> -->
 
             
-            <div *ngIf="datosAmbiente.inicioModo == 2">
+            <div *ngIf="datosAmbiente.inicioModo == 1">
                 <app-inicio-loguear></app-inicio-loguear>
             </div>
             
-            <div *ngIf="datosAmbiente.inicioModo == 1">
+            <div *ngIf="datosAmbiente.inicioModo == 2">
 
-                <!-- <div *ngIf="datosAmbiente.inicioPaso == 1 || datosAmbiente.inicioPaso == 2">
+                <div *ngIf="datosAmbiente.inicioPaso == 1 || datosAmbiente.inicioPaso == 2">
                     <app-inicio-registrar-administrador></app-inicio-registrar-administrador>
-                </div> -->
+                </div>
 
                 <div *ngIf="datosAmbiente.inicioPaso == 3">
                     <app-inicio-validar-codigo></app-inicio-validar-codigo>
                 </div>
                 
-                <div *ngIf="datosAmbiente.inicioPaso == 1">
+                <div *ngIf="datosAmbiente.inicioPaso == 4">
                     <app-cambiar-clave></app-cambiar-clave>
                 </div>
 
