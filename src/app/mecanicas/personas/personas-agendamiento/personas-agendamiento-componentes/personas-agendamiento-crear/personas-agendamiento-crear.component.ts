@@ -87,7 +87,7 @@ Seleccion(){
       if (this.Personas[i]["Seleccionado"] == true ) {
         
         this.PersonasSeleccionadas.push(this.Personas[i]); 
-        this.PersonasSeleccionadas[i]["Seleccionado"] = false;
+        this.PersonasSeleccionadas[i]["Seleccionado"] = false   ;
         this.mostarBoton = true;
 
       }
