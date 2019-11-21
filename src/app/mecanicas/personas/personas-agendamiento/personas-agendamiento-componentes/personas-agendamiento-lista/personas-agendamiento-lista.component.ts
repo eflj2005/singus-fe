@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {AmbienteService} from '@servicios/ambiente.service';
 
-
 @Component({
-  selector: 'personas-actualizacion-lista',
-  templateUrl: './personas-actualizacion-lista.component.html',
-  styleUrls: ['./personas-actualizacion-lista.component.css']
+  selector: 'app-personas-agendamiento-lista',
+  templateUrl: './personas-agendamiento-lista.component.html',
+  styleUrls: ['./personas-agendamiento-lista.component.css']
 })
-export class PersonasActualizacionListaComponent implements OnInit {
+export class PersonasAgendamientoListaComponent implements OnInit {
+
   searchObjectPersonas: any ={
     IdPersona:"",
     Cohorte:"",
@@ -307,4 +307,5 @@ export class PersonasActualizacionListaComponent implements OnInit {
     
     this.AmbienteService.actualizacionModo.modo = datos.modo
   }
+
 }
