@@ -13,13 +13,14 @@ import { AmbienteService } from '@app/servicios/ambiente.service';
 })
 export class UsuariosController extends GenericoModel {
   
+  registros: UsuarioInterface[]= [];
+
   constructor(
-    private llamadoHttp :HttpClient,
-    private datosAmbiente: AmbienteService,
+    private llamadoHttp :HttpClient
   ){ super(); }
 
 
-  registros: UsuarioInterface[]= [];
+
 
 
 }

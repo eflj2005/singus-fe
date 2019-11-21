@@ -4,7 +4,7 @@
     margin: 0 auto;
 }
 
-.container input {
+.container input, select{
     display: initial;
     width: 60%;
 }
@@ -14,3 +14,12 @@
     width: 28%;
     min-width: 100px;
 }
+
+:host >>> .alert-custom{
+    background-color: #f169b4;
+    border-color: #800040;
+    color: #00529b;
+    font-weight: bold;
+    font-size: small;
+    text-align: center;
+ }

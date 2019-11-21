@@ -25,16 +25,23 @@
       </div>
 
       <label><b>Documento</b></label>
-      <input type="text" class="form-control" [(ngModel)]="documento" placeholder="Ingrese el No. de documento" [pattern]="documentoModelo" #documentoMensaje="ngModel" required>
+      <input type="text" class="form-control" [(ngModel)]="datos.documento" placeholder="Ingrese el No. de documento" [pattern]="documentoModelo" #documentoMensaje="ngModel" required>
       <ngb-alert  *ngIf="documentoMensaje.errors?.pattern" type="custom" [dismissible]="false">Debe registrar un documento</ngb-alert>               
       <label><b>Nombres</b></label>
-      <input type="text" class="form-control" [(ngModel)]="nombres" placeholder="Ingrese los nombres" required>
+      <input type="text" class="form-control" [(ngModel)]="datos.nombres" placeholder="Ingrese los nombres" required>
       <label><b>Apellidos</b></label>
-      <input type="text" class="form-control" [(ngModel)]="apellidos" placeholder="Ingrese los apellidos" required>            
-      <label><b>Correo</b></label>
-      <input type="email" class="form-control" [(ngModel)]="correo" placeholder="Ingrese el email" required>            
+      <input type="text" class="form-control" [(ngModel)]="datos.apellidos" placeholder="Ingrese los apellidos" required>            
       <label><b>Telefono</b></label>
-      <input type="number" class="form-control" [(ngModel)]="telefono" placeholder="Ingrese telefono de contacto" required>     
+      <input type="number" class="form-control" [(ngModel)]="datos.telefono" placeholder="Ingrese telefono de contacto" required>     
+      <label><b>Correo</b></label>
+      <input type="email" class="form-control" [(ngModel)]="datos.correo" placeholder="Ingrese el email" required>            
+      <label><b>Area</b></label>
+      <select class="form-control">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+      </select>
+
   </div>
 
 

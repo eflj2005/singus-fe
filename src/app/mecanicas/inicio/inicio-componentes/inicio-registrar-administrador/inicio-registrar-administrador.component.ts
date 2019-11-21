@@ -3,6 +3,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {Router, ActivatedRoute } from '@angular/router';
 
 import { AmbienteService } from '@app/servicios/ambiente.service'
+import { UsuariosController } from '@app/modelos/usuarios.controller';
+import { UsuarioInterface } from '@app/modelos/usuario.interface';
+
+
 
 @Component({
   selector: 'app-inicio-registrar-administrador',
@@ -11,16 +15,13 @@ import { AmbienteService } from '@app/servicios/ambiente.service'
 })
 export class InicioRegistrarAdministradorComponent implements OnInit {
 
-  documento:number= null;
-  nombres:string= null;
-  apellidos:string= null;
-  correo:string= null;
-  telefono:string= null;  
+  datos:UsuarioInterface;
 
   documentoModelo:string;
 
+  procesando:boolean;
 
-  procesando:boolean=null;
+  listaAreas:[];
 
   constructor(
     private servicioEmergentes: NgbModal,
@@ -28,11 +29,10 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
     private datosAmbiente: AmbienteService
   ) {
 
-    this.documento=null;
-    this.nombres="";
-    this.apellidos="";
-    this.correo="";
-    this.telefono=null;
+
+    this.datos = {} as UsuarioInterface;
+
+    this.listaAreas
 
     this.documentoModelo="^[0-9]*$";
 
@@ -40,6 +40,7 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
   }
 
   ngOnInit() {
+    LlenarListaAreas();
   }
 
   ActivarRegitroAdministrador(){

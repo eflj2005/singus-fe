@@ -13,10 +13,10 @@ import { GuardianService } from './servicios/guardian.service';
 //Rutas para redirecciones por url
 const rutas: Routes =[
   
-  { path:'', redirectTo:'dashboard', pathMatch:'full' },
+  { path:'', redirectTo:'login', pathMatch:'full' },
 
-  { path:'login'    , component: InicioPrincipalComponent     ,  /* canActivate: [ GuardianService ] */ },
-  { path:'dashboard', component: DashboardPrincipalComponent  ,  /* canActivate: [ GuardianService ] */ },
+  { path:'login'    , component: InicioPrincipalComponent     ,  /* canActivate: [ GuardianService ]  */},
+{ path:'dashboard', component: DashboardPrincipalComponent  ,   /* canActivate: [ GuardianService ]  */},
 
 /*
 

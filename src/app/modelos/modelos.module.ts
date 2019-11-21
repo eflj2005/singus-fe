@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UsuariosController } from './usuarios.controller'
+import { AreasController } from './areas.controller';
 
 @NgModule({
   declarations: [],
@@ -9,7 +10,8 @@ import { UsuariosController } from './usuarios.controller'
     CommonModule
   ],
   providers: [
-    UsuariosController
+    UsuariosController,
+    AreasController
   ]
 })
 export class ModelosModule { }

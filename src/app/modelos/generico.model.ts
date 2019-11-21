@@ -1,8 +1,18 @@
 export class GenericoModel {
-    protected posicionActual = null;
-    protected cantidad = null;
+    protected nombreTabla:string;
+
+    protected posicionActual:number = null;
+    protected cantidad:number = null;
 
     protected registros:any[] = []
+
+    constructor(){
+        this.nombreTabla= GenericoModel.name;
+    }
+
+    public CargarFromDB(){
+        
+    }
 
     public AsignarAtributo( nombreAtributo:String, valorAtributo:any ){
         this.registros[this.posicionActual].nombreAtributo = valorAtributo;
