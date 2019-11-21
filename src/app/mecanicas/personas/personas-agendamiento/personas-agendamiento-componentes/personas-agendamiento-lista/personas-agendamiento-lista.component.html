@@ -2,37 +2,36 @@
   <!-- tabla de o lista de empleados -->
   <div class="row">
     <div>
-      <h1 align='center'><strong>Lista Personas</strong></h1>
-
+      <h1 align='center'><strong>Lista Agendas</strong></h1>
+      <div class="botonNuevo">
+        <button class="btn btn-primary" (click)="NuevaAgenda({modo:2})" >+ Nueva Agenda</button>
+      </div>
       <br>
+
   
       <table class="table table-striped">
         <!-- titulo de las columnas -->
         <thead>
             <tr>
                 <th>&nbsp;</th>
-                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Cohorte" ></th>
-                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Id" ></th>
-                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Sede" ></th>
-                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Nombre" ></th>
-                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Cedula" ></th>
-                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Programa" ></th>
-                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Celular"></th>
-                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.CorreoInstitucional"></th>
-                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.CorreoPersonal"></th>
-                <th></th>   
+                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectAgendas.Nombre" ></th>
+                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectAgendas.Programa" ></th>
+                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectAgendas.FechaCreacion" ></th>
+                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectAgendas.FechaFinal" ></th>
+                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectAgendas.Responsable" ></th>
+                <th scope="col"></th>
+                <th scope="col"></th>   
             </tr>
           <tr class="colums">
             <th scope="col">#</th>
-            <th scope="col">Cohorte</th>
-            <th scope="col">ID</th>
-            <th scope="col">Sede</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Cedula</th>
             <th scope="col">Programa</th>
-            <th scope="col">Celular</th>
-            <th scope="col">Correo Institucional</th>
-            <th scope="col">Correo Personal</th> 
+            <th scope="col">Fecha Creacion</th>
+            <th scope="col">Fecha Finalizacion</th>
+            <th scope="col">Responsable</th>
+            <th scope="col">#Estudiantes</th>
+            <th scope="col">Estado</th>
+            <th scope="col"></th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -40,32 +39,27 @@
         <!-- informacion de la tabla o listado de empleados -->
         <tbody>
             <tr>
-          <tr *ngFor="let persona of personas | arrayFilter : 
+          <tr *ngFor="let agenda of Agendas | arrayFilter : 
               { 
-                Cohorte:                   searchObjectPersonas.Cohorte,  
-                Id:                        searchObjectPersonas.Id,
-                Sede:                      searchObjectPersonas.Sede,
-                Nombre:                    searchObjectPersonas.Nombre,
-                Cedula:                    searchObjectPersonas.Cedula,
-                Programa:                  searchObjectPersonas.Programa,
-                Celular:                   searchObjectPersonas.Celular,
-                CorreoInstitucional:       searchObjectPersonas.CorreoInstitucional,
-                CorreoPersonal:            searchObjectPersonas.CorreoPersonal
+                Nombre:                   searchObjectAgendas.Nombre,  
+                Programa:                 searchObjectAgendas.Programa,
+                FechaCreacion:            searchObjectAgendas.FechaCreacion,
+                FechaFinal:               searchObjectAgendas.FechaFinal,
+                Responsable:              searchObjectAgendas.Responsable
                
               };
               let indice=index"
           >
-            <th scope="row">{{persona.IdPersona}}</th>
-            <td>{{persona.Cohorte}}</td>
-            <td>{{persona.Id}}</td>
-            <td>{{persona.Sede}}</td>
-            <td>{{persona.Nombre}}</td>
-            <td>{{persona.Cedula}}</td>
-            <td>{{persona.Programa}}</td>
-            <td>{{persona.Celular}}</td>
-            <td>{{persona.CorreoInstitucional}}</td>
-            <td>{{persona.CorreoPersonal}}</td>
-            <td><button class="btn btn-primary" (click)="verPersona({id : persona.IdPersona, modo:2})">Editar</button></td>
+            <th scope="row">{{agenda.IdAgenda}}</th>
+            <td>{{agenda.Nombre}}</td>
+            <td>{{agenda.Programa}}</td>
+            <td>{{agenda.FechaCreacion}}</td>
+            <td>{{agenda.FechaFinal}}</td>
+            <td>{{agenda.Responsable}}</td>
+            <td>{{agenda.Cantidad}}</td>
+            <td>{{agenda.Estado}}</td>
+            <td><button class="btn btn-primary" (click)="verPersona({id : agenda.IdAgenda, modo:3})">Ver</button></td>
+            <td><button class="btn btn-primary" (click)="verPersona({id : agenda.IdAgenda, modo:3})">Editar</button></td>
       </tr>
         </tbody>
   

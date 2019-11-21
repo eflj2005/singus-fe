@@ -1,14 +1,18 @@
 
-        <div class="row" >
+        <div class="row" *ngIf="datosAmbiente.agendaModo.modo==1">
             <div class="col-md-12 col-sm-12 col-log-12">
             <app-personas-agendamiento-lista></app-personas-agendamiento-lista>
             </div>
         </div>
-        <!-- <div class="row" *ngIf="datosAmbiente.actualizacionModo.modo==2">
+        <div class="row" *ngIf="datosAmbiente.agendaModo.modo==2">
             <div class="col-md-12 col-sm-12 col-log-12">
-                <personas-actualizacion-informacion></personas-actualizacion-informacion>
+                <app-personas-agendamiento-crear></app-personas-agendamiento-crear>
             </div>
-        </div> -->
-
+        </div>
+        <div class="row" *ngIf="datosAmbiente.agendaModo.modo==3">
+            <div class="col-md-12 col-sm-12 col-log-12">
+                <app-personas-agendamiento-editar></app-personas-agendamiento-editar>
+            </div>
+        </div>
     
 

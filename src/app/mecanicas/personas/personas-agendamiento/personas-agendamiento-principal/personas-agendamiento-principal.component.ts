@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AmbienteService} from '@servicios/ambiente.service'
 
 @Component({
   selector: 'app-personas-agendamiento-principal',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PersonasAgendamientoPrincipalComponent implements OnInit {
 
-  constructor() { }
+  constructor(private datosAmbiente: AmbienteService) { }
 
   ngOnInit() {
   }
