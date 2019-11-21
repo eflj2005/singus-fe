@@ -40,7 +40,7 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
   }
 
   ngOnInit() {
-    LlenarListaAreas();
+   // LlenarListaAreas();
   }
 
   ActivarRegitroAdministrador(){
