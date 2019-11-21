@@ -9,16 +9,26 @@ import {formatDate} from '@angular/common';
 export class PersonasAgendamientoCrearComponent implements OnInit {
 
 
-
-    seleccion: any  ;
+  mostarBoton: boolean ;
+    seleccion: boolean  ;
     FechaInicio 
   
   constructor() {
     // this.dateFormatormat(this.now, "dddd, mmmm dS, yyyy");
     this.FechaInicio= formatDate(new Date(), 'yyyy-MM-dd', 'en');
-    console.log(this.FechaInicio)
+    console.log(this.PersonasSeleccionadas)
+
+    if(this.PersonasSeleccionadas.length != 0  ){
+      this.mostarBoton = true;
+    }
+    else {
+      this.mostarBoton = false;
+    }
    }
   
+   ngOnInit() {
+      this.Seleccion();
+  }
    searchObjectPersonas: any ={
     IdPersona:"",
     Nombre:"",
@@ -28,6 +38,16 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     FechaActualizacion:"",
 
   };
+  searchObjectPersonasSeleccionadas: any ={
+    IdPersona:"",
+    Nombre:"",
+    Programa:"",
+    Cedula:"",
+    Id:"",
+    FechaActualizacion:"",
+
+  };
+PersonasSeleccionadas:Array<Object> = [];
 
   Personas: Array<Object> = [{
     IdPersona:"1",
@@ -46,12 +66,33 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     FechaActualizacion:"12-12-2019",
   }
 ];
-
-  Seleccion(){
-    console.log(this.seleccion)
+Seleccion(){
+  let i
+  for(i = 0; i < this.Personas.length; i++){
+    this.Personas[i]["Seleccionado"] = false ;
   }
-  ngOnInit() {
-
-  }
-
+ 
 }
+  
+  // Mostar(){
+  //   console.log(this.Personas);
+  // }
+  quitarPersonas(){
+
+  }
+  agregarPersonas(){
+    
+    let i
+    for(i = 0; i < this.Personas.length; i++){
+      if (this.Personas[i]["Seleccionado"] == true ) {
+        
+        this.PersonasSeleccionadas[i] = this.Personas[i];
+        this.mostarBoton = true;
+
+      }
+    }
+ 
+  }
+ 
+}
+
