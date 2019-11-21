@@ -3,8 +3,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {Router, ActivatedRoute } from '@angular/router';
 
 import { AmbienteService } from '@app/servicios/ambiente.service'
-import { UsuariosController } from '@app/modelos/usuarios.controller';
 import { UsuarioInterface } from '@app/modelos/usuario.interface';
+import { AreasController } from '@app/modelos/areas.controller';
+import { AreaInterface } from '@app/modelos/area.interface';
+import { filtroInterface } from '@app/modelos/generico.model';
 
 
 
@@ -16,23 +18,23 @@ import { UsuarioInterface } from '@app/modelos/usuario.interface';
 export class InicioRegistrarAdministradorComponent implements OnInit {
 
   datos:UsuarioInterface;
+  listaAreas:AreaInterface[] = [];
 
   documentoModelo:string;
 
   procesando:boolean;
 
-  listaAreas:[];
-
   constructor(
     private servicioEmergentes: NgbModal,
     private rutas: Router, private rutaActiva: ActivatedRoute,
-    private datosAmbiente: AmbienteService
+    private datosAmbiente: AmbienteService,
+    private areasControlador: AreasController
   ) {
 
-
     this.datos = {} as UsuarioInterface;
+    this.datos.areas_id = -99;
 
-    this.listaAreas
+
 
     this.documentoModelo="^[0-9]*$";
 
@@ -40,12 +42,30 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
   }
 
   ngOnInit() {
-   // LlenarListaAreas();
+    this.LlenarListaAreas();
   }
+
+  LlenarListaAreas(){
+
+    this.listaAreas.push ( { id: -99, descripcion: "Cargando..." } );    
+
+    let filtros:filtroInterface={id:2,descripcion:'a%'};
+
+    this.areasControlador.CargarDesdeDB(filtros).subscribe(
+      respuesta => {
+        this.listaAreas[0] = { id:-99, descripcion: "Seleccione Area" } ;      
+      }
+
+    );
+
+
+
+  }
+
 
   ActivarRegitroAdministrador(){
     this.datosAmbiente.inicioPaso++;   
-  }  
+  }
 
   RegistrarAdministrador(contenidoConfirmador: any, contenidoNotificador: any){
 
