@@ -3,8 +3,11 @@
   <div class="row">
     <div>
       <h1 align='center'><strong>Lista Agendas</strong></h1>
-
+      <div class="botonNuevo">
+        <button class="btn btn-primary" (click)="NuevaAgenda({modo:2})" >+ Nueva Agenda</button>
+      </div>
       <br>
+
   
       <table class="table table-striped">
         <!-- titulo de las columnas -->
@@ -55,8 +58,8 @@
             <td>{{agenda.Responsable}}</td>
             <td>{{agenda.Cantidad}}</td>
             <td>{{agenda.Estado}}</td>
-            <td><button class="btn btn-primary" (click)="verPersona({id : agenda.IdAgenda, modo:2})">Ver</button></td>
-            <td><button class="btn btn-primary" (click)="verPersona({id : agenda.IdAgenda, modo:2})">Editar</button></td>
+            <td><button class="btn btn-primary" (click)="verPersona({id : agenda.IdAgenda, modo:3})">Ver</button></td>
+            <td><button class="btn btn-primary" (click)="verPersona({id : agenda.IdAgenda, modo:3})">Editar</button></td>
       </tr>
         </tbody>
   

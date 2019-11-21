@@ -22,7 +22,9 @@ import { PersonasAgendamientoEditarComponent } from './personas-agendamiento-edi
     CommonModule,
     GeneralesModule
   ],exports :[
-    PersonasAgendamientoListaComponent
+    PersonasAgendamientoListaComponent,
+    PersonasAgendamientoCrearComponent,
+    PersonasAgendamientoEditarComponent
   ]
 })
 export class PersonasAgendamientoComponentesModule { 

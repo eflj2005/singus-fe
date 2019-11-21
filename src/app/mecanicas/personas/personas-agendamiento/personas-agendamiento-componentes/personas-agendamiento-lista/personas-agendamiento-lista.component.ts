@@ -46,7 +46,9 @@ export class PersonasAgendamientoListaComponent implements OnInit {
   }
   verPersona(datos){
     
-    this.AmbienteService.actualizacionModo.modo = datos.modo
+    this.AmbienteService.agendaModo.modo = datos.modo
   }
-
+NuevaAgenda(datos){
+  this.AmbienteService.agendaModo.modo = datos.modo
+}
 }
