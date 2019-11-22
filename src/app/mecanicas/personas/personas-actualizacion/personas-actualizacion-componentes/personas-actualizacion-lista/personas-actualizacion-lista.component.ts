@@ -30,8 +30,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"1007405687",
     Programa:"Ing. Sistemas",
     Celular:"3223542148",
-    CorreoInstitucional:"ASDKASJKDHA@SSDASD.COM",
-    CorreoPersonal:"ASDKASJKDHA@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJKDHA@Uniminuto.edu.co",
+    CorreoPersonal:"ASDKASJKDHA@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -42,8 +42,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -54,8 +54,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -66,8 +66,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -78,8 +78,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -90,8 +90,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -102,8 +102,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -114,8 +114,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -126,8 +126,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -138,8 +138,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -150,8 +150,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -162,8 +162,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -174,8 +174,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -186,8 +186,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -198,8 +198,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -210,8 +210,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -222,8 +222,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -234,8 +234,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -246,8 +246,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -258,8 +258,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -270,8 +270,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -282,8 +282,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   },
   {
     IdPersona:"2",
@@ -294,8 +294,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     Cedula:"42321",
     Programa:"Ing. Sistemas",
     Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@SSDASD.COM",
-    CorreoPersonal:"ddaxcwedd@SSDASD.COM"
+    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   }
 ];
 
@@ -306,5 +306,6 @@ export class PersonasActualizacionListaComponent implements OnInit {
   verPersona(datos){
     
     this.AmbienteService.actualizacionModo.modo = datos.modo
+    this.AmbienteService.actualizacionModo.boton = null
   }
 }

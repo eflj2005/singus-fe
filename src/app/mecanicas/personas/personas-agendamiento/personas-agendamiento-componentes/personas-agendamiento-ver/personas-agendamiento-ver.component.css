@@ -59,7 +59,9 @@
     border-radius: 20%;
   }
   
-
+table{
+    font-size: 10px;
+}
   .container .checkmark:after {
     left: 9px;
     top: 5px;

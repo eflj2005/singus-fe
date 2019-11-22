@@ -256,6 +256,7 @@
   <div class="buttonDown">
     <button type="button" class="btn btn-primary butonGeneral" (click)="GuardarAsociado()">Guardar</button>
     <button type="button" class="btn btn-outline-dark buttonGeneral" (click)="Cancelar()">Cancelar</button>
+    <button *ngIf="datosAmbiente.actualizacionModo.boton ==1" type="button" class="btn btn-primary butonGeneral" (click)="Actualizar()">Actualizar</button>
   </div>
 
 </div>

@@ -39,6 +39,9 @@
                             <th scope="col">Programa</th>
                             <th scope="col">Cedula</th>
                             <th scope="col">ID</th>
+                            <th scope="col">Celular</th>
+                            <th scope="col">Correo Institucional</th>
+                            <th scope="col">Correo Personal</th>
                             <th scope="col">Fecha Actualizacion</th>
     
                             </tr>
@@ -49,12 +52,16 @@
                        
                             <tr *ngFor="let personaSelecionada of PersonasSeleccionadas" >
     
-                            <td scope="row">{{personaSelecionada.IdPersona}}</td>
+                            <td scope="row">{{personaSelecionada.Id}}</td>
                             <td>{{personaSelecionada.Nombre}}</td>
                             <td>{{personaSelecionada.Programa}}</td>
                             <td>{{personaSelecionada.Cedula}}</td>
-                            <td>{{personaSelecionada.Id}}</td>
+                            <td>{{personaSelecionada.IdPersona}}</td>
+                            <td>{{personaSelecionada.Celular}}</td>
+                            <td>{{personaSelecionada.CorreoInstitucional}}</td>
+                            <td>{{personaSelecionada.CorreoPersonal}}</td>
                             <td>{{personaSelecionada.FechaActualizacion}}</td>
+                            <td><button class="btn btn-primary" (click)="verPersona({modo:2})"><a routerLink="/lista"> </a>Actualizar</button></td>
                             <td>
                                     <label class="container">
                                             <input type="checkbox" [(ngModel)]="personaSelecionada.Seleccionado" >
