@@ -24,9 +24,9 @@ export class PersonasAgendamientoListaComponent implements OnInit {
     Programa:"Contaduria",
     FechaCreacion:"12-12-2019",
     FechaFinal:"15-12-2019",
-    Responsable:"Juan Carlos Bustos Tovio",
-    Cantidad: "2",
-    Estado: "46 %"
+    Responsable:"Edwin F. Londoño J.",
+    Cantidad: "6",
+    Estado: "50 %"
   },
   {
     IdAgenda:"2",
@@ -34,9 +34,29 @@ export class PersonasAgendamientoListaComponent implements OnInit {
     Programa:"Contaduria",
     FechaCreacion:"12-12-2019",
     FechaFinal:"15-12-2019",
-    Responsable:"Juan Diego Moreno Marroquin",
-    Cantidad: "2",
-    Estado: "82 %"
+    Responsable:"Manuel L. Castaño P.",
+    Cantidad: "4",
+    Estado: "90 %"
+  },
+  {
+    IdAgenda:"1",
+    Nombre:"Agenda Licenciatura",
+    Programa:"Licenciatura",
+    FechaCreacion:"12-12-2019",
+    FechaFinal:"15-12-2019",
+    Responsable:"Edwin F. Londoño J.",
+    Cantidad: "20",
+    Estado: "20 %"
+  },
+  {
+    IdAgenda:"2",
+    Nombre:"Agenda Contabilidad",
+    Programa:"Contabilidad",
+    FechaCreacion:"12-12-2019",
+    FechaFinal:"15-12-2019",
+    Responsable:"Manuel L. Castaño P.",
+    Cantidad: "30",
+    Estado: "42 %"
   }
 ];
 
@@ -46,6 +66,9 @@ export class PersonasAgendamientoListaComponent implements OnInit {
   }
   verPersona(datos){
     
+    this.AmbienteService.agendaModo.modo = datos.modo
+  }
+  EditarAgenda(datos){
     this.AmbienteService.agendaModo.modo = datos.modo
   }
 NuevaAgenda(datos){

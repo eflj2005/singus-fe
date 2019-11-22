@@ -26,7 +26,8 @@ import { PersonasAgendamientoVerComponent } from './personas-agendamiento-ver/pe
   ],exports :[
     PersonasAgendamientoListaComponent,
     PersonasAgendamientoCrearComponent,
-    PersonasAgendamientoEditarComponent
+    PersonasAgendamientoEditarComponent,
+    PersonasAgendamientoVerComponent
   ]
 })
 export class PersonasAgendamientoComponentesModule { 

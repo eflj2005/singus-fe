@@ -1,1 +1,74 @@
-<p>personas-agendamiento-ver works!</p>
+<div class="form-group row" >
+        <div class="col-md-4">
+            <label >Nombre de la agenda :</label>
+            <input type="text" class="form-control " [(ngModel)]="Nombre">
+        </div>
+            <div class="col-md-4">
+                <label>Responsable:</label>
+                <select class="form-control" [(ngModel)]="responsable">
+                    <option value="0" disabled >--Seleccione Responsable--</option>
+                    <option value="{{responsablebase.Id}}" *ngFor="let responsablebase of Responsables">{{responsablebase.Descripcion}}</option>
+                    <option value="1">Edwin F. Londoño J.</option>
+                    <option value="2" >Manuel L. Castaño P.</option>
+                </select>
+          </div>
+          <div class="col-md-2">
+                  <label >Fecha de Inicio :</label>
+                  <input type="date" class="form-control " [(ngModel)]="FechaInicio">
+          </div> 
+          <div class="col-md-2">
+            <label >Fecha de Finalización :</label>
+            <input type="date" class="form-control " [(ngModel)]="FechaFinal">
+         </div>
+    
+    </div>
+    
+    <button class="btn btn-danger"  (click)="Cancelar()" >Cancelar</button>
+    <button class="btn btn-success">Guardar</button>
+    <div class="row" >
+        <div class="col-md-12 cuadro">
+            <h3  align='center'>Seleccionados</h3>
+            <div class="row" >
+                <table class="table table-striped" >
+                       
+                        <thead>
+                           
+                            <tr class="colums">
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Programa</th>
+                            <th scope="col">Cedula</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Fecha Actualizacion</th>
+    
+                            </tr>
+                        </thead>
+                    
+                       
+                        <tbody  >
+                       
+                            <tr *ngFor="let personaSelecionada of PersonasSeleccionadas" >
+    
+                            <td scope="row">{{personaSelecionada.IdPersona}}</td>
+                            <td>{{personaSelecionada.Nombre}}</td>
+                            <td>{{personaSelecionada.Programa}}</td>
+                            <td>{{personaSelecionada.Cedula}}</td>
+                            <td>{{personaSelecionada.Id}}</td>
+                            <td>{{personaSelecionada.FechaActualizacion}}</td>
+                            <td>
+                                    <label class="container">
+                                            <input type="checkbox" [(ngModel)]="personaSelecionada.Seleccionado" >
+                                            <span class="checkmark"></span>
+                                    </label>
+    
+                            </td>
+                            </tr>
+    
+                        
+                        </tbody>
+                    
+                    </table>
+                
+            </div>        
+        </div>
+    </div>

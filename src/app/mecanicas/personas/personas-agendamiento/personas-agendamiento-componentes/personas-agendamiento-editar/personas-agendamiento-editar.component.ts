@@ -43,12 +43,11 @@ export class PersonasAgendamientoEditarComponent implements OnInit {
       
   }
   
-PersonasSeleccionadas:Array<PersonaTemporarl> = [];
-
-  Personas: Array<PersonaTemporarl> = [{
+PersonasSeleccionadas:Array<PersonaTemporarl> = [
+  {
     Id:1,
     Nombre:"Juan Camilo Caviedes Toro ",
-    Programa:"Ingenieria de sistemas",
+    Programa:"Contaduria",
     Cedula:1007405687,
     IdPerona:12345678,
     FechaActualizacion:"12-12-2019",
@@ -57,6 +56,62 @@ PersonasSeleccionadas:Array<PersonaTemporarl> = [];
   {
     Id:2,
     Nombre:"Fernando Suarez Martinez ",
+    Programa:"Contaduria",
+    Cedula:1011234187,
+    IdPerona:12345678,
+    FechaActualizacion:"12-11-2019",
+    Seleccionado: false
+  },
+  {
+    Id:1,
+    Nombre:"Ernesto Gonzales Cabrera ",
+    Programa:"Contaduria",
+    Cedula:1007405687,
+    IdPerona:12345678,
+    FechaActualizacion:"12-12-2019",
+    Seleccionado: false
+  },
+  {
+    Id:2,
+    Nombre:"Angie Jimena Cabezas ",
+    Programa:"Contaduria",
+    Cedula:1011234187,
+    IdPerona:12345678,
+    FechaActualizacion:"12-11-2019",
+    Seleccionado: false
+  },
+  {
+    Id:1,
+    Nombre:"Luis Felipe Perez ",
+    Programa:"Contaduria",
+    Cedula:1007405687,
+    IdPerona:12345678,
+    FechaActualizacion:"12-12-2019",
+    Seleccionado: false
+  },
+  {
+    Id:2,
+    Nombre:"Luisa Mara Sanchez Ortiz ",
+    Programa:"Contaduria",
+    Cedula:1011234187,
+    IdPerona:12345678,
+    FechaActualizacion:"12-11-2019",
+    Seleccionado: false
+  }
+];
+
+  Personas: Array<PersonaTemporarl> = [{
+    Id:1,
+    Nombre:"Cesar Duvan Martinez",
+    Programa:"Ingenieria de sistemas",
+    Cedula:1007405687,
+    IdPerona:12345678,
+    FechaActualizacion:"12-12-2019",
+    Seleccionado: false
+  },
+  {
+    Id:2,
+    Nombre:"Diego Fernando Osorio ",
     Programa:"Ingenieria de sistemas",
     Cedula:1011234187,
     IdPerona:12345678,
