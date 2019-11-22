@@ -1,20 +1,47 @@
 /* Center the image and position the close button */
-.imgcontainer {
-    text-align: right;
-    margin: 10px;
-    position: relative;
+
+.titlecontainer{
+    display:flex;
+    flex-direction: column;
+    color: white;
+    align-items: center;
+    
 }
 
+#descripcion{
+    margin: 10px;
+    /* overflow: hidden; */
+    border-bottom: 1px solid #f3ce32;
+    font-size: large;
+}
+
+.logocontainer{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 2rem;
+
+}
+.logocontainer .nombre {
+    color: #ffce00;
+    font-size: 40px ;
+ }
+ 
+
 img.avatar {
-    width: 150px;
-    border-radius: 10%;
+    
+    /* border-radius: 10%; */
 }
 
 /* The Modal (background) */
 .modal {
+    background-image: url(../../../../assets/imagenes/grados.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     display: block; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 1; /*Sit on top*/
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -23,19 +50,27 @@ img.avatar {
     background-color: rgb(255,255,255); /* Fallback color */
     background-color: rgba(0,0,0,0.1); /* Black w/ opacity */
     /* padding-top: 10px; */
-    
+
 }
 
 /* Modal Content/Box */
 .modal-content {
-    border-radius: 25px;
+    /* border-radius: 25px; */
     background-color: rgb(22, 38, 68);
-    color: #00529b;
-    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-    border: 1px solid #888;
-    width: 40%; /* Could be more or less, depending on screen size */
-    min-width: 300px;
+    /* color: #00529b; */
+    color: white;
+    margin: 0% auto 0% auto; /* 5% from the top, 15% from the bottom and centered */
+    /* border: 1px solid #888; */
+    border: blue;
+     height: 100%; 
+     width: 40%; /*Could be more or less, depending on screen size */
+    /* min-width: 300px; */
+    align-items: center;
 }
+
+/* .contenido{
+    padding: 2rem;
+}  */
 
 
 /* Add Zoom Animation */
@@ -45,12 +80,12 @@ img.avatar {
 }
 
 @-webkit-keyframes animatezoom {
-    from {-webkit-transform: scale(0)} 
+    from {-webkit-transform: scale(0)}
     to {-webkit-transform: scale(1)}
 }
-    
+
 @keyframes animatezoom {
-    from {transform: scale(0)} 
+    from {transform: scale(0)}
     to {transform: scale(1)}
 }
 

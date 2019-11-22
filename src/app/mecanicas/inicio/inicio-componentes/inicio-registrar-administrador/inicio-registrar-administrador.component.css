@@ -16,9 +16,9 @@
 }
 
 :host >>> .alert-custom{
-    background-color: #f169b4;
-    border-color: #800040;
-    color: #00529b;
+    background-color: #ffadda;
+    border-color: #ee0077;
+    color: #0e2e49;
     font-weight: bold;
     font-size: small;
     text-align: center;

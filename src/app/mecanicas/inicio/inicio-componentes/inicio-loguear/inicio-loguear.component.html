@@ -1,37 +1,29 @@
 
-    <div class="tituloPrincipal">
-        <strong>
-            <div class="nombre">S.In.G.U.S</div>
-            <div>Sistema de Información de Graduados Uniminuto para Seguimiento</div>
-        </strong>
-    </div>
-
-
     <!-- contenedor para login normal -->
 
-    <div class="container contenido">
+    <div class="container contenido ">
         <div class="tituloSecundario">
             <strong>
-                    <div><I>INICIO DE SESION</I></div>
+                    <div>INICIO DE SESION</div>
             </strong>
-            <div>&nbsp;</div>
+            <!-- <div>&nbsp;</div> -->
         </div>
-
-        <label><b>Documento</b></label>
-        <input type="string" class="form-control" [(ngModel)]="documento" placeholder="Ingrese el documento de usuario" [pattern]="documentoModelo" #documentoMensaje="ngModel" required>
+        <div *ngIf="hayNotificaion" >
+                <!-- <div>&nbsp;</div> -->
+                <ngb-alert  type="danger" (close)="CerrarNotificacio()">{{ notificacionMensaje }}</ngb-alert>
+        </div>
+        <label>Documento</label>
+        <input type="string" class="form-control" [(ngModel)]="documento"  [pattern]="documentoModelo" #documentoMensaje="ngModel" required>
         <ngb-alert  *ngIf="documentoMensaje.errors?.pattern" type="custom" [dismissible]="false">Debe registrar un documento</ngb-alert>
-        <label><b>Contraseña</b></label>
-        <input type="password" class="form-control" [(ngModel)]="clave" placeholder="Ingrese la contraseña" required>
-        <div *ngIf="hayNotificaion">
-            <div>&nbsp;</div>
-            <ngb-alert  type="danger" (close)="CerrarNotificacio()">{{ notificacionMensaje }}</ngb-alert>
-        </div>
+        <label>Contraseña</label>
+        <input type="password" class="form-control" [(ngModel)]="clave"  required>
+
     </div>
 
 
     <!-- contenedor para opciones o botones de login normal-->
     
-    <div class="container opcionesPie roundDown ">
+    <div class="container opcionesPie ">
         <div *ngIf="procesando == false">
             <button class="mibutton"  (click)="ValidarLogin()">Ingresar</button>
             <div class="recpsw"><span class="link" (click)="LimpiarToken()">LimpiarToken</span></div>

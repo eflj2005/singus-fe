@@ -1,7 +1,10 @@
 
 .container {
     text-align: center;
-    margin: 0 auto;
+    /* margin: 0 auto; */
+    display: flex;
+    flex-direction: column;
+    align-items: inherit;
 }
 
 .container input {
@@ -16,8 +19,9 @@
 }
 
 :host >>> .alert-custom {
-    background-color: #f169b4;
-    border-color: #800040;
+    background-color: #ffadda;
+    border-color: #ee0077;
+    color: #0e2e49;
     padding: 0px;
     margin: 0px;
   }
