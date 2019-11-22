@@ -18,7 +18,12 @@ export class AmbienteService {
   agendaModo:any = {
                       modo: 0,          // Modo 1 es lista de personas -> Modo 2 es Editar a una persona
                       datos:null
-                    }                             
+                    }    
+                    
+  maestrasModo: any = { 
+                        modo:0,          //Modo 1 son todas las maestras
+                        datos: null
+                      }
 
 
 
@@ -41,6 +46,10 @@ export class AmbienteService {
       modo: 1,        
       datos: null
       }
+    this.maestrasModo = {
+      modo: 1,
+      datos: null
+    }
   }
 
   GetUrlRecursos(){

@@ -1,0 +1,36 @@
+.col.edit{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.img-fluid.editperson{
+    width: 10rem;
+    height: auto;
+   
+}
+
+.col-md-11.infoSpace{
+    background-color: rgb(255,255,255); /* Fallback color */
+    background-color: rgba(0,0,0,0.04); /* Black w/ opacity */
+}
+
+.btn.maestras{
+    background-color: #E4AC34;
+    color: black;
+}
+
+.btn.maestras:hover{
+    background-color: #007bff;
+    color: white;
+    
+}
+.buttonGeneral{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.buttonDown{
+    display: flex;
+    direction: rtl;
+}

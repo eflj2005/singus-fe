@@ -1,1 +1,89 @@
-<p>administracion-maestras-detalle works!</p>
+
+<div class="container column">
+   
+        <h1 align='center'>Maestras</h1>
+
+              
+      <div class="form-group column">
+            <div class=" form-group row  " >
+                <button type="button" class="btn maestras active" (click)="cambiarOpcion(1)">
+                    Ciudades
+                </button>
+                <button type="button" class="btn  maestras" (click)="cambiarOpcion(2)">                
+                    Titulos
+                </button>
+                <button type="button" class="btn maestras" (click)="cambiarOpcion(3)">                
+                    Programas
+                </button>
+                <button type="button" class="btn maestras" (click)="cambiarOpcion(4)">                
+                    Documentos
+                </button>
+                <button type="button" class="btn maestras" (click)="cambiarOpcion(5)">                
+                    Cedes
+                </button>
+                <button type="button" class="btn maestras" (click)="cambiarOpcion(6)">                
+                    Cohortes
+                </button>
+                <button type="button" class="btn maestras" (click)="cambiarOpcion(7)">                
+                    Areas
+                </button>                      
+            </div>
+            <div class=" col-md-11 infoSpace " >
+                <h3>{{opcion.nombreOpcion}}</h3>
+                <hr>
+    
+                <div  *ngIf="opcion.tipo == 1">
+
+                </div>
+    
+                <div *ngIf="opcion.tipo == 2" >
+
+                </div>
+              
+                <div *ngIf="opcion.tipo == 3">
+
+                </div>
+    
+    
+    
+            </div>  
+    <!--       
+         
+      
+            </div>
+              
+    
+    
+            </div >
+              
+              <div class="form-group"  class="row">
+    
+    >
+    
+                </div>
+     
+                </div>  
+                <div class="form-group row" >
+                    <div class="col-md-4">
+                            <label>FECHA ACTUALIZACIÓN DATOS:</label>
+                            <input type="date"   class="form-control"    [(ngModel)]="fechaActualizacion" >
+                    </div>
+                    <div class="col-md-4">
+                            <label>REGISTRO BIENESTAR:</label>
+                            <input type="text"   class="form-control"    [(ngModel)]="bienestar" >
+                        </div>
+                    <div class="col-md-4">
+                            <label>ENCUESTA OLE:</label>
+                            <input type="text"   class="form-control"    [(ngModel)]="encuentaOle" >
+                    </div>      
+                </div>
+               -->
+              <!-- <br/> 
+              <div>
+    
+              </div> -->
+          
+          </div>
+ 
+    
+    </div>
