@@ -16,12 +16,9 @@ import { ModelosModule } from '@app/modelos/modelos.module'
 import { ErrorInterceptorService } from '@servicios/error.interceptor';
 import { JwtInterceptorService } from '@servicios/jwt.interceptor';
 import { DatePipe } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-
-
-
+//import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -36,7 +33,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     GeneralesModule.forRoot(),
     MecanicasModule,
     ModelosModule,
-    BrowserAnimationsModule  
+    NgbModule,
+    //BrowserAnimationsModule  
   ],
   providers: [ 
     DatePipe,

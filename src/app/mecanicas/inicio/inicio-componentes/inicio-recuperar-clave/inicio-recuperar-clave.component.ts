@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AmbienteService } from '@app/servicios/ambiente.service'
@@ -6,6 +6,7 @@ import { AmbienteService } from '@app/servicios/ambiente.service'
 @Component({
   selector: 'app-inicio-recuperar-clave',
   templateUrl: './inicio-recuperar-clave.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./inicio-recuperar-clave.component.css']
 })
 export class InicioRecuperarClaveComponent implements OnInit {

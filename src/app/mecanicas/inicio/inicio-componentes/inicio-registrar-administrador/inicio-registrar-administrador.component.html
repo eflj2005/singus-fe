@@ -64,7 +64,7 @@
     <h4 class="modal-title">Confirmación</h4>
   </div>
   <div class="modal-body">
-    <p>Esta seguro de crear el administrador '{{ nombres }}'' con documento '{{ documento }}'. Esta acción no se puede reversar.</p>
+    <p>Esta seguro de crear el administrador '{{ datos.nombres }}'' con documento '{{ datos.documento }}'. Esta acción no se puede reversar.</p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="modal.close('SI')">Si</button>            
@@ -78,7 +78,7 @@
     <h4 class="modal-title">Notificación</h4>
   </div>
   <div class="modal-body">
-    <p>Se ha enviado un mensaje a '{{ this.correo }}' con el codigo de confirmación.</p>
+    <p>Se ha enviado un mensaje a '{{ datos.correo }}' con el codigo de confirmación.</p>
   </div>
   <div class="modal-footer">       
     <button type="button" ngbAutofocus  class="btn btn-danger" (click)="modal.dismiss('CONTINUAR')">Continuar</button>            
