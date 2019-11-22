@@ -8,7 +8,6 @@ import { AdministracionMaestrasComponentesModule } from "@mecanicas/administraci
   declarations: [AdministracionMaestrasPrincipalComponent],
   imports: [
     CommonModule,
-    AdministracionMaestrasPrincipalComponent,
     AdministracionMaestrasComponentesModule
   ]
 })
