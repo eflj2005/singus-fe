@@ -18,7 +18,17 @@
             <div>
               <img src="../../../../../../assets/imagenes/trabajo.png" class="img-fluid editperson" alt="Responsive image">
             </div>
-          </button>         
+          </button>
+          <button type="button" class="btn editperson" (click)="cambiarOpcion(4)">                
+              <div>
+                <img src="../../../../../../assets/imagenes/logros.png" class="img-fluid editperson" alt="Responsive image">
+              </div>
+          </button> 
+          <button type="button" class="btn editperson" (click)="cambiarOpcion(5)">                
+              <div>
+                <img src="../../../../../../assets/imagenes/estadistica.png" class="img-fluid editperson" alt="Responsive image">
+              </div>
+          </button>          
         </div>
         <div class=" col-md-11 infoSpace " >
             <h3>{{opcion.nombreOpcion}}</h3>
@@ -152,38 +162,7 @@
                       </textarea>
                   </div>
               </div>
-              <hr>
-              <h4>Reconocimientos y distinciones</h4>
-              <div class="form-group row" > 
-                <div class="col-md-4">
-                        <label>Reconocimiento otorgado:</label>
-                        <input type="text"   class="form-control"    [(ngModel)]="reconocimiento" >
-                </div>
-                <div class="col-md-4">
-                        <label>Motivo del reconocimiento:</label>
-                        <input type="text"   class="form-control"    [(ngModel)]="motivo" >
-                </div>
-                <div class="col-md-4">
-                        <label>Institución que reconoce:</label>
-                        <input type="text"   class="form-control"    [(ngModel)]="otorgaReconocimiento" >
-                </div>
-              </div>
-              <hr>
-              <h4>Comunidades academicas y asociaciones</h4>
-              <div class="form-group row" >
-                  <div class="col-md-4">
-                      <label>Sector:</label>
-                      <input type="text"   class="form-control"    [(ngModel)]="sector" >
-                  </div>
-                  <div class="col-md-4">
-                      <label >Nacional / Internacional:</label><br/>
-                      <input type="text"   class="form-control"    [(ngModel)]="nacional" >
-                  </div>
-                  <div class="col-md-4">
-                      <label >Asociación a la que pertenece :</label><br/>
-                      <input type="text"   class="form-control"    [(ngModel)]="asociasion" >
-                  </div> 
-              </div>  
+  
             </div>
           
             <div *ngIf="opcion.tipo == 3">
@@ -212,6 +191,55 @@
                     </div>
                 </div>
             </div>
+            <div  *ngIf="opcion.tipo == 4">
+                <div class="form-group row" > 
+                    <div class="col-md-4">
+                            <label>Reconocimiento otorgado:</label>
+                            <input type="text"   class="form-control"    [(ngModel)]="reconocimiento" >
+                    </div>
+                    <div class="col-md-4">
+                            <label>Motivo del reconocimiento:</label>
+                            <input type="text"   class="form-control"    [(ngModel)]="motivo" >
+                    </div>
+                    <div class="col-md-4">
+                            <label>Institución que reconoce:</label>
+                            <input type="text"   class="form-control"    [(ngModel)]="otorgaReconocimiento" >
+                    </div>
+                  </div>
+                  <hr>
+                  <h4>Comunidades academicas y asociaciones</h4>
+                  <div class="form-group row" >
+                      <div class="col-md-4">
+                          <label>Sector:</label>
+                          <input type="text"   class="form-control"    [(ngModel)]="sector" >
+                      </div>
+                      <div class="col-md-4">
+                          <label >Nacional / Internacional:</label><br/>
+                          <input type="text"   class="form-control"    [(ngModel)]="nacional" >
+                      </div>
+                      <div class="col-md-4">
+                          <label >Asociación a la que pertenece :</label><br/>
+                          <input type="text"   class="form-control"    [(ngModel)]="asociasion" >
+                      </div> 
+                  </div>
+
+            </div>
+            <div  *ngIf="opcion.tipo == 5">
+                <div class="form-group row" >
+                    <div class="col-md-4">
+                            <label>Fcha de actualizacion de datos:</label>
+                            <input type="date"   class="form-control"    [(ngModel)]="fechaActualizacion" >
+                    </div>
+                    <div class="col-md-4">
+                            <label>Registro bienestar:</label>
+                            <input type="text"   class="form-control"    [(ngModel)]="bienestar" >
+                        </div>
+                    <div class="col-md-4">
+                            <label>Encuesta OLE:</label>
+                            <input type="text"   class="form-control"    [(ngModel)]="encuentaOle" >
+                    </div>      
+                </div>
+            </div>
 
 
 
@@ -232,20 +260,7 @@
             </div>
  
             </div>  
-            <div class="form-group row" >
-                <div class="col-md-4">
-                        <label>FECHA ACTUALIZACIÓN DATOS:</label>
-                        <input type="date"   class="form-control"    [(ngModel)]="fechaActualizacion" >
-                </div>
-                <div class="col-md-4">
-                        <label>REGISTRO BIENESTAR:</label>
-                        <input type="text"   class="form-control"    [(ngModel)]="bienestar" >
-                    </div>
-                <div class="col-md-4">
-                        <label>ENCUESTA OLE:</label>
-                        <input type="text"   class="form-control"    [(ngModel)]="encuentaOle" >
-                </div>      
-            </div>
+
            -->
           <!-- <br/> 
           <div>
@@ -254,7 +269,7 @@
       
       </div>
   <div class="buttonDown">
-    <button type="button" class="btn btn-primary butonGeneral" (click)="GuardarAsociado()">Guardar</button>
+    <button type="button" class="btn btn-primary " (click)="GuardarAsociado()">Guardar</button>
     <button type="button" class="btn btn-outline-dark buttonGeneral" (click)="Cancelar()">Cancelar</button>
     <button *ngIf="datosAmbiente.actualizacionModo.boton ==1" type="button" class="btn btn-primary butonGeneral" (click)="Actualizar()">Actualizar</button>
   </div>

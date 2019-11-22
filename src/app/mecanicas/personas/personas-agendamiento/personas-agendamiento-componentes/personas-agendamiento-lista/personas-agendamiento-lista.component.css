@@ -1,3 +1,14 @@
 .row{
     font-size: 10px ;
 }
+
+.nuevaAgenda{
+    background-color: #E4AC34;
+    color: black;
+    border: none;
+}
+
+.nuevaAgenda:hover{
+    background-color: #007bff;
+    color: white;
+}

@@ -25,17 +25,32 @@ descripcionPrograma : any ="BICIBAGUÉ: Iniciativa que busca incentivar la prác
   }
 
   cambiarOpcion(tipo){
-     if (tipo == 1) {
-      this.opcion.nombreOpcion = "Datos personales";
-      this.opcion.tipo= tipo;
-     }else if(tipo == 2){
-       this.opcion.nombreOpcion = "Estudios";
-       this.opcion.tipo= tipo;
-   }else{
-      this.opcion.nombreOpcion = "Empleo";
-      this.opcion.tipo= tipo;
-     }
- 
+
+    switch (tipo) {
+      case 1:
+          this.opcion.nombreOpcion = "Datos personales";
+          this.opcion.tipo= tipo;
+        break;
+      case 2:
+          this.opcion.nombreOpcion = "Estudios";
+          this.opcion.tipo= tipo;
+        break;
+      case 3:
+          this.opcion.nombreOpcion = "Empleo";
+          this.opcion.tipo= tipo;
+        break;
+      case 4:
+          this.opcion.nombreOpcion = "Reconocimientos";
+          this.opcion.tipo= tipo;
+        break;
+      case 5:
+          this.opcion.nombreOpcion = "Datos historicos";
+          this.opcion.tipo= tipo;
+        break;      
+    
+      default:
+        break;
+    }
 
   }
   Actualizar(){

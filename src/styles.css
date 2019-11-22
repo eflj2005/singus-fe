@@ -16,11 +16,22 @@ body {font-family: 'lato';}
     border-radius: 10px;
     text-decoration: none;
 }
+.buttonGeneral{
+    margin-left: 10px;
+    margin-right: 10px;
+}
 
 .mibutton:hover {
     background-color: #007bff;
     color: white;
 }
+
+#filtro{
+    width: 90%;
+    height: auto;
+
+}
+
 
 .container {
     padding: 10px;
@@ -69,3 +80,12 @@ h1{
 }
 html, body { height: 100%; }
 
+.row{
+    font-size: 15px ;
+}
+
+
+.colums{
+    background-color: #fde894;
+    
+}

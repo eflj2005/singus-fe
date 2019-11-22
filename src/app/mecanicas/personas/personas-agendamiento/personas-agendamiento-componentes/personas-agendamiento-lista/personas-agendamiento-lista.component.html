@@ -4,7 +4,7 @@
     <div>
       <h1 align='center'><strong>Lista Agendas</strong></h1>
       <div class="botonNuevo">
-        <button class="btn btn-primary" (click)="NuevaAgenda({modo:2})" >+ Nueva Agenda</button>
+        <button class="btn btn-primary nuevaAgenda" (click)="NuevaAgenda({modo:2})" ><i class="fa fa-plus-circle"></i> Nueva Agenda</button>
       </div>
       <br>
 
@@ -19,7 +19,7 @@
                 <th scope="col"><input class="form-control" [(ngModel)]="searchObjectAgendas.FechaCreacion" ></th>
                 <th scope="col"><input class="form-control" [(ngModel)]="searchObjectAgendas.FechaFinal" ></th>
                 <th scope="col"><input class="form-control" [(ngModel)]="searchObjectAgendas.Responsable" ></th>
-                <th scope="col"></th>
+                <th scope="col"><img src="../../../../../../assets/imagenes/filtro.png" alt="" id="filtro"></th>
                 <th scope="col"></th>   
             </tr>
           <tr class="colums">
@@ -33,6 +33,7 @@
             <th scope="col">Estado</th>
             <th scope="col"></th>
             <th scope="col"></th>
+            
           </tr>
         </thead>
   
@@ -58,8 +59,8 @@
             <td>{{agenda.Responsable}}</td>
             <td>{{agenda.Cantidad}}</td>
             <td>{{agenda.Estado}}</td>
-            <td><button class="btn btn-primary" (click)="verPersona({id : agenda.IdAgenda, modo:4})">Ver</button></td>
-            <td><button class="btn btn-primary" (click)="verPersona({id : agenda.IdAgenda, modo:3})">Editar</button></td>
+            <td><button  type="button" class="btn btn-light" (click)="verPersona({id : agenda.IdAgenda, modo:4})"  title="ver"><i class="fa fa-eye"></i></button></td>
+            <td><button class="btn btn-primary" (click)="verPersona({id : agenda.IdAgenda, modo:3})"  title="editar"><i class="fa fa-sliders"></i></button></td>
       </tr>
         </tbody>
   
