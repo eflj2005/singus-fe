@@ -6,6 +6,7 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { PersonasAgendamientoListaComponent } from './personas-agendamiento-lista/personas-agendamiento-lista.component';
 import { PersonasAgendamientoCrearComponent } from './personas-agendamiento-crear/personas-agendamiento-crear.component';
 import { PersonasAgendamientoEditarComponent } from './personas-agendamiento-editar/personas-agendamiento-editar.component';
+import { PersonasAgendamientoVerComponent } from './personas-agendamiento-ver/personas-agendamiento-ver.component';
 
 
 
@@ -14,7 +15,8 @@ import { PersonasAgendamientoEditarComponent } from './personas-agendamiento-edi
   declarations: [
     PersonasAgendamientoListaComponent,
     PersonasAgendamientoCrearComponent,
-    PersonasAgendamientoEditarComponent
+    PersonasAgendamientoEditarComponent,
+    PersonasAgendamientoVerComponent
   ],
   imports: [
     FormsModule,
@@ -24,7 +26,8 @@ import { PersonasAgendamientoEditarComponent } from './personas-agendamiento-edi
   ],exports :[
     PersonasAgendamientoListaComponent,
     PersonasAgendamientoCrearComponent,
-    PersonasAgendamientoEditarComponent
+    PersonasAgendamientoEditarComponent,
+    PersonasAgendamientoVerComponent
   ]
 })
 export class PersonasAgendamientoComponentesModule { 
