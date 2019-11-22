@@ -44,7 +44,7 @@ this.usuario = "Juan Bustos";
     { opcion: 'Alertas'           , url: '/especialidades'            , icon: "fa-exclamation-circle"      , agrupamiento: "Reportes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
     { opcion: 'Predefinidos'      , url: '/estadosDemandas'           , icon: "fa-file-pdf-o"              , agrupamiento: "Reportes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
     { opcion: 'Perzonalizados'    , url: '/estadosProcesos'           , icon: "fa-file-code-o"             , agrupamiento: "Reportes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
-    { opcion: 'Maestro'           , url: '/juzgados'                  , icon: "fa-share-alt-square"        , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
+    { opcion: 'Maestro'           , url: '/maestras'                  , icon: "fa-share-alt-square"        , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
     { opcion: 'Usuario'           , url: '/parentesco'                , icon: "fa-user-circle-o "          , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
     { opcion: 'Auditoria'         , url: '/tiposProcesos'             , icon: "fa-bar-chart "              , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
   ];

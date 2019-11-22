@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import {DashboardModule} from '@mecanicas/dashboard/dashboard.module';
 import { InicioModule } from "./inicio/inicio.module";
 import {PersonasModule} from '@mecanicas/personas/personas.module';
+import { AdministracionModule } from "@mecanicas/administracion/administracion.module";
 
 
 
@@ -16,7 +17,8 @@ import {PersonasModule} from '@mecanicas/personas/personas.module';
     CommonModule,
     InicioModule,
     DashboardModule,
-    PersonasModule
+    PersonasModule,
+    AdministracionModule
   ]
 })
 export class MecanicasModule { }

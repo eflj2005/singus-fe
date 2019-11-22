@@ -16,7 +16,7 @@ const rutas: Routes =[
   { path:'', redirectTo:'login', pathMatch:'full' },
 
   { path:'login'    , component: InicioPrincipalComponent     ,  /* canActivate: [ GuardianService ]  */},
-{ path:'dashboard', component: DashboardPrincipalComponent  ,   /* canActivate: [ GuardianService ]  */},
+  { path:'dashboard', component: DashboardPrincipalComponent  ,   /* canActivate: [ GuardianService ]  */},
 
 /*
 

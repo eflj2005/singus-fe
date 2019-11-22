@@ -5,14 +5,15 @@ import {DashboardComponentesModule} from '@mecanicas/dashboard/dashboard-compone
 import { RouterModule, Routes } from '@angular/router';
 import { PersonasActualizacionPrincipalComponent } from '@mecanicas/personas/personas-actualizacion/personas-actualizacion-principal/personas-actualizacion-principal.component';
 import { PersonasAgendamientoPrincipalComponent } from '../personas/personas-agendamiento/personas-agendamiento-principal/personas-agendamiento-principal.component';
-
+import { AdministracionMaestrasPrincipalComponent } from "@mecanicas/administracion/administracion-maestras/administracion-maestras-principal/administracion-maestras-principal.component";
 
 //Rutas para redirecciones por url
 const rutas: Routes =[
   
     { path:'', component: DashboardPrincipalComponent , children:[
       { path:'lista', component:PersonasActualizacionPrincipalComponent},
-      { path:'agendamiento', component: PersonasAgendamientoPrincipalComponent }
+      { path:'agendamiento', component: PersonasAgendamientoPrincipalComponent },
+      { path:'maestras', component: AdministracionMaestrasPrincipalComponent }
     ]}
 
 /*
