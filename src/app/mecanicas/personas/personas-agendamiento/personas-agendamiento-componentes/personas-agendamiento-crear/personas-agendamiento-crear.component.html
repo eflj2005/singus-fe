@@ -1,6 +1,6 @@
 <div class="form-group row" >
     <div class="col-md-4">
-        <label >Nombre :</label>
+        <label >Nombre de la agenda :</label>
         <input type="text" class="form-control " [(ngModel)]="Nombre">
     </div>
         <div class="col-md-4">
@@ -8,6 +8,8 @@
             <select class="form-control" [(ngModel)]="responsable">
                 <option value="0" disabled >--Seleccione Responsable--</option>
                 <option value="{{responsablebase.Id}}" *ngFor="let responsablebase of Responsables">{{responsablebase.Descripcion}}</option>
+                <option >Edwin F. Londoño J.</option>
+                <option >Manuel L. Castaño P.</option>
             </select>
       </div>
       <div class="col-md-2">
@@ -20,6 +22,9 @@
      </div>
 
 </div>
+
+<button class="btn btn-danger"  (click)="Cancelar()" >Cancelar</button>
+<button class="btn btn-success">Guardar</button>
 <div class="row" >
     <div class="col-md-6 cuadro">
         <h3  align='center'>Seleccionados</h3>
@@ -27,14 +32,7 @@
             <table class="table table-striped" >
                    
                     <thead>
-                        <tr>
-                            <th>&nbsp;</th>
-                            <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonasSeleccionadas.Nombre" ></th>
-                            <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonasSeleccionadas.Programa" ></th>
-                            <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonasSeleccionadas.Cedula" ></th>
-                            <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonasSeleccionadas.Id" ></th>
-                            <th scope="col"></th>   
-                        </tr>
+                       
                         <tr class="colums">
                         <th scope="col">#</th>
                         <th scope="col">Nombre</th>
@@ -47,18 +45,10 @@
                     </thead>
                 
                    
-                    <tbody *ngIf="mostarBoton; let i = index;" >
+                    <tbody  >
                    
-                        <tr *ngFor="let personaSelecionada of PersonasSeleccionadas | arrayFilter : 
-                            { 
-                            Nombre:                   searchObjectPersonasSeleccionadas.Nombre,  
-                            Programa:                 searchObjectPersonasSeleccionadas.Programa,
-                            FechaCreacion:            searchObjectPersonasSeleccionadas.Cedula,
-                            FechaFinal:               searchObjectPersonasSeleccionadas.Id
-                            
-                            };
-                            let indice=index"
-                        >
+                        <tr *ngFor="let personaSelecionada of PersonasSeleccionadas" >
+
                         <td scope="row">{{personaSelecionada.IdPersona}}</td>
                         <td>{{personaSelecionada.Nombre}}</td>
                         <td>{{personaSelecionada.Programa}}</td>
@@ -67,7 +57,7 @@
                         <td>{{personaSelecionada.FechaActualizacion}}</td>
                         <td>
                                 <label class="container">
-                                        <input type="checkbox" checked="checked" [(ngModel)]="personaSelecionada.Seleccionado" >
+                                        <input type="checkbox" [(ngModel)]="personaSelecionada.Seleccionado" >
                                         <span class="checkmark"></span>
                                 </label>
 
@@ -78,7 +68,7 @@
                     </tbody>
                 
                 </table>
-                <button *ngIf="mostarBoton"class="btn btn-primary" (click)="quitarPersonas()">Quitar</button>
+                <button class="btn btn-primary" (click)="quitarPersonas()">Quitar</button>
         </div>        
     </div>
     <div class="col-md-6 cuadro">
@@ -87,14 +77,7 @@
                 <table class="table table-striped">
                    
                         <thead>
-                            <tr>
-                                <th>&nbsp;</th>
-                                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Nombre" ></th>
-                                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Programa" ></th>
-                                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Cedula" ></th>
-                                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Id" ></th>
-                                <th scope="col"></th>   
-                            </tr>
+                           
                             <tr class="colums">
                             <th scope="col">#</th>
                             <th scope="col">Nombre</th>
@@ -108,17 +91,8 @@
                     
                        
                         <tbody>
-                        <tr>
-                            <tr *ngFor="let persona of Personas | arrayFilter : 
-                                { 
-                                Nombre:                   searchObjectPersonas.Nombre,  
-                                Programa:                 searchObjectPersonas.Programa,
-                                FechaCreacion:            searchObjectPersonas.Cedula,
-                                FechaFinal:               searchObjectPersonas.Id
-                                
-                                };
-                                let indice=index"
-                            >
+                        
+                            <tr *ngFor="let persona of Personas " >
                             <td scope="row">{{persona.IdPersona}}</td>
                             <td>{{persona.Nombre}}</td>
                             <td>{{persona.Programa}}</td>
@@ -127,14 +101,14 @@
                             <td>{{persona.FechaActualizacion}}</td>
                             <td>
                                     <label class="container">
-                                            <input type="checkbox" checked="checked" [(ngModel)]="persona.Seleccionado" >
+                                            <input type="checkbox" [(ngModel)]="persona.Seleccionado" >
                                             <span class="checkmark"></span>
                                     </label>
     
                             </td>
     
-    
                         </tr>
+                        
                         </tbody>
                     
                     </table>

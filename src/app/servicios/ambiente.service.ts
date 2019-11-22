@@ -38,7 +38,7 @@ export class AmbienteService {
       datos: null
         }
     this.agendaModo = {
-      modo: 2,        
+      modo: 1,        
       datos: null
       }
   }

@@ -1,5 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {formatDate} from '@angular/common';
+import {AmbienteService} from '@servicios/ambiente.service';
+
+interface PersonaTemporarl { 
+  Id:number,
+  Nombre:string,
+  Programa:string,
+  Cedula:number,
+  IdPerona:number,
+  FechaActualizacion:string,
+Seleccionado: boolean}
+
 
 @Component({
   selector: 'app-personas-agendamiento-crear',
@@ -8,15 +19,14 @@ import {formatDate} from '@angular/common';
 })
 export class PersonasAgendamientoCrearComponent implements OnInit {
 
-
   mostarBoton: boolean ;
     seleccion: boolean  ;
-    FechaInicio 
-  
-  constructor() {
+    FechaInicio : any ;
+  responsable = 0;
+  constructor(private datosAmbiente : AmbienteService) {
     // this.dateFormatormat(this.now, "dddd, mmmm dS, yyyy");
     this.FechaInicio= formatDate(new Date(), 'yyyy-MM-dd', 'en');
-    console.log(this.PersonasSeleccionadas)
+ 
 
     if(this.PersonasSeleccionadas.length != 0  ){
       this.mostarBoton = true;
@@ -27,73 +37,65 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
    }
   
    ngOnInit() {
-      this.Seleccion();
+      
   }
-   searchObjectPersonas: any ={
-    IdPersona:"",
-    Nombre:"",
-    Programa:"",
-    Cedula:"",
-    Id:"",
-    FechaActualizacion:"",
+  
+PersonasSeleccionadas:Array<PersonaTemporarl> = [];
 
-  };
-  searchObjectPersonasSeleccionadas: any ={
-    IdPersona:"",
-    Nombre:"",
-    Programa:"",
-    Cedula:"",
-    Id:"",
-    FechaActualizacion:"",
-
-  };
-PersonasSeleccionadas:Array<Object> = [];
-
-  Personas: Array<Object> = [{
-    IdPersona:"1",
-    Nombre:"Juan Carlos Bustos Tovio ",
+  Personas: Array<PersonaTemporarl> = [{
+    Id:1,
+    Nombre:"Juan Camilo Caviedes Toro ",
     Programa:"Ingenieria de sistemas",
-    Cedula:"1007405687",
-    Id:"12345678",
+    Cedula:1007405687,
+    IdPerona:12345678,
     FechaActualizacion:"12-12-2019",
+    Seleccionado: false
   },
   {
-    IdPersona:"1",
-    Nombre:"Juan Diego Moreno Marroquin ",
+    Id:2,
+    Nombre:"Fernando Suarez Martinez ",
     Programa:"Ingenieria de sistemas",
-    Cedula:"1007405687",
-    Id:"12345678",
-    FechaActualizacion:"12-12-2019",
+    Cedula:1011234187,
+    IdPerona:12345678,
+    FechaActualizacion:"12-11-2019",
+    Seleccionado: false
   }
 ];
-Seleccion(){
-  let i
-  for(i = 0; i < this.Personas.length; i++){
-    this.Personas[i]["Seleccionado"] = false ;
-  }
+
  
-}
+
   
   // Mostar(){
   //   console.log(this.Personas);
   // }
   quitarPersonas(){
-
+    this.PersonasSeleccionadas.forEach((elemento,indice) => {
+      if(elemento.Seleccionado){
+        elemento.Seleccionado =false;
+        this.Personas.push( Object.assign({}, elemento));
+       
+        this.PersonasSeleccionadas.splice(indice,1);
+        
+      }
+    });
   }
   agregarPersonas(){
     
-    let i
-    for(i = 0; i < this.Personas.length; i++){
-      if (this.Personas[i]["Seleccionado"] == true ) {
-        
-        this.PersonasSeleccionadas.push(this.Personas[i]); 
-        this.PersonasSeleccionadas[i]["Seleccionado"] = false   ;
-        this.mostarBoton = true;
+    this.Personas.forEach((elemento,indice) => {
 
-      }
-    }
- 
-  }
- 
+     if(elemento.Seleccionado){
+       elemento.Seleccionado =false;
+       this.PersonasSeleccionadas.push( Object.assign({}, elemento));
+      
+       this.Personas.splice(indice,1);
+       
+     }
+   });
+ }
+ Cancelar(){
+   
+  this.datosAmbiente.agendaModo.modo = 1;
+  
+}
 }
 
