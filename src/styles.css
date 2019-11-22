@@ -32,6 +32,9 @@ body {font-family: 'lato';}
 
 }
 
+.containerAgenda{
+    padding: 2rem;
+}
 
 .container {
     padding: 10px;
@@ -89,5 +92,4 @@ html, body { height: 100%; }
     background-color: #fde894;
     
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
