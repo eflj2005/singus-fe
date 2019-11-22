@@ -13,7 +13,8 @@ export class AmbienteService {
   
   actualizacionModo:any = {
                             modo: 0,          // Modo 1 es lista de personas -> Modo 2 es Editar a una persona
-                            datos:null
+                            datos:null,
+                            boton: null
                               } 
   agendaModo:any = {
                       modo: 0,          // Modo 1 es lista de personas -> Modo 2 es Editar a una persona
@@ -40,7 +41,8 @@ export class AmbienteService {
     
     this.actualizacionModo = {
       modo: 1,        
-      datos: null
+      datos: null,
+      boton:null
         }
     this.agendaModo = {
       modo: 1,        

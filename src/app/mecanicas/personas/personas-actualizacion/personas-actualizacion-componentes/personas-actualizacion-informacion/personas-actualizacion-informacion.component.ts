@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AmbienteService} from '@servicios/ambiente.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
 habilitado: any;
 descripcionProyecto : any ="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología";
 descripcionPrograma : any ="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología";
-  constructor(private datosAmbiente : AmbienteService) {
+  constructor(private datosAmbiente : AmbienteService,private router: Router) {
     this.habilitado = "disabled";
    }
 
@@ -37,6 +38,7 @@ descripcionPrograma : any ="BICIBAGUÉ: Iniciativa que busca incentivar la prác
  
 
   }
-
-
+  Actualizar(){
+    this.router.navigateByUrl("/agendamiento");
+  }
 }
