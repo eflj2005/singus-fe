@@ -7,8 +7,8 @@ export interface UsuarioInterface {
     telefono: Date;
     correo: string;
     fechacreacion: string;
-    roles_id:number;
+    rol:string;
     areas_id:number;
-    estado:number;
+    estado:string;
     token?:string;
 }

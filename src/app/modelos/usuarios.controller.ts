@@ -17,7 +17,7 @@ export class UsuariosController extends GenericoModel {
 
   constructor( private injector:Injector ) {
     super( injector.get(HttpClient)  , injector.get(AmbienteService) );
-    this.nombreTabla = "areas";
+    this.nombreTabla = "usuarios";
   }
 
 

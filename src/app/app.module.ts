@@ -15,6 +15,8 @@ import { MecanicasModule } from '@mecanicas/mecanicas.module';
 import { ModelosModule } from '@app/modelos/modelos.module'
 import { ErrorInterceptorService } from '@servicios/error.interceptor';
 import { JwtInterceptorService } from '@servicios/jwt.interceptor';
+import { DatePipe } from '@angular/common';
+
 
 
 
@@ -35,6 +37,7 @@ import { JwtInterceptorService } from '@servicios/jwt.interceptor';
     ModelosModule  
   ],
   providers: [ 
+    DatePipe,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true  }
    ],
