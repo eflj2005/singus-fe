@@ -17,6 +17,7 @@ import { ErrorInterceptorService } from '@servicios/error.interceptor';
 import { JwtInterceptorService } from '@servicios/jwt.interceptor';
 import { DatePipe } from '@angular/common';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -34,7 +35,8 @@ import { DatePipe } from '@angular/common';
     ServiciosModule,
     GeneralesModule.forRoot(),
     MecanicasModule,
-    ModelosModule  
+    ModelosModule,
+    BrowserAnimationsModule  
   ],
   providers: [ 
     DatePipe,

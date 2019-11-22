@@ -25,7 +25,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
     FechaCreacion:"12-12-2019",
     FechaFinal:"15-12-2019",
     Responsable:"Juan Carlos Bustos Tovio",
-    Cantidad: "18",
+    Cantidad: "2",
     Estado: "46 %"
   },
   {
@@ -35,7 +35,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
     FechaCreacion:"12-12-2019",
     FechaFinal:"15-12-2019",
     Responsable:"Juan Diego Moreno Marroquin",
-    Cantidad: "30",
+    Cantidad: "2",
     Estado: "82 %"
   }
 ];

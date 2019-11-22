@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {Router} from '@angular/router';
 import { AutenticacionService } from '@app/servicios/autenticacion.service';
+import {AmbienteService} from '@servicios/ambiente.service';
 
 
 
@@ -23,7 +24,7 @@ export class DashboardMenuComponent {
     agrupamiento:"",
   }
   
-  constructor(private rutas: Router, private ruta: ActivatedRoute, private autenticador: AutenticacionService) {
+  constructor(private rutas: Router, private ruta: ActivatedRoute, private autenticador: AutenticacionService,private datosAmbiente : AmbienteService) {
  
 
 
@@ -90,5 +91,9 @@ this.usuario = "Juan Bustos";
       this.rutas.navigated = false;
       this.rutas.navigate([this.rutas.url]);
     });
+  }
+  Reiniciar(){
+    this.datosAmbiente.actualizacionModo.modo = 1;
+    this.datosAmbiente.agendaModo.modo = 1
   }
 }

@@ -11,7 +11,7 @@
             <ul >
 
                 <li *ngFor="let opcionActual of grupo.opciones" class="opciones">
-                    <a routerLink={{opcionActual.url}}>
+                    <a routerLink={{opcionActual.url}} (click)="Reiniciar()">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text"><span class="fa {{opcionActual.icon}}  fa-2x"></span>{{opcionActual.opcion}}</span>
                     </a>
                 </li>
