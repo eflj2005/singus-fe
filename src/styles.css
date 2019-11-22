@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-
+table{
+    font-size: 12px;
+}
 body {font-family: 'lato';}
 
 /* Set a style for all buttons */
