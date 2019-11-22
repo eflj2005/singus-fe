@@ -32,6 +32,9 @@ body {font-family: 'lato';}
 
 }
 
+.containerAgenda{
+    padding: 2rem;
+}
 
 .container {
     padding: 10px;
