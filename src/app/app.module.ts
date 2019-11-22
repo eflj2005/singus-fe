@@ -15,6 +15,7 @@ import { MecanicasModule } from '@mecanicas/mecanicas.module';
 import { ModelosModule } from '@app/modelos/modelos.module'
 import { ErrorInterceptorService } from '@servicios/error.interceptor';
 import { JwtInterceptorService } from '@servicios/jwt.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -32,7 +33,8 @@ import { JwtInterceptorService } from '@servicios/jwt.interceptor';
     ServiciosModule,
     GeneralesModule.forRoot(),
     MecanicasModule,
-    ModelosModule  
+    ModelosModule,
+    BrowserAnimationsModule  
   ],
   providers: [ 
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },

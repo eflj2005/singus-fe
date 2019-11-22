@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+
 
 @Component({
   selector: 'dashboard-encabezado',
@@ -11,5 +12,10 @@ export class DashboardEncabezadoComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  verPerfil(){
+    alert("Perfil del usuario en creacion");
+  }
+   
 
 }

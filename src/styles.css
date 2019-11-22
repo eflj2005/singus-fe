@@ -65,3 +65,4 @@ h1{
     display: BLOCK;
     color: #00529b;
 }
+html, body { height: 100%; }
