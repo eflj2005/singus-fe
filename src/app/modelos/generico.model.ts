@@ -135,7 +135,8 @@ export class GenericoModel {
   }
 
   public Guardar(): Observable<any>{
-    return this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
+    let parametros = {};
+    return this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php", parametros).pipe(
       map(
         (respuesta: any) => {
 

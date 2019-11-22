@@ -75,8 +75,8 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
     this.procesando=true;
 
     this.controladorUsuarios.Agregar(this.datos);
-    
-    this.controladorUsuarios.guardar().subscribe(
+
+    this.controladorUsuarios.Guardar().subscribe(
       respuesta => {
             
       }
