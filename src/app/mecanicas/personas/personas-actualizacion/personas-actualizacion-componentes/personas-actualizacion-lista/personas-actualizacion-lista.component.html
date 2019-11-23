@@ -8,10 +8,12 @@
 
 
         <form>
-            <div class="form-group form-inline">
-                Full text search: <input class="form-control ml-2" type="text"  />
-            </div>
-          </form>
+          <div class="form-group form-inline">
+              Full text search: <input class="form-control ml-2" type="text" [formControl]="filter"/>
+          </div>
+        </form>
+        
+        
           
           <table class="table table-striped">
             <thead>
