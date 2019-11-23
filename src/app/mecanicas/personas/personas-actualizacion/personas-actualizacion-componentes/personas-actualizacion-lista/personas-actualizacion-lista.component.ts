@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbHighlight } from "@ng-bootstrap/ng-bootstrap";
+import { FormControl } from '@angular/forms';
 import {AmbienteService} from '@servicios/ambiente.service';
 
 
@@ -8,6 +10,7 @@ import {AmbienteService} from '@servicios/ambiente.service';
   styleUrls: ['./personas-actualizacion-lista.component.css']
 })
 export class PersonasActualizacionListaComponent implements OnInit {
+  filter = new FormControl('');
   searchObjectPersonas: any ={
     IdPersona:"",
     Cohorte:"",
