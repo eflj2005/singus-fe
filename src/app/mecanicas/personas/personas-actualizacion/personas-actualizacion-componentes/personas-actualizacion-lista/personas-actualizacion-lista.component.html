@@ -5,6 +5,42 @@
         <h1 align='center'>Lista Personas</h1>
 
         <br>
+
+
+        <form>
+            <div class="form-group form-inline">
+                Full text search: <input class="form-control ml-2" type="text" [formControl]="filter" />
+            </div>
+          </form>
+          
+          <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Cohorte</th>
+                <th scope="col">ID</th>
+                <th scope="col">Sede</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Cedula</th>
+                <th scope="col">Programa</th>
+                <th scope="col">Celular</th>
+                <th scope="col">Correo Institucional</th>
+                <th scope="col">Correo Personal</th> 
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let country of countries$ | async; index as i">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>
+                <img [src]="'https://upload.wikimedia.org/wikipedia/commons/' + country.flag" class="mr-2" style="width: 20px">
+                <ngb-highlight [result]="country.name" [term]="filter.value"></ngb-highlight>
+              </td>
+              <td><ngb-highlight [result]="country.area | number" [term]="filter.value"></ngb-highlight></td>
+              <td><ngb-highlight [result]="country.population | number" [term]="filter.value"></ngb-highlight></td>
+            </tr>
+            </tbody>
+          </table>
     
         <table class="table  table-striped">
           <!-- titulo de las columnas -->

@@ -90,6 +90,21 @@ html, body { height: 100%; }
 
 .colums{
     background-color: #fde894;
-    
+
 }
 
+.light-blue-backdrop {
+    background-color: #fde894;
+  }
+
+.modal-header{
+    background-color: #00529b;
+    border-bottom: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.modal-title{
+    color: white;
+    /* font-size: 20px; */
+
+}

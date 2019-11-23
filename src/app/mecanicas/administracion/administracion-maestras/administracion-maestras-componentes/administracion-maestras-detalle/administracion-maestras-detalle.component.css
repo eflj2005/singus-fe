@@ -34,3 +34,6 @@
     display: flex;
     direction: rtl;
 }
+.ngTabContainer{
+    background-color: rgba(0,0,0,0.04); /* Black w/ opacity */
+}

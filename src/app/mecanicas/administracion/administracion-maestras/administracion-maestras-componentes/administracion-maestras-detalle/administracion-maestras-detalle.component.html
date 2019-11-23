@@ -3,53 +3,91 @@
    
         <h1 align='center'>Maestras</h1>
 
-              
-      <div class="form-group column">
-            <div class=" form-group row  " >
-                <button type="button" class="btn maestras active" (click)="cambiarOpcion(1)">
-                    Ciudades
-                </button>
-                <button type="button" class="btn  maestras" (click)="cambiarOpcion(2)">                
-                    Titulos
-                </button>
-                <button type="button" class="btn maestras" (click)="cambiarOpcion(3)">                
-                    Programas
-                </button>
-                <button type="button" class="btn maestras" (click)="cambiarOpcion(4)">                
-                    Documentos
-                </button>
-                <button type="button" class="btn maestras" (click)="cambiarOpcion(5)">                
-                    Cedes
-                </button>
-                <button type="button" class="btn maestras" (click)="cambiarOpcion(6)">                
-                    Cohortes
-                </button>
-                <button type="button" class="btn maestras" (click)="cambiarOpcion(7)">                
-                    Areas
-                </button>                      
-            </div>
-            <div class=" col-md-11 infoSpace " >
-                <h3>{{opcion.nombreOpcion}}</h3>
-                <hr>
-    
-                <div  *ngIf="opcion.tipo == 1">
-
+        <ngb-tabset>
+            <ngb-tab title="Ciudades">
+              <ng-template ngbTabContent >
+                <div class="ngTabContainer">
+                  <br>
+                  <h3>Ciudades</h3>
+                  <hr>
+                  <br>
+                  <p></p>
                 </div>
-    
-                <div *ngIf="opcion.tipo == 2" >
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>Titulos</ng-template>
+              <ng-template ngbTabContent>
+                  <div class="ngTabContainer">
+                      <br>
+                      <h3>Titulos</h3>
+                      <hr>
+                      <br>
+                      <p></p>
+                    </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>Programas</ng-template>
+              <ng-template ngbTabContent>
+                  <div class="ngTabContainer">
+                      <br>
+                      <h3>Programas</h3>
+                      <hr>
+                      <br>
+                      <p></p>
+                    </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>Documentos</ng-template>
+              <ng-template ngbTabContent>
+                  <div class="ngTabContainer">
+                      <br>
+                      <h3>Documentos</h3>
+                      <hr>
+                      <br>
+                      <p></p>
+                    </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>Sedes</ng-template>
+              <ng-template ngbTabContent>
+                  <div class="ngTabContainer">
+                      <br>
+                      <h3>Sedes</h3>
+                      <hr>
+                      <br>
+                      <p></p>
+                    </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>Cohortes</ng-template>
+              <ng-template ngbTabContent>
+                  <div class="ngTabContainer">
+                      <br>
+                      <h3>Cohortes</h3>
+                      <hr>
+                      <br>
+                      <p></p>
+                    </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>Areas</ng-template>
+              <ng-template ngbTabContent>
+                  <div class="ngTabContainer">
+                      <br>
+                      <h3>Areas</h3>
+                      <hr>
+                      <br>
+                      <p></p>
+                    </div>
+              </ng-template>
+            </ngb-tab>
 
-                </div>
-              
-                <div *ngIf="opcion.tipo == 3">
-
-                </div>
-    
-    
-    
-            </div>  
-
+          </ngb-tabset>
           
-          </div>
- 
-    
     </div>

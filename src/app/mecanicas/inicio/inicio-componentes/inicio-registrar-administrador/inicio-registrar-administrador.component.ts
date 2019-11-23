@@ -75,7 +75,7 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
     this.procesando=true;
 
 
-    const respuestaA=this.servicioEmergentes.open(contenidoConfirmador, { centered: true });
+    const respuestaA=this.servicioEmergentes.open(contenidoConfirmador, { centered: true , backdropClass: 'light-blue-backdrop' } );
 
     respuestaA.result.then(
       (result) => {

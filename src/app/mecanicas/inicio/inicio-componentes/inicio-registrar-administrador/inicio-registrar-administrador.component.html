@@ -65,13 +65,13 @@
     <p>Esta seguro de crear el administrador '{{ datos.nombres }}'' con documento '{{ datos.documento }}'. Esta acción no se puede reversar.</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-danger" (click)="modal.close('SI')">Si</button>            
-    <button type="button" ngbAutofocus  class="btn btn-outline-secondary" (click)="modal.dismiss('NO')">No</button>            
+    <button type="button" class="btn btn-primary" (click)="modal.close('SI')">Si</button>            
+    <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">No</button>            
   </div>
 </ng-template>
 
 <!-- emergente para continuar -->
-<ng-template #notificador let-modal>
+<ng-template #notificador let-modal class="modalContenedor">
   <div class="modal-header">
     <h4 class="modal-title">Notificación</h4>
   </div>
@@ -79,6 +79,6 @@
     <p>Se ha enviado un mensaje a '{{ datos.correo }}' con el codigo de confirmación.</p>
   </div>
   <div class="modal-footer">       
-    <button type="button" ngbAutofocus  class="btn btn-danger" (click)="modal.dismiss('CONTINUAR')">Continuar</button>            
+    <button type="button" ngbAutofocus  class="btn btn-primary" (click)="modal.dismiss('CONTINUAR')">Continuar</button>            
   </div>
 </ng-template>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-administracion-maestras-detalle',
   templateUrl: './administracion-maestras-detalle.component.html',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdministracionMaestrasDetalleComponent implements OnInit {
   opcion: any = { nombreOpcion:"Ciudades", tipo:"1" } ;
+
   constructor() { }
 
   ngOnInit() {
