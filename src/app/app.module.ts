@@ -18,7 +18,6 @@ import { JwtInterceptorService } from '@servicios/jwt.interceptor';
 import { DatePipe } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-//import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
