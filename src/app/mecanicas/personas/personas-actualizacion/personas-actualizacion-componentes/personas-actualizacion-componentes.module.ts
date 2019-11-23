@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import {  NgbTypeaheadModule } from "@ng-bootstrap/ng-bootstrap";
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { GeneralesModule } from '@app/generales/generales.module';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { PersonasActualizacionListaComponent } from './personas-actualizacion-lista/personas-actualizacion-lista.component';
@@ -24,7 +24,9 @@ import { PersonasActualizacionDetalleComponent } from './personas-actualizacion-
     NgbAlertModule,
     CommonModule,
     GeneralesModule,
-    NgbTypeaheadModule
+    NgbTypeaheadModule,
+    ReactiveFormsModule
+
 
   ], exports: [
     PersonasActualizacionListaComponent,

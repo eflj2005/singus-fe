@@ -17,6 +17,7 @@ import { ErrorInterceptorService } from '@servicios/error.interceptor';
 import { JwtInterceptorService } from '@servicios/jwt.interceptor';
 import { DatePipe } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl } from '@angular/forms';
 
 
 @NgModule({
