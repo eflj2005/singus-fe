@@ -11,9 +11,6 @@ import { PersonasActualizacionDetalleComponent } from './personas-actualizacion-
 
 
 
-
-
-
 @NgModule({
   declarations: [
     PersonasActualizacionListaComponent,
