@@ -11,4 +11,5 @@ export interface UsuarioInterface {
     areas_id:number;
     estado:string;
     token?:string;
+    modo?:string;
 }

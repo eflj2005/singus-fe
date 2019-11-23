@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { AmbienteService } from '@app/servicios/ambiente.service';
 import { map } from 'rxjs/operators';
 import { ɵConsole } from '@angular/core';
+import { UsuariosController } from './usuarios.controller';
 
 export interface filtroInterface{
     [key: string]: string | boolean | number;
@@ -19,7 +20,8 @@ export class GenericoModel {
   constructor(
     protected llamadoHttp :HttpClient,
     protected servicioAmbiente: AmbienteService
-  ) {}
+  ) {
+  }
 
   //SOBRECARGA ATRIBUTOS
 
@@ -48,13 +50,13 @@ export class GenericoModel {
   }
 
   public Agregar(objeto:any){
-    objeto.statusController = "C";
+    objeto.modo = "I";
     this.registros.push(objeto);
     this.posicionActual = this.cantidad - 1;
   }
 
   public Modificar(objeto:any){
-    objeto.statusController = "A";
+    objeto.modo = "A";
     this.registros = objeto;
   }
 
@@ -134,8 +136,22 @@ export class GenericoModel {
 
   }
 
-  public Guardar(): Observable<any>{
-    let parametros = {};
+  public Guardar(esInserccion:boolean, conToken:boolean=true ): Observable<any>{
+    var aProcesar:UsuariosController[] = [];
+
+    this.registros.forEach(registro => {
+      if(esInserccion   && registro.modo == 'I') aProcesar.push(registro);        
+      if(!esInserccion  && registro.modo == 'A') aProcesar.push(registro);
+    });
+
+    let parametros = {
+      accion : "crear_registros",
+      tabla: this.nombreTabla,
+      conSeguridad: conToken,      
+      esInserccion: esInserccion,
+      datos : this.registros      
+    };
+
     return this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php", parametros).pipe(
       map(
         (respuesta: any) => {
@@ -146,7 +162,10 @@ export class GenericoModel {
         }
       )
     );
+
   }
+
+
 
 
 }
