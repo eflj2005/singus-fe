@@ -127,7 +127,7 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
 
     console.log(this.controladorUsuarios.ObtenerTodos());
 
-    this.controladorUsuarios.Guardar(true,false).subscribe(
+    this.controladorUsuarios.Guardar(false).subscribe(
       respuesta => {
             
       }

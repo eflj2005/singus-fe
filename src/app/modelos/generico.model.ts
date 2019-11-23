@@ -136,19 +136,19 @@ export class GenericoModel {
 
   }
 
-  public Guardar(esInserccion:boolean, conToken:boolean=true ): Observable<any>{
+  public Guardar(conToken:boolean=true ): Observable<any>{
     var aProcesar:UsuariosController[] = [];
 
     this.registros.forEach(registro => {
-      if(esInserccion   && registro.modo == 'I') aProcesar.push(registro);        
-      if(!esInserccion  && registro.modo == 'A') aProcesar.push(registro);
+      if(registro.modo != null) aProcesar.push(registro);        
     });
 
+    
+    
     let parametros = {
       accion : "crear_registros",
       tabla: this.nombreTabla,
       conSeguridad: conToken,      
-      esInserccion: esInserccion,
       datos : this.registros      
     };
 
