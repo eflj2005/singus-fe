@@ -47,12 +47,6 @@
       <button class="mibutton" *ngIf="procesando == true" ><i class="fa fa-spinner fa-spin"></i></button>
   </div>
 
-
-<div style="text-align: center;">
-  <div *ngFor="let item of datos | keyvalue">
-    {{item.key}}:{{item.value}}
-  </div>
-  <button class="mibutton"  (click)="RegistrarAdministrador2(confirmador,notificador)">Registrar</button>
 </div>
 
 
@@ -62,7 +56,8 @@
     <h4 class="modal-title">Confirmación</h4>
   </div>
   <div class="modal-body">
-    <p>Esta seguro de crear el administrador '{{ datos.nombres }}'' con documento '{{ datos.documento }}'. Esta acción no se puede reversar.</p>
+    <p>¿Esta seguro de crear el administrador '{{ datos.nombres }}'' con documento '{{ datos.documento }}?'.</p>
+    <p>Esta acción no se puede reversar.</p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="modal.close('SI')">Si</button>            
