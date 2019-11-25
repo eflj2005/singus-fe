@@ -38,7 +38,7 @@
                 <div class="form-group row" >
                     <div class="col-md-1">
                       <label> Cohorte:</label>
-                      <input type="text" class="form-control"  [(ngModel)]="cohorte" >
+                      <input disabled type="text" class="form-control"  [(ngModel)]="cohorte" >
                     </div>
                     <div  class="col-md-2">
                       <label> Sede:</label>
@@ -65,22 +65,22 @@
                   <div class="form-group row">
                     <div  class="col-md-2">
                           <label> Id:</label>
-                          <input type="text"   class="form-control"  [(ngModel)]="id"  >
+                          <input disabled type="text"   class="form-control"  [(ngModel)]="id"  >
                     </div>
                     <div class="col-md-1">
                         <label>TipoDoc:</label>
-                        <select class="form-control" [(ngModel)]="genero">
+                        <select disabled class="form-control" [(ngModel)]="genero">
                             <option value="0" disabled >--Seleccione genero--</option>
                             <option value="{{generoBase.Id}}" *ngFor="let generoBase of generos">{{programaBase.Descripcion}}</option>
                         </select>
                     </div>
                     <div class="col-md-6">
                         <label >Documento :</label>
-                        <input type="number"   class="form-control"  [(ngModel)]="cedula" name="cedula">
+                        <input disabled type="number"   class="form-control"  [(ngModel)]="cedula" name="cedula">
                     </div>
                     <div class="col-md-3">
                         <label >Expedida :</label>
-                        <select class="form-control" [(ngModel)]="expedicion">
+                        <select disabled class="form-control" [(ngModel)]="expedicion">
                             <option value="0" disabled >--Seleccione Expedición--</option>
                             <option value="{{expedidaBase.Id}}" *ngFor="let expedidaBase of expediciones">{{expedidaBase.Descripcion}}</option>
                         </select>
@@ -90,12 +90,12 @@
 
                       <div class="col-md-6">
                           <label>Nombres:</label>
-                          <input type="text"   class="form-control"   [(ngModel)]="nombres" >
+                          <input disabled type="text"   class="form-control"   [(ngModel)]="nombres" >
                         </div>
                         
                         <div class="col-md-6">
                           <label>Apellidos:</label>
-                          <input type="text"   class="form-control"    [(ngModel)]="apellidos" >
+                          <input disabled type="text"   class="form-control"    [(ngModel)]="apellidos" >
                         </div>
                         
                   </div>
@@ -109,7 +109,7 @@
                     </div>
                     <div class="col-md-2">
                             <label >Fecha Nacimiento :</label>
-                            <input type="date" class="form-control " [(ngModel)]="fechaNacimiento">
+                            <input disabled type="date" class="form-control " [(ngModel)]="fechaNacimiento">
                     </div>
 
                   </div>
@@ -117,20 +117,26 @@
                   <div class="form-group row">
                       <div class="col-md-4">
                           <label >Correo Personal:</label>
-                          <input type="email" name="email" ngModel [email]="true" class="form-control" [(ngModel)]="correoPersonal" placeholder="Ejemplo@hotmail.com">
+                          <div class="addInfo">
+                            <input disabled type="email" name="email" ngModel [email]="true" class="form-control " [(ngModel)]="correoPersonal" placeholder="Ejemplo@hotmail.com">
+                            <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregador, 1)"><i class="fa fa-plus"></i></button>
+                          </div>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                           <label >Correo Institucional:</label>
-                          <input type="email" name="email" ngModel [email]="true" class="form-control" [(ngModel)]="correoInstitucional" placeholder="Ejemplo@hotmail.com">
+                          <input disabled type="email" name="email" ngModel [email]="true" class="form-control disabled" [(ngModel)]="correoInstitucional" placeholder="Ejemplo@hotmail.com">   
                       </div> 
 
                       <div class="col-md-4">
                           <label>Direccion:</label>
-                          <input type="text"   class="form-control"    [(ngModel)]="direccion" >
+                        <div class="addInfo">
+                          <input disabled type="text"   class="form-control "    [(ngModel)]="direccion" >
+                          <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregador, 2)"><i class="fa fa-plus"></i></button>
+                        </div>
                       </div>
                   </div>
                   <div class="form-group row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <label >Municipio de Residencia:</label>
                         <select class="form-control" [(ngModel)]="residencia">
                             <option value="0" disabled >--Seleccione Residencia--</option>
@@ -139,89 +145,190 @@
                     </div>
                     <div class="col-md-2">
                         <label >Telefono :</label>
-                        <input type="number"   class="form-control"  [(ngModel)]="telefono" >
+                        <div class="addInfo">
+                          <input disabled type="number"   class="form-control "  [(ngModel)]="telefono" >
+                          <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregador, 3)"><i class="fa fa-plus"></i></button>
+                        </div>
                     </div>
                     <div class="col-md-2">
                         <label >Celular :</label>
-                        <input type="number"   class="form-control"  [(ngModel)]="celular" >
+                        <div class="addInfo">
+                          <input  disabled type="number"   class="form-control "  [(ngModel)]="celular" >
+                          <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregador, 4)"><i class="fa fa-plus"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div *ngIf="opcion.tipo == 2" >
-              <h4>Mecanismo de graduación</h4>
-              <div class="form-group row">
-                  <div class="col-md-6">
-                    <label >Descripción del mecanismo /Proyecto:</label>
-                    <textarea type="textarea" class="form-control"  [(ngModel)]="descripcionProyecto" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología">
-                    </textarea>
-                  </div>
-                  <div class="col-md-6">
-                      <label >Descripción del mecanismo /Programa:</label>
-                      <textarea type="textarea" class="form-control"  [(ngModel)]="descripcionPrograma" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología">
-                      </textarea>
-                  </div>
-              </div>
-  
+            <div *ngIf="opcion.tipo == 2" #element>
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Institucion</th>
+                        <th scope="col">Fecha de registro</th>
+                        <th scope="col">Mecanismo de grado</th>
+                        <th scope="col">Descripcion del mecanismo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Markkkkkkkkkkkk</td>
+                        <td>Ottoooooooooooo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              <hr>
+              <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregadorCantidad, 5)"><i class="fa fa-plus"></i>Agregar</button>
+
             </div>
           
             <div *ngIf="opcion.tipo == 3">
-                <div class="form-group row"  >
-                    <div class="col-md-4">
-                      <label >Empleo  Directamente relacionado con su campo de formación :</label><br/>
-                      <textarea type="textarea" class="form-control"  [(ngModel)]="empleoDirecctamente" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología"></textarea>
-                    </div>
-                    <div class="col-md-4">
-                      <label >Empleo  Indirectamente relacionado con su campo de formación :</label><br/>
-                      <textarea type="textarea" class="form-control"  [(ngModel)]="empleoRelacionado" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología"></textarea>
-                    </div>
-                    <div class="col-md-4">
-                      <label >Empleo Nada relacionado con su con su campo de formación :</label><br/>
-                      <textarea type="textarea" class="form-control"  [(ngModel)]="empleoNoRelacionado" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología"></textarea>
-                    </div>
-                </div>
-                <div class="form-group row"  >
-                    <div class="col-md-2">
-                        <label >Desempleado:</label> <br/>
-                        <input type="text"   class="form-control"    [(ngModel)]="desempleado" >
-                    </div>
-                    <div class="col-md-4">
-                        <label >Total Ingresos Mensuales :</label><br/>
-                        <input type="number"   class="form-control"    [(ngModel)]="salario" >
-                    </div>
-                </div>
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Institucion</th>
+                        <th scope="col">Fecha de registro</th>
+                        <th scope="col">Mecanismo de grado</th>
+                        <th scope="col">Descripcion del mecanismo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Markkkkkkkkkkkk</td>
+                        <td>Ottoooooooooooo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <hr>
+                  <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregadorCantidad, 6)"><i class="fa fa-plus"></i>Agregar</button>
+
             </div>
+
             <div  *ngIf="opcion.tipo == 4">
-                <div class="form-group row" > 
-                    <div class="col-md-4">
-                            <label>Reconocimiento otorgado:</label>
-                            <input type="text"   class="form-control"    [(ngModel)]="reconocimiento" >
-                    </div>
-                    <div class="col-md-4">
-                            <label>Motivo del reconocimiento:</label>
-                            <input type="text"   class="form-control"    [(ngModel)]="motivo" >
-                    </div>
-                    <div class="col-md-4">
-                            <label>Institución que reconoce:</label>
-                            <input type="text"   class="form-control"    [(ngModel)]="otorgaReconocimiento" >
-                    </div>
-                  </div>
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Institucion</th>
+                        <th scope="col">Fecha de registro</th>
+                        <th scope="col">Mecanismo de grado</th>
+                        <th scope="col">Descripcion del mecanismo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Markkkkkkkkkkkk</td>
+                        <td>Ottoooooooooooo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregadorCantidad, 7)"><i class="fa fa-plus"></i>Agregar</button>
                   <hr>
                   <h4>Comunidades academicas y asociaciones</h4>
-                  <div class="form-group row" >
-                      <div class="col-md-4">
-                          <label>Sector:</label>
-                          <input type="text"   class="form-control"    [(ngModel)]="sector" >
-                      </div>
-                      <div class="col-md-4">
-                          <label >Nacional / Internacional:</label><br/>
-                          <input type="text"   class="form-control"    [(ngModel)]="nacional" >
-                      </div>
-                      <div class="col-md-4">
-                          <label >Asociación a la que pertenece :</label><br/>
-                          <input type="text"   class="form-control"    [(ngModel)]="asociasion" >
-                      </div> 
-                  </div>
+                  <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Titulo</th>
+                          <th scope="col">Institucion</th>
+                          <th scope="col">Fecha de registro</th>
+                          <th scope="col">Mecanismo de grado</th>
+                          <th scope="col">Descripcion del mecanismo</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>Markkkkkkkkkkkk</td>
+                          <td>Ottoooooooooooo</td>
+                          <td>@mdo</td>
+                          <td>@mdo</td>
+                          <td>@mdo</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                          <td>@mdo</td>
+                          <td>@mdo</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                          <td>@mdo</td>
+                          <td>@mdo</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregadorCantidad, 8)"><i class="fa fa-plus"></i>Agregar</button>
 
             </div>
             <div  *ngIf="opcion.tipo == 5">
@@ -244,34 +351,321 @@
 
 
         </div>  
-<!--       
-     
   
-        </div>
-          
-
-
-        </div >
-          
-          <div class="form-group"  class="row">
-
->
-
-            </div>
- 
-            </div>  
-
-           -->
-          <!-- <br/> 
-          <div>
-
-          </div> -->
-      
       </div>
   <div class="buttonDown">
     <button type="button" class="btn btn-primary " (click)="GuardarAsociado()">Guardar</button>
     <button type="button" class="btn btn-outline-dark buttonGeneral" (click)="Cancelar()">Cancelar</button>
     <button *ngIf="datosAmbiente.actualizacionModo.boton ==1" type="button" class="btn btn-primary butonGeneral" (click)="Actualizar()">Actualizar</button>
   </div>
+
+
+<!-- Modal de informacion personal -->
+
+    <ng-template #agregador let-modal>
+        <div *ngIf="tipoInformacion == 1"> 
+          <div class="modal-header">
+            <h4 class="modal-title">Correo Personal</h4>
+          </div>
+          <div class="modal-body">
+            <input type="text" class="form-control col-md-12"  placeholder="Ingrese su nuevo correo" [(ngModel)]="telefono" >
+            <h5 align="center">Historico</h5>
+            <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" colspan="2" >Correo</th>
+                    <th scope="col">Fecha</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td colspan="2" >Markkkkkkkkkkkkkkkkkkkkk</td>
+                    <td>Otto</td>
+
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td colspan="2" >Jacob</td>
+                    <td>Thornton</td>
+
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2" >Larry</td>
+                    <td>the Bird</td>
+
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">Atras</button> 
+            <button type="button" class="btn btn-primary" (click)="modal.close('SI')">Agregar</button>                
+          </div>
+        </div>
+
+      <div *ngIf="tipoInformacion == 2"> 
+          <div class="modal-header">
+              <h4 class="modal-title">Direccion</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control col-md-12"  placeholder="Ingrese su nueva dirección" [(ngModel)]="telefono" >
+                <h5 align="center">Historico</h5>
+                <table class="table">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" colspan="2" >Direccion</th>
+                        <th scope="col">Fecha</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td colspan="2" >Markkkkkkkkkkkkkkkkkkkkk</td>
+                        <td>Otto</td>
+    
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td colspan="2" >Jacob</td>
+                        <td>Thornton</td>
+    
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td colspan="2" >Larry</td>
+                        <td>the Bird</td>
+    
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">Atras</button> 
+                <button type="button" class="btn btn-primary" (click)="modal.close('SI')">Agregar</button>               
+            </div>
+      </div>
+
+      <div *ngIf="tipoInformacion == 3"> 
+          <div class="modal-header">
+              <h4 class="modal-title">Telefono</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control col-md-12"  placeholder="Ingrese su nuevo Telefono" [(ngModel)]="telefono" >
+                <h5 align="center">Historico</h5>
+                <table class="table">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" colspan="2" >Telefono</th>
+                        <th scope="col">Fecha</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td colspan="2" >Markkkkkkkkkkkkkkkkkkkkk</td>
+                        <td>Otto</td>
+    
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td colspan="2" >Jacob</td>
+                        <td>Thornton</td>
+    
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td colspan="2" >Larry</td>
+                        <td>the Bird</td>
+    
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">Atras</button> 
+                <button type="button" class="btn btn-primary" (click)="modal.close('SI')">Agregar</button>               
+            </div>
+      </div>
+
+      <div *ngIf="tipoInformacion == 4"> 
+          <div class="modal-header">
+              <h4 class="modal-title">Celular</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control col-md-12"  placeholder="Ingrese su nuevo celular" [(ngModel)]="telefono" >
+                <h5 align="center">Historico</h5>
+                <table class="table">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" colspan="2" >Celular</th>
+                        <th scope="col">Fecha</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td colspan="2" >Markkkkkkkkkkkkkkkkkkkkk</td>
+                        <td>Otto</td>
+    
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td colspan="2" >Jacob</td>
+                        <td>Thornton</td>
+    
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td colspan="2" >Larry</td>
+                        <td>the Bird</td>
+    
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">Atras</button> 
+                <button type="button" class="btn btn-primary" (click)="modal.close('SI')">Agregar</button>              
+            </div>
+      </div>
+    </ng-template>
+
+    <!-- modal para informacion como estudios o trabajos -->
+    <ng-template #agregadorCantidad let-modal>
+
+      <div *ngIf="tipoInformacion == 5">     
+         <div class="modal-header">
+          <h4 class="modal-title">Agregar Estudio</h4>
+        </div>
+        <div   class="modal-body infoSpace " >
+         
+            <div class="form-group row" >
+                <div class="col-md-6">
+                  <label >Titulo:</label>
+                  <textarea type="textarea" class="form-control"  [(ngModel)]="descripcionProyecto" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología">
+                  </textarea>
+                </div>
+                <div class="col-md-6">
+                    <label >Institucion:</label>
+                    <textarea type="textarea" class="form-control"  [(ngModel)]="descripcionPrograma" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología">
+                    </textarea>
+                </div>
+            </div>
+            <div class="form-group row" >
+                <div class="col-md-6">
+                  <label >Mecanismo de graduación:</label>
+                  <textarea type="textarea" class="form-control"  [(ngModel)]="descripcionProyecto" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología">
+                  </textarea>
+                </div>
+                <div class="col-md-6">
+                    <label >Descripción del mecanismo /Programa:</label>
+                    <textarea type="textarea" class="form-control"  [(ngModel)]="descripcionPrograma" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología">
+                    </textarea>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">Atras</button> 
+            <button type="button" class="btn btn-primary" (click)="modal.close('SI')">Agregar</button>            
+        </div>
+      </div>
+
+      <div *ngIf="tipoInformacion == 6">     
+          <div class="modal-header">
+           <h4 class="modal-title">Agregar Trabajo</h4>
+         </div>
+         <div   class="modal-body infoSpace " >
+            <div class="form-group row"  >
+                <div class="col-md-4">
+                  <label >Empleo  Directamente relacionado con su campo de formación :</label><br/>
+                  <textarea type="textarea" class="form-control"  [(ngModel)]="empleoDirecctamente" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología"></textarea>
+                </div>
+                <div class="col-md-4">
+                  <label >Empleo  Indirectamente relacionado con su campo de formación :</label><br/>
+                  <textarea type="textarea" class="form-control"  [(ngModel)]="empleoRelacionado" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología"></textarea>
+                </div>
+                <div class="col-md-4">
+                  <label >Empleo Nada relacionado con su con su campo de formación :</label><br/>
+                  <textarea type="textarea" class="form-control"  [(ngModel)]="empleoNoRelacionado" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología"></textarea>
+                </div>
+            </div>
+            <div class="form-group row"  >
+                <div class="col-md-2">
+                    <label >Desempleado:</label> <br/>
+                    <input type="text"   class="form-control"    [(ngModel)]="desempleado" >
+                </div>
+                <div class="col-md-4">
+                    <label >Total Ingresos Mensuales :</label><br/>
+                    <input type="number"   class="form-control"    [(ngModel)]="salario" >
+                </div>
+            </div>
+          </div>
+         <div class="modal-footer">
+             <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">Atras</button> 
+             <button type="button" class="btn btn-primary" (click)="modal.close('SI')">Agregar</button>            
+         </div>
+       </div>
+
+       <div *ngIf="tipoInformacion == 7">     
+          <div class="modal-header">
+           <h4 class="modal-title">Agregar Reconocimiento</h4>
+         </div>
+         <div   class="modal-body infoSpace " >
+            <div class="form-group row" > 
+                <div class="col-md-4">
+                        <label>Reconocimiento otorgado:</label>
+                        <input type="text"   class="form-control"    [(ngModel)]="reconocimiento" >
+                </div>
+                <div class="col-md-4">
+                        <label>Motivo del reconocimiento:</label>
+                        <input type="text"   class="form-control"    [(ngModel)]="motivo" >
+                </div>
+                <div class="col-md-4">
+                        <label>Institución que reconoce:</label>
+                        <input type="text"   class="form-control"    [(ngModel)]="otorgaReconocimiento" >
+                </div>
+              </div>
+
+         </div>
+         <div class="modal-footer">
+             <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">Atras</button> 
+             <button type="button" class="btn btn-primary" (click)="modal.close('SI')">Agregar</button>            
+         </div>
+       </div>
+
+       <div *ngIf="tipoInformacion == 8">     
+          <div class="modal-header">
+           <h4 class="modal-title">Agregar asociacion</h4>
+         </div>
+         <div   class="modal-body infoSpace " >
+            <div class="form-group row" >
+                <div class="col-md-4">
+                    <label>Sector:</label>
+                    <input type="text"   class="form-control"    [(ngModel)]="sector" >
+                </div>
+                <div class="col-md-4">
+                    <label >Nacional / Internacional:</label><br/>
+                    <input type="text"   class="form-control"    [(ngModel)]="nacional" >
+                </div>
+                <div class="col-md-4">
+                    <label >Asociación a la que pertenece :</label><br/>
+                    <input type="text"   class="form-control"    [(ngModel)]="asociasion" >
+                </div> 
+            </div>
+         </div>
+         <div class="modal-footer">
+             <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">Atras</button> 
+             <button type="button" class="btn btn-primary" (click)="modal.close('SI')">Agregar</button>            
+         </div>
+       </div>
+
+    </ng-template>
+
 
 </div>

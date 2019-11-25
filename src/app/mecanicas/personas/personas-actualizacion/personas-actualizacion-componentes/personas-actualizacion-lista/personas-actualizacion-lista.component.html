@@ -3,107 +3,47 @@
   <div class="row">
       <div>
         <h1 align='center'>Lista Personas</h1>
+          <form>
+              <div class="form-group form-inline form">
+                  <i class="fa fa-search search"></i><p>Buscar: </p><input class="form-control ml-2" type="text" [formControl]="filter2"/>
+              </div>
+            </form>
 
-        <br>
-
-
-        <form>
-          <div class="form-group form-inline">
-              Full text search: <input class="form-control ml-2" type="text" [formControl]="filter"/>
-          </div>
-        </form>
-        
-        
-          
           <table class="table table-striped">
-            <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Country</th>
-              <th scope="col">Area</th>
-              <th scope="col">Population</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let country of countries$ | async; index as i">
-              <th scope="row">{{ i + 1 }}</th>
-              <td>
-                <img [src]="'https://upload.wikimedia.org/wikipedia/commons/' + country.flag" class="mr-2" style="width: 20px">
-                <ngb-highlight [result]="country.name" [term]="filter.value"></ngb-highlight>
-              </td>
-              <td><ngb-highlight [result]="country.area | number" [term]="filter.value"></ngb-highlight></td>
-              <td><ngb-highlight [result]="country.population | number" [term]="filter.value"></ngb-highlight></td>
-            </tr>
-            </tbody>
-          </table>
-    
-        <table class="table  table-striped">S
-          <!-- titulo de las columnas -->
-          <thead >
+              <thead class="thead">
               <tr>
-                  <th>&nbsp;</th>
-                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Cohorte"  ></th>
-                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Id"  ></th>
-                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Sede"   ></th>
-                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Nombre"  ></th>
-                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Cedula"  ></th>
-                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Programa"  ></th>
-                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.Celular"></th>
-                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.CorreoInstitucional"></th>
-                  <th scope="col"><input class="form-control" [(ngModel)]="searchObjectPersonas.CorreoPersonal"  ></th>
-                  <th><img src="../../../../../../assets/imagenes/filtro.png" alt="" id="filtro"></th>   
+                  <th scope="col">#</th>
+                  <th scope="col">Cohorte</th>
+                  <th scope="col">ID</th>
+                  <th scope="col">Sede</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Cedula</th>
+                  <th scope="col">Programa</th>
+                  <th scope="col">Celular</th>
+                  <th scope="col">Correo Institucional</th>
+                  <th scope="col">Correo Personal</th> 
+                  <th scope="col"></th>
               </tr>
-            <tr class="colums">
-              <th scope="col">#</th>
-              <th scope="col">Cohorte</th>
-              <th scope="col">ID</th>
-              <th scope="col">Sede</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Cedula</th>
-              <th scope="col">Programa</th>
-              <th scope="col">Celular</th>
-              <th scope="col">Correo Institucional</th>
-              <th scope="col">Correo Personal</th> 
-              <th scope="col"></th>
-            </tr>
-          </thead>
-    
-          <!-- informacion de la tabla o listado de empleados -->
-          <tbody>
-             
-            <tr *ngFor="let persona of personas | arrayFilter : 
-                { 
-                  Cohorte:                   searchObjectPersonas.Cohorte,  
-                  Id:                        searchObjectPersonas.Id,
-                  Sede:                      searchObjectPersonas.Sede,
-                  Nombre:                    searchObjectPersonas.Nombre,
-                  Cedula:                    searchObjectPersonas.Cedula,
-                  Programa:                  searchObjectPersonas.Programa,
-                  Celular:                   searchObjectPersonas.Celular,
-                  CorreoInstitucional:       searchObjectPersonas.CorreoInstitucional,
-                  CorreoPersonal:            searchObjectPersonas.CorreoPersonal
-                 
-                };
-                let indice=index"
-            >
-              <th scope="row">{{persona.IdPersona}}</th>
-              <td>{{persona.Cohorte}}</td>
-              <td>{{persona.Id}}</td>
-              <td>{{persona.Sede}}</td>
-              <td>{{persona.Nombre}}</td>
-              <td>{{persona.Cedula}}</td>
-              <td>{{persona.Programa}}</td>
-              <td>{{persona.Celular}}</td>
-              <td>{{persona.CorreoInstitucional}}</td>
-              <td>{{persona.CorreoPersonal}}</td>
-              <td>
-                <button class="btn btn-outline-warning" (click)="verPersona({id : persona.IdPersona, modo:2})">
-                    <i class="fa fa-pencil"></i>
-                </button>
-              </td>
-        </tr>
-          </tbody>
-    
-        </table>
+              </thead>
+              <tbody>
+              <tr *ngFor="let persona of  personas$ | async; index as i">
+                <td><ngb-highlight [result]="persona.IdPersona  | number" [term]="filter2.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="persona.Cohorte" [term]="filter2.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="persona.Id | number" [term]="filter2.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="persona.Sede" [term]="filter2.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="persona.Nombre" [term]="filter2.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="persona.Cedula" [term]="filter2.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="persona.Programa" [term]="filter2.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="persona.Celular" [term]="filter2.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="persona.CorreoInstitucional" [term]="filter2.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="persona.CorreoPersonal" [term]="filter2.value"></ngb-highlight></td>
+                <td>
+                    <button class="btn btn-outline-warning" (click)="verPersona({id : persona.IdPersona, modo:2})">
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                  </td>
+              </tr>
+              </tbody>
+            </table>
       </div>
   </div>

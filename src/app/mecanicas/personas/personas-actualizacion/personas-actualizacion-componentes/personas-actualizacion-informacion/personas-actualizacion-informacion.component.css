@@ -12,12 +12,13 @@
 }
 
 .col-md-11.infoSpace{
+    overflow: auto;
+    max-height: 25rem;
     background-color: rgb(255,255,255); /* Fallback color */
     background-color: rgba(0,0,0,0.04); /* Black w/ opacity */
 }
 .btn.editperson{
         width: auto;
-        height: 20%;
         padding: 1%;
         margin: 6%;
 }
@@ -33,3 +34,10 @@
     direction: rtl;
 }
 
+.addInfo{
+    display:flex
+}
+.modal-body.infoSpace{
+    overflow: auto;
+    max-height: 25rem;
+} 
