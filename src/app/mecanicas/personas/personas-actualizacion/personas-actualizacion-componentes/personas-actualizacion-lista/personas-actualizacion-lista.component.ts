@@ -183,8 +183,6 @@ export class PersonasActualizacionListaComponent implements OnInit {
     private AmbienteService : AmbienteService,
     pipe: DecimalPipe
   ) {
-
-
     this.personas$ = this.filter2.valueChanges.pipe(
       startWith(''),
       map(text => this.buscar(text, pipe))
@@ -210,24 +208,11 @@ export class PersonasActualizacionListaComponent implements OnInit {
  
   ngOnInit() {
   }
+  
   verPersona(datos){
     
     this.AmbienteService.actualizacionModo.modo = datos.modo
     this.AmbienteService.actualizacionModo.boton = null
   }
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
   
 }

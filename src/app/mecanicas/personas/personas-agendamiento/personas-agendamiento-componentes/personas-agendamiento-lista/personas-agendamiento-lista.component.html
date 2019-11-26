@@ -1,17 +1,55 @@
 
   <!-- tabla de o lista de empleados -->
   <div class="row">
-    <div>
-      <h1 align='center'><strong>Lista Agendas</strong></h1>
-      <div class="botonNuevo">
-        <button class="btn btn-primary nuevaAgenda" (click)="NuevaAgenda({modo:2})" ><i class="fa fa-plus-circle"></i> Nueva Agenda</button>
-      </div>
-      <br>
+    <div class="contenedor" >
+      
+      <h1 align='center'>Lista Agendas</h1>
 
+      <form >
+        <div class="form-group form-inline form ">
+            <div class="row col-md-10 form2"><i class="fa fa-search search "></i><p>Buscar: </p><input class="form-control" type="text" [formControl]="filter"/></div>
+            <button class="btn btn-primary nuevaAgenda" (click)="NuevaAgenda({modo:2})" ><i class="fa fa-plus-circle"></i> Nueva Agenda</button>
   
-      <table class="table table-striped">
+        </div>
+      </form>
+ 
+
+    <table class="table table-striped">
+        <thead class="thead">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Programa</th>
+            <th scope="col">Fecha creación</th>
+            <th scope="col">Fecha finalización</th>
+            <th scope="col">Responsable</th>
+            <th scope="col">N° Graduados</th>
+            <th scope="col">Estado</th>
+            <th scope="col"></th> 
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let agenda of  agendas$ | async; index as i">
+          <td><ngb-highlight [result]="agenda.IdAgenda  | number" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="agenda.Nombre" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="agenda.Programa" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="agenda.FechaCreacion" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="agenda.FechaFinal" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="agenda.Responsable" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="agenda.Cantidad | number" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="agenda.Estado" [term]="filter.value"></ngb-highlight></td>
+          <td><button  type="button" class="btn btn-light" (click)="verPersona({id : agenda.IdAgenda, modo:4})"  title="ver"><i class="fa fa-eye"></i></button></td>
+          <td>
+            <button class="btn btn-outline-warning" (click)="verPersona({id : agenda.IdAgenda, modo:3})"  title="editar"><i class="fa fa-pencil"></i></button>
+            </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <!-- <table class="table table-striped"> -->
         <!-- titulo de las columnas -->
-        <thead>
+        <!-- <thead>
             <tr>
                 <th>&nbsp;</th>
                 <th scope="col"><input class="form-control" [(ngModel)]="searchObjectAgendas.Nombre" ></th>
@@ -35,10 +73,10 @@
             <th scope="col"></th>
             
           </tr>
-        </thead>
+        </thead> -->
   
         <!-- informacion de la tabla o listado de empleados -->
-        <tbody>
+        <!-- <tbody>
             <tr>
           <tr *ngFor="let agenda of Agendas | arrayFilter : 
               { 
@@ -64,6 +102,6 @@
       </tr>
         </tbody>
   
-      </table>
+      </table> -->
     </div>
 </div>

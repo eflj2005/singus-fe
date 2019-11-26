@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { GeneralesModule } from '@app/generales/generales.module';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import {  NgbTypeaheadModule } from "@ng-bootstrap/ng-bootstrap";
 import { PersonasAgendamientoListaComponent } from './personas-agendamiento-lista/personas-agendamiento-lista.component';
 import { PersonasAgendamientoCrearComponent } from './personas-agendamiento-crear/personas-agendamiento-crear.component';
 import { PersonasAgendamientoEditarComponent } from './personas-agendamiento-editar/personas-agendamiento-editar.component';
@@ -22,7 +23,9 @@ import { PersonasAgendamientoVerComponent } from './personas-agendamiento-ver/pe
     FormsModule,
     NgbAlertModule,
     CommonModule,
-    GeneralesModule
+    GeneralesModule,
+    ReactiveFormsModule,
+    NgbTypeaheadModule 
   ],exports :[
     PersonasAgendamientoListaComponent,
     PersonasAgendamientoCrearComponent,

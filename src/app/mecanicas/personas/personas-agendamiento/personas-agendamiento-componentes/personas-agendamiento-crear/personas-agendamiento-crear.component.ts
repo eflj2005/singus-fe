@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, PipeTransform} from '@angular/core';
 import {formatDate} from '@angular/common';
+import { FormControl } from '@angular/forms';
 import {AmbienteService} from '@servicios/ambiente.service';
+import { DecimalPipe } from '@angular/common';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 interface PersonaTemporarl { 
   Id:number,
@@ -9,13 +13,15 @@ interface PersonaTemporarl {
   Cedula:number,
   IdPerona:number,
   FechaActualizacion:string,
-Seleccionado: boolean}
+  Seleccionado: boolean}
+
 
 
 @Component({
   selector: 'app-personas-agendamiento-crear',
   templateUrl: './personas-agendamiento-crear.component.html',
-  styleUrls: ['./personas-agendamiento-crear.component.css']
+  styleUrls: ['./personas-agendamiento-crear.component.css'],
+  providers: [DecimalPipe]
 })
 export class PersonasAgendamientoCrearComponent implements OnInit {
 
@@ -133,6 +139,7 @@ PersonasSeleccionadas:Array<PersonaTemporarl> = [];
       }
     });
   }
+
   agregarPersonas(){
     
     this.Personas.forEach((elemento,indice) => {
@@ -146,10 +153,9 @@ PersonasSeleccionadas:Array<PersonaTemporarl> = [];
      }
    });
  }
+
  Cancelar(){
-   
   this.datosAmbiente.agendaModo.modo = 1;
-  
 }
 }
 

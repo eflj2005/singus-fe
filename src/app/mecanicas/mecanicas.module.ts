@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-
+import { UsuariosModule } from "@mecanicas/usuarios/usuarios.module";
 import { CommonModule } from '@angular/common';
 import {DashboardModule} from '@mecanicas/dashboard/dashboard.module';
 import { InicioModule } from "./inicio/inicio.module";
@@ -18,7 +18,8 @@ import { AdministracionModule } from "@mecanicas/administracion/administracion.m
     InicioModule,
     DashboardModule,
     PersonasModule,
-    AdministracionModule
+    AdministracionModule,
+    UsuariosModule
   ]
 })
 export class MecanicasModule { }

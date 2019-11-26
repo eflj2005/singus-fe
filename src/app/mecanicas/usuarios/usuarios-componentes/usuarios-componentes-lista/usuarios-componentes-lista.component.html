@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="contenedor" >
+      
+      <h1 align='center'>Lista usuarios</h1>
+
+      <form >
+        <div class="form-group form-inline form ">
+            <div class="row col-md-10 form2"><i class="fa fa-search search "></i><p>Buscar: </p><input class="form-control" type="text" [formControl]="filter"/></div>
+            <button class="btn btn-primary nuevaAgenda" (click)="NuevaAgenda({modo:2})" ><i class="fa fa-plus-circle"></i> Nueva Agenda</button>
+  
+        </div>
+      </form>
+ 
+
+    <table class="table table-striped">
+        <thead class="thead">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Documento</th>
+            <th scope="col">Clave</th>
+            <th scope="col">Nombres</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Correos</th>
+            <th scope="col">Fecha de creacion</th>
+            <th scope="col">Estado</th> 
+            <th scope="col">Rol</th>
+            <th scope="col">Areas</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let usuario of  usuarios$ | async; index as i">
+          <td><ngb-highlight [result]="usuario.idUsuario  | number" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="usuario.documentoUsuario" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="usuario.claveUsuario" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="usuario.nombresUsuario" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="usuario.apellidosUsuario" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="usuario.telefonoUsuario" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="usuario.correoUsuario" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="usuario.fechaCreacionUsuario" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="usuario.estadoUsuario" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="usuario.rolUsuario" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="usuario.areasId | number" [term]="filter.value"></ngb-highlight></td>
+
+          <td><button  type="button" class="btn btn-light" (click)="verPersona({id : agenda.IdAgenda, modo:4})"  title="ver"><i class="fa fa-eye"></i></button></td>
+          <td>
+            <button class="btn btn-outline-warning" (click)="verPersona({id : agenda.IdAgenda, modo:3})"  title="editar"><i class="fa fa-pencil"></i></button>
+            </td>
+        </tr>
+        </tbody>
+      </table>
