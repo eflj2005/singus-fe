@@ -26,6 +26,7 @@
             <th scope="col">Estado</th> 
             <th scope="col">Rol</th>
             <th scope="col">Areas</th>
+            <th scope="col"></th>
 
         </tr>
         </thead>
@@ -42,8 +43,6 @@
           <td><ngb-highlight [result]="usuario.estadoUsuario" [term]="filter.value"></ngb-highlight></td>
           <td><ngb-highlight [result]="usuario.rolUsuario" [term]="filter.value"></ngb-highlight></td>
           <td><ngb-highlight [result]="usuario.areasId | number" [term]="filter.value"></ngb-highlight></td>
-
-          <td><button  type="button" class="btn btn-light" (click)="verPersona({id : agenda.IdAgenda, modo:4})"  title="ver"><i class="fa fa-eye"></i></button></td>
           <td>
             <button class="btn btn-outline-warning" (click)="verPersona({id : agenda.IdAgenda, modo:3})"  title="editar"><i class="fa fa-pencil"></i></button>
             </td>

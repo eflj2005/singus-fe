@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {  NgbTypeaheadModule } from "@ng-bootstrap/ng-bootstrap";
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { UsuariosComponentesListaComponent } from './usuarios-componentes-lista/usuarios-componentes-lista.component';
@@ -14,7 +15,8 @@ import { UsuariosComponentesEditarComponent } from './usuarios-componentes-edita
     CommonModule,
     NgbAlertModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbTypeaheadModule 
   ],
   exports:[ UsuariosComponentesEditarComponent ,  UsuariosComponentesCrearComponent, UsuariosComponentesListaComponent ]
 })

@@ -3,6 +3,8 @@ import {AmbienteService} from '@servicios/ambiente.service';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+
+
 interface Trabajo {
   name: string;
   flag: string;
