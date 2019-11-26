@@ -10,6 +10,7 @@ export class AmbienteService {
 
   inicioModo:number =null;  //Modo de inicio =>  1 = Login normal, 2 = Nuevo Administrador, 3 = Recuperación Clave  
   inicioPaso:number =null;  //pasos de registro de administrador =>  1 = Registro, 2 = Validación código
+  inicioIdUsrTemp:number =null;
   
   actualizacionModo:any = {
                             modo: 0,          // Modo 1 es lista de personas -> Modo 2 es Editar a una persona

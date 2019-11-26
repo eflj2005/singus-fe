@@ -3,12 +3,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {Router, ActivatedRoute } from '@angular/router';
 
 import { AmbienteService } from '@app/servicios/ambiente.service'
-import { UsuarioInterface } from '@app/modelos/usuario.interface';
-import { AreasController } from '@app/modelos/areas.controller';
-import { AreaInterface } from '@app/modelos/area.interface';
-import { filtroInterface } from '@app/modelos/generico.model';
-import { UsuariosController } from '@app/modelos/usuarios.controller';
+import { UsuarioInterface } from '@modelos/interfaces/usuario.interface';
+import { filtroInterface } from '@modelos/interfaces/filtro.interface';
+import { UsuariosController } from '@modelos/controladores/usuarios.controller';
 import { DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { RespuestaInterface } from '@modelos/respuesta.interface';
 
 
 
@@ -18,6 +18,8 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./inicio-registrar-administrador.component.css']
 })
 export class InicioRegistrarAdministradorComponent implements OnInit {
+  
+  controladorUsuarios: UsuariosController;
 
   datos:UsuarioInterface;
   
@@ -29,10 +31,12 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
   constructor(
     private servicioEmergentes: NgbModal,
     private rutas: Router, private rutaActiva: ActivatedRoute,
+    private llamadoHttp :HttpClient,
     private servicioAmbiente: AmbienteService,
-    private controladorUsuarios: UsuariosController,
     private utilidadFechas: DatePipe
   ) {
+
+    this.controladorUsuarios = new UsuariosController(llamadoHttp,servicioAmbiente);
 
     this.datos = {} as UsuarioInterface;
     this.datos.estado='A';
@@ -71,6 +75,7 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
     this.servicioAmbiente.inicioPaso++;   
   }
 
+
   RegistrarAdministrador(contenidoConfirmador: any, contenidoNotificador: any){
     this.procesando=true;
 
@@ -81,31 +86,62 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
       (result) => {
         if(result == 'SI'){ //se recibe close
 
-          /*
 
-            AQUI VA EL LLAMADO A GENERACION DE CODIGO Y ENVIO DE CORREO
+          this.controladorUsuarios.Agregar(this.datos);
+
+          console.log(this.controladorUsuarios.ObtenerTodos());
+      
+          const respuesta1 = this.controladorUsuarios.Guardar(false).subscribe(
+            (notificacion1:RespuestaInterface) => {
+              switch (notificacion1.codigo){
+                case 200:         //Guardado ok
+   
+                  //se debe obtener id insertado
+                  //AQUI VA EL LLAMADO A GENERACION DE CODIGO Y ENVIO DE CORREO
+
+                  const respuesta2 = this.controladorUsuarios.GenerarCodigo(   2   ).subscribe(     //OJO cambiar 2 por id recibido
+                    (notificacion2:RespuestaInterface) => {
+                      switch (notificacion2.codigo){
+                        case 200:         //login ok         
+
+                          const respuestaB=this.servicioEmergentes.open(contenidoNotificador, { centered: true });
+
+                          respuestaB.result.then(
+                            (result) => { /* Se recibe close */ }, 
+                            (reason) => { // Se recibe dismiss
+                              if(reason == 'CONTINUAR'){ //se recibe close             
+        
+                                  this.procesando=false;
+                                  this.servicioAmbiente.inicioIdUsrTemp=2;            //OJO cambiar 2 por id recibido
+                                  this.servicioAmbiente.inicioPaso++;
+                                /*
+                                    this.rutas.navigate( ['login/validar_codigo/'] );
+                                    //this.rutas.navigate( ['inicio_sesion/'], { relativeTo: this.rutaActiva, queryParams: { modo: this.modo },  skipLocationChange: true } );     
+                                    */              
+                              }
+                            }
+                          );
 
 
-          */
+                        break;
+                        case 400:         //autenticación erronea / Usuario Bloqueado / Usuario Inactivo
+                          alert(notificacion2.asunto + ": " + notificacion2.mensaje);
+                          this.procesando=false; 
+                        break;
+                      }
+                    }
+                  );
 
-
-          const respuestaB=this.servicioEmergentes.open(contenidoNotificador, { centered: true });
-
-          respuestaB.result.then(
-            (result) => { /* Se recibe close */ }, 
-            (reason) => { // Se recibe dismiss
-              if(reason == 'CONTINUAR'){ //se recibe close             
-
-                  this.procesando=false;
-                  this.servicioAmbiente.inicioPaso++;
-                /*
-                   this.rutas.navigate( ['login/validar_codigo/'] );
-                   //this.rutas.navigate( ['inicio_sesion/'], { relativeTo: this.rutaActiva, queryParams: { modo: this.modo },  skipLocationChange: true } );     
-                   */              
+                break;
+                case 400:         //autenticación erronea / Usuario Bloqueado / Usuario Inactivo
+                  alert(notificacion1.asunto + ": " + notificacion1.mensaje);
+                  // this.hayNotificaion = true;
+                  // this.notificacionMensaje = notificacion.asunto + ": " + notificacion.mensaje;
+                  this.procesando=false; 
+                break;
               }
             }
-          );
-
+          );          
         }
       }, 
       (reason) => { // Se recibe dismiss  
@@ -115,27 +151,9 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
       }
     );
 
-    // this.procesando=false;
-    // this.servicioAmbiente.inicioPaso++;
-  }
 
 
-  RegistrarAdministrador2(contenidoConfirmador: any, contenidoNotificador: any){
-    this.procesando=true;
-
-    this.controladorUsuarios.Agregar(this.datos);
-
-    console.log(this.controladorUsuarios.ObtenerTodos());
-
-    this.controladorUsuarios.Guardar(false).subscribe(
-      respuesta => {
-            
-      }
-    );
-
-    this.procesando=false;
-
-
+   
 
   }
 

@@ -1,26 +1,31 @@
+import { Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { AmbienteService } from '@app/servicios/ambiente.service';
 import { map } from 'rxjs/operators';
-import { ɵConsole } from '@angular/core';
-import { UsuariosController } from './usuarios.controller';
 
-export interface filtroInterface{
-    [key: string]: string | boolean | number;
-}
+import { AmbienteService } from '@servicios/ambiente.service';
+import { filtroInterface } from '@modelos/interfaces/filtro.interface';
 
 export class GenericoModel {
+  protected llamadoHttp :HttpClient;
+  protected servicioAmbiente :AmbienteService;
+
   protected nombreTabla:string;
 
   protected posicionActual:number = null;
   //protected cantidad:number = null;
 
   protected registros:any[] = []
+  
+  constructor( 
+    instanciaHttpClient :HttpClient,
+    InstanciaAmbienteService :AmbienteService
+  ) {  
+    this.llamadoHttp = instanciaHttpClient;
+    this.servicioAmbiente = InstanciaAmbienteService
 
-  constructor(
-    protected llamadoHttp :HttpClient,
-    protected servicioAmbiente: AmbienteService
-  ) {
+    // this.llamadoHttp = InjectorInstance.get<HttpClient>(HttpClient);
+    //this.servicioAmbiente = InjectorInstance.get<AmbienteService>(AmbienteService);
   }
 
   //SOBRECARGA ATRIBUTOS
@@ -137,16 +142,14 @@ export class GenericoModel {
   }
 
   public Guardar(conToken:boolean=true ): Observable<any>{
-    var aProcesar:UsuariosController[] = [];
+    var aProcesar:any[] = [];
 
     this.registros.forEach(registro => {
       if(registro.modo != null) aProcesar.push(registro);        
     });
-
-    
     
     let parametros = {
-      accion : "crear_registros",
+      accion : "procesar_registros",
       tabla: this.nombreTabla,
       conSeguridad: conToken,      
       datos : this.registros      
@@ -155,9 +158,6 @@ export class GenericoModel {
     return this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php", parametros).pipe(
       map(
         (respuesta: any) => {
-
-          
-
           return respuesta;
         }
       )
