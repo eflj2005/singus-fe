@@ -34,7 +34,7 @@ export class UsuariosComponentesListaComponent implements OnInit {
       nombresUsuario: "aaaaaaa",
       apellidosUsuario: "aaaa",
       telefonoUsuario :"3135487896",
-      correoUsuario : "hoy@gmail.com",
+      correoUsuario : "abcdfghi@gmail.com",
       fechaCreacionUsuario :"16-05-2015",
       estadoUsuario : "A",
       rolUsuario: "A",
