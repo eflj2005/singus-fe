@@ -181,7 +181,7 @@ export class PersonasActualizacionListaComponent implements OnInit {
   
   constructor(
     private AmbienteService : AmbienteService,
-    pipe: DecimalPipe
+    private pipe: DecimalPipe
   ) {
     this.personas$ = this.filter2.valueChanges.pipe(
       startWith(''),

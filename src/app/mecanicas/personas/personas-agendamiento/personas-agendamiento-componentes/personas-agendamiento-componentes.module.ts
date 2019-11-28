@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {  NgbDropdownModule } from "@ng-bootstrap/ng-bootstrap";
+import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { GeneralesModule } from '@generales/_generales.module';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
@@ -25,7 +27,9 @@ import { PersonasAgendamientoVerComponent } from './personas-agendamiento-ver/pe
     CommonModule,
     GeneralesModule,
     ReactiveFormsModule,
-    NgbTypeaheadModule 
+    NgbTypeaheadModule,
+    BrowserModule,
+    NgbDropdownModule 
   ],exports :[
     PersonasAgendamientoListaComponent,
     PersonasAgendamientoCrearComponent,

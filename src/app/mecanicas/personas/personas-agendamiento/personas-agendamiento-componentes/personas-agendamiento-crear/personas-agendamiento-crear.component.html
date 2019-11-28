@@ -28,6 +28,41 @@
     <div class="row" >
         <div class="col-md-6 cuadro">
             <h3  align='center'>Seleccionados</h3>
+
+            <!-- <form>
+                <div class="form-group form-inline form">
+                    <i class="fa fa-search search"></i><p>Buscar: </p><input class="form-control ml-2" type="text" [formControl]="filter"/>
+                </div>
+              </form>
+  
+            <table class="table table-striped">
+                <thead class="thead">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Programa</th>
+                    <th scope="col">Cedula</th>
+                    <th scope="col">Fecha Actualizacion</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let persona of  PersonasSeleccionadas$ | async; index as i">
+                  <td><ngb-highlight [result]="persona.IdPerona  | number" [term]="filter.value"></ngb-highlight></td>
+                  <td><ngb-highlight [result]="persona.Nombre" [term]="filter.value"></ngb-highlight></td>
+                  <td><ngb-highlight [result]="persona.Programa" [term]="filter.value"></ngb-highlight></td>
+                  <td><ngb-highlight [result]="persona.Cedula | number" [term]="filter.value"></ngb-highlight></td>
+                  <td><ngb-highlight [result]="persona.FechaActualizacion" [term]="filter.value"></ngb-highlight></td>
+                  <td>
+                    <label class="container">
+                        <input type="checkbox" [(ngModel)]="persona.Seleccionado" >
+                        <span class="checkmark"></span>
+                    </label>
+                    </td>
+                </tr>
+                </tbody>
+            </table> -->
+
             <div class="row" >
                 <table class="table table-striped" >
                     
@@ -40,6 +75,7 @@
                             <th scope="col">Cedula</th>
                             <th scope="col">ID</th>
                             <th scope="col">Fecha Actualizacion</th>
+                            <th scope="col"></th>
 
                             </tr>
                         </thead>
@@ -71,8 +107,44 @@
                     <button class="btn btn-outline-dark" (click)="quitarPersonas()" title="Quitar"><i class="fa fa-user-times"></i></button>
             </div>        
         </div>
+
         <div class="col-md-6 cuadro">
             <h3  align='center'>Por Seleccionar</h3>
+
+            <!-- <form>
+                <div class="form-group form-inline form">
+                    <i class="fa fa-search search"></i><p>Buscar: </p><input class="form-control ml-2" type="text" [formControl]="filter2"/>
+                </div>
+              </form>
+  
+            <table class="table table-striped">
+                <thead class="thead">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Programa</th>
+                    <th scope="col">Cedula</th>
+                    <th scope="col">Fecha Actualizacion</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let persona of  personas2$ | async; index as i">
+                  <td><ngb-highlight [result]="persona.IdPerona  | number" [term]="filter2.value"></ngb-highlight></td>
+                  <td><ngb-highlight [result]="persona.Nombre" [term]="filter2.value"></ngb-highlight></td>
+                  <td><ngb-highlight [result]="persona.Programa" [term]="filter2.value"></ngb-highlight></td>
+                  <td><ngb-highlight [result]="persona.Cedula | number" [term]="filter2.value"></ngb-highlight></td>
+                  <td><ngb-highlight [result]="persona.FechaActualizacion" [term]="filter2.value"></ngb-highlight></td>
+                  <td>
+                    <label class="container">
+                        <input type="checkbox" [(ngModel)]="persona.Seleccionado" >
+                        <span class="checkmark"></span>
+                    </label>
+                    </td>
+                </tr>
+                </tbody>
+            </table> -->
+
             <div class="row" >
                     <table class="table table-striped">
                     
