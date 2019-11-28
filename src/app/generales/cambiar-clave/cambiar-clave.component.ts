@@ -65,20 +65,22 @@ export class CambiarClaveComponent implements OnInit {
 
     this.controladorUsuarios.Guardar(false).subscribe(
       (respuesta:RespuestaInterface) => {    
-        
-        console.log(this.controladorUsuarios.actual,"actual");
-        console.log(respuesta,"Guardado");
-        
-        if(this.servicioAmbiente.inicioModo != 1){
-      
-          this.servicioAmbiente.inicioModo = 1; //eliminar
-          this.servicioAmbiente.inicioPaso = 1; //eliminar
-
-          this.procesando=false;
+        switch (respuesta.codigo){
+          case 200:         //Guardado ok        
+            console.log(this.controladorUsuarios.actual,"actual");
+            console.log(respuesta,"Guardado");
+            
+            if(this.servicioAmbiente.inicioModo != 1){
           
-          this.RecargarComponente();
-        }
+              this.servicioAmbiente.inicioModo = 1; //eliminar
+              this.servicioAmbiente.inicioPaso = 1; //eliminar
 
+              this.procesando=false;
+              
+              this.RecargarComponente();
+            }
+          break;
+        }
       }
     )
 

@@ -53,8 +53,6 @@ export class InicioValidarCodigoComponent implements OnInit {
             this.procesando = false;
           break;
         }
-
- 
       }
 
     )

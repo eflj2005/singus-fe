@@ -107,11 +107,7 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
         
                                   this.procesando=false;
                                   this.servicioAmbiente.inicioIdUsrTemp= this.datos.id ;            //OJO cambiar 2 por id recibido
-                                  this.servicioAmbiente.inicioPaso++;
-                                /*
-                                    this.rutas.navigate( ['login/validar_codigo/'] );
-                                    //this.rutas.navigate( ['inicio_sesion/'], { relativeTo: this.rutaActiva, queryParams: { modo: this.modo },  skipLocationChange: true } );     
-                                    */              
+                                  this.servicioAmbiente.inicioPaso++;        
                               }
                             }
                           );
