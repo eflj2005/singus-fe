@@ -12,5 +12,5 @@ export interface UsuarioInterface {
   estado:string;
   token?:string;
   modo?:string;
-  DB_Ref?:string;
+  dbRef?:string;
 }

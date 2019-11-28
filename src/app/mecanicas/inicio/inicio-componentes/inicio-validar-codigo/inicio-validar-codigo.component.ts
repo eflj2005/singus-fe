@@ -38,11 +38,8 @@ export class InicioValidarCodigoComponent implements OnInit {
   ValidarCodigo(){
 
     this.procesando=true;
-    console.log(this.codigo,"Enviado");
     const respuesta = this.controladorUsuarios.ValidarCodigo(this.servicioAmbiente.inicioIdUsrTemp,this.codigo).subscribe(
       (notificacion:RespuestaInterface) => {
-        console.log(notificacion);
-        alert("aqui");        
         switch (notificacion.codigo){
           case 200:         //login ok
             this.servicioAmbiente.inicioPaso++;

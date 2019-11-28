@@ -42,7 +42,7 @@ export class UsuariosController extends GenericoModel {
   public ValidarCodigo(idUsuario:number, codigoEntregado:string): Observable<RespuestaInterface>{
 
     let parametros = {
-      accion  : "generar_codigo",
+      accion  : "validar_codigo",
       tabla   : this.nombreTabla,
       datos   : { 
         idBuscado: idUsuario, 
