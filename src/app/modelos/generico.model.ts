@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { AmbienteService } from '@servicios/ambiente.service';
 import { filtroInterface } from '@modelos/interfaces/filtro.interface';
+import { RespuestaInterface } from './respuesta.interface';
 
 export class GenericoModel {
   protected llamadoHttp :HttpClient;
@@ -12,11 +13,13 @@ export class GenericoModel {
 
   protected nombreTabla:string;
 
-  protected posicionActual:number = null;
+  protected posicionActual:number;
   //protected cantidad:number = null;
 
-  protected registros:any[] = []
+  protected registros:any[];
   
+  private consecutivoDbRefs:number;
+
   constructor( 
     instanciaHttpClient :HttpClient,
     InstanciaAmbienteService :AmbienteService
@@ -24,8 +27,9 @@ export class GenericoModel {
     this.llamadoHttp = instanciaHttpClient;
     this.servicioAmbiente = InstanciaAmbienteService
 
-    // this.llamadoHttp = InjectorInstance.get<HttpClient>(HttpClient);
-    //this.servicioAmbiente = InjectorInstance.get<AmbienteService>(AmbienteService);
+    this.registros = [];
+    this.posicionActual = null;
+    this.consecutivoDbRefs =1;
   }
 
   //SOBRECARGA ATRIBUTOS
@@ -34,35 +38,28 @@ export class GenericoModel {
     return this.registros.length;
   }
 
-  public get registroActual():any{
+  public get actual():any{
     return  this.registros[this.posicionActual];
   }
 
-  // //MAJEJO ATRIBUTOS
-
-  // public AsignarAtributo( nombreAtributo:String, valorAtributo:any ){
-  //   this.registroActual.nombreAtributo = valorAtributo;
-  // }
-
-  // public ObtenerAtributo( nombreAtributo:String ){
-  //   return this.registroActual.nombreAtributo;
-  // }
-
   //ADMINISTRACION BASICA
   
-  public ObtenerTodos(){
+  public get todos():any[]{
     return  this.registros;
   }
 
   public Agregar(objeto:any){
     objeto.modo = "I";
+    objeto.dbRef = "#"+this.consecutivoDbRefs;
+    this.consecutivoDbRefs++;
+
     this.registros.push(objeto);
     this.posicionActual = this.cantidad - 1;
   }
 
   public Modificar(objeto:any){
-    objeto.modo = "A";
-    this.registros = objeto;
+    if (objeto.modo != "I") objeto.modo = "A";
+    this.registros[this.posicionActual]=objeto;
   }
 
   public Eliminar(){
@@ -81,7 +78,7 @@ export class GenericoModel {
     this.Primero();
 
     while(!this.esFin && !encontrado){
-      if(this.registroActual.nombreAtributo == valorBuscado ) encontrado=true;
+      if(this.actual.nombreAtributo == valorBuscado ) encontrado=true;
       this.Siguiente();
     }
 
@@ -110,13 +107,13 @@ export class GenericoModel {
   public get esFin():boolean{
     let validacion:boolean = false;
     
-    if( this.posicionActual = this.cantidad ) validacion= true;
+    if( this.posicionActual == this.cantidad ) validacion= true;
     return validacion;
   }
 
   //AVAMZADAS
 
-  public CargarDesdeDB( filtrosRecibidos:filtroInterface ): Observable<any> {
+  public CargarDesdeDB( filtrosRecibidos:filtroInterface=null, conToken:boolean=true, ): Observable<any> {
   
     let re1 = /\"/gi;
     let re2 = /{/gi;
@@ -125,19 +122,53 @@ export class GenericoModel {
     let datosEnviados = new HttpParams()
       .set("accion","obtener_registros")
       .set("tabla",this.nombreTabla)
-      .set("filtros", JSON.stringify(filtrosRecibidos).replace(re1, "").replace(re2, "").replace(re3, ""));
-
-      console.log(datosEnviados);
+      .set("conSeguridad", String(conToken) )      
+      .set("modo","S")                       //S = simple => consulta directa, A = avanzada => consulta con inner join
+      //.set("filtros", JSON.stringify(filtrosRecibidos).replace(re1, "").replace(re2, "").replace(re3, ""));
+      .set("filtros", JSON.stringify(filtrosRecibidos));      
+   
     return this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
       map(
-        (respuesta: any) => {
-
+        (respuesta: RespuestaInterface) => {
           
+          respuesta.mensaje.forEach(elemento => {
+            elemento.dbRef=null;
+            elemento.modo=null;
+            this.registros.push(elemento);
+          });
+
+          if( respuesta.mensaje.length > 0 ) this.posicionActual=0;
 
           return respuesta;
         }
       )
     );
+
+  }
+
+  private ActualizarReferencias(datos:filtroInterface[]){
+
+
+    let actualTemporal = this.posicionActual;
+ 
+    this.Primero();
+
+    while(!this.esFin){
+      if(this.registros[this.posicionActual].dbRef != null  ){
+        datos.forEach(elemento => {
+          if( elemento.dbRef == this.registros[this.posicionActual].dbRef ){
+            this.registros[this.posicionActual].id = elemento.id;
+            this.registros[this.posicionActual].dbRef = null;
+          }
+        });
+      }
+      this.registros[this.posicionActual].modo = null;
+      this.Siguiente();
+    }
+
+    
+    this.posicionActual = actualTemporal;
+
 
   }
 
@@ -157,7 +188,10 @@ export class GenericoModel {
 
     return this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php", parametros).pipe(
       map(
-        (respuesta: any) => {
+        (respuesta: RespuestaInterface) => {
+
+          this.ActualizarReferencias(respuesta.mensaje.dbRefs);
+
           return respuesta;
         }
       )

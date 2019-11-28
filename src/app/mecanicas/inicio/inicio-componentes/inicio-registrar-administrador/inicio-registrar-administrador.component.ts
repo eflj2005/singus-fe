@@ -86,20 +86,14 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
       (result) => {
         if(result == 'SI'){ //se recibe close
 
-
           this.controladorUsuarios.Agregar(this.datos);
-
-          console.log(this.controladorUsuarios.ObtenerTodos());
       
           const respuesta1 = this.controladorUsuarios.Guardar(false).subscribe(
             (notificacion1:RespuestaInterface) => {
               switch (notificacion1.codigo){
                 case 200:         //Guardado ok
    
-                  //se debe obtener id insertado
-                  //AQUI VA EL LLAMADO A GENERACION DE CODIGO Y ENVIO DE CORREO
-
-                  const respuesta2 = this.controladorUsuarios.GenerarCodigo(   2   ).subscribe(     //OJO cambiar 2 por id recibido
+                  const respuesta2 = this.controladorUsuarios.GenerarCodigo(  this.datos.id   ).subscribe(     //OJO cambiar 2 por id recibido
                     (notificacion2:RespuestaInterface) => {
                       switch (notificacion2.codigo){
                         case 200:         //login ok         
@@ -112,7 +106,7 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
                               if(reason == 'CONTINUAR'){ //se recibe close             
         
                                   this.procesando=false;
-                                  this.servicioAmbiente.inicioIdUsrTemp=2;            //OJO cambiar 2 por id recibido
+                                  this.servicioAmbiente.inicioIdUsrTemp= this.datos.id ;            //OJO cambiar 2 por id recibido
                                   this.servicioAmbiente.inicioPaso++;
                                 /*
                                     this.rutas.navigate( ['login/validar_codigo/'] );

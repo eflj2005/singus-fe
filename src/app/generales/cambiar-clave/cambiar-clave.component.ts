@@ -4,6 +4,11 @@ import { Router } from '@angular/router';
 
 
 import { AmbienteService } from '@app/servicios/ambiente.service';
+import { UsuariosController } from '@app/modelos/controladores/usuarios.controller';
+import { HttpClient } from '@angular/common/http';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { RespuestaInterface } from '@app/modelos/respuesta.interface';
+import { UsuarioInterface } from '@app/modelos/interfaces/usuario.interface';
 
 @Component({
   selector: 'app-cambiar-clave',
@@ -11,6 +16,10 @@ import { AmbienteService } from '@app/servicios/ambiente.service';
   styleUrls: ['./cambiar-clave.component.css']
 })
 export class CambiarClaveComponent implements OnInit {
+  
+  controladorUsuarios:UsuariosController;
+
+  datos:UsuarioInterface;
   
   claveActual:string;
   claveNueva:string;
@@ -23,15 +32,24 @@ export class CambiarClaveComponent implements OnInit {
 
   constructor( 
     private servicioEmergentes: NgbModal,
-    private datosAmbiente: AmbienteService, 
+    private llamadoHttp :HttpClient,
+    private servicioAmbiente: AmbienteService,    
     private rutas: Router 
   ) { 
+    this.controladorUsuarios = new UsuariosController(llamadoHttp,servicioAmbiente);
+
     this.claveModelo="(?=\\D*\\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,}";
     this.procesando=false;
 
     this.claveActual="";
     this.claveNueva="";
-    this.claveConfirmada="";    
+    this.claveConfirmada="";
+
+    this.controladorUsuarios.CargarDesdeDB( { id: servicioAmbiente.inicioIdUsrTemp}, false ).subscribe(
+      (respuesta:RespuestaInterface) => {    
+        this.datos= this.controladorUsuarios.actual;
+      }
+    );
   }
 
   ngOnInit() {
@@ -42,22 +60,29 @@ export class CambiarClaveComponent implements OnInit {
     alert("Confirmo");
     this.procesando=true;
 
-    /*
+    this.datos.clave = this.claveNueva;
+    this.controladorUsuarios.Modificar(this.datos);
 
-
-      PROCESAR ACTUALIZACION DE CLAVE
-
-
-    */
-
-    if(this.datosAmbiente.inicioModo != 1){
+    this.controladorUsuarios.Guardar(false).subscribe(
+      (respuesta:RespuestaInterface) => {    
+        
+        console.log(this.controladorUsuarios.actual,"actual");
+        console.log(respuesta,"Guardado");
+        
+        if(this.servicioAmbiente.inicioModo != 1){
       
-      
-      this.datosAmbiente.inicioModo = 1; //eliminar
-      this.datosAmbiente.inicioPaso = 1; //eliminar
+          this.servicioAmbiente.inicioModo = 1; //eliminar
+          this.servicioAmbiente.inicioPaso = 1; //eliminar
 
-      this.RecargarComponente();
-    }
+          this.procesando=false;
+          
+          this.RecargarComponente();
+        }
+
+      }
+    )
+
+
 
 
   }
