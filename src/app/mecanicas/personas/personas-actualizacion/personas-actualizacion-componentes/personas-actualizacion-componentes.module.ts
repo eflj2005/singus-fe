@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
 import { GeneralesModule } from '@app/generales/_generales.module';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { PersonasActualizacionListaComponent } from './personas-actualizacion-lista/personas-actualizacion-lista.component';
@@ -30,7 +30,8 @@ import { PersonasActualizacionDetalleComponent } from './personas-actualizacion-
     ReactiveFormsModule,
     NgbDropdownModule,
     BrowserModule,
-    NgbModule
+    NgbModule,
+    NgbTooltipModule
 
 
   ], exports: [

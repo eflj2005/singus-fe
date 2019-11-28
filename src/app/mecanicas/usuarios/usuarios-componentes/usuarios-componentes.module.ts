@@ -6,7 +6,7 @@ import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { UsuariosComponentesListaComponent } from './usuarios-componentes-lista/usuarios-componentes-lista.component';
 import { UsuariosComponentesCrearComponent } from './usuarios-componentes-crear/usuarios-componentes-crear.component';
 import { UsuariosComponentesEditarComponent } from './usuarios-componentes-editar/usuarios-componentes-editar.component';
-
+import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
 
 
 @NgModule({
@@ -16,7 +16,8 @@ import { UsuariosComponentesEditarComponent } from './usuarios-componentes-edita
     NgbAlertModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbTypeaheadModule 
+    NgbTypeaheadModule,
+    NgbTooltipModule  
   ],
   exports:[ UsuariosComponentesEditarComponent ,  UsuariosComponentesCrearComponent, UsuariosComponentesListaComponent ]
 })

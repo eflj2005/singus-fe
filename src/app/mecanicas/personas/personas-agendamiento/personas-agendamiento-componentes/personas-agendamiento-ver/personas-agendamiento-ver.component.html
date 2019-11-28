@@ -62,7 +62,7 @@
                                 <td>{{personaSelecionada.CorreoInstitucional}}</td>
                                 <td>{{personaSelecionada.CorreoPersonal}}</td>
                                 <td>{{personaSelecionada.FechaActualizacion}}</td>
-                                <td><button class="btn btn-outline-warning" (click)="verPersona({modo:2})" title="Actualizar"><a routerLink="/lista"> </a><i class="fa fa-pencil"></i></button></td>
+                                <td><button class="btn btn-outline-secondary "  placement="right" ngbTooltip="Editar" (click)="verPersona({modo:2})" title="Actualizar"><a routerLink="/lista"> </a><i class="fa fa-pencil"></i></button></td>
                                 <td>
                                         <label class="container">
                                                 <input type="checkbox" [(ngModel)]="personaSelecionada.Seleccionado" >

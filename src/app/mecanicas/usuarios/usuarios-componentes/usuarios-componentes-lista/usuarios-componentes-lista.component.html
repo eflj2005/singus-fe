@@ -44,7 +44,7 @@
           <td><ngb-highlight [result]="usuario.rolUsuario" [term]="filter.value"></ngb-highlight></td>
           <td><ngb-highlight [result]="usuario.areasId | number" [term]="filter.value"></ngb-highlight></td>
           <td>
-            <button class="btn btn-outline-warning" (click)="verPersona({id : agenda.IdAgenda, modo:3})"  title="editar"><i class="fa fa-pencil"></i></button>
+            <button class="btn btn-outline-secondary "  placement="right" ngbTooltip="Editar" (click)="verPersona({id : agenda.IdAgenda, modo:3})"  ><i class="fa fa-pencil"></i></button>
             </td>
         </tr>
         </tbody>
