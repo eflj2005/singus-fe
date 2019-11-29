@@ -127,11 +127,10 @@ export class GenericoModel {
       //.set("filtros", JSON.stringify(filtrosRecibidos).replace(re1, "").replace(re2, "").replace(re3, ""));
       .set("filtros", JSON.stringify(filtrosRecibidos));      
    
-      console.log(datosEnviados);
     return this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
       map(
         (respuesta: RespuestaInterface) => {
-          
+
           respuesta.mensaje.forEach(elemento => {
             elemento.dbRef=null;
             elemento.modo=null;

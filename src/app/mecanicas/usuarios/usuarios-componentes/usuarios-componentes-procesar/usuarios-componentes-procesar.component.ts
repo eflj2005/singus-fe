@@ -25,7 +25,7 @@ export class UsuariosComponentesProcesarComponent implements OnInit {
       this.queryParams = params;
     });
 
-    console.log(this.queryParams);
+    // console.log(this.queryParams);
 
     this.numeroModelo="^[0-9]*$";
     this.correoModelo="^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$";
