@@ -28,8 +28,11 @@ export class UsuariosComponentesProcesarComponent implements OnInit {
     // });
 
     // console.log(this.queryParams);
+<<<<<<< HEAD
 
     this.titulo ="";
+=======
+>>>>>>> 810e7725a18a01b58fd6a240a3129bc881eee722
 
     this.numeroModelo="^[0-9]*$";
     this.correoModelo="^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$";

@@ -8,24 +8,27 @@ import { UsuariosController } from '@app/modelos/controladores/usuarios.controll
 import { RespuestaInterface } from '@app/modelos/interfaces/respuesta.interface';
 import { HttpClient } from '@angular/common/http';
 import { AmbienteService } from '@app/servicios/ambiente.service';
+<<<<<<< HEAD
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { UsuariosComponentesProcesarComponent } from '../usuarios-componentes-procesar/usuarios-componentes-procesar.component';
+=======
+>>>>>>> 810e7725a18a01b58fd6a240a3129bc881eee722
 import { UsuarioInterface } from '@app/modelos/interfaces/usuario.interface';
 
-interface Usuario{
-  idUsuario : number;
-  documentoUsuario : string;
-  claveUsuario: string;
-  nombresUsuario: string;
-  apellidosUsuario: string;
-  telefonoUsuario :string;
-  correoUsuario : string;
-  fechaCreacionUsuario :string;
-  estadoUsuario : string;
-  rolUsuario: string;
-  areasId: number;
-}
+// interface Usuario{
+//   idUsuario : number;
+//   documentoUsuario : string;
+//   claveUsuario: string;
+//   nombresUsuario: string;
+//   apellidosUsuario: string;
+//   telefonoUsuario :string;
+//   correoUsuario : string;
+//   fechaCreacionUsuario :string;
+//   estadoUsuario : string;
+//   rolUsuario: string;
+//   areasId: number;
+// }
 
 @Component({
   selector: 'app-usuarios-componentes-lista',
@@ -35,49 +38,49 @@ interface Usuario{
 })
 export class UsuariosComponentesListaComponent implements OnInit {
 
-  USUARIOS: Usuario[] = [
-    {
-      idUsuario : 1,
-      documentoUsuario : "32154",
-      claveUsuario: "6354654132",
-      nombresUsuario: "aaaaaaa",
-      apellidosUsuario: "aaaa",
-      telefonoUsuario :"3135487896",
-      correoUsuario : "abcdfghi@gmail.com",
-      fechaCreacionUsuario :"16-05-2015",
-      estadoUsuario : "A",
-      rolUsuario: "A",
-      areasId: 1,
-  },
-  {
-    idUsuario : 3,
-    documentoUsuario : "32154",
-    claveUsuario: "6354654132",
-    nombresUsuario: "aaaaaaa",
-    apellidosUsuario: "aaaa",
-    telefonoUsuario :"3135487896",
-    correoUsuario : "hoy@gmail.com",
-    fechaCreacionUsuario :"16-05-2015",
-    estadoUsuario : "A",
-    rolUsuario: "A",
-    areasId: 1,
-  },
-  {
-    idUsuario : 2,
-    documentoUsuario : "32154",
-    claveUsuario: "6354654132",
-    nombresUsuario: "aaaaaaa",
-    apellidosUsuario: "aaaa",
-    telefonoUsuario :"3135487896",
-    correoUsuario : "hoy@gmail.com",
-    fechaCreacionUsuario :"16-05-2015",
-    estadoUsuario : "A",
-    rolUsuario: "A",
-    areasId: 1,
-  }
-];
+//   USUARIOS: Usuario[] = [
+//     {
+//       idUsuario : 1,
+//       documentoUsuario : "32154",
+//       claveUsuario: "6354654132",
+//       nombresUsuario: "aaaaaaa",
+//       apellidosUsuario: "aaaa",
+//       telefonoUsuario :"3135487896",
+//       correoUsuario : "abcdfghi@gmail.com",
+//       fechaCreacionUsuario :"16-05-2015",
+//       estadoUsuario : "A",
+//       rolUsuario: "A",
+//       areasId: 1,
+//   },
+//   {
+//     idUsuario : 3,
+//     documentoUsuario : "32154",
+//     claveUsuario: "6354654132",
+//     nombresUsuario: "aaaaaaa",
+//     apellidosUsuario: "aaaa",
+//     telefonoUsuario :"3135487896",
+//     correoUsuario : "hoy@gmail.com",
+//     fechaCreacionUsuario :"16-05-2015",
+//     estadoUsuario : "A",
+//     rolUsuario: "A",
+//     areasId: 1,
+//   },
+//   {
+//     idUsuario : 2,
+//     documentoUsuario : "32154",
+//     claveUsuario: "6354654132",
+//     nombresUsuario: "aaaaaaa",
+//     apellidosUsuario: "aaaa",
+//     telefonoUsuario :"3135487896",
+//     correoUsuario : "hoy@gmail.com",
+//     fechaCreacionUsuario :"16-05-2015",
+//     estadoUsuario : "A",
+//     rolUsuario: "A",
+//     areasId: 1,
+//   }
+// ];
 
-  usuarios$: Observable<Usuario[]>;
+  usuarios$: Observable<UsuarioInterface[]>;
   filter = new FormControl('');
 
   controladorUsuarios: UsuariosController;
@@ -107,6 +110,14 @@ export class UsuariosComponentesListaComponent implements OnInit {
 
             console.log(this.controladorUsuarios.todos);
 
+
+    this.controladorUsuarios.CargarDesdeDB( false ).subscribe(
+      (respuesta: RespuestaInterface) =>{
+        switch (respuesta.codigo){
+          case 200:
+
+            console.log(this.controladorUsuarios.todos);
+
           break;
           default:
             alert("Error: "+respuesta.mensaje);
@@ -119,7 +130,7 @@ export class UsuariosComponentesListaComponent implements OnInit {
 
   ngOnInit() {  }
 
-  buscar(text: string , pipe: PipeTransform): Usuario[] {
+  buscar(text: string , pipe: PipeTransform): UsuarioInterface[] {
     return this.USUARIOS.filter(usuario => {
       const term = text.toLowerCase();
       return pipe.transform(usuario.idUsuario).includes(term)
