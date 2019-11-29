@@ -6,7 +6,8 @@
       <form >
         <div class="form-group form-inline form ">
             <div class="row col-md-10 form2"><i class="fa fa-search search "></i><p>Buscar: </p><input class="form-control" type="text" [formControl]="filter"/></div>
-            <button class="btn btn-primary nuevaAgenda" [routerLink]="['../procesar']" [queryParams]="{modo: 1}" type="button" ><i class="fa fa-plus-circle"></i> Nuevo usuario</button>
+            <button class="btn btn-primary nuevaAgenda" (click)="Procesar(1)" type="button" ><i class="fa fa-plus-circle"></i> Nuevo usuario</button>
+
   
         </div>
       </form>

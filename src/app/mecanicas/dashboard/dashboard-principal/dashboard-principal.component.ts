@@ -15,7 +15,7 @@ export class DashboardPrincipalComponent implements OnInit {
   {  }
 
   ngOnInit() {
-    this.rutas.navigate(['/estadisticas']);
+    this.rutas.navigate(['/estadisticas'], { skipLocationChange: true });
   }
 
 

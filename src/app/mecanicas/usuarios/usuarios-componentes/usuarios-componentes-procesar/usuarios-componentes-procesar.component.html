@@ -1,4 +1,8 @@
-<div>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ titulo }} Usuario</h4>
+  </div>    
+
+  <div class="modal-body">
     <label>id :</label>
     <input type="text" class="form-control" [(ngModel)]="datos.id" required readonly>
 
@@ -25,9 +29,9 @@
 
     <label>Rol:</label>
     <select class="form-control" [(ngModel)]="datos.rol" required>
-        <option value='A'>Administrador</option>
-        <option value='C'>Coordinador</option>    
-        <option value='O'>Operador</option>        
+      <option value='A'>Administrador</option>
+      <option value='C'>Coordinador</option>    
+      <option value='O'>Operador</option>        
     </select>
 
     <label>Area:</label>
@@ -47,7 +51,9 @@
 
 <div>&nbsp;</div>
 
-<div>
-    <button type="button" class="btn btn-primary " (click)="Guardar()">Guardar</button>
-    <button type="button" class="btn btn-outline-dark buttonGeneral" [routerLink]="['../procesar']" type="button">Cancelar</button>
+<div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('SI')">Si</button>            
+        <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">No</button>            
+        <button type="button" class="btn btn-primary " (click)="Guardar()">Guardar</button>
+        <button type="button" class="btn btn-outline-dark buttonGeneral" [routerLink]="['../lista']" skipLocationChange=true type="button">Cancelar</button>
 </div>

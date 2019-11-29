@@ -8,6 +8,10 @@ import { UsuariosController } from '@app/modelos/controladores/usuarios.controll
 import { RespuestaInterface } from '@app/modelos/interfaces/respuesta.interface';
 import { HttpClient } from '@angular/common/http';
 import { AmbienteService } from '@app/servicios/ambiente.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { UsuariosComponentesProcesarComponent } from '../usuarios-componentes-procesar/usuarios-componentes-procesar.component';
+import { UsuarioInterface } from '@app/modelos/interfaces/usuario.interface';
 
 interface Usuario{
   idUsuario : number;
@@ -84,6 +88,8 @@ export class UsuariosComponentesListaComponent implements OnInit {
 
     private llamadoHttp :HttpClient,
     private servicioAmbiente: AmbienteService,    
+
+    private servicioEmergentes: NgbModal,
   ) 
   {
     this.usuarios$ = this.filter.valueChanges.pipe(
@@ -94,20 +100,20 @@ export class UsuariosComponentesListaComponent implements OnInit {
 
     this.controladorUsuarios = new UsuariosController(llamadoHttp,servicioAmbiente);
 
-    // controladorUsuarios.CargarDesdeDB( false ).subscribe(
-    //   (respuesta: RespuestaInterface) =>{
-    //     switch (respuesta.codigo){
-    //       case 200:
+    this.controladorUsuarios.CargarDesdeDB( false ).subscribe(
+      (respuesta: RespuestaInterface) =>{
+        switch (respuesta.codigo){
+          case 200:
 
-    //         console.log(controladorUsuarios.todos);
+            console.log(this.controladorUsuarios.todos);
 
-    //       break;
-    //       default:
-    //         alert("Error: "+respuesta.mensaje);
-    //       break;
-    //     }
-    //   } 
-    // );
+          break;
+          default:
+            alert("Error: "+respuesta.mensaje);
+          break;
+        }
+      } 
+    );
     
   }
 
@@ -131,4 +137,14 @@ export class UsuariosComponentesListaComponent implements OnInit {
     });
   }
 
+  Procesar(modo:number, aProcesar:UsuarioInterface=null){
+
+    const modalRef = this.servicioEmergentes.open(UsuariosComponentesProcesarComponent, { centered: true });
+    //modalRef.componentInstance.datos = aProcesar;    
+    modalRef.componentInstance.modo = modo;    
+
+    //[routerLink]="['../procesar']" skipLocationChange=true  [queryParams]="{modo: 1}"
+
+
+  }
 }  

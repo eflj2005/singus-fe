@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {  NgbTypeaheadModule } from "@ng-bootstrap/ng-bootstrap";
-import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { UsuariosComponentesListaComponent } from './usuarios-componentes-lista/usuarios-componentes-lista.component';
 import { UsuariosComponentesProcesarComponent } from './usuarios-componentes-procesar/usuarios-componentes-procesar.component';
@@ -14,12 +13,11 @@ import { RouterModule } from '@angular/router';
   declarations: [UsuariosComponentesListaComponent, UsuariosComponentesProcesarComponent, UsuariosComponentesEditarComponent],
   imports: [
     CommonModule,
-    NgbAlertModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbTypeaheadModule,
-    NgbTooltipModule,
-    RouterModule
+    NgbModule,
+    RouterModule,
+
   ],
   exports:[ UsuariosComponentesEditarComponent ,  UsuariosComponentesProcesarComponent, UsuariosComponentesListaComponent ]
 })
