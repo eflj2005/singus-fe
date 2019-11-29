@@ -4,6 +4,10 @@ import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { UsuariosController } from '@app/modelos/controladores/usuarios.controller';
+import { RespuestaInterface } from '@app/modelos/respuesta.interface';
+import { HttpClient } from '@angular/common/http';
+import { AmbienteService } from '@app/servicios/ambiente.service';
 
 interface Usuario{
   idUsuario : number;
@@ -72,15 +76,39 @@ export class UsuariosComponentesListaComponent implements OnInit {
   usuarios$: Observable<Usuario[]>;
   filter = new FormControl('');
 
+  controladorUsuarios: UsuariosController;
+
   constructor(
     pipe: DecimalPipe,
     private rutas: Router,
+
+    private llamadoHttp :HttpClient,
+    private servicioAmbiente: AmbienteService,    
   ) 
   {
     this.usuarios$ = this.filter.valueChanges.pipe(
       startWith(''),
       map(text => this.buscar(text, pipe))
-    )
+    );
+
+
+    this.controladorUsuarios = new UsuariosController(llamadoHttp,servicioAmbiente);
+
+    // controladorUsuarios.CargarDesdeDB( false ).subscribe(
+    //   (respuesta: RespuestaInterface) =>{
+    //     switch (respuesta.codigo){
+    //       case 200:
+
+    //         console.log(controladorUsuarios.todos);
+
+    //       break;
+    //       default:
+    //         alert("Error: "+respuesta.mensaje);
+    //       break;
+    //     }
+    //   } 
+    // );
+    
   }
 
   ngOnInit() {  }

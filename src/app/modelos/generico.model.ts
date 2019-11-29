@@ -113,7 +113,7 @@ export class GenericoModel {
 
   //AVAMZADAS
 
-  public CargarDesdeDB( filtrosRecibidos:filtroInterface=null, conToken:boolean=true, ): Observable<any> {
+  public CargarDesdeDB(  conToken:boolean=true , filtrosRecibidos:filtroInterface=null ): Observable<any> {
   
     let re1 = /\"/gi;
     let re2 = /{/gi;
@@ -127,6 +127,7 @@ export class GenericoModel {
       //.set("filtros", JSON.stringify(filtrosRecibidos).replace(re1, "").replace(re2, "").replace(re3, ""));
       .set("filtros", JSON.stringify(filtrosRecibidos));      
    
+      console.log(datosEnviados);
     return this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
       map(
         (respuesta: RespuestaInterface) => {
@@ -134,6 +135,7 @@ export class GenericoModel {
           respuesta.mensaje.forEach(elemento => {
             elemento.dbRef=null;
             elemento.modo=null;
+            elemento = this.ProcesarFechas(elemento,"GET");
             this.registros.push(elemento);
           });
 
@@ -172,7 +174,7 @@ export class GenericoModel {
 
   }
 
-  protected ProcesarFechas(objeto:any){
+  protected ProcesarFechas(objeto:any, sentido:string){
     //ESTE METODO SE SOBRECARGA
     return objeto;
   }
@@ -182,7 +184,7 @@ export class GenericoModel {
 
     this.registros.forEach(registro => {
       if(registro.modo != null) {
-        registro = this.ProcesarFechas(registro);
+        registro = this.ProcesarFechas(registro,"SET");
         aProcesar.push(registro);        
       }
     });

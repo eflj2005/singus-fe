@@ -45,7 +45,7 @@ export class CambiarClaveComponent implements OnInit {
     this.claveNueva="";
     this.claveConfirmada="";
 
-    this.controladorUsuarios.CargarDesdeDB( { id: servicioAmbiente.inicioIdUsrTemp}, false ).subscribe(
+    this.controladorUsuarios.CargarDesdeDB( false, { id: servicioAmbiente.inicioIdUsrTemp} ).subscribe(
       (respuesta:RespuestaInterface) => {    
         this.datos= this.controladorUsuarios.actual;
       }

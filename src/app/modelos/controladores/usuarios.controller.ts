@@ -21,7 +21,16 @@ export class UsuariosController extends GenericoModel {
     this.nombreTabla = "usuarios";
   }
 
-  protected ProcesarFechas(objeto:any){
+  //METODO SOBRECARGADO PARA PREPARA FECHAS
+  protected ProcesarFechas(objeto:UsuarioInterface, sentido:string){          
+    let regExp = /\-/gi;
+    if(sentido=="SET"){
+      objeto.creacion = objeto.creacion.replace(regExp, "");
+    }
+    if(sentido=="GET"){
+      objeto.creacion = objeto.creacion.substr(0,4) + "-" + objeto.creacion.substr(5,2) + "-" + objeto.creacion.substr(8,2);
+    }
+    return objeto;
 
   }
 
