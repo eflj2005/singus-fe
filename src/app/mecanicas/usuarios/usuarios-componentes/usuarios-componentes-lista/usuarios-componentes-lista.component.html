@@ -16,9 +16,8 @@
     <table class="table table-striped">
         <thead class="thead">
         <tr>
-            <th scope="col">#</th>
+            <th scope="col">Id</th>
             <th scope="col">Documento</th>
-            <th scope="col">Clave</th>
             <th scope="col">Nombres</th>
             <th scope="col">Apellidos</th>
             <th scope="col">Telefono</th>
@@ -32,18 +31,17 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let usuario of  usuarios$ | async; index as i">
-          <td><ngb-highlight [result]="usuario.idUsuario  | number" [term]="filter.value"></ngb-highlight></td>
-          <td><ngb-highlight [result]="usuario.documentoUsuario" [term]="filter.value"></ngb-highlight></td>
-          <td><ngb-highlight [result]="usuario.claveUsuario" [term]="filter.value"></ngb-highlight></td>
-          <td><ngb-highlight [result]="usuario.nombresUsuario" [term]="filter.value"></ngb-highlight></td>
-          <td><ngb-highlight [result]="usuario.apellidosUsuario" [term]="filter.value"></ngb-highlight></td>
-          <td><ngb-highlight [result]="usuario.telefonoUsuario" [term]="filter.value"></ngb-highlight></td>
-          <td><ngb-highlight [result]="usuario.correoUsuario" [term]="filter.value"></ngb-highlight></td>
-          <td><ngb-highlight [result]="usuario.fechaCreacionUsuario" [term]="filter.value"></ngb-highlight></td>
-          <td><ngb-highlight [result]="usuario.estadoUsuario" [term]="filter.value"></ngb-highlight></td>
-          <td><ngb-highlight [result]="usuario.rolUsuario" [term]="filter.value"></ngb-highlight></td>
-          <td><ngb-highlight [result]="usuario.areasId | number" [term]="filter.value"></ngb-highlight></td>
+        <tr *ngFor="let registro of  registros$ | async; index as i">
+          <td><ngb-highlight [result]="registro.id | number" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="registro.documento | number" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="registro.nombres" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="registro.apellidos" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="registro.telefono | number" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="registro.correo" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="registro.creacion" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="registro.estado" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="registro.rol" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="registro.areas_id | number" [term]="filter.value"></ngb-highlight></td>
           <td>
             <button class="btn btn-outline-secondary "  placement="right" ngbTooltip="Editar" (click)="verPersona({id : agenda.IdAgenda, modo:3})"  ><i class="fa fa-pencil"></i></button>
             </td>

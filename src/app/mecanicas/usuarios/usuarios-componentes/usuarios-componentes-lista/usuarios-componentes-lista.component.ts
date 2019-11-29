@@ -35,49 +35,9 @@ import { UsuarioInterface } from '@app/modelos/interfaces/usuario.interface';
 })
 export class UsuariosComponentesListaComponent implements OnInit {
 
-//   USUARIOS: Usuario[] = [
-//     {
-//       idUsuario : 1,
-//       documentoUsuario : "32154",
-//       claveUsuario: "6354654132",
-//       nombresUsuario: "aaaaaaa",
-//       apellidosUsuario: "aaaa",
-//       telefonoUsuario :"3135487896",
-//       correoUsuario : "abcdfghi@gmail.com",
-//       fechaCreacionUsuario :"16-05-2015",
-//       estadoUsuario : "A",
-//       rolUsuario: "A",
-//       areasId: 1,
-//   },
-//   {
-//     idUsuario : 3,
-//     documentoUsuario : "32154",
-//     claveUsuario: "6354654132",
-//     nombresUsuario: "aaaaaaa",
-//     apellidosUsuario: "aaaa",
-//     telefonoUsuario :"3135487896",
-//     correoUsuario : "hoy@gmail.com",
-//     fechaCreacionUsuario :"16-05-2015",
-//     estadoUsuario : "A",
-//     rolUsuario: "A",
-//     areasId: 1,
-//   },
-//   {
-//     idUsuario : 2,
-//     documentoUsuario : "32154",
-//     claveUsuario: "6354654132",
-//     nombresUsuario: "aaaaaaa",
-//     apellidosUsuario: "aaaa",
-//     telefonoUsuario :"3135487896",
-//     correoUsuario : "hoy@gmail.com",
-//     fechaCreacionUsuario :"16-05-2015",
-//     estadoUsuario : "A",
-//     rolUsuario: "A",
-//     areasId: 1,
-//   }
-// ];
+  registros:UsuarioInterface[];
 
-  usuarios$: Observable<UsuarioInterface[]>;
+  registros$: Observable<UsuarioInterface[]>;
   filter = new FormControl('');
 
   controladorUsuarios: UsuariosController;
@@ -92,20 +52,24 @@ export class UsuariosComponentesListaComponent implements OnInit {
     private servicioEmergentes: NgbModal,
   ) 
   {
-    this.usuarios$ = this.filter.valueChanges.pipe(
-      startWith(''),
-      map(text => this.buscar(text, pipe))
-    );
 
-
+    // this.registros =[];
     this.controladorUsuarios = new UsuariosController(llamadoHttp,servicioAmbiente);
 
     this.controladorUsuarios.CargarDesdeDB( false ).subscribe(
       (respuesta: RespuestaInterface) =>{
         switch (respuesta.codigo){
           case 200:
+            (this.controladorUsuarios.todos).forEach(elemento => {
+              this.registros.push(elemento);
+            });
 
-            console.log(this.controladorUsuarios.todos);
+            this.registros$ = this.filter.valueChanges.pipe(
+              startWith(''),
+              map(text => this.Buscar(text, pipe))
+            );
+            // // this.registros =this.controladorUsuarios.todos;
+            console.log(this.registros);
 
           break;
           default:
@@ -117,23 +81,23 @@ export class UsuariosComponentesListaComponent implements OnInit {
     
   }
 
-  ngOnInit() {  }
+  ngOnInit() { 
+    
+  }
 
-  buscar(text: string , pipe: PipeTransform): UsuarioInterface[] {
-    return this.USUARIOS.filter(usuario => {
+  Buscar(text: string , pipe: PipeTransform): UsuarioInterface[] {
+    return this.registros.filter(registro => {
       const term = text.toLowerCase();
-      return pipe.transform(usuario.idUsuario).includes(term)
-          || usuario.documentoUsuario.toLowerCase().includes(term)
-          || usuario.claveUsuario.toLowerCase().includes(term)
-          || usuario.nombresUsuario.toLowerCase().includes(term)
-          || usuario.apellidosUsuario.toLowerCase().includes(term)
-          || usuario.telefonoUsuario.toLowerCase().includes(term)
-          || usuario.correoUsuario.toLowerCase().includes(term)
-          || usuario.fechaCreacionUsuario.toLowerCase().includes(term)
-          || usuario.estadoUsuario.toLowerCase().includes(term)
-          || usuario.rolUsuario.toLowerCase().includes(term)
-          || pipe.transform(usuario.areasId).includes(term)
-  
+      return pipe.transform(registro.id).includes(term)
+          || pipe.transform(registro.documento).includes(term)      
+          || registro.nombres.toLowerCase().includes(term)
+          || registro.apellidos.toLowerCase().includes(term)
+          || pipe.transform(registro.telefono).includes(term)                
+          || registro.correo.toLowerCase().includes(term)
+          || registro.creacion.toLowerCase().includes(term)
+          || registro.estado.toLowerCase().includes(term)
+          || registro.rol.toLowerCase().includes(term)
+          || pipe.transform(registro.areas_id).includes(term)
     });
   }
 
