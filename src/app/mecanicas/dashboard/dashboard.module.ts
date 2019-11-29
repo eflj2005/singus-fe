@@ -9,10 +9,12 @@ import { AdministracionMaestrasPrincipalComponent } from "@mecanicas/administrac
 import { UsuariosPrincipalComponent } from "@mecanicas/usuarios/usuarios-principal/usuarios-principal.component";
 import { UsuariosComponentesListaComponent } from '../usuarios/usuarios-componentes/usuarios-componentes-lista/usuarios-componentes-lista.component';
 import { UsuariosComponentesProcesarComponent } from '../usuarios/usuarios-componentes/usuarios-componentes-procesar/usuarios-componentes-procesar.component';
+import { DashboardEstadisticasComponent } from './dashboard-componentes/dashboard-estadisticas/dashboard-estadisticas.component';
 //Rutas para redirecciones por url
 const rutas: Routes =[
   
     { path:'', component: DashboardPrincipalComponent , children:[
+      { path:'estadisticas', component:DashboardEstadisticasComponent},
       { path:'lista', component:PersonasActualizacionPrincipalComponent},
       { path:'agendamiento', component: PersonasAgendamientoPrincipalComponent },
       { path:'maestras', component: AdministracionMaestrasPrincipalComponent },

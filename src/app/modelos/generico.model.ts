@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { AmbienteService } from '@servicios/ambiente.service';
 import { filtroInterface } from '@modelos/interfaces/filtro.interface';
-import { RespuestaInterface } from './respuesta.interface';
+import { RespuestaInterface } from './interfaces/respuesta.interface';
 
 export class GenericoModel {
   protected llamadoHttp :HttpClient;

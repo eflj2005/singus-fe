@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { GenericoModel } from '@modelos/generico.model';
 import { UsuarioInterface } from '@modelos/interfaces/usuario.interface';
 import { AmbienteService } from '@servicios/ambiente.service';
-import { RespuestaInterface } from '../respuesta.interface';
+import { RespuestaInterface } from '../interfaces/respuesta.interface';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

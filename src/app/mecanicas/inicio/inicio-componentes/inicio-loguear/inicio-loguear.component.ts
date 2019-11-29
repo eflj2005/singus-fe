@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AmbienteService } from '@app/servicios/ambiente.service'
 import { AutenticacionService } from '@app/servicios/autenticacion.service';
-import { RespuestaInterface } from '@app/modelos/respuesta.interface';
+import { RespuestaInterface } from '@app/modelos/interfaces/respuesta.interface';
 
 @Component({
   selector: 'app-inicio-loguear',

@@ -7,7 +7,7 @@ import { AmbienteService } from '@app/servicios/ambiente.service';
 import { UsuariosController } from '@app/modelos/controladores/usuarios.controller';
 import { HttpClient } from '@angular/common/http';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { RespuestaInterface } from '@app/modelos/respuesta.interface';
+import { RespuestaInterface } from '@app/modelos/interfaces/respuesta.interface';
 import { UsuarioInterface } from '@app/modelos/interfaces/usuario.interface';
 
 @Component({

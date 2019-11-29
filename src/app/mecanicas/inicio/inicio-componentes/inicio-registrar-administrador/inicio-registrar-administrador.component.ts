@@ -8,7 +8,7 @@ import { filtroInterface } from '@modelos/interfaces/filtro.interface';
 import { UsuariosController } from '@modelos/controladores/usuarios.controller';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { RespuestaInterface } from '@modelos/respuesta.interface';
+import { RespuestaInterface } from '@app/modelos/interfaces/respuesta.interface';
 
 
 

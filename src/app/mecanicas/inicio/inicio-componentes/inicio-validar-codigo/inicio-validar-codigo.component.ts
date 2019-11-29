@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AmbienteService } from '@app/servicios/ambiente.service'
 import { UsuariosController } from '@modelos/controladores/usuarios.controller';
 import { HttpClient } from '@angular/common/http';
-import { RespuestaInterface } from '@app/modelos/respuesta.interface';
+import { RespuestaInterface } from '@app/modelos/interfaces/respuesta.interface';
 
 @Component({
   selector: 'app-inicio-validar-codigo',

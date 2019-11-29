@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { UsuariosController } from '@app/modelos/controladores/usuarios.controller';
-import { RespuestaInterface } from '@app/modelos/respuesta.interface';
+import { RespuestaInterface } from '@app/modelos/interfaces/respuesta.interface';
 import { HttpClient } from '@angular/common/http';
 import { AmbienteService } from '@app/servicios/ambiente.service';
 
