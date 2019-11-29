@@ -21,6 +21,9 @@ export class UsuariosController extends GenericoModel {
     this.nombreTabla = "usuarios";
   }
 
+  protected ProcesarFechas(objeto:any){
+
+  }
 
   public GenerarCodigo(idUsuario:number): Observable<RespuestaInterface>{
 

@@ -16,7 +16,7 @@ export class GenericoModel {
   protected posicionActual:number;
   //protected cantidad:number = null;
 
-  protected registros:any[];
+  protected registros:any[];      //ESTE ATRIBUTO SE SOBRECARGA
   
   private consecutivoDbRefs:number;
 
@@ -172,11 +172,19 @@ export class GenericoModel {
 
   }
 
+  protected ProcesarFechas(objeto:any){
+    //ESTE METODO SE SOBRECARGA
+    return objeto;
+  }
+
   public Guardar(conToken:boolean=true ): Observable<any>{
     var aProcesar:any[] = [];
 
     this.registros.forEach(registro => {
-      if(registro.modo != null) aProcesar.push(registro);        
+      if(registro.modo != null) {
+        registro = this.ProcesarFechas(registro);
+        aProcesar.push(registro);        
+      }
     });
     
     let parametros = {
