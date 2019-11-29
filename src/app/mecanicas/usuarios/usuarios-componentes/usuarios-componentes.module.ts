@@ -4,21 +4,23 @@ import {  NgbTypeaheadModule } from "@ng-bootstrap/ng-bootstrap";
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { UsuariosComponentesListaComponent } from './usuarios-componentes-lista/usuarios-componentes-lista.component';
-import { UsuariosComponentesCrearComponent } from './usuarios-componentes-crear/usuarios-componentes-crear.component';
+import { UsuariosComponentesProcesarComponent } from './usuarios-componentes-procesar/usuarios-componentes-procesar.component';
 import { UsuariosComponentesEditarComponent } from './usuarios-componentes-editar/usuarios-componentes-editar.component';
 import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
-  declarations: [UsuariosComponentesListaComponent, UsuariosComponentesCrearComponent, UsuariosComponentesEditarComponent],
+  declarations: [UsuariosComponentesListaComponent, UsuariosComponentesProcesarComponent, UsuariosComponentesEditarComponent],
   imports: [
     CommonModule,
     NgbAlertModule,
     FormsModule,
     ReactiveFormsModule,
     NgbTypeaheadModule,
-    NgbTooltipModule  
+    NgbTooltipModule,
+    RouterModule
   ],
-  exports:[ UsuariosComponentesEditarComponent ,  UsuariosComponentesCrearComponent, UsuariosComponentesListaComponent ]
+  exports:[ UsuariosComponentesEditarComponent ,  UsuariosComponentesProcesarComponent, UsuariosComponentesListaComponent ]
 })
 export class UsuariosComponentesModule { }

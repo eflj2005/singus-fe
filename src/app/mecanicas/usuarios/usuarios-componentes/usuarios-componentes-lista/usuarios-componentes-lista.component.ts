@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 interface Usuario{
   idUsuario : number;
@@ -68,19 +69,21 @@ export class UsuariosComponentesListaComponent implements OnInit {
   }
 ];
 
-usuarios$: Observable<Usuario[]>;
-filter = new FormControl('');
+  usuarios$: Observable<Usuario[]>;
+  filter = new FormControl('');
 
-
-  constructor(pipe: DecimalPipe) {
+  constructor(
+    pipe: DecimalPipe,
+    private rutas: Router,
+  ) 
+  {
     this.usuarios$ = this.filter.valueChanges.pipe(
       startWith(''),
       map(text => this.buscar(text, pipe))
     )
-   }
-
-  ngOnInit() {
   }
+
+  ngOnInit() {  }
 
   buscar(text: string , pipe: PipeTransform): Usuario[] {
     return this.USUARIOS.filter(usuario => {
@@ -99,4 +102,5 @@ filter = new FormControl('');
   
     });
   }
+
 }  

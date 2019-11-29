@@ -4,9 +4,9 @@ export interface UsuarioInterface {
   clave?:string;
   nombres: string;
   apellidos: string;
-  telefono: Date;
+  telefono: number;
   correo: string;
-  fechacreacion: string;
+  creacion: string;
   rol:string;
   areas_id:number;
   estado:string;
