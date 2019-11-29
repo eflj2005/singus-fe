@@ -110,14 +110,6 @@ export class UsuariosComponentesListaComponent implements OnInit {
 
             console.log(this.controladorUsuarios.todos);
 
-
-    this.controladorUsuarios.CargarDesdeDB( false ).subscribe(
-      (respuesta: RespuestaInterface) =>{
-        switch (respuesta.codigo){
-          case 200:
-
-            console.log(this.controladorUsuarios.todos);
-
           break;
           default:
             alert("Error: "+respuesta.mensaje);
