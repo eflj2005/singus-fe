@@ -8,12 +8,9 @@ import { UsuariosController } from '@app/modelos/controladores/usuarios.controll
 import { RespuestaInterface } from '@app/modelos/interfaces/respuesta.interface';
 import { HttpClient } from '@angular/common/http';
 import { AmbienteService } from '@app/servicios/ambiente.service';
-<<<<<<< HEAD
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { UsuariosComponentesProcesarComponent } from '../usuarios-componentes-procesar/usuarios-componentes-procesar.component';
-=======
->>>>>>> 810e7725a18a01b58fd6a240a3129bc881eee722
 import { UsuarioInterface } from '@app/modelos/interfaces/usuario.interface';
 
 // interface Usuario{
