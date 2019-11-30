@@ -84,7 +84,7 @@ export class GenericoModel {
     }
 
     if(!encontrado) this.posicionActual = actualTemporal;
-    console.log(encontrado);
+    console.log(encontrado,"Encontrar");
     return encontrado;
   }
 

@@ -102,11 +102,13 @@ export class UsuariosComponentesListaComponent implements OnInit {
     var registro:UsuarioInterface = {} as UsuarioInterface;
 
     if(modo==2){
-      if( this.controladorUsuarios.Encontrar("id",usuarioId) ){
+      validar=this.controladorUsuarios.Encontrar("id",usuarioId);
+      console.log(validar,"Procesar");
+      if(validar == true){
         registro = this.controladorUsuarios.actual;
       }{
         alert("ID no esta en la lista");
-        validar = false;
+
       }
     }
 
