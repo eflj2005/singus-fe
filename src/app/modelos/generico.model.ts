@@ -168,7 +168,7 @@ export class GenericoModel {
     }
 
     
-    this.posicionActual = actualTemporal;
+    this.posicionActual = actualTemporal; sada
 
 
   }
