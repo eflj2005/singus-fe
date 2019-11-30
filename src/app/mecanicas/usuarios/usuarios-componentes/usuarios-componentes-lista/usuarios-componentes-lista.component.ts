@@ -98,17 +98,14 @@ export class UsuariosComponentesListaComponent implements OnInit {
   }
 
   Procesar(modo:number, usuarioId:number=null){
-    let validar:boolean = true;
+    var validar:boolean = true;
     var registro:UsuarioInterface = {} as UsuarioInterface;
 
     if(modo==2){
-      validar=this.controladorUsuarios.Encontrar("id",usuarioId);
-      console.log(validar,"Procesar");
-      if(validar == true){
+      if( this.controladorUsuarios.Encontrar("id",usuarioId) ){
         registro = this.controladorUsuarios.actual;
-      }{
+      }else{
         alert("ID no esta en la lista");
-
       }
     }
 

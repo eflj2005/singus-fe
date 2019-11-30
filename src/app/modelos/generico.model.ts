@@ -78,13 +78,11 @@ export class GenericoModel {
     this.Primero();
 
     while(!this.esFin && !encontrado){
-      console.log("Actual: "+this.actual[nombreAtributo]+" Buscado: "+valorBuscado);
       if(this.actual[nombreAtributo] == valorBuscado ) encontrado=true;
       this.Siguiente();
     }
 
     if(!encontrado) this.posicionActual = actualTemporal;
-    console.log(encontrado,"Encontrar");
     return encontrado;
   }
 
