@@ -35,6 +35,7 @@ import { UsuarioInterface } from '@app/modelos/interfaces/usuario.interface';
 })
 export class UsuariosComponentesListaComponent implements OnInit {
 
+
   registros:UsuarioInterface[];
 
   registros$: Observable<UsuarioInterface[]>;
@@ -43,7 +44,7 @@ export class UsuariosComponentesListaComponent implements OnInit {
   controladorUsuarios: UsuariosController;
 
   constructor(
-    pipe: DecimalPipe,
+    private pipe: DecimalPipe,
     private rutas: Router,
 
     private llamadoHttp :HttpClient,
@@ -53,22 +54,17 @@ export class UsuariosComponentesListaComponent implements OnInit {
   ) 
   {
 
-    // this.registros =[];
+    this.registros =[];
     this.controladorUsuarios = new UsuariosController(llamadoHttp,servicioAmbiente);
 
     this.controladorUsuarios.CargarDesdeDB( false ).subscribe(
       (respuesta: RespuestaInterface) =>{
         switch (respuesta.codigo){
           case 200:
-            (this.controladorUsuarios.todos).forEach(elemento => {
-              this.registros.push(elemento);
-            });
 
-            this.registros$ = this.filter.valueChanges.pipe(
-              startWith(''),
-              map(text => this.Buscar(text, pipe))
-            );
-            // // this.registros =this.controladorUsuarios.todos;
+            this.registros =this.controladorUsuarios.todos;
+            this.AplicarFiltros();
+
             console.log(this.registros);
 
           break;
@@ -101,14 +97,42 @@ export class UsuariosComponentesListaComponent implements OnInit {
     });
   }
 
-  Procesar(modo:number, aProcesar:UsuarioInterface=null){
+  Procesar(modo:number, usuarioId:number=null){
+    let validar:boolean = true;
+    var registro:UsuarioInterface = {} as UsuarioInterface;
 
-    const modalRef = this.servicioEmergentes.open(UsuariosComponentesProcesarComponent, { centered: true });
-    //modalRef.componentInstance.datos = aProcesar;    
-    modalRef.componentInstance.modo = modo;    
+    if(modo==2){
+      if( this.controladorUsuarios.Encontrar("id",usuarioId) ){
+        registro = this.controladorUsuarios.actual;
+      }{
+        alert("ID no esta en la lista");
+        validar = false;
+      }
+    }
 
-    //[routerLink]="['../procesar']" skipLocationChange=true  [queryParams]="{modo: 1}"
+    if(validar){
+      const modalRef = this.servicioEmergentes.open(UsuariosComponentesProcesarComponent, { centered: true });
+      //modalRef.componentInstance.datos = aProcesar;    
+      modalRef.componentInstance.modo = modo;
+      modalRef.componentInstance.datos = registro;
+      modalRef.componentInstance.modal = modalRef;
+      modalRef.componentInstance.controladorUsuarios = this.controladorUsuarios;
 
+      modalRef.result.then(
+        (result) => {                  
+          if(result == 'GUARDAR'){
+            this.AplicarFiltros();               
+          }
+        },
+        (reason) => { } // Se recibe dismiss  
+      );
+      }
+  }
 
+  AplicarFiltros(){
+    this.registros$ = this.filter.valueChanges.pipe(
+      startWith(''),
+      map(text => this.Buscar(text, this.pipe))
+    );
   }
 }  

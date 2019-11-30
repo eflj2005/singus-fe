@@ -71,18 +71,20 @@ export class GenericoModel {
     this.registros.length = 0;
   }
 
-  public Encontrar( nombreAtributo:String, valorBuscado:any ): boolean{
+  public Encontrar( nombreAtributo:string, valorBuscado:any ): boolean{
     let actualTemporal = this.posicionActual;
     let encontrado:boolean = false;
 
     this.Primero();
 
     while(!this.esFin && !encontrado){
-      if(this.actual.nombreAtributo == valorBuscado ) encontrado=true;
+      console.log("Actual: "+this.actual[nombreAtributo]+" Buscado: "+valorBuscado);
+      if(this.actual[nombreAtributo] == valorBuscado ) encontrado=true;
       this.Siguiente();
     }
 
     if(!encontrado) this.posicionActual = actualTemporal;
+    console.log(encontrado);
     return encontrado;
   }
 
@@ -180,11 +182,12 @@ export class GenericoModel {
 
   public Guardar(conToken:boolean=true ): Observable<any>{
     var aProcesar:any[] = [];
+    var temporal:any;
 
     this.registros.forEach(registro => {
       if(registro.modo != null) {
-        registro = this.ProcesarFechas(registro,"SET");
-        aProcesar.push(registro);        
+        temporal = this.ProcesarFechas(Object.assign({}, registro),"SET");
+        aProcesar.push(temporal);        
       }
     });
     
@@ -198,13 +201,14 @@ export class GenericoModel {
     return this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php", parametros).pipe(
       map(
         (respuesta: RespuestaInterface) => {
-
+         
           this.ActualizarReferencias(respuesta.mensaje.dbRefs);
 
           return respuesta;
         }
       )
     );
+
 
   }
 

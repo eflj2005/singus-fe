@@ -43,7 +43,7 @@
           <td><ngb-highlight [result]="registro.rol" [term]="filter.value"></ngb-highlight></td>
           <td><ngb-highlight [result]="registro.areas_id | number" [term]="filter.value"></ngb-highlight></td>
           <td>
-            <button class="btn btn-outline-secondary "  placement="right" ngbTooltip="Editar" (click)="verPersona({id : agenda.IdAgenda, modo:3})"  ><i class="fa fa-pencil"></i></button>
+            <button class="btn btn-outline-secondary "  placement="right" ngbTooltip="Editar" (click)="Procesar( 2 , registro.id )"  ><i class="fa fa-pencil"></i></button>
             </td>
         </tr>
         </tbody>

@@ -17,7 +17,7 @@
     <input type="text" class="form-control" [(ngModel)]="datos.apellidos" placeholder="Ingrese los apellidos" required>
 
     <label>Telefono :</label>
-    <input type="text" class="form-control" [(ngModel)]="datos.documento" c [pattern]="numeroModelo" #telefonoMensaje="ngModel" required>
+    <input type="text" class="form-control" [(ngModel)]="datos.telefono" c [pattern]="numeroModelo" #telefonoMensaje="ngModel" required>
     <ngb-alert  class="col-md-12" *ngIf="telefonoMensaje.errors?.pattern" type="custom" [dismissible]="false">Debe registrar un telefono</ngb-alert>      
 
     <label>Correo :</label>
@@ -52,8 +52,6 @@
 <div>&nbsp;</div>
 
 <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="modal.close('SI')">Si</button>            
-        <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">No</button>            
-        <button type="button" class="btn btn-primary " (click)="Guardar()">Guardar</button>
-        <button type="button" class="btn btn-outline-dark buttonGeneral" [routerLink]="['../lista']" skipLocationChange=true type="button">Cancelar</button>
+  <button type="button" class="btn btn-primary" (click)="Guardar()">Guardar</button>            
+  <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="Cancelar()">Cancelar</button>            
 </div>
