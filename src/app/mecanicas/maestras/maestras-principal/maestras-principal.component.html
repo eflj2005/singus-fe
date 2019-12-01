@@ -1,6 +1,100 @@
 
 <div class="row" *ngIf="datosAmbiente.maestrasModo.modo==1">
-        <div class="col-md-12 col-sm-12 col-log-12">
-            <app-maestras-detalle></app-maestras-detalle>
-        </div>
+  <div class="col-md-12 col-sm-12 col-log-12">
+
+
+   <!-- <app-maestras-detalle></app-maestras-detalle> -->
+
+    <div class="container column">
+   
+      <h1 align='center'>Maestras</h1>
+            
+      <ngb-tabset>
+        <ngb-tab>
+          <ng-template ngbTabTitle>Ciudades</ng-template>
+          <ng-template ngbTabContent >
+            <div class="ngTabContainer">
+              <br>
+              <h3>Ciudades</h3>
+              <hr>
+              <br>
+              <p></p>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+          <ng-template ngbTabTitle>Titulos</ng-template>
+          <ng-template ngbTabContent>
+            <div class="ngTabContainer">
+              <br>
+              <h3>Titulos</h3>
+              <hr>
+              <br>
+              <p></p>
+            </div>
+          </ng-template>
+        </ngb-tab>
+          <ngb-tab>
+            <ng-template ngbTabTitle>Programas</ng-template>
+            <ng-template ngbTabContent>
+              <div class="ngTabContainer">
+                <br>
+                <h3>Programas</h3>
+                <hr>
+                <br>
+                <p></p>
+              </div>
+            </ng-template>
+          </ngb-tab>
+        <ngb-tab>
+          <ng-template ngbTabTitle>Documentos</ng-template>
+          <ng-template ngbTabContent>
+            <div class="ngTabContainer">
+              <br>
+              <h3>Documentos</h3>
+              <hr>
+              <br>
+              <p></p>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+          <ng-template ngbTabTitle>Sedes</ng-template>
+          <ng-template ngbTabContent>
+            <div class="ngTabContainer">
+              <br>
+              <h3>Sedes</h3>
+              <hr>
+              <br>
+              <p></p>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+          <ng-template ngbTabTitle>Cohortes</ng-template>
+          <ng-template ngbTabContent>
+            <div class="ngTabContainer">
+              <br>
+              <h3>Cohortes</h3>
+              <hr>
+              <br>
+              <p></p>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+          <ng-template ngbTabTitle>Areas</ng-template>
+          <ng-template ngbTabContent>
+            <div class="ngTabContainer">
+              <br>
+              <h3>Areas</h3>
+              <hr>
+              <br>
+              <p></p>
+            </div>
+          </ng-template>
+        </ngb-tab>           
+      </ngb-tabset>                     
+    </div>            
+  </div>
 </div>
