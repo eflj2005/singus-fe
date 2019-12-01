@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 
 @Component({
@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MaestrasDetalleComponent implements OnInit {
 
+  @Input() nombreTabla:string;
   constructor() { }
 
   ngOnInit() {

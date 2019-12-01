@@ -12,6 +12,7 @@ export class GenericoModel {
   protected servicioAmbiente :AmbienteService;
 
   protected nombreTabla:string;
+  protected camposFecha:string[];
 
   protected posicionActual:number;
   //protected cantidad:number = null;
@@ -33,6 +34,14 @@ export class GenericoModel {
   }
 
   //SOBRECARGA ATRIBUTOS
+
+  public set tablaObjetivo ( tablaRecibida:string ){
+    this.nombreTabla = tablaRecibida;
+  }
+
+  public set fechasDefinidas ( camposRecibida:string[] ){
+    this.camposFecha = camposRecibida;
+  }
 
   public get cantidad ():number{
     return this.registros.length;
@@ -172,10 +181,23 @@ export class GenericoModel {
 
   }
 
-  protected ProcesarFechas(objeto:any, sentido:string){
-    //ESTE METODO SE SOBRECARGA
+  // protected ProcesarFechas(objeto:any, sentido:string){
+  //   //ESTE METODO SE SOBRECARGA
+  //   return objeto;
+  // }
+
+
+
+  protected ProcesarFechas(objeto:any, sentido:string){        
+    let regExp = /\-/gi;
+    this.camposFecha.forEach(campo => {    
+      if(sentido=="SET")  objeto[campo] = objeto[campo].replace(regExp, "");
+      if(sentido=="GET")  objeto[campo] = (objeto[campo]).substr(0,4) + "-" + (objeto[campo]).substr(5,2) + "-" + (objeto[campo]).substr(8,2);
+    });    
     return objeto;
   }
+
+
 
   public Guardar(conToken:boolean=true ): Observable<any>{
     var aProcesar:any[] = [];

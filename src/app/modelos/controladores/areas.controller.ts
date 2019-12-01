@@ -14,7 +14,7 @@ export class AreasController extends GenericoModel {
   ) {
     super(instanciaHttpClient,InstanciaAmbienteService);
     
-    this.nombreTabla = "areas";
+    this.tablaObjetivo = "areas";
   }
 
 }
