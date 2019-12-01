@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 
 @Component({
-  selector: 'app-administracion-maestras-detalle',
-  templateUrl: './administracion-maestras-detalle.component.html',
-  styleUrls: ['./administracion-maestras-detalle.component.css']
+  selector: 'app-maestras-detalle',
+  templateUrl: './maestras-detalle.component.html',
+  styleUrls: ['./maestras-detalle.component.css']
 })
-export class AdministracionMaestrasDetalleComponent implements OnInit {
+export class MaestrasDetalleComponent implements OnInit {
   opcion: any = { nombreOpcion:"Ciudades", tipo:"1" } ;
 
   constructor() { }

@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdministracionMaestrasDetalleComponent } from './administracion-maestras-detalle/administracion-maestras-detalle.component';
+import { MaestrasDetalleComponent } from './maestras-detalle/maestras-detalle.component';
 import { NgbTabsetModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
-  declarations: [AdministracionMaestrasDetalleComponent],
+  declarations: [MaestrasDetalleComponent],
   imports: [
     CommonModule,
     NgbTabsetModule
   ],
-  exports:[ AdministracionMaestrasDetalleComponent]
+  exports:[ MaestrasDetalleComponent]
 })
 export class AdministracionMaestrasComponentesModule { }
