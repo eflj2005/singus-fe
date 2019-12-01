@@ -65,8 +65,6 @@ export class UsuariosComponentesListaComponent implements OnInit {
             this.registros =this.controladorUsuarios.todos;
             this.AplicarFiltros();
 
-            console.log(this.registros);
-
           break;
           default:
             alert("Error: "+respuesta.mensaje);

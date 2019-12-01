@@ -6,7 +6,7 @@ import {AmbienteService} from '@servicios/ambiente.service'
   templateUrl: './administracion-maestras-principal.component.html',
   styleUrls: ['./administracion-maestras-principal.component.css']
 })
-export class AdministracionMaestrasPrincipalComponent implements OnInit {
+export class MaestrasPrincipalComponent implements OnInit {
 
   constructor(private datosAmbiente: AmbienteService) { }
 

@@ -67,9 +67,7 @@ export class CambiarClaveComponent implements OnInit {
       (respuesta:RespuestaInterface) => {    
         switch (respuesta.codigo){
           case 200:         //Guardado ok        
-            console.log(this.controladorUsuarios.actual,"actual");
-            console.log(respuesta,"Guardado");
-            
+         
             if(this.servicioAmbiente.inicioModo != 1){
           
               this.servicioAmbiente.inicioModo = 1; //eliminar
