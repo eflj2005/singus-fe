@@ -13,20 +13,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UsuariosComponentesProcesarComponent } from '../usuarios-componentes-procesar/usuarios-componentes-procesar.component';
 import { UsuarioInterface } from '@app/modelos/interfaces/usuario.interface';
 
-// interface Usuario{
-//   idUsuario : number;
-//   documentoUsuario : string;
-//   claveUsuario: string;
-//   nombresUsuario: string;
-//   apellidosUsuario: string;
-//   telefonoUsuario :string;
-//   correoUsuario : string;
-//   fechaCreacionUsuario :string;
-//   estadoUsuario : string;
-//   rolUsuario: string;
-//   areasId: number;
-// }
-
 @Component({
   selector: 'app-usuarios-componentes-lista',
   templateUrl: './usuarios-componentes-lista.component.html',
@@ -110,7 +96,6 @@ export class UsuariosComponentesListaComponent implements OnInit {
 
     if(validar){
       const modalRef = this.servicioEmergentes.open(UsuariosComponentesProcesarComponent, { centered: true });
-      //modalRef.componentInstance.datos = aProcesar;    
       modalRef.componentInstance.modo = modo;
       modalRef.componentInstance.datos = registro;
       modalRef.componentInstance.modal = modalRef;
@@ -124,7 +109,7 @@ export class UsuariosComponentesListaComponent implements OnInit {
         },
         (reason) => { } // Se recibe dismiss  
       );
-      }
+    }
   }
 
   AplicarFiltros(){

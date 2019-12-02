@@ -4,7 +4,8 @@ import { FormControl } from '@angular/forms';
 import { RespuestaInterface } from '@app/modelos/interfaces/respuesta.interface';
 import { DecimalPipe } from '@angular/common';
 import { startWith, map } from 'rxjs/operators';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MaestrasComponentesProcesarComponent } from '../maestras-componentes-procesar/maestras-componentes-procesar.component';
 
 @Component({
   selector: 'app-maestras-componentes-lista',
@@ -24,6 +25,7 @@ export class MaestrasComponentesListaComponent implements OnInit {
 
   constructor(
     private pipe: DecimalPipe,
+    private servicioEmergentes: NgbModal,    
   ) {
     this.registros=[];
   }
@@ -39,14 +41,6 @@ export class MaestrasComponentesListaComponent implements OnInit {
 
             console.log(this.registros);
 
-            // let registro = this.registros[0];
-
-            // console.log(registro);
-
-            // for (let propiedad in registro){
-            //   console.log(propiedad + " - " + typeof(registro[propiedad]));
-            // }
-       
           break;
           default:
             alert("Error: "+respuesta.mensaje);
@@ -66,7 +60,7 @@ export class MaestrasComponentesListaComponent implements OnInit {
       this.controlador.campos.forEach(
         (elemento:string) => {
           if(!validacion){
-            if( pipe.transform(registro[elemento] ).includes(term) )  validacion = true;
+            if( registro[elemento].toLowerCase().includes(term) )  validacion = true;
           }
         }
       );
@@ -74,6 +68,39 @@ export class MaestrasComponentesListaComponent implements OnInit {
       return validacion;
     });
   }
+
+  Procesar(modo:number, usuarioId:number=null){
+    var validar:boolean = true;
+    var registro:any = {} as any;
+
+    if(modo==2){
+      if( this.controlador.Encontrar("id",usuarioId) ){
+        registro = this.controlador.actual;
+      }else{
+        alert("ID no esta en la lista");
+      }
+    }
+
+    if(validar){
+      const modalRef = this.servicioEmergentes.open(MaestrasComponentesProcesarComponent, { centered: true });
+      modalRef.componentInstance.modo = modo;
+      modalRef.componentInstance.datos = registro;
+      modalRef.componentInstance.modal = modalRef;
+      modalRef.componentInstance.controlador = this.controlador;
+
+      modalRef.result.then(
+        (result) => {                  
+          if(result == 'GUARDAR'){
+            this.AplicarFiltros();               
+          }
+        },
+        (reason) => { } // Se recibe dismiss  
+      );
+    }
+  }
+
+
+
 
 
   AplicarFiltros(){
