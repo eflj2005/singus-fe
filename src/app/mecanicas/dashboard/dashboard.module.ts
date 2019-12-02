@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardPrincipalComponent } from './dashboard-principal/dashboard-principal.component';
 import {DashboardComponentesModule} from '@mecanicas/dashboard/dashboard-componentes/dashboard-componentes.module'
 import { RouterModule, Routes } from '@angular/router';
+import {  CarguePrincipalComponent } from "@mecanicas/carge/cargue-principal/cargue-principal.component";
 import { PersonasActualizacionPrincipalComponent } from '@mecanicas/personas/personas-actualizacion/personas-actualizacion-principal/personas-actualizacion-principal.component';
 import { PersonasAgendamientoPrincipalComponent } from '../personas/personas-agendamiento/personas-agendamiento-principal/personas-agendamiento-principal.component';
 import { AdministracionMaestrasPrincipalComponent } from "@mecanicas/administracion/administracion-maestras/administracion-maestras-principal/administracion-maestras-principal.component";
@@ -10,6 +11,7 @@ import { UsuariosPrincipalComponent } from "@mecanicas/usuarios/usuarios-princip
 import { UsuariosComponentesListaComponent } from '../usuarios/usuarios-componentes/usuarios-componentes-lista/usuarios-componentes-lista.component';
 import { UsuariosComponentesProcesarComponent } from '../usuarios/usuarios-componentes/usuarios-componentes-procesar/usuarios-componentes-procesar.component';
 import { DashboardEstadisticasComponent } from './dashboard-componentes/dashboard-estadisticas/dashboard-estadisticas.component';
+import { EventosPrincipalComponent } from "@mecanicas/eventos/eventos-principal/eventos-principal.component";
 //Rutas para redirecciones por url
 const rutas: Routes =[
   
@@ -18,7 +20,10 @@ const rutas: Routes =[
       { path:'lista', component:PersonasActualizacionPrincipalComponent},
       { path:'agendamiento', component: PersonasAgendamientoPrincipalComponent },
       { path:'maestras', component: AdministracionMaestrasPrincipalComponent },
-      { path: 'usuarios', loadChildren: () => import('@mecanicas/usuarios/usuarios.module').then(m => m.UsuariosModule) }
+      {  path:'cargue', component: CarguePrincipalComponent},
+      { path: 'eventos',  component: EventosPrincipalComponent },
+      { path: 'usuarios', loadChildren: () => import('@mecanicas/usuarios/usuarios.module').then(m => m.UsuariosModule) },
+     // { path: 'eventos', loadChildren: () => import('@mecanicas/eventos/eventos.module').then(m => m.EventosModule) }
       // { path:'usuarios', component: UsuariosPrincipalComponent }
     ]}
 

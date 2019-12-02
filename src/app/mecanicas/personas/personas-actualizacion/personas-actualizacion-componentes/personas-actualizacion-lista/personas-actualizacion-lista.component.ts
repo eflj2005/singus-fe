@@ -211,8 +211,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
   
   verPersona(datos){
     
-    this.AmbienteService.actualizacionModo.modo = datos.modo
-    this.AmbienteService.actualizacionModo.boton = null
+    this.AmbienteService.eventosModo = datos;
+  
   }
   
 }

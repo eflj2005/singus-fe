@@ -27,6 +27,12 @@ export class AmbienteService {
                         datos: null
                       }
 
+                                          
+  eventosModo: any = { 
+    modo:0,          //Modo 1 son todas las maestras
+    datos: null
+  }
+
 
 
   
@@ -39,6 +45,7 @@ export class AmbienteService {
 
     this.inicioModo = 0;
     this.inicioPaso = 0;
+    this.eventosModo.modo =  0;
     
     this.actualizacionModo = {
       modo: 1,        

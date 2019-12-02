@@ -1,0 +1,129 @@
+
+<h1 align='center'>Cargue de {{tipoCargue.nombre}}</h1>
+<div>
+    <h4>Estado del proceso </h4>
+    <ngb-progressbar value="{{estado.porcentaje}}" showValue="true"></ngb-progressbar>
+</div>
+
+<div class="container">
+    <div *ngIf="estado.paso == 1">
+        <h3 align='center'>Paso 1 : Cargar archivo</h3>
+        <div class="input-group mb-3  fileContainer">
+            <div class="input-group-prepend ">
+                <span class="input-group-text" id="inputGroupFileAddon01">Seleccionar archivo</span>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                <label class="custom-file-label" for="inputGroupFile01">Nombre del archivo</label>
+            </div>
+        </div>
+        <button type="button" class="btn btn-outline-primary btn-lg btn-block" (click)="cambioPaso(2)">Siguiente</button>
+    </div>
+
+    <div *ngIf="estado.paso == 2">
+            <h3 align='center'>Paso 2 : Verificacion datos</h3>
+            <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            <button type="button" class="btn btn-outline-primary btn-lg btn-block" (click)="cambioPaso(3)">Siguiente</button>
+        </div>
+
+        <div *ngIf="estado.paso == 3">
+                <h3 align='center'>Paso 3 : Datos nuevos y correcciones</h3>
+                <hr>
+                <h4>Datos nuevos</h4>
+                <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Handle</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                        </tbody>
+                </table>
+                <hr>
+                <h4>Cambios</h4>
+                <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Handle</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                        </tbody>
+                </table>
+                <button type="button" class="btn btn-outline-primary btn-lg btn-block" (click)="cambioPaso(4)">Guardar</button>
+            </div>
+    
+</div>
+
+<button type="button" class="btn btn-outline-dark buttonGeneral" (click)="Cancelar()">Cancelar</button>

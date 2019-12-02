@@ -5,7 +5,8 @@ import {DashboardModule} from '@mecanicas/dashboard/dashboard.module';
 import { InicioModule } from "./inicio/inicio.module";
 import {PersonasModule} from '@mecanicas/personas/personas.module';
 import { AdministracionModule } from "@mecanicas/administracion/administracion.module";
-
+import { CargeModule } from "@mecanicas/carge/carge.module";
+import { EventosModule } from "@mecanicas/eventos/eventos.module";
 
 
 
@@ -19,7 +20,9 @@ import { AdministracionModule } from "@mecanicas/administracion/administracion.m
     DashboardModule,
     PersonasModule,
     AdministracionModule,
-    UsuariosModule
+    UsuariosModule,
+    CargeModule,
+    EventosModule
   ]
 })
 export class MecanicasModule { }

@@ -1,0 +1,39 @@
+
+<div class="row">
+    <div>
+      <h1 align='center'>Lista de eventos</h1>
+        <form>
+            <div class="form-group form-inline form">
+                <i class="fa fa-search search"></i><p>Buscar: </p><input class="form-control ml-2" type="text" [formControl]="filter"/>
+                <button class="btn btn-primary nuevaAgenda" (click)="crear(1)" type="button" ><i class="fa fa-plus-circle"></i> Nuevo evento</button>
+            </div>
+          </form>
+
+        <table class="table table-striped">
+            <thead class="thead">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Fecha del evento</th>
+                <th scope="col">Sede</th>
+                <th scope="col">Tipo</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let evento of  eventos$ | async; index as i">
+              <td><ngb-highlight [result]="evento.id | number" [term]="filter.value"></ngb-highlight></td>
+              <td><ngb-highlight [result]=" evento.nombre" [term]="filter.value"></ngb-highlight></td>
+              <td><ngb-highlight [result]="evento.fechaEvento" [term]="filter.value"></ngb-highlight></td>
+              <td><ngb-highlight [result]="evento.sede" [term]="filter.value"></ngb-highlight></td>
+              <td><ngb-highlight [result]="evento.tipo" [term]="filter.value"></ngb-highlight></td>
+              <td>
+                  <button class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Editar" (click)="verPersona({id : persona.IdPersona, modo:2})">
+                      <i class="fa fa-pencil"></i>
+                  </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
