@@ -13,20 +13,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UsuariosComponentesProcesarComponent } from '../usuarios-componentes-procesar/usuarios-componentes-procesar.component';
 import { UsuarioInterface } from '@app/modelos/interfaces/usuario.interface';
 
-// interface Usuario{
-//   idUsuario : number;
-//   documentoUsuario : string;
-//   claveUsuario: string;
-//   nombresUsuario: string;
-//   apellidosUsuario: string;
-//   telefonoUsuario :string;
-//   correoUsuario : string;
-//   fechaCreacionUsuario :string;
-//   estadoUsuario : string;
-//   rolUsuario: string;
-//   areasId: number;
-// }
-
 @Component({
   selector: 'app-usuarios-componentes-lista',
   templateUrl: './usuarios-componentes-lista.component.html',
@@ -65,8 +51,6 @@ export class UsuariosComponentesListaComponent implements OnInit {
             this.registros =this.controladorUsuarios.todos;
             this.AplicarFiltros();
 
-            console.log(this.registros);
-
           break;
           default:
             alert("Error: "+respuesta.mensaje);
@@ -84,13 +68,14 @@ export class UsuariosComponentesListaComponent implements OnInit {
   Buscar(text: string , pipe: PipeTransform): UsuarioInterface[] {
     return this.registros.filter(registro => {
       const term = text.toLowerCase();
+
       return pipe.transform(registro.id).includes(term)
           || pipe.transform(registro.documento).includes(term)      
           || registro.nombres.toLowerCase().includes(term)
           || registro.apellidos.toLowerCase().includes(term)
           || pipe.transform(registro.telefono).includes(term)                
           || registro.correo.toLowerCase().includes(term)
-          || registro.creacion.toLowerCase().includes(term)
+          || registro.creacion_fecha.toLowerCase().includes(term)
           || registro.estado.toLowerCase().includes(term)
           || registro.rol.toLowerCase().includes(term)
           || pipe.transform(registro.areas_id).includes(term)
@@ -111,7 +96,6 @@ export class UsuariosComponentesListaComponent implements OnInit {
 
     if(validar){
       const modalRef = this.servicioEmergentes.open(UsuariosComponentesProcesarComponent, { centered: true });
-      //modalRef.componentInstance.datos = aProcesar;    
       modalRef.componentInstance.modo = modo;
       modalRef.componentInstance.datos = registro;
       modalRef.componentInstance.modal = modalRef;
@@ -125,7 +109,7 @@ export class UsuariosComponentesListaComponent implements OnInit {
         },
         (reason) => { } // Se recibe dismiss  
       );
-      }
+    }
   }
 
   AplicarFiltros(){

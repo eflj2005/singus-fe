@@ -12,6 +12,8 @@ export class GenericoModel {
   protected servicioAmbiente :AmbienteService;
 
   protected nombreTabla:string;
+  protected camposTabla:string[];
+  protected camposFecha:string[];
 
   protected posicionActual:number;
   //protected cantidad:number = null;
@@ -19,6 +21,7 @@ export class GenericoModel {
   protected registros:any[];      //ESTE ATRIBUTO SE SOBRECARGA
   
   private consecutivoDbRefs:number;
+  protected listo:boolean;
 
   constructor( 
     instanciaHttpClient :HttpClient,
@@ -28,11 +31,22 @@ export class GenericoModel {
     this.servicioAmbiente = InstanciaAmbienteService
 
     this.registros = [];
+    this.camposTabla = [];
     this.posicionActual = null;
     this.consecutivoDbRefs =1;
+    this.listo=false;
+
   }
 
   //SOBRECARGA ATRIBUTOS
+
+  public set tablaObjetivo ( tablaRecibida:string ){
+    this.nombreTabla = tablaRecibida;
+  }
+
+  public set fechasDefinidas ( camposRecibida:string[] ){
+    this.camposFecha = camposRecibida;
+  }
 
   public get cantidad ():number{
     return this.registros.length;
@@ -40,6 +54,14 @@ export class GenericoModel {
 
   public get actual():any{
     return  this.registros[this.posicionActual];
+  }
+
+  public get estaListo():boolean{
+    return this.listo;
+  }
+
+  public get campos():string[]{
+    return this.camposTabla;
   }
 
   //ADMINISTRACION BASICA
@@ -78,8 +100,8 @@ export class GenericoModel {
     this.Primero();
 
     while(!this.esFin && !encontrado){
-      if(this.actual[nombreAtributo] == valorBuscado ) encontrado=true;
-      this.Siguiente();
+      if(this.actual[nombreAtributo] == valorBuscado )  encontrado=true;
+      else                                              this.Siguiente();
     }
 
     if(!encontrado) this.posicionActual = actualTemporal;
@@ -113,6 +135,33 @@ export class GenericoModel {
 
   //AVAMZADAS
 
+  protected DetectarCampos():Observable<any>{         //OJO SE DEBE HABILITAR SEGURIDAD DE TOKEN Y CAMBIAR POSISION EN BACKEND
+
+    let datosEnviados = new HttpParams()
+      .set("accion","obtener_campos")
+      .set("tabla",this.nombreTabla)
+      .set("conSeguridad", String(false) )  
+   
+    return this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
+      map(
+        (respuesta: RespuestaInterface) => {
+          switch(respuesta.codigo){
+            case 200:
+              respuesta.mensaje.forEach(campo => {
+                this.camposTabla.push( campo );
+              });
+              
+              this.listo=true;
+            break;
+          }
+
+          return respuesta;
+        }
+      )
+    );
+
+  }
+
   public CargarDesdeDB(  conToken:boolean=true , filtrosRecibidos:filtroInterface=null ): Observable<any> {
   
     let re1 = /\"/gi;
@@ -131,12 +180,15 @@ export class GenericoModel {
       map(
         (respuesta: RespuestaInterface) => {
 
-          respuesta.mensaje.forEach(elemento => {
-            elemento.dbRef=null;
-            elemento.modo=null;
-            elemento = this.ProcesarFechas(elemento,"GET");
-            this.registros.push(elemento);
-          });
+          this.EliminarTodo();
+          respuesta.mensaje.forEach(
+            (elemento:any) => {
+              elemento.dbRef=null;
+              elemento.modo=null;
+              elemento = this.ProcesarFechas(elemento,"GET");
+              this.registros.push(elemento);
+            }
+          );
 
           if( respuesta.mensaje.length > 0 ) this.posicionActual=0;
 
@@ -172,10 +224,23 @@ export class GenericoModel {
 
   }
 
-  protected ProcesarFechas(objeto:any, sentido:string){
-    //ESTE METODO SE SOBRECARGA
+  // protected ProcesarFechas(objeto:any, sentido:string){
+  //   //ESTE METODO SE SOBRECARGA
+  //   return objeto;
+  // }
+
+
+
+  protected ProcesarFechas(objeto:any, sentido:string){        
+    let regExp = /\-/gi;
+    this.camposFecha.forEach(campo => {    
+      if(sentido=="SET")  objeto[campo] = objeto[campo].replace(regExp, "");
+      if(sentido=="GET")  objeto[campo] = (objeto[campo]).substr(0,4) + "-" + (objeto[campo]).substr(5,2) + "-" + (objeto[campo]).substr(8,2);
+    });    
     return objeto;
   }
+
+
 
   public Guardar(conToken:boolean=true ): Observable<any>{
     var aProcesar:any[] = [];

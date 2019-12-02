@@ -4,7 +4,7 @@ import { GenericoModel } from '@modelos/generico.model';
 import { AreaInterface } from '@modelos/interfaces/area.interface';
 import { AmbienteService } from '@servicios/ambiente.service';
 
-export class AreasController extends GenericoModel {
+export class CiudadesController extends GenericoModel {
 
   registros: AreaInterface[]= [];
 
@@ -14,7 +14,7 @@ export class AreasController extends GenericoModel {
   ) {
     super(instanciaHttpClient,InstanciaAmbienteService);
 
-    this.tablaObjetivo = "areas";
+    this.tablaObjetivo = "ciudades";
     this.fechasDefinidas = [];
 
     this.DetectarCampos().subscribe();

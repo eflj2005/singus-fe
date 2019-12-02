@@ -18,25 +18,8 @@ export class UsuariosController extends GenericoModel {
   ) {
     super(instanciaHttpClient,InstanciaAmbienteService);
 
-    this.nombreTabla = "usuarios";
-  }
-
-  //METODO SOBRECARGADO PARA PREPARA FECHAS
-  protected ProcesarFechas(objeto:UsuarioInterface, sentido:string){        
-    // console.log(objeto);  
-    // console.log(sentido);  
-    let regExp = /\-/gi;
-    if(sentido=="SET"){
-      objeto.creacion = objeto.creacion.replace(regExp, "");
-    }
-    if(sentido=="GET"){
-      let day;
-      let month;
-      let year;
-      objeto.creacion = (objeto.creacion).substr(0,4) + "-" + (objeto.creacion).substr(5,2) + "-" + (objeto.creacion).substr(8,2);
-    }
-    return objeto;
-
+    this.tablaObjetivo = "usuarios";
+    this.fechasDefinidas = ["creacion_fecha"];
   }
 
   public GenerarCodigo(idUsuario:number): Observable<RespuestaInterface>{

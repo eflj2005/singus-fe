@@ -53,6 +53,7 @@ export class AutenticacionService {
     return this.llamadoHttp.post<RespuestaInterface>( this.datosAmbiente.GetUrlRecursos() + "pasarela.php", datosEnviados ).pipe(
       map(
         (respuesta: RespuestaInterface) => {
+          console.log(respuesta);
           if (respuesta.codigo == 200){
               let token = respuesta.mensaje;
               let decoded = jwt_decode(token); 

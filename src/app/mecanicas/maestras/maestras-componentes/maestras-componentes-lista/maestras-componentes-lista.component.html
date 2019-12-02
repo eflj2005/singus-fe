@@ -1,0 +1,32 @@
+<div class="row">
+
+
+    <form >
+      <div class="form-group form-inline form ">
+        <div class="row col-md-10 form2"><i class="fa fa-search search "></i><p>Buscar: </p><input class="form-control" type="text" [formControl]="filter"/></div>
+        <button class="btn btn-primary nuevaAgenda" (click)="Procesar(1)" type="button" ><i class="fa fa-plus-circle"></i> Nuevo usuario</button>
+      </div>
+    </form>
+
+
+    <table class="table table-striped">
+      <thead class="thead">
+        <tr>
+            <th *ngFor="let campo of  controlador.campos; index as i" scope="col">{{campo}}</th>
+            <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let registro of  registros$ | async; index as indexR">
+          <td *ngFor="let campo of controlador.campos; index as indexC" >
+              <ngb-highlight [result]="registro[campo]" [term]="filter.value"></ngb-highlight>
+          </td>
+          <td>
+            <button class="btn btn-outline-secondary "  placement="right" ngbTooltip="Editar" (click)="Procesar( 2 , registro.id )"  ><i class="fa fa-pencil"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+</div>

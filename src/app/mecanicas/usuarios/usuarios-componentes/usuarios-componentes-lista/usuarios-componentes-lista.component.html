@@ -1,20 +1,18 @@
 <div class="row">
-    <div class="contenedor" >
+  <div class="contenedor" >
       
-      <h1 align='center'>Lista usuarios</h1>
+    <h1 align='center'>Lista usuarios</h1>
 
-      <form >
-        <div class="form-group form-inline form ">
-            <div class="row col-md-10 form2"><i class="fa fa-search search "></i><p>Buscar: </p><input class="form-control" type="text" [formControl]="filter"/></div>
-            <button class="btn btn-primary nuevaAgenda" (click)="Procesar(1)" type="button" ><i class="fa fa-plus-circle"></i> Nuevo usuario</button>
+    <form >
+      <div class="form-group form-inline form ">
+        <div class="row col-md-10 form2"><i class="fa fa-search search "></i><p>Buscar: </p><input class="form-control" type="text" [formControl]="filter"/></div>
+        <button class="btn btn-primary nuevaAgenda" (click)="Procesar(1)" type="button" ><i class="fa fa-plus-circle"></i> Nuevo usuario</button>
+      </div>
+    </form>
 
-  
-        </div>
-      </form>
- 
 
     <table class="table table-striped">
-        <thead class="thead">
+      <thead class="thead">
         <tr>
             <th scope="col">Id</th>
             <th scope="col">Documento</th>
@@ -29,8 +27,8 @@
             <th scope="col"></th>
 
         </tr>
-        </thead>
-        <tbody>
+      </thead>
+      <tbody>
         <tr *ngFor="let registro of  registros$ | async; index as i">
           <td><ngb-highlight [result]="registro.id | number" [term]="filter.value"></ngb-highlight></td>
           <td><ngb-highlight [result]="registro.documento | number" [term]="filter.value"></ngb-highlight></td>
@@ -38,13 +36,15 @@
           <td><ngb-highlight [result]="registro.apellidos" [term]="filter.value"></ngb-highlight></td>
           <td><ngb-highlight [result]="registro.telefono | number" [term]="filter.value"></ngb-highlight></td>
           <td><ngb-highlight [result]="registro.correo" [term]="filter.value"></ngb-highlight></td>
-          <td><ngb-highlight [result]="registro.creacion" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="registro.creacion_fecha" [term]="filter.value"></ngb-highlight></td>
           <td><ngb-highlight [result]="registro.estado" [term]="filter.value"></ngb-highlight></td>
           <td><ngb-highlight [result]="registro.rol" [term]="filter.value"></ngb-highlight></td>
           <td><ngb-highlight [result]="registro.areas_id | number" [term]="filter.value"></ngb-highlight></td>
           <td>
             <button class="btn btn-outline-secondary "  placement="right" ngbTooltip="Editar" (click)="Procesar( 2 , registro.id )"  ><i class="fa fa-pencil"></i></button>
-            </td>
+          </td>
         </tr>
-        </tbody>
-      </table>
+      </tbody>
+    </table>
+  </div>
+</div>

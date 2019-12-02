@@ -1,0 +1,96 @@
+
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-log-12">
+
+    <div class="container column">
+   
+      <h1 align='center'>Maestras</h1>
+            
+      <ngb-tabset>
+        <ngb-tab  *ngIf="controladorCiudades.estaListo">
+          <ng-template ngbTabTitle>Ciudades</ng-template>
+          <ng-template ngbTabContent>
+            <div class="ngTabContainer">
+              <h1>Lista de Ciudades</h1><hr>
+              <app-maestras-componentes-lista nombreTabla="ciudades" [controlador]="controladorCiudades"></app-maestras-componentes-lista>
+            </div>
+          </ng-template>
+        </ngb-tab> 
+        <ngb-tab>
+          <ng-template ngbTabTitle>Titulos</ng-template>
+          <ng-template ngbTabContent>
+            <div class="ngTabContainer">
+              <br>
+              <h3>Titulos</h3>
+              <hr>
+              <!-- <app-maestras-detalle nombreTabla="titulos"></app-maestras-detalle> -->
+              <br>
+              <p></p>
+            </div>
+          </ng-template>
+        </ngb-tab>
+          <ngb-tab>
+            <ng-template ngbTabTitle>Programas</ng-template>
+            <ng-template ngbTabContent>
+              <div class="ngTabContainer">
+                <br>
+                <h3>Programas</h3>
+                <hr>
+                <!-- <app-maestras-detalle nombreTabla="programas"></app-maestras-detalle> -->
+                <br>
+                <p></p>
+              </div>
+            </ng-template>
+          </ngb-tab>
+        <ngb-tab>
+          <ng-template ngbTabTitle>Documentos</ng-template>
+          <ng-template ngbTabContent>
+            <div class="ngTabContainer">
+              <br>
+              <h3>Documentos</h3>
+              <hr>
+              <!-- <app-maestras-detalle nombreTabla="documentos"></app-maestras-detalle>               -->
+              <br>
+              <p></p>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+          <ng-template ngbTabTitle>Sedes</ng-template>
+          <ng-template ngbTabContent>
+            <div class="ngTabContainer">
+              <br>
+              <h3>Sedes</h3>
+              <hr>
+              <!-- <app-maestras-detalle nombreTabla="sedes"></app-maestras-detalle>                             -->
+              <br>
+              <p></p>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+          <ng-template ngbTabTitle>Cohortes</ng-template>
+          <ng-template ngbTabContent>
+            <div class="ngTabContainer">
+              <br>
+              <h3>Cohortes</h3>
+              <hr>
+              <!-- <app-maestras-detalle nombreTabla="cohortes"></app-maestras-detalle>                             -->
+              <br>
+              <p></p>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab  *ngIf="controladorAreas.estaListo">
+          <ng-template ngbTabTitle>Areas</ng-template>
+          <ng-template ngbTabContent>
+            <div class="ngTabContainer">
+              <h1>Lista de Areas</h1><hr>
+              <app-maestras-componentes-lista nombreTabla="areas" [controlador]="controladorAreas"></app-maestras-componentes-lista>
+            </div>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>                     
+    </div>            
+  </div>
+</div>

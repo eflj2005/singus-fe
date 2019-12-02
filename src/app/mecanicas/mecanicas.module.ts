@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
-import { UsuariosModule } from "@mecanicas/usuarios/usuarios.module";
+import { UsuariosModule } from "@app/mecanicas/usuarios/_usuarios.module";
 import { CommonModule } from '@angular/common';
-import {DashboardModule} from '@mecanicas/dashboard/dashboard.module';
-import { InicioModule } from "./inicio/inicio.module";
-import {PersonasModule} from '@mecanicas/personas/personas.module';
-import { AdministracionModule } from "@mecanicas/administracion/administracion.module";
 import { CargeModule } from "@mecanicas/carge/carge.module";
 import { EventosModule } from "@mecanicas/eventos/eventos.module";
+import { DashboardModule} from '@mecanicas/dashboard/dashboard.module';
+import { InicioModule } from "@mecanicas/inicio/inicio.module";
+import { PersonasModule} from '@mecanicas/personas/personas.module';
+import { MaestrasModule } from "@app/mecanicas/maestras/_maestras.module";
+
 
 
 
@@ -19,10 +20,10 @@ import { EventosModule } from "@mecanicas/eventos/eventos.module";
     InicioModule,
     DashboardModule,
     PersonasModule,
-    AdministracionModule,
-    UsuariosModule,
     CargeModule,
-    EventosModule
+    EventosModule,
+    MaestrasModule,
+    UsuariosModule
   ]
 })
 export class MecanicasModule { }
