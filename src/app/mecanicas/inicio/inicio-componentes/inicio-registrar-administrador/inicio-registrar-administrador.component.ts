@@ -40,7 +40,7 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
 
     this.datos = {} as UsuarioInterface;
     this.datos.estado='A';
-    this.datos.creacion = this.utilidadFechas.transform(new Date(), 'yyyyMMdd');
+    this.datos.creacion_fecha = this.utilidadFechas.transform(new Date(), 'yyyyMMdd');
     this.datos.areas_id = 1;
     this.datos.rol = 'A';
 

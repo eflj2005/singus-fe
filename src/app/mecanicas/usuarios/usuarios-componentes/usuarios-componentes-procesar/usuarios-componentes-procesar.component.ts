@@ -49,7 +49,7 @@ export class UsuariosComponentesProcesarComponent implements OnInit {
   ngOnInit() {
     if(this.modo == 1){
       this.titulo = "Crear";
-      this.datos.creacion = this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd');
+      this.datos.creacion_fecha = this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd');
     }
     else{
       this.titulo = "Modificar";

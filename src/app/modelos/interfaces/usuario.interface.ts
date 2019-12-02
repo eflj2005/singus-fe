@@ -6,7 +6,7 @@ export interface UsuarioInterface {
   apellidos: string;
   telefono: number;
   correo: string;
-  creacion: string;
+  creacion_fecha: string;
   rol:string;
   areas_id:number;
   estado:string;

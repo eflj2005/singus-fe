@@ -19,7 +19,7 @@ export class UsuariosController extends GenericoModel {
     super(instanciaHttpClient,InstanciaAmbienteService);
 
     this.tablaObjetivo = "usuarios";
-    this.fechasDefinidas = ["creacion"];
+    this.fechasDefinidas = ["creacion_fecha"];
   }
 
   public GenerarCodigo(idUsuario:number): Observable<RespuestaInterface>{

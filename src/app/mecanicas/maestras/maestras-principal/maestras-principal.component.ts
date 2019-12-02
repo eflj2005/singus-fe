@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AmbienteService} from '@servicios/ambiente.service'
+import { AreasController } from '@app/modelos/controladores/areas.controller';
+import { HttpClient } from '@angular/common/http';
+import { CiudadesController } from '@app/modelos/controladores/ciudades.controller';
 
 @Component({
   selector: 'app-maestras-principal',
@@ -8,7 +11,18 @@ import {AmbienteService} from '@servicios/ambiente.service'
 })
 export class MaestrasPrincipalComponent implements OnInit {
 
-  constructor(private datosAmbiente: AmbienteService) { }
+  controladorAreas: AreasController;
+  controladorCiudades: CiudadesController;
+
+  constructor(
+    private datosAmbiente: AmbienteService,
+    private llamadoHttp: HttpClient,
+    private servicioAmbiente: AmbienteService,
+  ) { 
+    this.controladorAreas = new AreasController(llamadoHttp,servicioAmbiente);
+    this.controladorCiudades = new CiudadesController(llamadoHttp,servicioAmbiente);    
+
+  }
 
   ngOnInit() {
   }

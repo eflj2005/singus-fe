@@ -82,13 +82,14 @@ export class UsuariosComponentesListaComponent implements OnInit {
   Buscar(text: string , pipe: PipeTransform): UsuarioInterface[] {
     return this.registros.filter(registro => {
       const term = text.toLowerCase();
+
       return pipe.transform(registro.id).includes(term)
           || pipe.transform(registro.documento).includes(term)      
           || registro.nombres.toLowerCase().includes(term)
           || registro.apellidos.toLowerCase().includes(term)
           || pipe.transform(registro.telefono).includes(term)                
           || registro.correo.toLowerCase().includes(term)
-          || registro.creacion.toLowerCase().includes(term)
+          || registro.creacion_fecha.toLowerCase().includes(term)
           || registro.estado.toLowerCase().includes(term)
           || registro.rol.toLowerCase().includes(term)
           || pipe.transform(registro.areas_id).includes(term)

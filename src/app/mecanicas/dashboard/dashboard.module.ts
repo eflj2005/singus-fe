@@ -18,7 +18,7 @@ const rutas: Routes =[
       { path:'lista', component:PersonasActualizacionPrincipalComponent},
       { path:'agendamiento', component: PersonasAgendamientoPrincipalComponent },
       { path:'maestras', component: MaestrasPrincipalComponent },
-      { path: 'usuarios', loadChildren: () => import('@mecanicas/usuarios/usuarios.module').then(m => m.UsuariosModule) }
+      { path: 'usuarios', loadChildren: () => import('@app/mecanicas/usuarios/_usuarios.module').then(m => m.UsuariosModule) }
       // { path:'usuarios', component: UsuariosPrincipalComponent }
     ]}
 

@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaestrasDetalleComponent } from './maestras-detalle/maestras-detalle.component';
+import { MaestrasComponentesListaComponent } from './maestras-componentes-lista/maestras-componentes-lista.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [MaestrasDetalleComponent],
+  declarations: [MaestrasComponentesListaComponent],
   imports: [
     CommonModule,
+    FormsModule ,
+    ReactiveFormsModule,
+    NgbModule
   ],
-  exports:[ MaestrasDetalleComponent]
+  exports:[ MaestrasComponentesListaComponent ]
 })
 export class AdministracionMaestrasComponentesModule { }
