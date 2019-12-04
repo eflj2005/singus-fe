@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, PipeTransform } from '@angular/core';
+import { Component, OnInit, Input, PipeTransform, Type } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { RespuestaInterface } from '@app/modelos/interfaces/respuesta.interface';
@@ -6,6 +6,7 @@ import { DecimalPipe } from '@angular/common';
 import { startWith, map } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MaestrasComponentesProcesarComponent } from '../maestras-componentes-procesar/maestras-componentes-procesar.component';
+import { UsuarioInterface } from '@app/modelos/interfaces/usuario.interface';
 
 @Component({
   selector: 'app-maestras-componentes-lista',
@@ -18,6 +19,9 @@ export class MaestrasComponentesListaComponent implements OnInit {
   @Input() nombreTabla:string;
   @Input() controlador:any;
 
+
+  
+
   registros:any[];
 
   registros$: Observable<any[]>;
@@ -27,11 +31,10 @@ export class MaestrasComponentesListaComponent implements OnInit {
     private pipe: DecimalPipe,
     private servicioEmergentes: NgbModal,    
   ) {
-    this.registros=[];
+      this.registros=[];
   }
 
   ngOnInit() {
-
     this.controlador.CargarDesdeDB( false ).subscribe(
       (respuesta: RespuestaInterface) =>{
         switch (respuesta.codigo){

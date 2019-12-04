@@ -18,7 +18,7 @@ export class UsuariosController extends GenericoModel {
   ) {
     super(instanciaHttpClient,InstanciaAmbienteService);
 
-    this.tablaObjetivo = "usuarios";
+    this.nombreTabla = "usuarios";
     this.fechasDefinidas = ["creacion_fecha"];
   }
 

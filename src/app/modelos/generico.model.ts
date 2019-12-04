@@ -11,7 +11,7 @@ export class GenericoModel {
   protected llamadoHttp :HttpClient;
   protected servicioAmbiente :AmbienteService;
 
-  protected nombreTabla:string;
+  public nombreTabla:string;
   protected camposTabla:string[];
   protected camposFecha:string[];
 
@@ -39,10 +39,6 @@ export class GenericoModel {
   }
 
   //SOBRECARGA ATRIBUTOS
-
-  public set tablaObjetivo ( tablaRecibida:string ){
-    this.nombreTabla = tablaRecibida;
-  }
 
   public set fechasDefinidas ( camposRecibida:string[] ){
     this.camposFecha = camposRecibida;

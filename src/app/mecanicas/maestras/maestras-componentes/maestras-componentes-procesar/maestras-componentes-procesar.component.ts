@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
 import { RespuestaInterface } from '@app/modelos/interfaces/respuesta.interface';
+import { AreaInterface } from '@app/modelos/interfaces/area.interface';
 
 @Component({
   selector: 'app-maestras-componentes-procesar',
@@ -17,7 +18,7 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
   titulo:string;
 
   modo:number;
-  datos:any;
+  datos:AreaInterface;
 
   numeroModelo:string;
   correoModelo:string;  
@@ -30,15 +31,17 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
 
     this.numeroModelo="^[0-9]*$";
     this.correoModelo="^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$";
+
   }
 
   ngOnInit() {
     if(this.modo == 1){
-      this.titulo = "Crear";
+      this.titulo = "Crear " + this.controlador.nombreTabla.substr(0,1).toUpperCase()+this.controlador.nombreTabla.substr(1);
     }
     else{
-      this.titulo = "Modificar";
-    }    
+      this.titulo = "Modificar" + this.controlador.nombreTabla.substr(0,1).toUpperCase()+this.controlador.nombreTabla.substr(1);
+    }
+
   }
 
 
