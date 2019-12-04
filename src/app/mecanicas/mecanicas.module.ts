@@ -7,6 +7,7 @@ import { DashboardModule} from '@mecanicas/dashboard/dashboard.module';
 import { InicioModule } from "@mecanicas/inicio/inicio.module";
 import { PersonasModule} from '@mecanicas/personas/personas.module';
 import { MaestrasModule } from "@app/mecanicas/maestras/_maestras.module";
+import { ComunicacionesModule } from './comunicaciones/comunicaciones.module';
 
 
 
@@ -23,7 +24,8 @@ import { MaestrasModule } from "@app/mecanicas/maestras/_maestras.module";
     CargeModule,
     EventosModule,
     MaestrasModule,
-    UsuariosModule
+    UsuariosModule,
+    ComunicacionesModule
   ]
 })
 export class MecanicasModule { }
