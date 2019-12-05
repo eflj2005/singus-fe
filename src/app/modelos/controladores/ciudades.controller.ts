@@ -14,7 +14,7 @@ export class CiudadesController extends GenericoModel {
   ) {
     super(instanciaHttpClient,InstanciaAmbienteService);
 
-    this.tablaObjetivo = "ciudades";
+    this.nombreTabla = "ciudades";
     this.fechasDefinidas = [];
 
     this.DetectarCampos().subscribe();

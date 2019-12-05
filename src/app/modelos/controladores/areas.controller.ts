@@ -14,11 +14,10 @@ export class AreasController extends GenericoModel {
   ) {
     super(instanciaHttpClient,InstanciaAmbienteService);
 
-    this.tablaObjetivo = "areas";
+    this.nombreTabla = "areas";
     this.fechasDefinidas = [];
 
     this.DetectarCampos().subscribe();
-
   }
 
 }

@@ -58,9 +58,9 @@ export class MaestrasComponentesListaComponent implements OnInit {
       var validacion:boolean = false;
 
       this.controlador.campos.forEach(
-        (elemento:string) => {
+        (campo:any) => {
           if(!validacion){
-            if( registro[elemento].toLowerCase().includes(term) )  validacion = true;
+            if( registro[campo.nombre].toLowerCase().includes(term) )  validacion = true;
           }
         }
       );

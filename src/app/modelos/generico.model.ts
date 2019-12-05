@@ -11,8 +11,8 @@ export class GenericoModel {
   protected llamadoHttp :HttpClient;
   protected servicioAmbiente :AmbienteService;
 
-  protected nombreTabla:string;
-  protected camposTabla:string[];
+  public nombreTabla:string;
+  protected camposTabla:any[];
   protected camposFecha:string[];
 
   protected posicionActual:number;
@@ -39,10 +39,6 @@ export class GenericoModel {
   }
 
   //SOBRECARGA ATRIBUTOS
-
-  public set tablaObjetivo ( tablaRecibida:string ){
-    this.nombreTabla = tablaRecibida;
-  }
 
   public set fechasDefinidas ( camposRecibida:string[] ){
     this.camposFecha = camposRecibida;
@@ -145,11 +141,14 @@ export class GenericoModel {
     return this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
       map(
         (respuesta: RespuestaInterface) => {
+
           switch(respuesta.codigo){
             case 200:
-              respuesta.mensaje.forEach(campo => {
-                this.camposTabla.push( campo );
-              });
+              respuesta.mensaje.forEach(
+                (campo:any) => {
+                  this.camposTabla.push( campo );
+                }
+              );
               
               this.listo=true;
             break;
