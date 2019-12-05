@@ -7,7 +7,7 @@
 
     <div *ngFor="let campo of controlador.campos; index as i">
       <label>{{campo.nombre}} :</label>
-      <input type="text" class="form-control" [(ngModel)]="datos[campo.nombre]" required [readonly]="campo.nombre='id' ? true : false">
+      <input type="text" class="form-control" [(ngModel)]="datos[campo.nombre]" required [readonly]="campo.nombre=='id' ? true : false">
     </div>
 </div>
 

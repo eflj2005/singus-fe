@@ -16,6 +16,8 @@ export class GenericoModel {
   protected camposTabla:any[];
   protected camposFecha:string[];
 
+  protected controladoresForaneos:any[];
+
   protected posicionActual:number;
   //protected cantidad:number = null;
 
@@ -33,6 +35,7 @@ export class GenericoModel {
 
     this.registros = [];
     this.camposTabla = [];
+    this.controladoresForaneos = [];
     this.posicionActual = null;
     this.consecutivoDbRefs =1;
     this.listo=false;
@@ -104,6 +107,20 @@ export class GenericoModel {
     if(!encontrado) this.posicionActual = actualTemporal;
     return encontrado;
   }
+
+  public AgregarForanea(controlador:any){
+    controlador.CargarDesdeDB(false).subscribe();
+    this.controladoresForaneos[controlador.nombreTabla] = controlador;
+  }
+
+  public ObtenerForanea(nombre:string){
+    return this.controladoresForaneos[nombre];
+  }
+
+  public TieneForanea(nombre:string){
+    return (nombre in this.controladoresForaneos);
+  }
+
 
   //DESPLAZAMIENTO
 

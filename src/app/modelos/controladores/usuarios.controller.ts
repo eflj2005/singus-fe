@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-
-import { GenericoModel } from '@modelos/generico.model';
-import { UsuarioInterface } from '@modelos/interfaces/usuario.interface';
-import { AmbienteService } from '@servicios/ambiente.service';
-import { RespuestaInterface } from '../interfaces/respuesta.interface';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { UsuarioInterface } from '@modelos/interfaces/usuario.interface';
+import { GenericoModel } from '@modelos/generico.model';
+import { AmbienteService } from '@servicios/ambiente.service';
+import { RespuestaInterface } from '../interfaces/respuesta.interface';
+
+import { AreasController } from './areas.controller';
 
 export class UsuariosController extends GenericoModel {
 
@@ -20,6 +22,10 @@ export class UsuariosController extends GenericoModel {
 
     this.nombreTabla = "usuarios";
     this.fechasDefinidas = ["creacion_fecha"];
+
+    this.DetectarCampos().subscribe();
+
+    this.AgregarForanea( new AreasController(instanciaHttpClient,InstanciaAmbienteService)  );
   }
 
   public GenerarCodigo(idUsuario:number): Observable<RespuestaInterface>{

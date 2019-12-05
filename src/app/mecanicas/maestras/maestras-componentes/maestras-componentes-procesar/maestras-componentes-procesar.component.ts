@@ -40,7 +40,10 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
     }
     else{
       this.titulo = "Modificación " + this.controlador.nombreTabla.substr(0,1).toUpperCase()+ this.controlador.nombreTabla.substr(1);
-    }    
+    }
+    
+    console.log(this.controlador.campos,"campos");
+
   }
 
 
