@@ -32,7 +32,7 @@ export class DashboardMenuComponent {
 this.usuario = "Juan Bustos";
 
   this.menu  = [ 
-    { opcion: 'Pre graduados'     , url:'/cargue'                      , icon: "fa-download"                , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
+    { opcion: 'Egresados'     , url:'/cargue'                      , icon: "fa-download"                , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
     { opcion: 'Graduados'         , url: '/cambiar'                   , icon: "fa-cloud-download"          , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
     { opcion: 'Micrositio'        , url: '/clientes'                  , icon: "fa-file"                    , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
     { opcion: 'Empleabilidad'     , url: '/empleados'                 , icon: "fa-stack-overflow"          , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
@@ -42,7 +42,7 @@ this.usuario = "Juan Bustos";
     { opcion: 'Eventos'           , url: '/eventos'                 , icon: "fa-users"                   , agrupamiento: "Actividades"       ,iconPrincipal:"fa-suitcase"           , orden: 3  },
     { opcion: 'Comunicación'      , url: '/cargos'                    , icon: "fa-envelope"                , agrupamiento: "Actividades"       ,iconPrincipal:"fa-suitcase"           , orden: 3  },
     { opcion: 'Alertas'           , url: '/especialidades'            , icon: "fa-exclamation-circle"      , agrupamiento: "Reportes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
-    { opcion: 'Predefinidos'      , url: '/estadosDemandas'           , icon: "fa-file-pdf-o"              , agrupamiento: "Reportes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
+    { opcion: 'Predefinidos'      , url: '/reportes/predefinidos'           , icon: "fa-file-pdf-o"              , agrupamiento: "Reportes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
     { opcion: 'Perzonalizados'    , url: '/estadosProcesos'           , icon: "fa-file-code-o"             , agrupamiento: "Reportes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
     { opcion: 'Maestras'           , url: '/maestras'                  , icon: "fa-share-alt-square"        , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
     { opcion: 'Usuario'           , url: '/usuarios/lista'                , icon: "fa-user-circle-o "          , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },

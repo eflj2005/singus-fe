@@ -1,0 +1,46 @@
+<h1 align="center">Reportes Predefinidos</h1>
+
+<label>Eleccion de reporte:</label>
+<select class="form-control">
+    <option value="0" disabled >--Seleccione Reporte--</option>
+    <option >Cantidad de graduados por año</option>
+    <option >Manuel L. Castaño P.</option>
+</select>
+<button type="button" class="btn">Crear en pantalla</button>
+<button type="button" class="btn btn-info">Crear en pdf</button>
+
+<div class="container row">
+            <div class="card  col-md-6" >
+ 
+                    <div style="display: block" >
+                            <h4 align="center">Número de graduados por año</h4>
+                            <canvas baseChart
+                                [datasets]="barChartData"
+                                [labels]="barChartLabels"
+                                [options]="barChartOptions"
+                                [plugins]="barChartPlugins"
+                                [legend]="barChartLegend"
+                                [chartType]="barChartType">
+                            </canvas>
+                            </div>
+            </div>
+            <div class="card  col-md-6" >
+                    <div class="chart">
+                        <h4 align="center">Graduados hasta la fecha</h4>
+                        <canvas baseChart
+                            [data]="pieChartData"
+                            [labels]="pieChartLabels"
+                            [chartType]="pieChartType"
+                            [plugins]="pieChartPlugins"
+                            [colors]="pieChartColors"
+                            [legend]="pieChartLegend"
+                            [options]="pieChartOptions">
+                        </canvas>
+                    </div>
+            </div>
+</div>
+
+
+
+
+ 
