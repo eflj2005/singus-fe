@@ -36,12 +36,20 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
 
   ngOnInit() {
     if(this.modo == 1){
+<<<<<<< HEAD
       this.titulo = "Crear " + this.controlador.nombreTabla.substr(0,1).toUpperCase()+this.controlador.nombreTabla.substr(1);
     }
     else{
       this.titulo = "Modificar" + this.controlador.nombreTabla.substr(0,1).toUpperCase()+this.controlador.nombreTabla.substr(1);
     }
 
+=======
+      this.titulo = "Creación " + this.controlador.nombreTabla.substr(0,1).toUpperCase()+ this.controlador.nombreTabla.substr(1);
+    }
+    else{
+      this.titulo = "Modificación " + this.controlador.nombreTabla.substr(0,1).toUpperCase()+ this.controlador.nombreTabla.substr(1);
+    }    
+>>>>>>> f913e8a079e46373de10275602204ca0900b172c
   }
 
 

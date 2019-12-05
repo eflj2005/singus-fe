@@ -12,7 +12,11 @@ export class GenericoModel {
   protected servicioAmbiente :AmbienteService;
 
   public nombreTabla:string;
+<<<<<<< HEAD
   protected camposTabla:string[];
+=======
+  protected camposTabla:any[];
+>>>>>>> f913e8a079e46373de10275602204ca0900b172c
   protected camposFecha:string[];
 
   protected posicionActual:number;
@@ -141,11 +145,14 @@ export class GenericoModel {
     return this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
       map(
         (respuesta: RespuestaInterface) => {
+
           switch(respuesta.codigo){
             case 200:
-              respuesta.mensaje.forEach(campo => {
-                this.camposTabla.push( campo );
-              });
+              respuesta.mensaje.forEach(
+                (campo:any) => {
+                  this.camposTabla.push( campo );
+                }
+              );
               
               this.listo=true;
             break;

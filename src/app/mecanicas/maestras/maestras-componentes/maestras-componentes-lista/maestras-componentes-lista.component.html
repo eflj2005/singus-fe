@@ -12,14 +12,14 @@
     <table class="table table-striped">
       <thead class="thead">
         <tr>
-            <th *ngFor="let campo of  controlador.campos; index as i" scope="col">{{campo}}</th>
+            <th *ngFor="let campo of  controlador.campos; index as i" scope="col">{{campo.nombre}}</th>
             <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let registro of  registros$ | async; index as indexR">
           <td *ngFor="let campo of controlador.campos; index as indexC" >
-              <ngb-highlight [result]="registro[campo]" [term]="filter.value"></ngb-highlight>
+              <ngb-highlight [result]="registro[campo.nombre]" [term]="filter.value"></ngb-highlight>
           </td>
           <td>
             <button class="btn btn-outline-secondary "  placement="right" ngbTooltip="Editar" (click)="Procesar( 2 , registro.id )"  ><i class="fa fa-pencil"></i></button>

@@ -18,7 +18,6 @@ export class AreasController extends GenericoModel {
     this.fechasDefinidas = [];
 
     this.DetectarCampos().subscribe();
-
   }
 
 }
