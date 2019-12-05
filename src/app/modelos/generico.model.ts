@@ -12,11 +12,8 @@ export class GenericoModel {
   protected servicioAmbiente :AmbienteService;
 
   public nombreTabla:string;
-<<<<<<< HEAD
-  protected camposTabla:string[];
-=======
+
   protected camposTabla:any[];
->>>>>>> f913e8a079e46373de10275602204ca0900b172c
   protected camposFecha:string[];
 
   protected posicionActual:number;
