@@ -88,7 +88,7 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
 
   ObtenerOptionTextEnum( opcion:string, opciones:string ){
     let arregloOpciones:string[] = opciones.split(",");
-    var optionText:string = ""1;
+    var optionText:string = "";
 
     arregloOpciones.forEach(elemento => {
       if(elemento.includes(opcion+"-")){
