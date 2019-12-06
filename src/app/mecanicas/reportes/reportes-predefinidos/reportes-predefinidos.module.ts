@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ReportesPredefinidosPrincipalComponent } from './reportes-predefinidos-principal/reportes-predefinidos-principal.component';
 import { ChartsModule } from 'ng2-charts';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbDropdownModule } from "@ng-bootstrap/ng-bootstrap";
+import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -11,7 +13,11 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
   imports: [
     CommonModule,
     NgbModule,
-    ChartsModule
+    ChartsModule,
+    NgbDropdownModule,
+    FormsModule,
+    FormControl,
+    ReactiveFormsModule
   ],
   exports: [ReportesPredefinidosPrincipalComponent]
 })
