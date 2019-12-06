@@ -7,7 +7,7 @@
     <input type="text" class="form-control" [(ngModel)]="datos.id" required readonly>
 
     <label>Documento :</label>
-    <input type="text" class="form-control" [(ngModel)]="datos.documento" c [pattern]="numeroModelo" #documentoMensaje="ngModel" required>
+    <input type="text" class="form-control" [(ngModel)]="datos.documento" [pattern]="numeroModelo" #documentoMensaje="ngModel" required>
     <ngb-alert  class="col-md-12" *ngIf="documentoMensaje.errors?.pattern" type="custom" [dismissible]="false">Debe registrar un documento</ngb-alert>               
 
     <label>Nombres :</label>
@@ -17,11 +17,11 @@
     <input type="text" class="form-control" [(ngModel)]="datos.apellidos" placeholder="Ingrese los apellidos" required>
 
     <label>Telefono :</label>
-    <input type="text" class="form-control" [(ngModel)]="datos.telefono" c [pattern]="numeroModelo" #telefonoMensaje="ngModel" required>
+    <input type="text" class="form-control" [(ngModel)]="datos.telefono" [pattern]="numeroModelo" #telefonoMensaje="ngModel" required>
     <ngb-alert  class="col-md-12" *ngIf="telefonoMensaje.errors?.pattern" type="custom" [dismissible]="false">Debe registrar un telefono</ngb-alert>      
 
     <label>Correo :</label>
-    <input type="text" class="form-control" [(ngModel)]="datos.correo" c [pattern]="correoModelo" #correoMensaje="ngModel" required>
+    <input type="text" class="form-control" [(ngModel)]="datos.correo" [pattern]="correoModelo" #correoMensaje="ngModel" required>
     <ngb-alert  class="col-md-12" *ngIf="correoMensaje.errors?.pattern" type="custom" [dismissible]="false">Debe registrar un correo válido</ngb-alert>      
 
     <label>Creación :</label>

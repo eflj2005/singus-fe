@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { AmbienteService } from '@servicios/ambiente.service';
 
-import { UsuariosController } from './usuarios.controller';
+import { CiudadesController } from './ciudades.controller';
 
-describe('UsuariosController', () => {
+describe('CiudadesController', () => {
   it('should create an instance', () => {
     let instanciaHttpClient :HttpClient;
     let InstanciaAmbienteService :AmbienteService;    
-    expect(new UsuariosController(instanciaHttpClient,InstanciaAmbienteService)).toBeTruthy();
+    expect(new CiudadesController(instanciaHttpClient,InstanciaAmbienteService)).toBeTruthy();
   });
 });

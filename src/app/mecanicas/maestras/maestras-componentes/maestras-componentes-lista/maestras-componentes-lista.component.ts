@@ -41,9 +41,6 @@ export class MaestrasComponentesListaComponent implements OnInit {
           case 200:
             this.registros =this.controlador.todos;
             this.AplicarFiltros();
-
-            console.log(this.registros);
-
           break;
           default:
             alert("Error: "+respuesta.mensaje);
@@ -63,6 +60,9 @@ export class MaestrasComponentesListaComponent implements OnInit {
       this.controlador.campos.forEach(
         (campo:any) => {
           if(!validacion){
+            if(typeof(registro[campo.nombre]) != "string"){
+              registro[campo.nombre] = registro[campo.nombre].toString();
+            }
             if( registro[campo.nombre].toLowerCase().includes(term) )  validacion = true;
           }
         }

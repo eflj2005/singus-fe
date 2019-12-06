@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { AmbienteService } from '@servicios/ambiente.service';
 
-import { AreasController } from './areas.controller';
+import { SedesController } from './sedes.controller';
 
-describe('AreasController', () => {
+describe('SedesController', () => {
   it('should create an instance', () => {
     let instanciaHttpClient :HttpClient;
     let InstanciaAmbienteService :AmbienteService;
-    expect(new AreasController(instanciaHttpClient,InstanciaAmbienteService)).toBeTruthy();
+    expect(new SedesController(instanciaHttpClient,InstanciaAmbienteService)).toBeTruthy();
   });
 });

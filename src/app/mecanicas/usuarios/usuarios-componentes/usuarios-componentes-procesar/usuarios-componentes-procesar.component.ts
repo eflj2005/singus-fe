@@ -48,7 +48,8 @@ export class UsuariosComponentesProcesarComponent implements OnInit {
 
   Guardar(){
 
-    if(this.modo==1) this.controladorUsuarios.Agregar(this.datos);
+    if(this.modo==1) this.controladorUsuarios.Agregar(this.datos);  
+    if(this.modo==2) this.controladorUsuarios.Modificar(this.datos);
 
     this.controladorUsuarios.Guardar(false).subscribe(
       (notificacion:RespuestaInterface) => {

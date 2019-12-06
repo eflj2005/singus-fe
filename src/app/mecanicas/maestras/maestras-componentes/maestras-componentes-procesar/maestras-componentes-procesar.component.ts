@@ -42,14 +42,13 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
       this.titulo = "Modificación " + this.controlador.nombreTabla.substr(0,1).toUpperCase()+ this.controlador.nombreTabla.substr(1);
     }
     
-    console.log(this.controlador.campos,"campos");
-
   }
 
 
   Guardar(){
 
     if(this.modo==1) this.controlador.Agregar(this.datos);
+    if(this.modo==2) this.controlador.Modificar(this.datos);
 
     this.controlador.Guardar(false).subscribe(
       (notificacion:RespuestaInterface) => {
@@ -67,9 +66,36 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
     );          
   }
 
-
   Cancelar(){
     this.modal.dismiss('CANCELAR');
   }
 
+  ProcesarSelectEnum( tipo:string ){
+    let regex = /\'/gi;
+
+    let valores:string =tipo.substr(5,tipo.length-6);
+    valores = valores.replace(regex, "");
+    
+    return valores.split(',');
+    
+  }
+
+  ProcesarSelectId( campo:string, opcion:string ){
+    let partes:string[] = campo.split("_");
+    var opciones:any[] = this.controlador.ObtenerForanea(partes[0]).todos;
+    return opciones;
+  }
+
+  ObtenerOptionTextEnum( opcion:string, opciones:string ){
+    let arregloOpciones:string[] = opciones.split(",");
+    var optionText:string = "";
+
+    arregloOpciones.forEach(elemento => {
+      if(elemento.includes(opcion+"-")){
+        optionText = elemento.substr(2);
+      }
+    });
+    
+    return optionText;
+  }
 }

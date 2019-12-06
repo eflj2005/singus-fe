@@ -159,7 +159,6 @@ export class GenericoModel {
     return this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
       map(
         (respuesta: RespuestaInterface) => {
-
           switch(respuesta.codigo){
             case 200:
               respuesta.mensaje.forEach(

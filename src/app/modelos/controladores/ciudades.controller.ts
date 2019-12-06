@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 
 import { GenericoModel } from '@modelos/generico.model';
-import { AreaInterface } from '@modelos/interfaces/area.interface';
 import { AmbienteService } from '@servicios/ambiente.service';
+
+import { CiudadesInterface } from '../interfaces/ciudades.interface';
 
 export class CiudadesController extends GenericoModel {
 
-  registros: AreaInterface[]= [];
+  registros: CiudadesInterface[]= [];
 
   constructor( 
     private instanciaHttpClient :HttpClient,
