@@ -10,8 +10,17 @@ import { Label } from 'ng2-charts';
 })
 export class ReportesPredefinidosPrincipalComponent implements OnInit {
 
-  torta: any = [];
-  barra: any   =  [];
+  datos: any = {
+    'estadisticas':{ 'torta': ''
+
+                    } 
+  }
+ 
+  
+
+
+
+
   seleccion: any;
 
   datosEstadistica: any = []

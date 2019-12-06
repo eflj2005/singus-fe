@@ -4,7 +4,7 @@ import { ReportesPredefinidosPrincipalComponent } from './reportes-predefinidos-
 import { ChartsModule } from 'ng2-charts';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { NgbDropdownModule } from "@ng-bootstrap/ng-bootstrap";
-import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -16,7 +16,6 @@ import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
     ChartsModule,
     NgbDropdownModule,
     FormsModule,
-    FormControl,
     ReactiveFormsModule
   ],
   exports: [ReportesPredefinidosPrincipalComponent]
