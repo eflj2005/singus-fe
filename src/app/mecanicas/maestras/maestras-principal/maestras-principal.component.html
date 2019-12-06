@@ -26,7 +26,18 @@
               <app-maestras-componentes-lista nombreTabla="usuarios" [controlador]="controladorUsuarios"></app-maestras-componentes-lista>
             </div>
           </ng-template>
-        </ngb-tab>        
+        </ngb-tab>
+
+        <ngb-tab  *ngIf="controladorCiudades.estaListo">
+          <ng-template ngbTabTitle>Ciudades</ng-template>
+          <ng-template ngbTabContent>
+            <div class="ngTabContainer">
+              <h1>Lista de Ciudades</h1><hr>
+              <app-maestras-componentes-lista nombreTabla="ciudades" [controlador]="controladorCiudades"></app-maestras-componentes-lista>
+            </div>
+          </ng-template>
+        </ngb-tab>
+
       </ngb-tabset>                     
     </div>            
   </div>

@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {AmbienteService} from '@servicios/ambiente.service'
 import { HttpClient } from '@angular/common/http';
 
-import { CiudadesController } from '@controladores/ciudades.controller';
-import { TiposdocumentosController } from '@controladores/tiposdocumentos.controller';
+
+
 import { AreasController } from '@controladores/areas.controller';
 
 
 import { UsuariosController } from '@controladores/usuarios.controller';
+import { CiudadesController } from '@controladores/ciudades.controller';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class MaestrasPrincipalComponent implements OnInit {
     private servicioAmbiente: AmbienteService,
   ) { 
     this.controladorAreas = new AreasController(llamadoHttp,servicioAmbiente);
-    this.controladorCiudades = new CiudadesController(llamadoHttp,servicioAmbiente);    
+    this.controladorCiudades = new CiudadesController(llamadoHttp, servicioAmbiente);
 
     this.controladorUsuarios = new UsuariosController(llamadoHttp,servicioAmbiente);    
 

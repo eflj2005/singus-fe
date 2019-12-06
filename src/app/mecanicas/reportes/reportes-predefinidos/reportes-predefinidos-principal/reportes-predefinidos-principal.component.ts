@@ -10,11 +10,58 @@ import { Label } from 'ng2-charts';
 })
 export class ReportesPredefinidosPrincipalComponent implements OnInit {
 
-  datos: any = {
-    'estadisticas':{ 'torta': ''
-
-                    } 
-  }
+  datos: any = [
+    { 
+      descripcion:'Descripcion de la estadistica',
+      torta: {
+        etiquetas:['etiqueta1','etiqueta2','etiqueta3'],
+        datos:[10,20,30],
+        colores:['blue','green','yellow']
+      },
+      barras:{
+        etiquetas:['etiqueta1','etiqueta2','etiqueta3'],
+        datos:[
+          { 
+            info:[10,20,30,40],
+            series:'serie1'
+          },
+          { 
+            info:[10,20,30,40],
+            series:'serie2'
+          },
+          { 
+            info:[10,20,30,40],
+            series:'serie3'
+          }
+        ],
+      }
+    }, 
+    {
+      descripcion:'Descripcion de la estadistica',
+      torta: {
+        etiquetas:['etiqueta1','etiqueta2','etiqueta3'],
+        datos:[10,20,30],
+        colores:['blue','green','yellow']
+      },
+      barras:{
+        etiquetas:['etiqueta1','etiqueta2','etiqueta3'],
+        datos:[
+          { 
+            info:[10,20,30,40],
+            series:'serie1'
+          },
+          { 
+            info:[10,20,30,40],
+            series:'serie2'
+          },
+          { 
+            info:[10,20,30,40],
+            series:'serie3'
+          }
+        ],
+      }
+    }
+  ]
  
   
 
@@ -101,7 +148,9 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
     { data: [27, 28, 30, 39, 46, 37, 45], label: 'Matematicas y ciencias naturales' }
   ];
 
-  constructor() { }
+  constructor() {
+    console.log(this.datos);
+   }
 
   ngOnInit() {
 
