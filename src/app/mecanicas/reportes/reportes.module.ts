@@ -16,7 +16,6 @@ const rutas: Routes =[
   imports: [
     CommonModule,
     ReportesPredefinidosModule,
-    RouterModule.forChild(rutas)  
-  ]
+    RouterModule.forChild(rutas)]
 })
 export class ReportesModule { }

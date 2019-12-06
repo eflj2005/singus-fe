@@ -1,15 +1,182 @@
 <h1 align="center">Reportes Predefinidos</h1>
 
+<div>
+        <div class="row">
+            <div class="col">
+                <div ngbDropdown class="d-inline-block">
+                    <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle>Cohorte</button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownForm1">
+                        <form class="px-4 py-3">
+                        <div class="form-group">
+                            <label for="exampleDropdownFormEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleDropdownFormPassword1">Password</label>
+                            <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="dropdownCheck">
+                            <label class="form-check-label" for="dropdownCheck">
+                            Remember me
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                        </form>
+                        <div class="dropdown-divider"></div>
+                        <button ngbDropdownItem>New around here? Sign up</button>
+                        <button ngbDropdownItem>Forgot password?</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+                <div class="col">
+                    <div ngbDropdown class="d-inline-block">
+                        <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle>Programa</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownForm1">
+                            <form class="px-4 py-3">
+                            <div class="form-group">
+                                <label for="exampleDropdownFormEmail1">Email address</label>
+                                <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleDropdownFormPassword1">Password</label>
+                                <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="dropdownCheck">
+                                <label class="form-check-label" for="dropdownCheck">
+                                Remember me
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Sign in</button>
+                            </form>
+                            <div class="dropdown-divider"></div>
+                            <button ngbDropdownItem>New around here? Sign up</button>
+                            <button ngbDropdownItem>Forgot password?</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div ngbDropdown class="d-inline-block">
+                        <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle>Sede</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownForm1">
+                            <form class="px-4 py-3">
+                            <div class="form-group">
+                                <label for="exampleDropdownFormEmail1">Email address</label>
+                                <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleDropdownFormPassword1">Password</label>
+                                <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="dropdownCheck">
+                                <label class="form-check-label" for="dropdownCheck">
+                                Remember me
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Sign in</button>
+                            </form>
+                            <div class="dropdown-divider"></div>
+                            <button ngbDropdownItem>New around here? Sign up</button>
+                            <button ngbDropdownItem>Forgot password?</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>
+
+
+
+
+
 <label>Eleccion de reporte:</label>
-<select class="form-control">
+<select class="form-control"  required>
     <option value="0" disabled >--Seleccione Reporte--</option>
-    <option >Cantidad de graduados por año</option>
-    <option >Manuel L. Castaño P.</option>
+    <option value="1">Nivel de satisfacción</option>
+    <option value="2">Formacion integral</option>
+    <option value="3">Disponibilidad de profesores</option>
+    <option value="4">Opotunidad de participacion  en   actividades extracurriculares</option>
+    <option value="5">Relaciones interpersonales con la comunidad institucional </option>
+    <option value="6">Oportunidades para crecimiento y desarrollo personal</option>
+    <option value="7">Disponibilidad para tomar cursos de un programa distinto</option>
+    <option value="8">Apoyos académicos</option>
+    <option value="9">Actividades de investigación</option>
+    <option value="10">Acompañamiento para la búsqueda de oportunidades laborales</option>
 </select>
-<button type="button" class="btn">Crear en pantalla</button>
+<button type="button" class="btn" (click)="crear(1)">Crear en pantalla</button>
 <button type="button" class="btn btn-info">Crear en pdf</button>
 
-<div class="container row">
+<div align="center" class="container row">
+
+        <table class="table col-md-12" >
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Programa</th>
+                    <th scope="col">Numero de graduados</th>
+                    <th scope="col">Sede</th>
+                    <th scope="col">Cohorte</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>@twitter</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                        <td>@twitter</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                        <td>@twitter</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                        <td>@twitter</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                        <td>@twitter</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                        <td>@twitter</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                        <td>@twitter</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
             <div class="card  col-md-6" >
  
                     <div style="display: block" >

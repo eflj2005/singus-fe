@@ -10,6 +10,21 @@ import { Label } from 'ng2-charts';
 })
 export class ReportesPredefinidosPrincipalComponent implements OnInit {
 
+  datos: any = {
+    'estadisticas':{ 'torta': ''
+
+                    } 
+  }
+ 
+  
+
+
+
+
+  seleccion: any;
+
+  datosEstadistica: any = []
+
   public pieChartOptions: ChartOptions = {
     responsive: true,
     legend: {
@@ -71,7 +86,7 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       }
     }
   };
-  public barChartLabels: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+  public barChartLabels: Label[] = ['2010', '2011', '2012', '2013', '2014', '2015', '2016'];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
 
@@ -89,7 +104,26 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
+
   }
+
+
+crear(reporte){
+  switch (reporte) {
+    case 1:
+
+      break;
+  
+    default:
+      break;
+  }
+}
+
+
+
+
+
 
 
 }
