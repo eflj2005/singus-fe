@@ -5,7 +5,9 @@
     <div class="container column">
    
       <h1 align='center'>Maestras</h1>
-                   
+            
+      <ngb-tabset>
+     
         <ngb-tab  *ngIf="controladorAreas.estaListo">
           <ng-template ngbTabTitle>Areas</ng-template>
           <ng-template ngbTabContent>
@@ -15,7 +17,7 @@
             </div>
           </ng-template>
         </ngb-tab>
-
+        
         <ngb-tab  *ngIf="controladorUsuarios.estaListo">
           <ng-template ngbTabTitle>Usuarios</ng-template>
           <ng-template ngbTabContent>
