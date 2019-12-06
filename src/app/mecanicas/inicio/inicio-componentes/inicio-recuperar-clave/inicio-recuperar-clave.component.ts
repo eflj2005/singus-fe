@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { AmbienteService } from '@app/servicios/ambiente.service'
-import { UsuarioInterface } from '@app/modelos/interfaces/usuario.interface';
-import { UsuariosController } from '@app/modelos/controladores/usuarios.controller';
-import { RespuestaInterface } from '@app/modelos/interfaces/respuesta.interface';
+import { AmbienteService } from '@servicios/ambiente.service'
+import { UsuarioInterface } from '@interfaces/usuario.interface';
+import { UsuariosController } from '@controladores/usuarios.controller';
+import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { HttpClient } from '@angular/common/http';
 
 @Component({

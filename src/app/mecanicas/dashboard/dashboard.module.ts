@@ -23,8 +23,8 @@ const rutas: Routes =[
       {  path:'cargue', component: CarguePrincipalComponent},
       { path: 'eventos',  component: EventosPrincipalComponent },
       { path:'maestras', component: MaestrasPrincipalComponent },
-      { path: 'reportes', loadChildren: () => import('@app/mecanicas/reportes/reportes.module').then(m => m.ReportesModule) },
-      { path: 'usuarios', loadChildren: () => import('@app/mecanicas/usuarios/_usuarios.module').then(m => m.UsuariosModule) }
+      { path: 'reportes', loadChildren: () => import('@mecanicas/reportes/reportes.module').then(m => m.ReportesModule) },
+      { path: 'usuarios', loadChildren: () => import('@mecanicas/usuarios/_usuarios.module').then(m => m.UsuariosModule) }
       // { path:'usuarios', component: UsuariosPrincipalComponent }
     ]}
 

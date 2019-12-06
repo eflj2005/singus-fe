@@ -4,8 +4,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { AmbienteService } from '@servicios/ambiente.service';
-import { UsuarioInterface } from '@modelos/interfaces/usuario.interface';
-import { RespuestaInterface } from '@app/modelos/interfaces/respuesta.interface';
+import { UsuarioInterface } from '@interfaces/usuario.interface';
+import { RespuestaInterface } from '@interfaces/respuesta.interface';
 
 import * as jwt_decode from 'jwt-decode';
 

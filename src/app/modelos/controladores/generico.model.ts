@@ -4,8 +4,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import { AmbienteService } from '@servicios/ambiente.service';
-import { filtroInterface } from '@modelos/interfaces/filtro.interface';
-import { RespuestaInterface } from './interfaces/respuesta.interface';
+import { filtroInterface } from '@interfaces/filtro.interface';
+import { RespuestaInterface } from '../interfaces/respuesta.interface';
 
 export class GenericoModel {
   protected llamadoHttp :HttpClient;

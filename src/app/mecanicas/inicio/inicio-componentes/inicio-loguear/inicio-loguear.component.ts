@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AmbienteService } from '@app/servicios/ambiente.service'
-import { AutenticacionService } from '@app/servicios/autenticacion.service';
-import { RespuestaInterface } from '@app/modelos/interfaces/respuesta.interface';
+import { AmbienteService } from '@servicios/ambiente.service'
+import { AutenticacionService } from '@servicios/autenticacion.service';
+import { RespuestaInterface } from '@interfaces/respuesta.interface';
 
 @Component({
   selector: 'app-inicio-loguear',

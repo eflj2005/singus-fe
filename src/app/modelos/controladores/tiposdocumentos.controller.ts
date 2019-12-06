@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 
-import { GenericoModel } from '@modelos/generico.model';
+import { GenericoModel } from './generico.model';
 import { AmbienteService } from '@servicios/ambiente.service';
 
-import { TiposdocumentosInterface } from '../interfaces/tiposdocumentos.interface';
+import { TiposdocumentosInterface } from '@interfaces/tiposdocumentos.interface';
 
 export class TiposdocumentosController extends GenericoModel {
 

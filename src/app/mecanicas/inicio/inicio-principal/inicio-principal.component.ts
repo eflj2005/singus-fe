@@ -1,8 +1,8 @@
 
 import { Component, OnInit } from '@angular/core';
 
-import { AmbienteService } from '@app/servicios/ambiente.service';
-import { AutenticacionService } from '@app/servicios/autenticacion.service';
+import { AmbienteService } from '@servicios/ambiente.service';
+import { AutenticacionService } from '@servicios/autenticacion.service';
 
 
 

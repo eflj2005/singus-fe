@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 
-import { GenericoModel } from '@modelos/generico.model';
+import { GenericoModel } from './generico.model';
 import { AmbienteService } from '@servicios/ambiente.service';
-import { CohortesInterface } from '../interfaces/cohortes.interface';
+import { CohortesInterface } from '@interfaces/cohortes.interface';
 
 export class CohortesController extends GenericoModel {
 

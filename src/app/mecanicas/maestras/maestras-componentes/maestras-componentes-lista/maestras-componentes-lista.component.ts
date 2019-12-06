@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, PipeTransform, Type } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
-import { RespuestaInterface } from '@app/modelos/interfaces/respuesta.interface';
+import { RespuestaInterface } from '@modelos/interfaces/respuesta.interface';
 import { DecimalPipe } from '@angular/common';
 import { startWith, map } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MaestrasComponentesProcesarComponent } from '../maestras-componentes-procesar/maestras-componentes-procesar.component';
-import { UsuarioInterface } from '@app/modelos/interfaces/usuario.interface';
+import { UsuarioInterface } from '@modelos/interfaces/usuario.interface';
 
 @Component({
   selector: 'app-maestras-componentes-lista',

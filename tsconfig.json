@@ -20,10 +20,11 @@
     ],
 
     "paths":{
-      "@app/*" : [ "src/app/*" ],
       "@servicios/*" : [ "src/app/servicios/*" ],
       "@mecanicas/*" : [ "src/app/mecanicas/*" ],
       "@modelos/*"   : [ "src/app/modelos/*" ],
+      "@interfaces/*"   : [ "src/app/modelos/interfaces/*" ],
+      "@controladores/*"   : [ "src/app/modelos/controladores/*" ],
       "@generales/*" : [ "src/app/generales/*" ]
     }
 

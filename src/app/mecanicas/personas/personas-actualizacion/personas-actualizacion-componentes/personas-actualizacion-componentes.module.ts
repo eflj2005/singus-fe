@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
-import { GeneralesModule } from '@app/generales/_generales.module';
+import { GeneralesModule } from '@generales/_generales.module';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { PersonasActualizacionListaComponent } from './personas-actualizacion-lista/personas-actualizacion-lista.component';
 import { PersonasActualizacionInformacionComponent } from './personas-actualizacion-informacion/personas-actualizacion-informacion.component';

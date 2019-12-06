@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {Router, ActivatedRoute } from '@angular/router';
 
-import { AmbienteService } from '@app/servicios/ambiente.service'
-import { UsuarioInterface } from '@modelos/interfaces/usuario.interface';
-import { filtroInterface } from '@modelos/interfaces/filtro.interface';
-import { UsuariosController } from '@modelos/controladores/usuarios.controller';
+import { AmbienteService } from '@servicios/ambiente.service'
+import { UsuarioInterface } from '@interfaces/usuario.interface';
+import { filtroInterface } from '@interfaces/filtro.interface';
+import { UsuariosController } from '@controladores/usuarios.controller';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { RespuestaInterface } from '@app/modelos/interfaces/respuesta.interface';
+import { RespuestaInterface } from '@interfaces/respuesta.interface';
 
 
 

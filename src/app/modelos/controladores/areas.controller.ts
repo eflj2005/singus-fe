@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 
-import { GenericoModel } from '@modelos/generico.model';
+import { GenericoModel } from './generico.model';
 import { AmbienteService } from '@servicios/ambiente.service';
 
-import { AreaInterface } from '@modelos/interfaces/area.interface';
+import { AreaInterface } from '@interfaces/area.interface';
 
 export class AreasController extends GenericoModel {
 

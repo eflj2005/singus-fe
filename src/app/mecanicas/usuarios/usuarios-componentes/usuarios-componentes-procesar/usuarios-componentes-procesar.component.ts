@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuarioInterface } from '@app/modelos/interfaces/usuario.interface';
+import { UsuarioInterface } from '@interfaces/usuario.interface';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
-import { UsuariosController } from '@app/modelos/controladores/usuarios.controller';
-import { RespuestaInterface } from '@app/modelos/interfaces/respuesta.interface';
+import { UsuariosController } from '@controladores/usuarios.controller';
+import { RespuestaInterface } from '@interfaces/respuesta.interface';
 
 @Component({
   selector: 'app-usuarios-componentes-procesar',

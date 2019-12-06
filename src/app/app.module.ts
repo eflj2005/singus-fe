@@ -9,10 +9,10 @@ import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { ServiciosModule } from '@servicios/servicios.module';
-import { GeneralesModule  } from '@app/generales/_generales.module';
+import { GeneralesModule  } from '@generales/_generales.module';
 import { MecanicasModule } from '@mecanicas/mecanicas.module';
 
-import { ModelosModule } from '@app/modelos/_modelos.module'
+import { ModelosModule } from '@modelos/_modelos.module'
 import { ErrorInterceptorService } from '@servicios/error.interceptor';
 import { JwtInterceptorService } from '@servicios/jwt.interceptor';
 import { DatePipe } from '@angular/common';

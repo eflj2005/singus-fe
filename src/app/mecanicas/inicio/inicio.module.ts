@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { GeneralesModule } from '@app/generales/_generales.module';
+import { GeneralesModule } from '@generales/_generales.module';
 
 import { InicioPrincipalComponent } from './inicio-principal/inicio-principal.component';
 

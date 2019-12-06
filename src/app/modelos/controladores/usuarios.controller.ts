@@ -2,11 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { UsuarioInterface } from '@modelos/interfaces/usuario.interface';
-import { GenericoModel } from '@modelos/generico.model';
-import { AmbienteService } from '@servicios/ambiente.service';
-import { RespuestaInterface } from '../interfaces/respuesta.interface';
+import { UsuarioInterface } from '@interfaces/usuario.interface';
+import { RespuestaInterface } from '@interfaces/respuesta.interface';
 
+import { AmbienteService } from '@servicios/ambiente.service';
+
+import { GenericoModel } from './generico.model';
 import { AreasController } from './areas.controller';
 
 export class UsuariosController extends GenericoModel {

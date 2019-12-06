@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
-import { RespuestaInterface } from '@app/modelos/interfaces/respuesta.interface';
-import { AreaInterface } from '@app/modelos/interfaces/area.interface';
+import { RespuestaInterface } from '@interfaces/respuesta.interface';
+import { AreaInterface } from '@interfaces/area.interface';
 
 @Component({
   selector: 'app-maestras-componentes-procesar',

@@ -4,14 +4,14 @@ import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { UsuariosController } from '@app/modelos/controladores/usuarios.controller';
-import { RespuestaInterface } from '@app/modelos/interfaces/respuesta.interface';
+import { UsuariosController } from '@controladores/usuarios.controller';
+import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { HttpClient } from '@angular/common/http';
-import { AmbienteService } from '@app/servicios/ambiente.service';
+import { AmbienteService } from '@servicios/ambiente.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { UsuariosComponentesProcesarComponent } from '../usuarios-componentes-procesar/usuarios-componentes-procesar.component';
-import { UsuarioInterface } from '@app/modelos/interfaces/usuario.interface';
+import { UsuarioInterface } from '@interfaces/usuario.interface';
 
 @Component({
   selector: 'app-usuarios-componentes-lista',

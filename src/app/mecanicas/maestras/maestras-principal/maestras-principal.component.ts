@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {AmbienteService} from '@servicios/ambiente.service'
-import { AreasController } from '@app/modelos/controladores/areas.controller';
 import { HttpClient } from '@angular/common/http';
-import { CiudadesController } from '@app/modelos/controladores/ciudades.controller2';
-import { UsuariosController } from '@app/modelos/controladores/usuarios.controller';
+
+import { CiudadesController } from '@controladores/ciudades.controller';
+import { TiposdocumentosController } from '@controladores/tiposdocumentos.controller';
+import { AreasController } from '@controladores/areas.controller';
+
+
+import { UsuariosController } from '@controladores/usuarios.controller';
+
 
 @Component({
   selector: 'app-maestras-principal',

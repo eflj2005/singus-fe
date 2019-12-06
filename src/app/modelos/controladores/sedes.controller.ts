@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 
-import { GenericoModel } from '@modelos/generico.model';
+import { GenericoModel } from './generico.model';
 import { AmbienteService } from '@servicios/ambiente.service';
 
-import { SedesInterface } from '../interfaces/sedes.interface';
+import { SedesInterface } from '@interfaces/sedes.interface';
 
 export class SedesController extends GenericoModel {
 

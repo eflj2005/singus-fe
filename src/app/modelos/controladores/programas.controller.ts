@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 
-import { GenericoModel } from '@modelos/generico.model';
+import { GenericoModel } from './generico.model';
 import { AmbienteService } from '@servicios/ambiente.service';
 
-import { ProgramasInterface } from '../interfaces/programas.interface';
+import { ProgramasInterface } from '@interfaces/programas.interface';
 
 export class ProgramasController extends GenericoModel {
 
