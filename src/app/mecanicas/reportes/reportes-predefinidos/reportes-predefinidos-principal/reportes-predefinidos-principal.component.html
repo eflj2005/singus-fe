@@ -13,30 +13,27 @@
                                <div class="row" >
                                     <table class="table table-striped" >
                                         
-                                            <thead>
-                                            
-                                                <tr class="colums">
-                                                <th scope="col">#</th>
-                                                <th scope="col">Cohorte</th>
-                                                <th scope="col"></th>
-                    
-                                                </tr>
-                                            </thead>
+                                      <thead>
+                                        <tr class="colums">
+                                          <th scope="col">#</th>
+                                          <th scope="col">Cohorte</th>
+                                          <th scope="col"></th>
+                                        </tr>
+                                      </thead>
                                         
                                         
                                             <tbody  >
                                         
                                                 <tr *ngFor="let cohorte of cohortes" >
                     
-                                                <td scope="row">{{cohorte.Id}}</td>
-                                                <td>{{cohorte.Nombre}}</td>
-                                                <td>
-                                                        <label class="container">
-                                                                <input type="checkbox" [(ngModel)]="cohorte.Seleccionado" >
-                                                                <span class="checkmark"></span>
-                                                        </label>
-                    
-                                                </td>
+                                                  <td scope="row">{{cohorte.Id}}</td>
+                                                  <td>{{cohorte.Nombre}}</td>
+                                                  <td>
+                                                   <label class="container">
+                                                      <input type="checkbox" [(ngModel)]="cohorte.Seleccionado" >
+                                                      <span class="checkmark"></span>
+                                                    </label>
+                                                  </td>
                                                 </tr>
                     
                                             
@@ -176,18 +173,18 @@
     
 
 
-<h1 align='center'>Reportes</h1>
+<h1>Reportes</h1>
+
 <div class="container" *ngFor="let dato of datos| slice:0; let i = index">
-    <div class="col-md-6">
-        <h4 align='center'>{{dato.descripcion}}</h4>
-        <table class="table" >
-                <thead>
-                    <tr>
-                    <th >#</th>
-                    <th  *ngFor="let cabeza of dato.tabla.head" >{{cabeza}}</th>
-                   
-                    </tr>
-                </thead>
+  <div class="col-md-6">
+    <h4>{{dato.descripcion}}</h4>
+      <table class="table" >
+        <thead>
+          <tr>
+            <th>#</th>
+            <th *ngFor="let cabeza of dato.tabla.head" >{{cabeza}}</th>
+          </tr>
+        </thead>
                 <tbody>
                     <tr *ngFor="let cuerpo of dato.tabla.body;let o = index">
                         <th scope="row">{{cuerpo}}</th>

@@ -49,15 +49,15 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
   datos: any = [
     { 
       descripcion:'¿Nivel de satisfacion con su institucion (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
+      tabla:{
+        head:[ "satisfacción con su institución"],
+        body:["Muy Insatisfecho","Insatisfecho","Satisfecho","Muy Satisfecho"]
+      },      
       torta: {
         datos:[10,23,44,56],
         descripcion:["Nivel de satisfacion con la institucion"],
         etiquetas:['Muy Insatisfecho','Insatisfecho','Satisfecho','Muy Satisfecho'],
         colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
-      },
-      tabla:{
-        head:[ "satisfacción con su institución"],
-        body:["Muy Insatisfecho","Insatisfecho","Satisfecho","Muy Satisfecho"]
       },
       barras:{
         descripcion:["Nivel de satisfacion con su institucion por año"],
@@ -84,15 +84,15 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       }
     },{ 
       descripcion:'¿Nivel de satisfacion con la calidad de formacion integral recibida (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
+      tabla:{
+        head:[ "satisfacción con la calidad de formacion integral recibida"],
+        body:["Muy Insatisfecho","Insatisfecho","Satisfecho","Muy Satisfecho"]
+      },      
       torta: {
         datos:[30,27,12,20],
         descripcion:["Nivel de satisfacion con la calidad de formacion integral recibida"],
         etiquetas:['Muy Insatisfecho','Insatisfecho','Satisfecho','Muy Satisfecho'],
         colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
-      },
-      tabla:{
-        head:[ "satisfacción con la calidad de formacion integral recibida"],
-        body:["Muy Insatisfecho","Insatisfecho","Satisfecho","Muy Satisfecho"]
       },
       barras:{
         descripcion:["Nivel de satisfacion con la calidad de formacion integral recibida por año"],
@@ -119,15 +119,15 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       }
     },{ 
       descripcion:'¿Nivel de satisfacion con la disponibilidad de tiempo de los profesores (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
+      tabla:{
+        head:[ "satisfacción con la disponibilidad de tiempo de los profesores"],
+        body:["Muy Insatisfecho","Insatisfecho","Satisfecho","Muy Satisfecho"]
+      },      
       torta: {
         datos:[20,10,30,20],
         descripcion:["Nivel de satisfacion con la disponibilidad de tiempo de los profesores"],
         etiquetas:['Muy Insatisfecho','Insatisfecho','Satisfecho','Muy Satisfecho'],
         colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
-      },
-      tabla:{
-        head:[ "satisfacción con la disponibilidad de tiempo de los profesores"],
-        body:["Muy Insatisfecho","Insatisfecho","Satisfecho","Muy Satisfecho"]
       },
       barras:{
         descripcion:["Nivel de satisfacion con la disponibilidad de tiempo de los profesores por año"],
@@ -155,15 +155,15 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
     },
     { 
       descripcion:'¿Nivel de satisfacion con la Opotunidad de participacion  en   actividades extracurriculares (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
+      tabla:{
+        head:[ "satisfacción con la Opotunidad de participacion  en   actividades extracurriculares"],
+        body:["Muy Insatisfecho","Insatisfecho","Satisfecho","Muy Satisfecho"]
+      },
       torta: {
         datos:[10,20,30,40],
         descripcion:["Nivel de satisfacion con la Opotunidad de participacion  en   actividades extracurriculares"],
         etiquetas:['Muy Insatisfecho','Insatisfecho','Satisfecho','Muy Satisfecho'],
         colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
-      },
-      tabla:{
-        head:[ "satisfacción con la Opotunidad de participacion  en   actividades extracurriculares"],
-        body:["Muy Insatisfecho","Insatisfecho","Satisfecho","Muy Satisfecho"]
       },
       barras:{
         descripcion:["Nivel de satisfacion con la Opotunidad de participacion  en   actividades extracurriculares por año"],
@@ -191,15 +191,15 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
     },
     { 
       descripcion:'¿Nivel de satisfacion con las relaciones interpersonales con la comunidad institucional (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
+      tabla:{
+        head:[ "satisfacción con las relaciones interpersonales con la comunidad institucional"],
+        body:["Muy Insatisfecho","Insatisfecho","Satisfecho","Muy Satisfecho"]
+      },      
       torta: {
         datos:[28,10,25,30],
         descripcion:["Nivel de satisfacion con las relaciones interpersonales con la comunidad institucional"],
         etiquetas:['Muy Insatisfecho','Insatisfecho','Satisfecho','Muy Satisfecho'],
         colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
-      },
-      tabla:{
-        head:[ "satisfacción con las relaciones interpersonales con la comunidad institucional"],
-        body:["Muy Insatisfecho","Insatisfecho","Satisfecho","Muy Satisfecho"]
       },
       barras:{
         descripcion:["Nivel de satisfacion con las relaciones interpersonales con la comunidad institucional por año"],
@@ -227,15 +227,15 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
     },
     { 
       descripcion:'¿Existe un balance entre las actividades extracurriculares y académicas?',
+      tabla:{
+        head:[ "Balance entre las actividades extracurriculares y académicas"],
+        body:["Si hay balance","No hay balance"]
+      },      
       torta: {
         datos:[28,10],
         descripcion:["Balance entre las actividades extracurriculares y académicas"],
         etiquetas:["Si hay balance","No hay balance"],
         colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
-      },
-      tabla:{
-        head:[ "Balance entre las actividades extracurriculares y académicas"],
-        body:["Si hay balance","No hay balance"]
       },
       barras:{
         descripcion:["Balance entre las actividades extracurriculares y académicas por año"],
