@@ -2,149 +2,114 @@
 
 
 <div class="row">
-            <div class="col-md-1">
-                <div ngbDropdown class="d-inline-block">
-                    <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle>Cohortes</button>
-                    <div ngbDropdownMenu aria-labelledby="dropdownForm1">
-                        <div class="row" >
-                            <div class="col-md-12 cuadro">
-                                <h3  align='center'>Lista Cohortes</h3>
-                    
-                               <div class="row" >
-                                    <table class="table table-striped" >
-                                        
-                                      <thead>
-                                        <tr class="colums">
-                                          <th scope="col">#</th>
-                                          <th scope="col">Cohorte</th>
-                                          <th scope="col"></th>
-                                        </tr>
-                                      </thead>
-                                        
-                                        
-                                            <tbody  >
-                                        
-                                                <tr *ngFor="let cohorte of cohortes" >
-                    
-                                                  <td scope="row">{{cohorte.Id}}</td>
-                                                  <td>{{cohorte.Nombre}}</td>
-                                                  <td>
-                                                   <label class="container">
-                                                      <input type="checkbox" [(ngModel)]="cohorte.Seleccionado" >
-                                                      <span class="checkmark"></span>
-                                                    </label>
-                                                  </td>
-                                                </tr>
-                    
-                                            
-                                            </tbody>
-                                        
-                                        </table>
-                                </div>        
-                            </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        
-       
-                <div class="col-md-1" style="margin-right: 10px;">
-                    <div ngbDropdown class="d-inline-block">
-                        <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle>Programas</button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownForm1">
-                            <div class="row" >
-                                <div class="col-md-12 cuadro">
-                                    <h3  align='center'>Lista Programas</h3>
-                        
-                                   <div class="row" >
-                                        <table class="table table-striped" >
-                                            
-                                                <thead>
-                                                
-                                                    <tr class="colums">
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Programa</th>
-                                                    <th scope="col"></th>
-                        
-                                                    </tr>
-                                                </thead>
-                                            
-                                            
-                                                <tbody  >
-                                            
-                                                    <tr *ngFor="let programa of programas" >
-                        
-                                                    <td scope="row">{{programa.Id}}</td>
-                                                    <td>{{programa.Nombre}}</td>
-                                                    <td>
-                                                            <label class="container">
-                                                                    <input type="checkbox" [(ngModel)]="programa.Seleccionado" >
-                                                                    <span class="checkmark"></span>
-                                                            </label>
-                        
-                                                    </td>
-                                                    </tr>
-                        
-                                                
-                                                </tbody>
-                                            
-                                            </table>
-                                    </div>        
-                                </div>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            
+  <div class="col-md-1">
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle>Cohortes</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownForm1">
+        <div class="row" >
+          <div class="col-md-12 cuadro">
+            <h3>Lista Cohortes</h3>
+            <div class="row" >
+              <table class="table table-striped" >                                       
+                <thead>
+                  <tr class="colums">
+                    <th scope="col">#</th>
+                    <th scope="col">Cohorte</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>                      
+                                    
+                <tbody>
+                  <tr *ngFor="let cohorte of cohortes" >
+                    <td scope="row">{{cohorte.Id}}</td>
+                    <td>{{cohorte.Nombre}}</td>
+                    <td>
+                      <label class="container">
+                        <input type="checkbox" [(ngModel)]="cohorte.Seleccionado" >
+                        <span class="checkmark"></span>
+                      </label>
+                    </td>
+                  </tr>
+                </tbody>                          
+              </table>
+            </div>        
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+              
+  <div class="col-md-1" style="margin-right: 10px;">
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle>Programas</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownForm1">
+        <div class="row">
+          <div class="col-md-12 cuadro">
+            <h3>Lista Programas</h3>
+            <div class="row" >
+              <table class="table table-striped" >
+                <thead>
+                  <tr class="colums">
+                    <th scope="col">#</th>
+                    <th scope="col">Programa</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let programa of programas" >
+                    <td scope="row">{{programa.Id}}</td>
+                    <td>{{programa.Nombre}}</td>
+                    <td>
+                      <label class="container">
+                        <input type="checkbox" [(ngModel)]="programa.Seleccionado" >
+                        <span class="checkmark"></span>
+                      </label>
+                    </td>
+                  </tr>             
+                </tbody>
+              </table>
+            </div>        
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
            
-                <div class="col-md-1">
-                    <div ngbDropdown class="d-inline-block">
-                        <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle>Sedes</button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownForm1">
-                            <div class="row" >
-                                <div class="col-md-12 cuadro">
-                                    <h3  align='center'>Lista Sedes</h3>
-                        
-                                   <div class="row" >
-                                        <table class="table table-striped" >
-                                            
-                                                <thead>
-                                                
-                                                    <tr class="colums">
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Sede</th>
-                                                    <th scope="col"></th>
-                        
-                                                    </tr>
-                                                </thead>
-                                            
-                                            
-                                                <tbody  >
-                                            
-                                                    <tr *ngFor="let sede of sedes" >
-                        
-                                                    <td scope="row">{{sede.Id}}</td>
-                                                    <td>{{sede.Nombre}}</td>
-                                                    <td>
-                                                            <label class="container">
-                                                                    <input type="checkbox" [(ngModel)]="sede.Seleccionado" >
-                                                                    <span class="checkmark"></span>
-                                                            </label>
-                        
-                                                    </td>
-                                                    </tr>
-                        
-                                                
-                                                </tbody>
-                                            
-                                            </table>
-                                    </div>        
-                                </div>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            
+  <div class="col-md-1">
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle>Sedes</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownForm1">
+        <div class="row" >
+          <div class="col-md-12 cuadro">
+            <h3  align='center'>Lista Sedes</h3>
+            <div class="row" >
+              <table class="table table-striped" >
+                <thead>                  
+                  <tr class="colums">
+                    <th scope="col">#</th>
+                    <th scope="col">Sede</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let sede of sedes" >
+                    <td scope="row">{{sede.Id}}</td>
+                    <td>{{sede.Nombre}}</td>
+                    <td>
+                      <label class="container">
+                        <input type="checkbox" [(ngModel)]="sede.Seleccionado" >
+                        <span class="checkmark"></span>
+                      </label>
+                    </td>
+                  </tr>
+                </tbody>              
+              </table>
+            </div>        
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>           
 </div>
 
 
@@ -176,6 +141,7 @@
 <h1>Reportes</h1>
 
 <div class="container" *ngFor="let dato of datos| slice:0; let i = index">
+
   <div class="col-md-6">
     <h4>{{dato.descripcion}}</h4>
       <table class="table" >
