@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ComunicacionesPrincipalComponent } from './comunicaciones-principal/comunicaciones-principal.component';
+import { ComunicacionesComponentesModule } from './comunicaciones-componentes/comunicaciones-componentes.module';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [ComunicacionesPrincipalComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    ComunicacionesComponentesModule
   ]
 })
 export class ComunicacionesModule { }

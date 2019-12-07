@@ -3,6 +3,18 @@ import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 
 import { Label } from 'ng2-charts';
 
+interface Cohorte { 
+  Id:number,
+  Nombre:number,
+  Seleccionado: boolean} 
+interface Programas { 
+  Id:number,
+  Nombre:string,
+  Seleccionado: boolean} 
+interface Sedes { 
+  Id:number,
+  Nombre:string,
+  Seleccionado: boolean} 
 @Component({
   selector: 'app-reportes-predefinidos-principal',
   templateUrl: './reportes-predefinidos-principal.component.html',
@@ -10,6 +22,84 @@ import { Label } from 'ng2-charts';
 })
 export class ReportesPredefinidosPrincipalComponent implements OnInit {
 
+  cohortes: Array<Cohorte> = [ {
+    Id:1,
+    Nombre:201965,
+    Seleccionado: false
+  },
+  {
+    Id:2,
+    Nombre:201935,
+    Seleccionado: false
+  },
+  {
+    Id:3,
+    Nombre:201974,
+    Seleccionado: false
+  },
+  {
+    Id:4,
+    Nombre:201945,
+    Seleccionado: false
+  },
+  {
+    Id:5,
+    Nombre:201862,
+    Seleccionado: false
+  }
+];
+programas: Array<Programas> = [ {
+  Id:1,
+  Nombre:'Agronomia, Veterinaria y afines',
+  Seleccionado: false
+},
+{
+  Id:2,
+  Nombre:"Bellas artes",
+  Seleccionado: false
+},
+{
+  Id:3,
+  Nombre:"Ciencias de la educación",
+  Seleccionado: false
+},
+{
+  Id:4,
+  Nombre:'Ciencias de la salud',
+  Seleccionado: false
+},
+{
+  Id:5,
+  Nombre:'Matematicas y ciencias naturales',
+  Seleccionado: false
+}
+];
+sedes: Array<Programas> = [ {
+  Id:1,
+  Nombre:'Ibagué',
+  Seleccionado: false
+},
+{
+  Id:2,
+  Nombre:"Puerto Boyaca",
+  Seleccionado: false
+},
+{
+  Id:3,
+  Nombre:"Fresno",
+  Seleccionado: false
+},
+{
+  Id:4,
+  Nombre:'Cajamarca',
+  Seleccionado: false
+},
+{
+  Id:5,
+  Nombre:'Líbano',
+  Seleccionado: false
+}
+];
   datos: any = [
     { 
       descripcion:'Descripcion de la estadistica',
