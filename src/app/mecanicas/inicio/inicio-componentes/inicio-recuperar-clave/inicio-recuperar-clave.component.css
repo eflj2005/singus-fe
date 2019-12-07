@@ -1,10 +1,10 @@
 
-.container {
+.contenedor {
     text-align: center;
     margin: 0 auto;
 }
 
-.container input {
+.contenedor input {
     display: initial;
     text-align: center;
     /* width: 60%; */
@@ -12,7 +12,7 @@
     /* font-weight: bold; */
 }
 
-.container label {
+.contenedor label {
 
     text-align: center;
     width: 60%;

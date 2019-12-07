@@ -2,7 +2,7 @@
 
 <!-- contenedor para formulario de registro -->
 
-<div class="container contenido">
+<div class="contenedor contenido">
     <div class="tituloSecundario ">
         <strong>
             <div>VALIDACIÓN DE CODIGO</div>
@@ -17,7 +17,7 @@
 
 <!-- contenedor para opciones o botones de login normal-->
 
-<div  class="container opcionesPie roundDown">
+<div  class="contenedor opcionesPie roundDown">
     <button class="mibutton" *ngIf="codigoMensaje.errors?.pattern || codigo == null" (click)="ValidarCodigo()" disabled>Validar</button>
     <button class="mibutton" *ngIf="!codigoMensaje.errors?.pattern && codigo != null && procesando == false" (click)="ValidarCodigo()" >Validar</button>
     <button class="mibutton" *ngIf="!codigoMensaje.errors?.pattern && codigo != null && procesando == true" ><i class="fa fa-spinner fa-spin"></i></button>

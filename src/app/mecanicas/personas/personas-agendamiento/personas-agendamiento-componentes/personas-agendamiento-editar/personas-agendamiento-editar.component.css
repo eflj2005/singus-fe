@@ -1,4 +1,4 @@
-.container {
+.contenedor {
     display: block;
     position: relative;
     padding-left: 35px;
@@ -13,7 +13,7 @@
   }
   
   
-  .container input {
+  .contenedor input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -34,13 +34,13 @@
   }
   
  
-  .container:hover input ~ .checkmark {
+  .contenedor:hover input ~ .checkmark {
     background-color: rgb(158, 154, 154);
     border-radius: 20%;
   }
   
   
-  .container input:checked ~ .checkmark {
+  .contenedor input:checked ~ .checkmark {
     background-color: #2196F3;
     border-radius: 20%;
   }
@@ -54,13 +54,13 @@
   }
   
 
-  .container input:checked ~ .checkmark:after {
+  .contenedor input:checked ~ .checkmark:after {
     display: block;
     border-radius: 20%;
   }
   
 
-  .container .checkmark:after {
+  .contenedor .checkmark:after {
     left: 9px;
     top: 5px;
     width: 5px;

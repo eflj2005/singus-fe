@@ -24,7 +24,7 @@
                     <td scope="row">{{cohorte.Id}}</td>
                     <td>{{cohorte.Nombre}}</td>
                     <td>
-                      <label class="container">
+                      <label class="contenedor">
                         <input type="checkbox" [(ngModel)]="cohorte.Seleccionado" >
                         <span class="checkmark"></span>
                       </label>
@@ -60,7 +60,7 @@
                     <td scope="row">{{programa.Id}}</td>
                     <td>{{programa.Nombre}}</td>
                     <td>
-                      <label class="container">
+                      <label class="contenedor">
                         <input type="checkbox" [(ngModel)]="programa.Seleccionado" >
                         <span class="checkmark"></span>
                       </label>
@@ -96,7 +96,7 @@
                     <td scope="row">{{sede.Id}}</td>
                     <td>{{sede.Nombre}}</td>
                     <td>
-                      <label class="container">
+                      <label class="contenedor">
                         <input type="checkbox" [(ngModel)]="sede.Seleccionado" >
                         <span class="checkmark"></span>
                       </label>
@@ -150,6 +150,25 @@
       </div>
     </div>
 </div>  
+
+<div>
+    <div class="row">
+        <div class="col-3">
+          <h4>ESTO ES LA FILA 1 COLUMNA A</h4>
+        </div>
+        <div class="col-9">
+          <h4>ESTO ES LA FILA 1 COLUMNA B</h4>
+        </div>  
+      </div>
+      <div class="row">
+        <div class="col-5">
+          <h4>ESTO ES LA FILA 2 COLUMNA A</h4>
+        </div>
+        <div class="col-7">
+          <h4>ESTO ES LA FILA 2 COLUMNA B</h4>
+        </div>  
+      </div>
+</div>
 
 <hr/>
 

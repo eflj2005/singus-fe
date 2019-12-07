@@ -36,24 +36,24 @@ body {font-family: 'lato';}
     padding: 2rem;
 }
 
-.container {
+.contenedor {
     padding: 10px;
 }
 
-/* .container.contenido {
+/* .contenedor.contenido {
     background-color:rgb(255, 255, 255, 0.9);
 }
 
-.container.opcionesPie{
+.contenedor.opcionesPie{
     background-color:rgba(226, 226, 226, 0.9);
 } */
 
-.container.roundUp {
+.contenedor.roundUp {
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
 }
 
-.container.roundDown {
+.contenedor.roundDown {
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
 }
