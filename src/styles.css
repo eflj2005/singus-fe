@@ -66,8 +66,6 @@ body {font-family: 'lato';}
 
 }
 
-
-
 .tituloSecundario {
    text-align: center;
    color:white;
@@ -123,7 +121,7 @@ html, body { height: 100%; }
 }
 
 table{
-    font-size: 15px;
+    font-size: 12px;
 }
 
 thead{

@@ -137,102 +137,84 @@
 
 <h1>Reportes</h1>
 
-
 <div class="container" *ngFor="let dato of datos| slice:0; let i = index">
-    <div class="row">
-      <div class="col-md-12 col-sm-12 col-lg-12">
-        <h4>ESTO ES LA FILA 1 </h4>
-      </div>
+  <div class="row">
+    <div class="col" style="background: lightblue;">
+        <h4>{{dato.descripcion}}</h4>      
     </div>
-    <div class="row">
-      <div class="col-md-12 col-sm-12 col-lg-12">
-        <h4>ESTO ES LA FILA 2 </h4>
-      </div>
-    </div>
-</div>  
+  </div>
+  <div class="row">  
 
-<div>
-    <div class="row">
-        <div class="col-3">
-          <h4>ESTO ES LA FILA 1 COLUMNA A</h4>
-        </div>
-        <div class="col-9">
-          <h4>ESTO ES LA FILA 1 COLUMNA B</h4>
-        </div>  
-      </div>
-      <div class="row">
-        <div class="col-5">
-          <h4>ESTO ES LA FILA 2 COLUMNA A</h4>
-        </div>
-        <div class="col-7">
-          <h4>ESTO ES LA FILA 2 COLUMNA B</h4>
-        </div>  
-      </div>
-</div>
+    <div class="col-md-4 cardsContainer" style="background-color: lightgreen;">
 
-<hr/>
-
-
-<div class="container" *ngFor="let dato of datos| slice:0; let i = index">
-    <div class="col-md-4">
-      <h4>{{dato.descripcion}}</h4>
-      <table class="table" >
-        <thead>
-          <tr>
-            <th>#</th>
-            <th *ngFor="let cabeza of dato.tabla.head" >{{cabeza}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let cuerpo of dato.tabla.body;let o = index">
-            <td scope="row">{{cuerpo}}</td>
-            <td *ngFor="let numero of dato.torta.datos">{{numero[0]}}</td>              
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col-md-8 cardsContainer">
-
-      <div class="card" >
-        <!-- <h4 align="center">N° Graduados por año</h4> -->
-        <div>
-          <div>
-            <div class="chart">
-              <canvas baseChart
-                [datasets]="datos[i].barras.datos"
-                [labels]="datos[i].barras.etiquetas"
-                [options]="barChartOptions"
-                [legend]="barChartLegend"
-                [chartType]="barChartType"
-              ></canvas>
+          <div class="card" >
+            <!-- <h4 align="center">N° Graduados por año</h4> -->
+            <div>
+              <div>
+                <div class="chart">
+                  <canvas baseChart
+                    [datasets]="datos[i].barras.datos"
+                    [labels]="datos[i].barras.etiquetas"
+                    [options]="barChartOptions"
+                    [legend]="barChartLegend"
+                    [chartType]="barChartType"
+                  ></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="card-text">{{dato.barras.descripcion}}</p>
             </div>
           </div>
-        </div>
-        <div class="card-body">
-          <p class="card-text">{{dato.barras.descripcion}}</p>
-        </div>
-      </div>
-      <div class="card " >
-        <!-- <h4 align="center">Graduados hasta la fecha</h4> -->
-        <div class="flex">
-          <div class="flex-item">
-            <div style="display: block;">
-              <canvas baseChart
-                [data]="datos[i].torta.datos"
-                [labels]="datos[i].torta.etiquetas"
-                [chartType]="pieChartType"
-                [colors]="datos[i].torta.colores"
-                [legend]="pieChartLegend"
-                [options]="pieChartOptions"
-              ></canvas>
+    
+    </div>
+    <div class="col-md-4 cardsContainer" style="background-color: lightsalmon;">
+
+          <div class="card " >
+            <!-- <h4 align="center">Graduados hasta la fecha</h4> -->
+            <div class="flex">
+              <div class="flex-item">
+                <div style="display: block;">
+                  <canvas baseChart
+                    [data]="datos[i].torta.datos"
+                    [labels]="datos[i].torta.etiquetas"
+                    [chartType]="pieChartType"
+                    [colors]="datos[i].torta.colores"
+                    [legend]="pieChartLegend"
+                    [options]="pieChartOptions"
+                  ></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="card-text" >{{dato.torta.descripcion}}</p>
             </div>
           </div>
-        </div>
-        <div class="card-body">
-          <p class="card-text" >{{dato.torta.descripcion}}</p>
-        </div>
-      </div>
+
     </div>
+    <div class="col" style="background-color: lightslategray;">
+
+        <table class="table" >
+          <thead>
+            <tr>
+              <th *ngFor="let elemento of dato.tabla.cabecera" >{{elemento}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let fila of dato.tabla.cuerpo">
+              <td *ngFor="let elemento of fila">{{elemento}}</td>              
+            </tr>
+          </tbody>
+          <tfoot>
+              <tr>
+                <td *ngFor="let elemento of dato.tabla.pie">{{elemento}}</td>              
+              </tr>
+            </tfoot>          
+        </table>
+
+    </div>    
+
+  </div>
 
 </div>        
 

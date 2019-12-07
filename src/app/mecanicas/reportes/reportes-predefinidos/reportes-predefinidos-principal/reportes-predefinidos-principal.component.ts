@@ -50,36 +50,29 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
     { 
       descripcion:'¿Nivel de satisfacion con su institucion (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
       tabla:{
-        head:[ "satisfacción con su institución"],
-        body:["Muy Insatisfecho","Insatisfecho","Satisfecho","Muy Satisfecho"]
+        cabecera: [ "", "2017", "2018", "Total"],
+        cuerpo:[
+          [ 'Muy Insatisfecho', 3,  7,  10 ],
+          [ 'Insatisfecho',     10, 13, 23 ],
+          [ 'Satisfecho',       26, 18, 44 ],
+          [ 'Muy Satisfecho',   30, 26, 56 ],
+        ],
+        pie: [ 'Total', 69, 64, 133 ]
       },      
       torta: {
-        datos:[10,23,44,56],
-        descripcion:["Nivel de satisfacion con la institucion"],
+        descripcion:["General"],        
         etiquetas:['Muy Insatisfecho','Insatisfecho','Satisfecho','Muy Satisfecho'],
+        datos:[10,23,44,56],
         colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
       },
       barras:{
-        descripcion:["Nivel de satisfacion con su institucion por año"],
-        etiquetas:['Niveles de satisfacción 2017','Niveles de satisfacción 2018'],
+        descripcion:["Por Año"],
+        etiquetas:['2017','2018'],
         datos:[
-          { 
-            data:[3,7],
-            label:'Muy Insatisfecho'
-          },
-          { 
-            data:[10,13],
-            label:'Insatisfecho'
-          },
-          { 
-            data:[26,18],
-            label:'Satisfecho'
-          },{ 
-            data:[30,26],
-            label:'Muy Satisfecho'
-          },
-          
-
+          { data:[3,7],   label:'Muy Insatisfecho'  },
+          { data:[10,13], label:'Insatisfecho'      },
+          { data:[26,18], label:'Satisfecho'        },
+          { data:[30,26], label:'Muy Satisfecho'    },        
         ],
       }
     },{ 
@@ -96,7 +89,7 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       },
       barras:{
         descripcion:["Nivel de satisfacion con la calidad de formacion integral recibida por año"],
-        etiquetas:['Niveles de satisfacción 2017','Niveles de satisfacción 2018'],
+        etiquetas:['2017','2018'],
         datos:[
           { 
             data:[27,3],
