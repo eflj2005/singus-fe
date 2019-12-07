@@ -102,55 +102,213 @@ sedes: Array<Programas> = [ {
 ];
   datos: any = [
     { 
-      descripcion:'Descripcion de la estadistica',
+      descripcion:'¿Nivel de satisfacion con su institucion (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
       torta: {
-        etiquetas:['etiqueta1','etiqueta2','etiqueta3'],
-        datos:[10,20,30],
-        colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)']}]
+        datos:[10,23,44,56],
+        descripcion:["Nivel de satisfacion con la institucion"],
+        etiquetas:['Muy Insatisfecho','Insatisfecho','Satisfecho','Muy Satisfecho'],
+        colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
+      },
+      tabla:{
+        head:[ "satisfacción con su institución"],
+        body:["Muy Insatisfecho","Insatisfecho","Satisfecho","Muy Satisfecho"]
       },
       barras:{
-        etiquetas:['etiqueta1','etiqueta2','etiqueta3'],
+        descripcion:["Nivel de satisfacion con su institucion por año"],
+        etiquetas:['Niveles de satisfacción 2017','Niveles de satisfacción 2018'],
         datos:[
           { 
-            data:[7,26,40],
-            label:'serie1'
+            data:[3,7],
+            label:'Muy Insatisfecho'
           },
           { 
-            data:[25,20,30],
-            label:'serie2'
+            data:[10,13],
+            label:'Insatisfecho'
           },
           { 
-            data:[18,55,20],
-            label:'serie3'
-          }
+            data:[26,18],
+            label:'Satisfecho'
+          },{ 
+            data:[30,26],
+            label:'Muy Satisfecho'
+          },
+          
+
         ],
       }
-    }, 
+    },{ 
+      descripcion:'¿Nivel de satisfacion con la calidad de formacion integral recibida (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
+      torta: {
+        datos:[30,27,12,20],
+        descripcion:["Nivel de satisfacion con la calidad de formacion integral recibida"],
+        etiquetas:['Muy Insatisfecho','Insatisfecho','Satisfecho','Muy Satisfecho'],
+        colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
+      },
+      tabla:{
+        head:[ "satisfacción con la calidad de formacion integral recibida"],
+        body:["Muy Insatisfecho","Insatisfecho","Satisfecho","Muy Satisfecho"]
+      },
+      barras:{
+        descripcion:["Nivel de satisfacion con la calidad de formacion integral recibida por año"],
+        etiquetas:['Niveles de satisfacción 2017','Niveles de satisfacción 2018'],
+        datos:[
+          { 
+            data:[27,3],
+            label:'Muy Insatisfecho'
+          },
+          { 
+            data:[17,10],
+            label:'Insatisfecho'
+          },
+          { 
+            data:[2,10],
+            label:'Satisfecho'
+          },{ 
+            data:[5,15],
+            label:'Muy Satisfecho'
+          },
+          
+
+        ],
+      }
+    },{ 
+      descripcion:'¿Nivel de satisfacion con la disponibilidad de tiempo de los profesores (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
+      torta: {
+        datos:[20,10,30,20],
+        descripcion:["Nivel de satisfacion con la disponibilidad de tiempo de los profesores"],
+        etiquetas:['Muy Insatisfecho','Insatisfecho','Satisfecho','Muy Satisfecho'],
+        colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
+      },
+      tabla:{
+        head:[ "satisfacción con la disponibilidad de tiempo de los profesores"],
+        body:["Muy Insatisfecho","Insatisfecho","Satisfecho","Muy Satisfecho"]
+      },
+      barras:{
+        descripcion:["Nivel de satisfacion con la disponibilidad de tiempo de los profesores por año"],
+        etiquetas:['Niveles de satisfacción 2017','Niveles de satisfacción 2018'],
+        datos:[
+          { 
+            data:[2,18],
+            label:'Muy Insatisfecho'
+          },
+          { 
+            data:[3,7],
+            label:'Insatisfecho'
+          },
+          { 
+            data:[20,10],
+            label:'Satisfecho'
+          },{ 
+            data:[12,8],
+            label:'Muy Satisfecho'
+          },
+          
+
+        ],
+      }
+    },
     { 
-      descripcion:'Descripcion de la estadistica',
+      descripcion:'¿Nivel de satisfacion con la Opotunidad de participacion  en   actividades extracurriculares (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
       torta: {
-        etiquetas:['etiqueta1','etiqueta2','etiqueta3'],
-        datos:[10,20,30],
-        colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)']}]
+        datos:[10,20,30,40],
+        descripcion:["Nivel de satisfacion con la Opotunidad de participacion  en   actividades extracurriculares"],
+        etiquetas:['Muy Insatisfecho','Insatisfecho','Satisfecho','Muy Satisfecho'],
+        colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
+      },
+      tabla:{
+        head:[ "satisfacción con la Opotunidad de participacion  en   actividades extracurriculares"],
+        body:["Muy Insatisfecho","Insatisfecho","Satisfecho","Muy Satisfecho"]
       },
       barras:{
-        etiquetas:['etiqueta1','etiqueta2','etiqueta3'],
+        descripcion:["Nivel de satisfacion con la Opotunidad de participacion  en   actividades extracurriculares por año"],
+        etiquetas:['Niveles de satisfacción 2017','Niveles de satisfacción 2018'],
         datos:[
           { 
-            data:[7,26,40],
-            label:'serie1'
+            data:[2,8],
+            label:'Muy Insatisfecho'
           },
           { 
-            data:[25,20,30],
-            label:'serie2'
+            data:[20,10],
+            label:'Insatisfecho'
           },
           { 
-            data:[18,55,20],
-            label:'serie3'
-          }
+            data:[20,10],
+            label:'Satisfecho'
+          },{ 
+            data:[30,10],
+            label:'Muy Satisfecho'
+          },
+          
+
         ],
       }
-    }
+    },
+    { 
+      descripcion:'¿Nivel de satisfacion con las relaciones interpersonales con la comunidad institucional (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
+      torta: {
+        datos:[28,10,25,30],
+        descripcion:["Nivel de satisfacion con las relaciones interpersonales con la comunidad institucional"],
+        etiquetas:['Muy Insatisfecho','Insatisfecho','Satisfecho','Muy Satisfecho'],
+        colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
+      },
+      tabla:{
+        head:[ "satisfacción con las relaciones interpersonales con la comunidad institucional"],
+        body:["Muy Insatisfecho","Insatisfecho","Satisfecho","Muy Satisfecho"]
+      },
+      barras:{
+        descripcion:["Nivel de satisfacion con las relaciones interpersonales con la comunidad institucional por año"],
+        etiquetas:['Niveles de satisfacción 2017','Niveles de satisfacción 2018'],
+        datos:[
+          { 
+            data:[2,26],
+            label:'Muy Insatisfecho'
+          },
+          { 
+            data:[3,7],
+            label:'Insatisfecho'
+          },
+          { 
+            data:[15,10],
+            label:'Satisfecho'
+          },{ 
+            data:[25,5],
+            label:'Muy Satisfecho'
+          },
+          
+
+        ],
+      }
+    },
+    { 
+      descripcion:'¿Existe un balance entre las actividades extracurriculares y académicas?',
+      torta: {
+        datos:[28,10],
+        descripcion:["Balance entre las actividades extracurriculares y académicas"],
+        etiquetas:["Si hay balance","No hay balance"],
+        colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
+      },
+      tabla:{
+        head:[ "Balance entre las actividades extracurriculares y académicas"],
+        body:["Si hay balance","No hay balance"]
+      },
+      barras:{
+        descripcion:["Balance entre las actividades extracurriculares y académicas por año"],
+        etiquetas:['Respuestas 2017','Respuestas 2018'],
+        datos:[
+          { 
+            data:[14,14],
+            label:'Si hay balance'
+          },
+          { 
+            data:[3,7],
+            label:'No hay balance'
+          },
+         
+          
+
+        ],
+      }
+    },
   ]
  
   

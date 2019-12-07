@@ -171,102 +171,84 @@
 <button type="button" class="btn" (click)="crear(1)">Crear en pantalla</button>
 <button type="button" class="btn btn-info">Crear en pdf</button>
 
-<div align="center" class="container row">
+
 
     
-{{datos[0].torta.datos[0]}}
 
-        <table class="table col-md-12" >
+
+<h1 align='center'>Reportes</h1>
+<div class="container" *ngFor="let dato of datos| slice:0; let i = index">
+    <div class="col-md-6">
+        <h4 align='center'>{{dato.descripcion}}</h4>
+        <table class="table" >
                 <thead>
                     <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Programa</th>
-                    <th scope="col">Numero de graduados</th>
-                    <th scope="col">Sede</th>
-                    <th scope="col">Cohorte</th>
+                    <th >#</th>
+                    <th  *ngFor="let cabeza of dato.tabla.head" >{{cabeza}}</th>
+                   
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>@twitter</td>
+                    <tr *ngFor="let cuerpo of dato.tabla.body;let o = index">
+                        <th scope="row">{{cuerpo}}</th>
+                        <td *ngFor="let numero of dato.torta.datos">{{numero[0]}}</td>
+                        
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>@twitter</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>@twitter</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>@twitter</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>@twitter</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>@twitter</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>@twitter</td>
-                    </tr>
+                    
                 </tbody>
             </table>
+    </div>
 
-            <div class="card  col-md-6" >
- 
-                    <div style="display: block" >
-                            <h4 align="center">Número de graduados por año</h4>
-                            <canvas baseChart
-                                [datasets]="datos[0].barras.datos"
-                                [labels]="datos[0].barras.etiquetas"
-                                [options]="barChartOptions"
-                                [legend]="barChartLegend"
-                                [chartType]="barChartType">
-                            </canvas>
+    <div class="col-md-6 cardsContainer">
+
+        
+
+            <div class="card" >
+                    <!-- <h4 align="center">N° Graduados por año</h4> -->
+                    <div>
+                        <div>
+                            <div class="chart">
+                                    <canvas baseChart
+                                    [datasets]="datos[i].barras.datos"
+                                    [labels]="datos[i].barras.etiquetas"
+                                    [options]="barChartOptions"
+                                    [legend]="barChartLegend"
+                                    [chartType]="barChartType">
+                                </canvas>
                             </div>
-            </div>
-
-            <div class="card  col-md-6" >
-                    <div class="chart">
-                        <h4 align="center">Graduados hasta la fecha</h4>
-                        <canvas baseChart
-                            [data]="datos[0].torta.datos"
-                            [labels]="datos[0].torta.etiquetas"
-                            [chartType]="pieChartType"
-                            [colors]="datos[0].torta.colores"
-                            [legend]="pieChartLegend"
-                            [options]="pieChartOptions">
-                        </canvas>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{dato.barras.descripcion}}</p>
                     </div>
             </div>
-</div>
+
+            <div class="card " >
+                    <!-- <h4 align="center">Graduados hasta la fecha</h4> -->
+                    <div class="flex">
+                            <div class="flex-item">
+                              <div style="display: block;">
+                                    <canvas baseChart
+                                    [data]="datos[i].torta.datos"
+                                    [labels]="datos[i].torta.etiquetas"
+                                    [chartType]="pieChartType"
+                                    [colors]="datos[i].torta.colores"
+                                    [legend]="pieChartLegend"
+                                    [options]="pieChartOptions">
+                                </canvas>
+                              </div>
+                            </div>
+                          </div>
+                <div class="card-body">
+                    <p class="card-text"  align="center" >{{dato.torta.descripcion}}</p>
+                </div>
+            </div>
+
+    </div>
+
+</div>        
+
+           
 
 
 
