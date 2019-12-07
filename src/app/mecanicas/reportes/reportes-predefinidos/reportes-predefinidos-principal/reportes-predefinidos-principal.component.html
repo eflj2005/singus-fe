@@ -113,9 +113,6 @@
 </div>
 
 
-
-
-
 <label>Eleccion de reporte:</label>
 <select class="form-control"  required>
     <option value="0" disabled >--Seleccione Reporte--</option>
@@ -140,10 +137,26 @@
 
 <h1>Reportes</h1>
 
-<div class="container" *ngFor="let dato of datos| slice:0; let i = index">
 
-  <div class="col-md-6">
-    <h4>{{dato.descripcion}}</h4>
+<div class="container" *ngFor="let dato of datos| slice:0; let i = index">
+    <div class="row">
+      <div class="col">
+        <h4>ESTO ES LA FILA 1 </h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h4>ESTO ES LA FILA 2 </h4>
+      </div>
+    </div>
+</div>  
+
+<hr/>
+
+
+<div class="container" *ngFor="let dato of datos| slice:0; let i = index">
+    <div class="col-md-4">
+      <h4>{{dato.descripcion}}</h4>
       <table class="table" >
         <thead>
           <tr>
@@ -151,62 +164,55 @@
             <th *ngFor="let cabeza of dato.tabla.head" >{{cabeza}}</th>
           </tr>
         </thead>
-                <tbody>
-                    <tr *ngFor="let cuerpo of dato.tabla.body;let o = index">
-                        <th scope="row">{{cuerpo}}</th>
-                        <td *ngFor="let numero of dato.torta.datos">{{numero[0]}}</td>
-                        
-                    </tr>
-                    
-                </tbody>
-            </table>
+        <tbody>
+          <tr *ngFor="let cuerpo of dato.tabla.body;let o = index">
+            <td scope="row">{{cuerpo}}</td>
+            <td *ngFor="let numero of dato.torta.datos">{{numero[0]}}</td>              
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <div class="col-md-8 cardsContainer">
 
-    <div class="col-md-6 cardsContainer">
-
-        
-
-            <div class="card" >
-                    <!-- <h4 align="center">N° Graduados por año</h4> -->
-                    <div>
-                        <div>
-                            <div class="chart">
-                                    <canvas baseChart
-                                    [datasets]="datos[i].barras.datos"
-                                    [labels]="datos[i].barras.etiquetas"
-                                    [options]="barChartOptions"
-                                    [legend]="barChartLegend"
-                                    [chartType]="barChartType">
-                                </canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">{{dato.barras.descripcion}}</p>
-                    </div>
+      <div class="card" >
+        <!-- <h4 align="center">N° Graduados por año</h4> -->
+        <div>
+          <div>
+            <div class="chart">
+              <canvas baseChart
+                [datasets]="datos[i].barras.datos"
+                [labels]="datos[i].barras.etiquetas"
+                [options]="barChartOptions"
+                [legend]="barChartLegend"
+                [chartType]="barChartType"
+              ></canvas>
             </div>
-
-            <div class="card " >
-                    <!-- <h4 align="center">Graduados hasta la fecha</h4> -->
-                    <div class="flex">
-                            <div class="flex-item">
-                              <div style="display: block;">
-                                    <canvas baseChart
-                                    [data]="datos[i].torta.datos"
-                                    [labels]="datos[i].torta.etiquetas"
-                                    [chartType]="pieChartType"
-                                    [colors]="datos[i].torta.colores"
-                                    [legend]="pieChartLegend"
-                                    [options]="pieChartOptions">
-                                </canvas>
-                              </div>
-                            </div>
-                          </div>
-                <div class="card-body">
-                    <p class="card-text"  align="center" >{{dato.torta.descripcion}}</p>
-                </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{dato.barras.descripcion}}</p>
+        </div>
+      </div>
+      <div class="card " >
+        <!-- <h4 align="center">Graduados hasta la fecha</h4> -->
+        <div class="flex">
+          <div class="flex-item">
+            <div style="display: block;">
+              <canvas baseChart
+                [data]="datos[i].torta.datos"
+                [labels]="datos[i].torta.etiquetas"
+                [chartType]="pieChartType"
+                [colors]="datos[i].torta.colores"
+                [legend]="pieChartLegend"
+                [options]="pieChartOptions"
+              ></canvas>
             </div>
-
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text" >{{dato.torta.descripcion}}</p>
+        </div>
+      </div>
     </div>
 
 </div>        
