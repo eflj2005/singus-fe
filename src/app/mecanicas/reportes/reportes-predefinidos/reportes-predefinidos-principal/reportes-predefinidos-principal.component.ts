@@ -106,47 +106,47 @@ sedes: Array<Programas> = [ {
       torta: {
         etiquetas:['etiqueta1','etiqueta2','etiqueta3'],
         datos:[10,20,30],
-        colores:['blue','green','yellow']
+        colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)']}]
       },
       barras:{
         etiquetas:['etiqueta1','etiqueta2','etiqueta3'],
         datos:[
           { 
-            info:[10,20,30,40],
-            series:'serie1'
+            data:[7,26,40],
+            label:'serie1'
           },
           { 
-            info:[10,20,30,40],
-            series:'serie2'
+            data:[25,20,30],
+            label:'serie2'
           },
           { 
-            info:[10,20,30,40],
-            series:'serie3'
+            data:[18,55,20],
+            label:'serie3'
           }
         ],
       }
     }, 
-    {
+    { 
       descripcion:'Descripcion de la estadistica',
       torta: {
         etiquetas:['etiqueta1','etiqueta2','etiqueta3'],
         datos:[10,20,30],
-        colores:['blue','green','yellow']
+        colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)']}]
       },
       barras:{
         etiquetas:['etiqueta1','etiqueta2','etiqueta3'],
         datos:[
           { 
-            info:[10,20,30,40],
-            series:'serie1'
+            data:[7,26,40],
+            label:'serie1'
           },
           { 
-            info:[10,20,30,40],
-            series:'serie2'
+            data:[25,20,30],
+            label:'serie2'
           },
           { 
-            info:[10,20,30,40],
-            series:'serie3'
+            data:[18,55,20],
+            label:'serie3'
           }
         ],
       }

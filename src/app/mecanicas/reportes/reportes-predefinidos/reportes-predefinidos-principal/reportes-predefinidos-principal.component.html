@@ -173,6 +173,9 @@
 
 <div align="center" class="container row">
 
+    
+{{datos[0].torta.datos[0]}}
+
         <table class="table col-md-12" >
                 <thead>
                     <tr>
@@ -236,30 +239,28 @@
                 </tbody>
             </table>
 
-
             <div class="card  col-md-6" >
  
                     <div style="display: block" >
                             <h4 align="center">Número de graduados por año</h4>
                             <canvas baseChart
-                                [datasets]="barChartData"
-                                [labels]="barChartLabels"
+                                [datasets]="datos[0].barras.datos"
+                                [labels]="datos[0].barras.etiquetas"
                                 [options]="barChartOptions"
-                                [plugins]="barChartPlugins"
                                 [legend]="barChartLegend"
                                 [chartType]="barChartType">
                             </canvas>
                             </div>
             </div>
+
             <div class="card  col-md-6" >
                     <div class="chart">
                         <h4 align="center">Graduados hasta la fecha</h4>
                         <canvas baseChart
-                            [data]="pieChartData"
-                            [labels]="pieChartLabels"
+                            [data]="datos[0].torta.datos"
+                            [labels]="datos[0].torta.etiquetas"
                             [chartType]="pieChartType"
-                            [plugins]="pieChartPlugins"
-                            [colors]="pieChartColors"
+                            [colors]="datos[0].torta.colores"
                             [legend]="pieChartLegend"
                             [options]="pieChartOptions">
                         </canvas>
