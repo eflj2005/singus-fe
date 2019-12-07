@@ -22,84 +22,30 @@ interface Sedes {
 })
 export class ReportesPredefinidosPrincipalComponent implements OnInit {
 
-  cohortes: Array<Cohorte> = [ {
-    Id:1,
-    Nombre:201965,
-    Seleccionado: false
-  },
-  {
-    Id:2,
-    Nombre:201935,
-    Seleccionado: false
-  },
-  {
-    Id:3,
-    Nombre:201974,
-    Seleccionado: false
-  },
-  {
-    Id:4,
-    Nombre:201945,
-    Seleccionado: false
-  },
-  {
-    Id:5,
-    Nombre:201862,
-    Seleccionado: false
-  }
-];
-programas: Array<Programas> = [ {
-  Id:1,
-  Nombre:'Agronomia, Veterinaria y afines',
-  Seleccionado: false
-},
-{
-  Id:2,
-  Nombre:"Bellas artes",
-  Seleccionado: false
-},
-{
-  Id:3,
-  Nombre:"Ciencias de la educación",
-  Seleccionado: false
-},
-{
-  Id:4,
-  Nombre:'Ciencias de la salud',
-  Seleccionado: false
-},
-{
-  Id:5,
-  Nombre:'Matematicas y ciencias naturales',
-  Seleccionado: false
-}
-];
-sedes: Array<Programas> = [ {
-  Id:1,
-  Nombre:'Ibagué',
-  Seleccionado: false
-},
-{
-  Id:2,
-  Nombre:"Puerto Boyaca",
-  Seleccionado: false
-},
-{
-  Id:3,
-  Nombre:"Fresno",
-  Seleccionado: false
-},
-{
-  Id:4,
-  Nombre:'Cajamarca',
-  Seleccionado: false
-},
-{
-  Id:5,
-  Nombre:'Líbano',
-  Seleccionado: false
-}
-];
+  cohortes: Array<Cohorte> = [
+    { Id:1, Nombre:201965,  Seleccionado: false },
+    { Id:2, Nombre:201935,  Seleccionado: false },
+    { Id:3, Nombre:201974,  Seleccionado: false },
+    { Id:4, Nombre:201945,  Seleccionado: false },
+    { Id:5, Nombre:201862,  Seleccionado: false }
+  ];
+
+  programas: Array<Programas> = [ 
+    {  Id:1,  Nombre:'Agronomia, Veterinaria y afines',   Seleccionado: false },
+    {  Id:2,  Nombre:"Bellas artes",                      Seleccionado: false },
+    {  Id:3,  Nombre:"Ciencias de la educación",          Seleccionado: false },
+    {  Id:4,  Nombre:'Ciencias de la salud',              Seleccionado: false },
+    {  Id:5,  Nombre:'Matematicas y ciencias naturales',  Seleccionado: false }
+  ];
+
+  sedes: Array<Programas> = [ 
+    { Id:1, Nombre:'Ibagué',        Seleccionado: false },
+    { Id:2, Nombre:"Puerto Boyaca", Seleccionado: false },
+    { Id:3, Nombre:"Fresno",        Seleccionado: false },
+    { Id:4, Nombre:'Cajamarca',     Seleccionado: false },
+    { Id:5, Nombre:'Líbano',        Seleccionado: false }
+  ];
+  
   datos: any = [
     { 
       descripcion:'¿Nivel de satisfacion con su institucion (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
