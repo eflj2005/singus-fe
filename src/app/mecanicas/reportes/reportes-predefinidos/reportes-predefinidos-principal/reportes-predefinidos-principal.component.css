@@ -1,5 +1,6 @@
 .table{
-    margin-left: 1rem;
+    margin-left: 0;
+    line-height: 0;
 }
 
 button{
@@ -86,7 +87,6 @@ button{
 .cardsContainer{
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .card{

@@ -50,32 +50,33 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
     { 
       descripcion:'¿Nivel de satisfacion con su institucion (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
       tabla:{
-        cabecera: [ "", "2017", "2018", "Total"],
+        cabecera: [ "", "2013", "2014", "2015", "2016", "2017", "2018", "Total"],
         cuerpo:[
-          [ 'Muy Insatisfecho', 3,  7,  10 ],
-          [ 'Insatisfecho',     10, 13, 23 ],
-          [ 'Satisfecho',       26, 18, 44 ],
-          [ 'Muy Satisfecho',   30, 26, 56 ],
+          [ 'Muy Insatisfecho', 3,  7,  15, 18, 8,  11, 62 ],
+          [ 'Insatisfecho',     10, 13, 23, 8,  22, 15, 91  ],
+          [ 'Satisfecho',       26, 18, 44, 22, 15, 3,  128 ],
+          [ 'Muy Satisfecho',   30, 26, 56, 44, 87, 32, 275 ],
         ],
-        pie: [ 'Total', 69, 64, 133 ]
+        pie: [ 'Total', 69, 64, 138, 92, 132, 61, 556 ]
       },      
       torta: {
         descripcion:["General"],        
         etiquetas:['Muy Insatisfecho','Insatisfecho','Satisfecho','Muy Satisfecho'],
-        datos:[10,23,44,56],
+        datos:[ 62, 91, 128, 275],
         colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
       },
       barras:{
         descripcion:["Por Año"],
-        etiquetas:['2017','2018'],
+        etiquetas:["2013", "2014", "2015", "2016", "2017", "2018"],
         datos:[
-          { data:[3,7],   label:'Muy Insatisfecho'  },
-          { data:[10,13], label:'Insatisfecho'      },
-          { data:[26,18], label:'Satisfecho'        },
-          { data:[30,26], label:'Muy Satisfecho'    },        
+          { data:[ 3,  7,  15, 18, 8,  11 ],  label:'Muy Insatisfecho'  },
+          { data:[ 10, 13, 23, 8,  22, 14 ],  label:'Insatisfecho'      },
+          { data:[ 26, 18, 44, 22, 15, 3 ],   label:'Satisfecho'        },
+          { data:[ 30, 26, 56, 44, 87, 32 ],  label:'Muy Satisfecho'    },        
         ],
       }
-    },{ 
+    },
+    { 
       descripcion:'¿Nivel de satisfacion con la calidad de formacion integral recibida (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
       tabla:{
         head:[ "satisfacción con la calidad de formacion integral recibida"],
@@ -265,6 +266,15 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       position: 'top',
     },
     plugins: {
+      labels: [
+        {
+          render: 'label',
+          position: 'outside'
+        },
+        {
+          render: 'value'
+        }
+      ],
       datalabels: {
         formatter: (value, ctx) => {
           const label = ctx.chart.data.labels[ctx.dataIndex];
@@ -320,6 +330,8 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       }
     }
   };
+
+
   public barChartLabels: Label[] = ['2010', '2011', '2012', '2013', '2014', '2015', '2016'];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;

@@ -137,15 +137,16 @@
 
 <h1>Reportes</h1>
 
-<div class="container" *ngFor="let dato of datos| slice:0; let i = index">
+<div class="container" *ngFor="let dato of datos| slice:0; let i = index" style="background-color: red;">
   <div class="row">
     <div class="col" style="background: lightblue;">
         <h4>{{dato.descripcion}}</h4>      
     </div>
   </div>
+
   <div class="row">  
 
-    <div class="col-md-4 cardsContainer" style="background-color: lightgreen;">
+    <div class="col-md-6 cardsContainer" style="background-color: lightgreen;">
 
           <div class="card" >
             <!-- <h4 align="center">N° Graduados por año</h4> -->
@@ -168,7 +169,7 @@
           </div>
     
     </div>
-    <div class="col-md-4 cardsContainer" style="background-color: lightsalmon;">
+    <div class="col-md-6 cardsContainer" style="background-color: lightsalmon;">
 
           <div class="card " >
             <!-- <h4 align="center">Graduados hasta la fecha</h4> -->
@@ -192,30 +193,35 @@
           </div>
 
     </div>
-    <div class="col" style="background-color: lightslategray;">
-
-        <table class="table" >
-          <thead>
-            <tr>
-              <th *ngFor="let elemento of dato.tabla.cabecera" >{{elemento}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let fila of dato.tabla.cuerpo">
-              <td *ngFor="let elemento of fila">{{elemento}}</td>              
-            </tr>
-          </tbody>
-          <tfoot>
-              <tr>
-                <td *ngFor="let elemento of dato.tabla.pie">{{elemento}}</td>              
-              </tr>
-            </tfoot>          
-        </table>
-
-    </div>    
 
   </div>
+  
+  <div class="row">
 
+    <div class="col" style="background-color: lightslategray;">
+
+      <table class="table" >
+        <thead>
+          <tr>
+            <th *ngFor="let elemento of dato.tabla.cabecera" >{{elemento}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fila of dato.tabla.cuerpo">
+            <td *ngFor="let elemento of fila">{{elemento}}</td>              
+          </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+              <td *ngFor="let elemento of dato.tabla.pie">{{elemento}}</td>              
+            </tr>
+          </tfoot>          
+      </table>
+
+    </div>  
+
+  </div>
+  <hr/>
 </div>        
 
            
