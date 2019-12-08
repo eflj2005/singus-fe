@@ -128,103 +128,102 @@
     <option value="10">Acompañamiento para la búsqueda de oportunidades laborales</option>
 </select>
 <button type="button" class="btn" (click)="crear(1)">Crear en pantalla</button>
-<button type="button" class="btn btn-info">Crear en pdf</button>
-
-
-
-    
+<button type="button" class="btn btn-info" (click)="exportToPdf.saveAs('reporteEstadistico.pdf')">Crear en pdf</button>   
 
 
 <h1>Reportes</h1>
 
-<div class="container" *ngFor="let dato of datos| slice:0; let i = index" style="background-color: red;">
-  <div class="row">
-    <div class="col" style="background: lightblue;">
-        <h4>{{dato.descripcion}}</h4>      
+
+<kendo-pdf-export #exportToPdf paperSize="Letter" margin="1cm" [scale]="escalaPdf">
+
+  <div class="container" *ngFor="let dato of datos| slice:0; let i = index" >
+    <div class="row">
+      <div class="col" style="background: lightblue;">
+          <h5>{{dato.descripcion}}</h5>      
+      </div>
     </div>
-  </div>
 
-  <div class="row">  
+    <div class="row">  
 
-    <div class="col-md-6 cardsContainer" style="background-color: lightgreen;">
+      <div class="col-md-6 cardsContainer">
 
-          <div class="card" >
-            <!-- <h4 align="center">N° Graduados por año</h4> -->
+        <div class="card" >
+          <!-- <h4 align="center">N° Graduados por año</h4> -->
+          <div class="card-body">
+            <p class="card-text">{{dato.barras.descripcion}}</p>
+          </div>            
+          <div>
             <div>
-              <div>
-                <div class="chart">
-                  <canvas baseChart
-                    [datasets]="datos[i].barras.datos"
-                    [labels]="datos[i].barras.etiquetas"
-                    [options]="barChartOptions"
-                    [legend]="barChartLegend"
-                    [chartType]="barChartType"
-                  ></canvas>
-                </div>
+              <div class="chart">
+                <canvas baseChart
+                  [datasets]="datos[i].barras.datos"
+                  [labels]="datos[i].barras.etiquetas"
+                  [options]="barChartOptions"
+                  [legend]="barChartLegend"
+                  [chartType]="barChartType"
+                ></canvas>
               </div>
             </div>
-            <div class="card-body">
-              <p class="card-text">{{dato.barras.descripcion}}</p>
-            </div>
           </div>
+        </div>
     
-    </div>
-    <div class="col-md-6 cardsContainer" style="background-color: lightsalmon;">
+      </div>
+      <div class="col-md-6 cardsContainer" >
 
-          <div class="card " >
-            <!-- <h4 align="center">Graduados hasta la fecha</h4> -->
-            <div class="flex">
-              <div class="flex-item">
-                <div style="display: block;">
-                  <canvas baseChart
-                    [data]="datos[i].torta.datos"
-                    [labels]="datos[i].torta.etiquetas"
-                    [chartType]="pieChartType"
-                    [colors]="datos[i].torta.colores"
-                    [legend]="pieChartLegend"
-                    [options]="pieChartOptions"
-                  ></canvas>
-                </div>
+        <div class="card " >
+          <div class="card-body">
+            <p class="card-text" >{{dato.torta.descripcion}}</p>
+          </div>            
+          <!-- <h4 align="center">Graduados hasta la fecha</h4> -->
+          <div class="flex">
+            <div class="flex-item">
+              <div style="display: block;">
+                <canvas baseChart
+                  [data]="datos[i].torta.datos"
+                  [labels]="datos[i].torta.etiquetas"
+                  [chartType]="pieChartType"
+                  [colors]="datos[i].torta.colores"
+                  [legend]="pieChartLegend"
+                  [options]="pieChartOptions"
+                ></canvas>
               </div>
             </div>
-            <div class="card-body">
-              <p class="card-text" >{{dato.torta.descripcion}}</p>
-            </div>
           </div>
+        </div>
+
+      </div>
 
     </div>
+    
+    <div class="row">
+      <div class="col">
 
-  </div>
-  
-  <div class="row">
-
-    <div class="col" style="background-color: lightslategray;">
-
-      <table class="table" >
-        <thead>
-          <tr>
-            <th *ngFor="let elemento of dato.tabla.cabecera" >{{elemento}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let fila of dato.tabla.cuerpo">
-            <td *ngFor="let elemento of fila">{{elemento}}</td>              
-          </tr>
-        </tbody>
-        <tfoot>
+        <table class="table" >
+          <thead>
             <tr>
-              <td *ngFor="let elemento of dato.tabla.pie">{{elemento}}</td>              
+              <th *ngFor="let elemento of dato.tabla.cabecera" >{{elemento}}</th>
             </tr>
-          </tfoot>          
-      </table>
+          </thead>
+          <tbody>
+            <tr *ngFor="let fila of dato.tabla.cuerpo">
+              <td *ngFor="let elemento of fila">{{elemento}}</td>              
+            </tr>
+          </tbody>
+          <tfoot>
+              <tr>
+                <td *ngFor="let elemento of dato.tabla.pie">{{elemento}}</td>              
+              </tr>
+            </tfoot>          
+        </table>
 
-    </div>  
+      </div>  
+    </div>
+
+    <hr>   
 
   </div>
-  <hr/>
-</div>        
-
            
+</kendo-pdf-export>
 
 
 

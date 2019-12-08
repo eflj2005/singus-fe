@@ -3,6 +3,11 @@
     line-height: 0;
 }
 
+.container{
+  background-color: rgb(255,255,255); /* Fallback color */
+  background-color: rgba(0,0,0,0.04); /* Black w/ opacity */
+}
+
 button{
     margin: .5rem;
 }
@@ -20,6 +25,8 @@ button{
     border-radius: 10%;
   }
   
+ 
+
   .contenedor input {
     position: absolute;
     opacity: 0;
@@ -87,9 +94,21 @@ button{
 .cardsContainer{
     display: flex;
     flex-direction: column;
+    padding-right: 5px;
+    padding-left: 5px;
 }
 
 .card{
     margin: .5rem;
     
+}
+
+kendo-pdf-export {
+  font-family:  "Arial";
+  font-size: 12px;
+}
+
+@font-face {
+  font-family: "Arial";
+  src: url("/assets/fonts/arial.ttf") format("truetype");
 }

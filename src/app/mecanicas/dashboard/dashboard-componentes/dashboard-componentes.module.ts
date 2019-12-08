@@ -7,6 +7,7 @@ import { DashboardWorkspaceComponent } from './dashboard-workspace/dashboard-wor
 import { EstadisticasComponent } from './estadisticas/estadisticas.component';
 import { DashboardEstadisticasComponent } from './dashboard-estadisticas/dashboard-estadisticas.component';
 import { ChartsModule } from 'ng2-charts';
+import 'chartjs-plugin-labels';
 
 
 

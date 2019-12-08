@@ -17,6 +17,10 @@ import { ErrorInterceptorService } from '@servicios/error.interceptor';
 import { JwtInterceptorService } from '@servicios/jwt.interceptor';
 import { DatePipe } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { FormControl } from '@angular/forms';
 
 
@@ -33,9 +37,10 @@ import { FormControl } from '@angular/forms';
     ServiciosModule,
     GeneralesModule.forRoot(),
     MecanicasModule,
-    //ModelosModule,
+    ModelosModule,
     NgbModule,
-    //BrowserAnimationsModule  
+    PDFExportModule,
+    BrowserAnimationsModule  
   ],
   providers: [ 
     DatePipe,

@@ -22,6 +22,8 @@ interface Sedes {
 })
 export class ReportesPredefinidosPrincipalComponent implements OnInit {
 
+  public escalaPdf = 0.6;
+
   cohortes: Array<Cohorte> = [
     { Id:1, Nombre:201965,  Seleccionado: false },
     { Id:2, Nombre:201935,  Seleccionado: false },
@@ -60,13 +62,13 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
         pie: [ 'Total', 69, 64, 138, 92, 132, 61, 556 ]
       },      
       torta: {
-        descripcion:["General"],        
+        descripcion:["Nivel de Satisfacción General"],        
         etiquetas:['Muy Insatisfecho','Insatisfecho','Satisfecho','Muy Satisfecho'],
         datos:[ 62, 91, 128, 275],
         colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
       },
       barras:{
-        descripcion:["Por Año"],
+        descripcion:["Nivel de satisfacción Por Año"],
         etiquetas:["2013", "2014", "2015", "2016", "2017", "2018"],
         datos:[
           { data:[ 3,  7,  15, 18, 8,  11 ],  label:'Muy Insatisfecho'  },
@@ -260,20 +262,19 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
 
   datosEstadistica: any = []
 
+
+  public pieChartType: ChartType = 'pie';
+  public pieChartLegend = true;
+
   public pieChartOptions: ChartOptions = {
     responsive: true,
     legend: {
-      position: 'top',
+      position: 'right',
     },
     plugins: {
       labels: [
-        {
-          render: 'label',
-          position: 'outside'
-        },
-        {
-          render: 'value'
-        }
+        { render: 'percentage', position: 'outside' },
+        { render: 'value' }
       ],
       datalabels: {
         formatter: (value, ctx) => {
@@ -283,47 +284,22 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       },
     }
   };
-  public pieChartLabels: Label[] = ['Agronomia, Veterinaria y afines',
-                                    'Bellas artes', 
-                                    'Ciencias de la educación', 
-                                    'Ciencias de la salud',
-                                    'Ciencias sociales y humanas',
-                                    'Economia, Administración y afines',
-                                    'Ingenieria, arquitectura y afines',
-                                    'Matematicas y ciencias naturales' 
-                                  ];
-  public pieChartData: number[] = [300, 
-                                  500, 
-                                  100,
-                                  250,
-                                  305,
-                                  780, 
-                                  600,
-                                  355];
-  public pieChartType: ChartType = 'pie';
-  public pieChartLegend = true;
 
-  public pieChartColors = [
-    {
-      backgroundColor: ['rgba(255,0,0,0.3)', 
-                        'rgba(0,255,0,0.3)',  
-                        'rgba(0,0,255,0.3)',
-                        '#42A921',
-                        '#2136A9',
-                        '#8621A9',
-                        '#A9214B',
-                        '#A9212E',
-                      ],
-    },
-  ];
-
+  public barChartType: ChartType = 'bar';
+  public barChartLegend = true;
 
 
   public barChartOptions: ChartOptions = {
     responsive: true,
+    legend: {
+      position: 'bottom',
+    },    
     // We use these empty structures as placeholders for dynamic theming.
     scales: { xAxes: [{}], yAxes: [{}] },
     plugins: {
+      labels: [
+        { render: 'value', position: 'outside', fontSize: 10 },
+      ],      
       datalabels: {
         anchor: 'end',
         align: 'end',
@@ -331,21 +307,6 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
     }
   };
 
-
-  public barChartLabels: Label[] = ['2010', '2011', '2012', '2013', '2014', '2015', '2016'];
-  public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
-
-  public barChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Agronomia, Veterinaria y afines' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Bellas artes' },
-    { data: [50, 35, 88, 20, 13, 85, 66], label: 'Ciencias de la educación' },
-    { data: [86, 77, 47, 56, 76, 25, 90], label: 'Ciencias de la salud' },
-    { data: [28, 38, 50, 39, 56, 20, 30], label: 'Ciencias sociales y humanas' },
-    { data: [68, 78, 60, 89, 86, 77, 90], label: 'Economia, Administración y afines' },
-    { data: [28, 48, 40, 20, 33, 27, 40], label: 'Ingenieria, arquitectura y afines' },
-    { data: [27, 28, 30, 39, 46, 37, 45], label: 'Matematicas y ciencias naturales' }
-  ];
 
   constructor() {
     console.log(this.datos);
@@ -370,7 +331,9 @@ crear(reporte){
 
 
 
+ExportToPdf(){
 
+}
 
 
 
