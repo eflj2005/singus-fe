@@ -138,27 +138,27 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       tabla:{
         cabecera: [ "", "2013", "2014", "2015", "2016", "2017", "2018", "Total"],
         cuerpo:[
-          [ 'Muy Insatisfecho', 3,  7,  15, 18, 8,  11, 62 ],
-          [ 'Insatisfecho',     10, 13, 23, 8,  22, 15, 91  ],
-          [ 'Satisfecho',       26, 18, 44, 22, 15, 3,  128 ],
-          [ 'Muy Satisfecho',   30, 26, 56, 44, 87, 32, 275 ],
+          [ 'Muy Insatisfecho', 3,  7,  23, 17, 20, 13, 83 ],
+          [ 'Insatisfecho',     7,  23, 27, 13, 22, 17, 109  ],
+          [ 'Satisfecho',       30, 20, 20, 26, 28, 32, 156 ],
+          [ 'Muy Satisfecho',   40, 25, 22, 34, 12, 28, 161 ],
         ],
-        pie: [ 'Total', 69, 64, 138, 92, 132, 61, 556 ]
+        pie: [ 'Total', 80, 75, 92, 90, 82, 90, 509 ]
       },      
       torta: {
         descripcion:["General"],        
         etiquetas:['Muy Insatisfecho','Insatisfecho','Satisfecho','Muy Satisfecho'],
-        datos:[ 62, 91, 128, 275],
+        datos:[ 83, 109, 156, 161],
         colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
       },
       barras:{
         descripcion:["Por Año"],
         etiquetas:["2013", "2014", "2015", "2016", "2017", "2018"],
         datos:[
-          { data:[ 3,  7,  15, 18, 8,  11 ],  label:'Muy Insatisfecho'  },
-          { data:[ 10, 13, 23, 8,  22, 14 ],  label:'Insatisfecho'      },
-          { data:[ 26, 18, 44, 22, 15, 3 ],   label:'Satisfecho'        },
-          { data:[ 30, 26, 56, 44, 87, 32 ],  label:'Muy Satisfecho'    },        
+          { data:[ 3,  7,  23, 17, 20, 13 ],  label:'Muy Insatisfecho'  },
+          { data:[ 7,  23, 27, 13, 22, 17 ],  label:'Insatisfecho'      },
+          { data:[ 30, 20, 20, 26, 28, 32 ],   label:'Satisfecho'        },
+          { data:[ 40, 25, 22, 34, 12, 28 ],  label:'Muy Satisfecho'    },        
         ],
       }
     },
