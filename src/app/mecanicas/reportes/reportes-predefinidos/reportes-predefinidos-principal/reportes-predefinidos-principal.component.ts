@@ -167,27 +167,27 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       tabla:{
         cabecera: [ "", "2013", "2014", "2015", "2016", "2017", "2018", "Total"],
         cuerpo:[
-          [ 'Muy Insatisfecho', 3,  7,  15, 18, 8,  11, 62 ],
-          [ 'Insatisfecho',     10, 13, 23, 8,  22, 15, 91  ],
-          [ 'Satisfecho',       26, 18, 44, 22, 15, 3,  128 ],
-          [ 'Muy Satisfecho',   30, 26, 56, 44, 87, 32, 275 ],
+          [ 'Muy Insatisfecho', 40, 30, 25, 35, 50, 30,  210 ],
+          [ 'Insatisfecho',     30, 25, 12, 18, 30, 20,  135 ],
+          [ 'Satisfecho',       14, 10, 15, 20, 8,   3,  70 ],
+          [ 'Muy Satisfecho',    3,  7, 9, 18, 5,  11,   62 ],
         ],
-        pie: [ 'Total', 69, 64, 138, 92, 132, 61, 556 ]
+        pie: [ 'Total', 87, 72, 61, 91, 93, 64, 477 ]
       },      
       torta: {
         descripcion:["General"],        
         etiquetas:['Muy Insatisfecho','Insatisfecho','Satisfecho','Muy Satisfecho'],
-        datos:[ 62, 91, 128, 275],
+        datos:[ 210, 135, 70, 62],
         colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
       },
       barras:{
         descripcion:["Por Año"],
         etiquetas:["2013", "2014", "2015", "2016", "2017", "2018"],
         datos:[
-          { data:[ 3,  7,  15, 18, 8,  11 ],  label:'Muy Insatisfecho'  },
-          { data:[ 10, 13, 23, 8,  22, 14 ],  label:'Insatisfecho'      },
-          { data:[ 26, 18, 44, 22, 15, 3 ],   label:'Satisfecho'        },
-          { data:[ 30, 26, 56, 44, 87, 32 ],  label:'Muy Satisfecho'    },        
+          { data:[ 40, 30, 25, 35, 50, 30 ],  label:'Muy Insatisfecho'  },
+          { data:[ 30, 25, 12, 18, 30, 20 ],  label:'Insatisfecho'      },
+          { data:[ 14, 10, 15, 20, 8,   3 ],   label:'Satisfecho'        },
+          { data:[ 3,  7, 9, 18, 5,  11 ],  label:'Muy Satisfecho'    },        
         ],
       }
     },
@@ -196,23 +196,23 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       tabla:{
         cabecera: [ "", "2013", "2014", "2015", "2016", "2017", "2018", "Total"],
         cuerpo:[
-          [ 'Si', 3,  7,  15, 18, 8,  11, 62 ],
-          [ 'No',     10, 13, 23, 8,  22, 15, 91  ]
+          [ 'Si',  250, 10, 30,   20,   25, 15,  350 ],
+          [ 'No',  120, 470, 420, 379,  245, 376, 2010 ]
         ],
-        pie: [ 'Total', 69, 64, 138, 92, 132, 61, 556 ]
+        pie: [ 'Total', 370, 480, 450, 399, 270, 391, 2360 ]
       },      
       torta: {
         descripcion:["General"],        
         etiquetas:['Si','No'],
-        datos:[ 62, 91],
+        datos:[ 350, 2010],
         colores:[{ backgroundColor:['rgba(0,255,0,0.3)','rgba(247, 234, 0)']}]
       },
       barras:{
         descripcion:["Por Año"],
         etiquetas:["2013", "2014", "2015", "2016", "2017", "2018"],
         datos:[
-          { data:[ 3,  7,  15, 18, 8,  11 ],  label:'Si'  },
-          { data:[ 10, 13, 23, 8,  22, 14 ],  label:'No'      }       
+          { data:[ 250, 10, 30,   20,   25, 15 ],  label:'Si'  },
+          { data:[ 120, 470, 420, 379,  245, 376 ],  label:'No'      }       
         ],
       }
     },
