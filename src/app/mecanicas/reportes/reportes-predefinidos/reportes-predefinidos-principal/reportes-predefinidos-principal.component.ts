@@ -56,7 +56,7 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
     { 
       descripcion:'¿Nivel de satisfacion con su institucion (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
       tabla:{
-        cabecera: [ "", "2013", "2014", "2015", "2016", "2017", "2018", "Total"],
+        cabecera: [ "", "201610", "201660", "201710", "201760", "201810", "201860", "Total"],
         cuerpo:[
           [ 'Muy Insatisfecho', 3,  7,  15, 18, 8,  11, 62 ],
           [ 'Insatisfecho',     10, 13, 23, 8,  22, 15, 91  ],
@@ -72,8 +72,8 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
         colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
       },
       barras:{
-        descripcion:["Nivel de satisfacción Por Año"],
-        etiquetas:["2013", "2014", "2015", "2016", "2017", "2018"],
+        descripcion:["Nivel de satisfacción por cohorte"],
+        etiquetas:["201610", "201660", "201710", "201760", "201810", "201860"],
         datos:[
           { data:[ 3,  7,  15, 18, 8,  11 ],  label:'Muy Insatisfecho'  },
           { data:[ 10, 13, 23, 8,  22, 14 ],  label:'Insatisfecho'      },
@@ -116,107 +116,107 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       tabla:{
         cabecera: [ "","Contaduria publica","Administracion finaciera","Administracion de empresas","Comunicaciones","Psicologia","Trabajo social","Lic. en pedagogia infantil","Administracion en seguridad y salud en el trabajo","Total"],
         cuerpo:[
-          [ 'Muy Insatisfecho', 8, 15, 12, 21, 20, 30, 18, 20 ,2 ],
-          [ 'Insatisfecho',     30, 13, 10, 24, 15, 20, 112, 8,2 ],
-          [ 'Satisfecho',       20, 18, 25, 10, 30, 35,  138, 8 ,2 ],
-          [ 'Muy Satisfecho',   15, 32, 40, 15, 25, 45, 172, 8,2 ],
+          [ 'Muy Insatisfecho', 8,   15,  12, 21,  20,  30,  18,  20,  144 ],
+          [ 'Insatisfecho',     20,  13,  10, 12,  15,  10,  25,  38,  143 ],
+          [ 'Satisfecho',       102, 205, 89, 125, 115, 135, 148, 150, 1069 ],
+          [ 'Muy Satisfecho',   111, 70,  56, 200, 330, 145, 172, 116, 1200 ],
         ],
-        pie: [ 'Total', 105, 90, 90, 85, 90, 110, 570,8,2 ]
+        pie: [ 'Total', 241, 303, 167, 358, 480, 320, 363, 324, 2556 ]
       },      
       torta: {
-        descripcion:["General"],        
+        descripcion:["Nivel general de satisfacción "],        
         etiquetas:['Muy Insatisfecho','Insatisfecho','Satisfecho','Muy Satisfecho'],
-        datos:[ 148, 112, 138, 172],
+        datos:[144,143,1069,1200],
         colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
       },
       barras:{
-        descripcion:["Por Año"],
-        etiquetas:["2013", "2014", "2015", "2016", "2017", "2018"],
+        descripcion:["Nivel de satisfacción por programas"],
+        etiquetas:["Contaduria publica","Administracion finaciera","Administracion de empresas","Comunicaciones","Psicologia","Trabajo social","Lic. en pedagogia infantil","Administracion en seguridad y salud en el trabajo"],
         datos:[
-          { data:[ 40, 27, 15, 36, 20, 10 ],  label:'Muy Insatisfecho'  },
-          { data:[ 30, 13, 10, 24, 15, 20 ],  label:'Insatisfecho'      },
-          { data:[ 20, 18, 25, 10, 30, 35 ],   label:'Satisfecho'        },
-          { data:[ 15, 32, 40, 15, 25, 45 ],  label:'Muy Satisfecho'    },        
+          { data:[ 8,   15,  12, 21,  20,  30,  18,  20 ],  label:'Muy Insatisfecho'  },
+          { data:[ 20,  13,  10, 12,  15,  10,  25,  38 ],  label:'Insatisfecho'      },
+          { data:[ 102, 205, 89, 125, 115, 135, 148, 150 ],   label:'Satisfecho'        },
+          { data:[ 111, 70,  56, 200, 330, 145, 172, 116 ],  label:'Muy Satisfecho'    },        
         ],
       }
     },
     { 
       descripcion:'¿Nivel de satisfacion con la Opotunidad de participacion  en   actividades extracurriculares (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
       tabla:{
-        cabecera: [ "", "2013", "2014", "2015", "2016", "2017", "2018", "Total"],
+        cabecera: [ "","201610", "201660", "201710", "201760", "201810", "201860", "Total"],
         cuerpo:[
-          [ 'Muy Insatisfecho', 3,  7,  23, 17, 20, 13, 83 ],
-          [ 'Insatisfecho',     7,  23, 27, 13, 22, 17, 109  ],
-          [ 'Satisfecho',       30, 20, 20, 26, 28, 32, 156 ],
-          [ 'Muy Satisfecho',   40, 25, 22, 34, 12, 28, 161 ],
+          [ 'Muy Insatisfecho', 25,  17,  23,  12,  20,  73,  170 ],
+          [ 'Insatisfecho',     7,   23,  17,  43,  32,  47,  169 ],
+          [ 'Satisfecho',       120, 220, 212, 145, 78,  82,  857 ],
+          [ 'Muy Satisfecho',   240, 325, 122, 134, 212, 328, 1361 ],
         ],
-        pie: [ 'Total', 80, 75, 92, 90, 82, 90, 509 ]
+        pie: [ 'Total', 392, 585, 374, 334, 342, 530, 2557 ]
       },      
       torta: {
-        descripcion:["General"],        
+        descripcion:["Nivel de satisfaccion general"],        
         etiquetas:['Muy Insatisfecho','Insatisfecho','Satisfecho','Muy Satisfecho'],
         datos:[ 83, 109, 156, 161],
         colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
       },
       barras:{
-        descripcion:["Por Año"],
-        etiquetas:["2013", "2014", "2015", "2016", "2017", "2018"],
+        descripcion:["Nivel de satisfacción por cohortes"],
+        etiquetas:["201610", "201660", "201710", "201760", "201810", "201860"],
         datos:[
-          { data:[ 3,  7,  23, 17, 20, 13 ],  label:'Muy Insatisfecho'  },
-          { data:[ 7,  23, 27, 13, 22, 17 ],  label:'Insatisfecho'      },
-          { data:[ 30, 20, 20, 26, 28, 32 ],   label:'Satisfecho'        },
-          { data:[ 40, 25, 22, 34, 12, 28 ],  label:'Muy Satisfecho'    },        
+          { data:[ 25,  17,  23,  12,  20,  73 ],  label:'Muy Insatisfecho'  },
+          { data:[ 7,   23,  17,  43,  32,  47 ],  label:'Insatisfecho'      },
+          { data:[ 120, 220, 212, 145, 78,  82 ],   label:'Satisfecho'        },
+          { data:[ 240, 325, 122, 134, 212, 328 ],  label:'Muy Satisfecho'    },        
         ],
       }
     },
     { 
       descripcion:'¿Nivel de satisfacion con las relaciones interpersonales con la comunidad institucional (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
       tabla:{
-        cabecera: [ "", "2013", "2014", "2015", "2016", "2017", "2018", "Total"],
+        cabecera: [ "", "Ibagué", "Lerida", "Fresno", "Dorada", "Puerto Boyaca", "Total"],
         cuerpo:[
-          [ 'Muy Insatisfecho', 40, 30, 25, 35, 50, 30,  210 ],
-          [ 'Insatisfecho',     30, 25, 12, 18, 30, 20,  135 ],
-          [ 'Satisfecho',       14, 10, 15, 20, 8,   3,  70 ],
-          [ 'Muy Satisfecho',    3,  7, 9, 18, 5,  11,   62 ],
+          [ 'Muy Insatisfecho', 22,  20,  40,  30,  26,   138 ],
+          [ 'Insatisfecho',     13,  26,  22,  32,  23,   116 ],
+          [ 'Satisfecho',       202, 205, 115, 160, 140,  822 ],
+          [ 'Muy Satisfecho',   400, 202, 413, 315, 156,  1486 ],
         ],
-        pie: [ 'Total', 87, 72, 61, 91, 93, 64, 477 ]
+        pie: [ 'Total', 637, 453, 590, 537, 345, 2562 ]
       },      
       torta: {
-        descripcion:["General"],        
+        descripcion:["Nivel general de satisfacción "],        
         etiquetas:['Muy Insatisfecho','Insatisfecho','Satisfecho','Muy Satisfecho'],
-        datos:[ 210, 135, 70, 62],
+        datos:[ 138,116, 822, 1486],
         colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
       },
       barras:{
-        descripcion:["Por Año"],
-        etiquetas:["2013", "2014", "2015", "2016", "2017", "2018"],
+        descripcion:["Nivel de satisfacion por sedes"],
+        etiquetas:["Ibagué", "Lerida", "Fresno", "Dorada", "Puerto Boyaca"],
         datos:[
-          { data:[ 40, 30, 25, 35, 50, 30 ],  label:'Muy Insatisfecho'  },
-          { data:[ 30, 25, 12, 18, 30, 20 ],  label:'Insatisfecho'      },
-          { data:[ 14, 10, 15, 20, 8,   3 ],   label:'Satisfecho'        },
-          { data:[ 3,  7, 9, 18, 5,  11 ],  label:'Muy Satisfecho'    },        
+          { data:[ 22,  20,  40,  30,  26],  label:'Muy Insatisfecho'  },
+          { data:[ 13,  26,  22,  32,  23],  label:'Insatisfecho'      },
+          { data:[ 202, 205, 115, 160, 140],   label:'Satisfecho'       },
+          { data:[ 400, 202, 413, 315, 156],  label:'Muy Satisfecho'    },        
         ],
       }
     },
     { 
       descripcion:'¿Existe un balance entre las actividades extracurriculares y académicas?',
       tabla:{
-        cabecera: [ "", "2013", "2014", "2015", "2016", "2017", "2018", "Total"],
+        cabecera: [ "", "Contaduria publica","Administracion finaciera","Administracion de empresas","Comunicaciones","Psicologia","Trabajo social","Lic. en pedagogia infantil","Administracion en seguridad y salud en el trabajo", "Total"],
         cuerpo:[
-          [ 'Si',  250, 10, 30,   20,   25, 15,  350 ],
-          [ 'No',  120, 470, 420, 379,  245, 376, 2010 ]
+          [ 'Si',  220, 200, 20,  210,   115, 205, 80, 167 ,  1217 ],
+          [ 'No',  120, 220, 400, 139,  135, 166, 130, 132 , 1442 ]
         ],
-        pie: [ 'Total', 370, 480, 450, 399, 270, 391, 2360 ]
+        pie: [ 'Total', 340, 420, 420, 349, 250, 371,210,299, 2360 ]
       },      
       torta: {
-        descripcion:["General"],        
+        descripcion:["Percepción del balance general"],        
         etiquetas:['Si','No'],
         datos:[ 350, 2010],
         colores:[{ backgroundColor:['rgba(0,255,0,0.3)','rgba(247, 234, 0)']}]
       },
       barras:{
-        descripcion:["Por Año"],
-        etiquetas:["2013", "2014", "2015", "2016", "2017", "2018"],
+        descripcion:["Percepción del balance por programa"],
+        etiquetas:["Contaduria publica","Administracion finaciera","Administracion de empresas","Comunicaciones","Psicologia","Trabajo social","Lic. en pedagogia infantil","Administracion en seguridad y salud en el trabajo"],
         datos:[
           { data:[ 250, 10, 30,   20,   25, 15 ],  label:'Si'  },
           { data:[ 120, 470, 420, 379,  245, 376 ],  label:'No'      }       
