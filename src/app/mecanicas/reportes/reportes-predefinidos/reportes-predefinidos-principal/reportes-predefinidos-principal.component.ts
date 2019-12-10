@@ -25,7 +25,7 @@ interface Sedes {
 })
 export class ReportesPredefinidosPrincipalComponent implements OnInit {
 
-  public escalaPdf = 0.6;
+  public escalaPdf = 0.48;
 
   cohortes: Array<Cohorte> = [
     { Id:1, Nombre:201965,  Seleccionado: false },
