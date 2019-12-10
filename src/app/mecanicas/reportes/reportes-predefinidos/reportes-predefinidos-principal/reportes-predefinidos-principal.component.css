@@ -1,6 +1,16 @@
 .table{
     margin-left: 0;
-    line-height: 0;
+    line-height: normal;
+    table-layout: fixed;
+}
+
+table th {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+table .total{
+  width: 50px;
 }
 
 .container{
