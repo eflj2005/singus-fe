@@ -202,10 +202,10 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       tabla:{
         cabecera: [ "", "Contaduria publica","Administracion finaciera","Administracion de empresas","Comunicaciones","Psicologia","Trabajo social","Lic. en pedagogia infantil","Administracion en seguridad y salud en el trabajo", "Total"],
         cuerpo:[
-          [ 'Si',  250, 210, 30,   20,   25, 15,,,  350 ],
-          [ 'No',  120, 270, 420, 379,  245, 376,,, 2010 ]
+          [ 'Si',  220, 200, 20,  210,   115, 205, 80, 167 ,  1217 ],
+          [ 'No',  120, 220, 400, 139,  135, 166, 130, 132 , 1442 ]
         ],
-        pie: [ 'Total', 370, 480, 450, 399, 270, 391,,, 2360 ]
+        pie: [ 'Total', 340, 420, 420, 349, 250, 371,210,299, 2360 ]
       },      
       torta: {
         descripcion:["Percepción del balance general"],        
