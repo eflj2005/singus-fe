@@ -7,14 +7,17 @@ interface Cohorte {
   Id:number,
   Nombre:number,
   Seleccionado: boolean} 
+
 interface Programas { 
   Id:number,
   Nombre:string,
   Seleccionado: boolean} 
+
 interface Sedes { 
   Id:number,
   Nombre:string,
   Seleccionado: boolean} 
+
 @Component({
   selector: 'app-reportes-predefinidos-principal',
   templateUrl: './reportes-predefinidos-principal.component.html',
@@ -40,7 +43,7 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
     {  Id:5,  Nombre:'Matematicas y ciencias naturales',  Seleccionado: false }
   ];
 
-  sedes: Array<Programas> = [ 
+  sedes: Array<Sedes> = [ 
     { Id:1, Nombre:'Ibagué',        Seleccionado: false },
     { Id:2, Nombre:"Puerto Boyaca", Seleccionado: false },
     { Id:3, Nombre:"Fresno",        Seleccionado: false },
@@ -81,42 +84,43 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
     { 
       descripcion:'¿Nivel de satisfacion con la calidad de formacion integral recibida (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
       tabla:{
-        cabecera: [ "", "2013", "2014", "2015", "2016", "2017", "2018", "Total"],
+        cabecera: [ "","Ibagué", "Lerida", "Fresno", "Dorada", "Puerto Boyaca","Total"],
         cuerpo:[
-          [ 'Muy Insatisfecho', 13, 27, 45, 26,  10, 15,  136 ],
-          [ 'Insatisfecho',     9,  19, 28, 30,  22, 13,  121 ],
-          [ 'Satisfecho',       30, 22, 10,  9,  15, 33,  119 ],
-          [ 'Muy Satisfecho',   46, 29,  8,  2,  26, 44,  155 ],
+          [ 'Muy Insatisfecho', 15, 27, 20, 50, 16,128],
+          [ 'Insatisfecho',     20,  19, 42, 12, 33,126],
+          [ 'Satisfecho',       402, 305, 135, 260, 150,1252],
+          [ 'Muy Satisfecho',   200, 102, 393, 215, 146,1056],
         ],
-        pie: [ 'Total', 98, 97, 91, 67, 73, 105, 531 ]
+        pie: [ 'Total', 637, 453, 590, 537,345,2562]
       },      
       torta: {
-        descripcion:["General"],        
+        descripcion:["Nivel genreral de satisfacción"],        
         etiquetas:['Muy Insatisfecho','Insatisfecho','Satisfecho','Muy Satisfecho'],
-        datos:[ 136, 121, 119, 155],
+        datos:[ 128, 126, 1252, 1056],
         colores:[{ backgroundColor:['rgba(255,0,0,0.3)','rgba(0,255,0,0.3)','rgba(0,0,255,0.3)','rgba(247, 234, 0)']}]
       },
       barras:{
-        descripcion:["Por Año"],
-        etiquetas:["2013", "2014", "2015", "2016", "2017", "2018"],
+        descripcion:["Nivel de satisfacion por sedes"],
+        etiquetas:["Ibagué", "Lerida", "Fresno", "Dorada", "Puerto Boyaca"],
         datos:[
-          { data:[ 13,  27,  45, 26, 10,  15 ],  label:'Muy Insatisfecho'  },
-          { data:[ 9, 19, 28, 30,  22, 13 ],  label:'Insatisfecho'      },
-          { data:[ 30, 22, 10,  9,  15, 33 ],   label:'Satisfecho'        },
-          { data:[ 46, 29,  8,  2,  26, 44 ],  label:'Muy Satisfecho'    },        
+          { data:[ 15, 27, 20, 50, 16],  label:'Muy Insatisfecho'  },
+          { data:[ 20,  19, 42, 12, 33 ],  label:'Insatisfecho'      },
+          { data:[ 402, 305, 135, 260, 150 ],   label:'Satisfecho'        },
+          { data:[ 200, 102, 393, 215, 146 ],  label:'Muy Satisfecho'    },        
         ],
       }
-    },{ 
+    },
+    { 
       descripcion:'¿Nivel de satisfacion con la disponibilidad de tiempo de los profesores (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
       tabla:{
-        cabecera: [ "", "2013", "2014", "2015", "2016", "2017", "2018", "Total"],
+        cabecera: [ "","Contaduria publica","Administracion finaciera","Administracion de empresas","Comunicaciones","Psicologia","Trabajo social","Lic. en pedagogia infantil","Administracion en seguridad y salud en el trabajo","Total"],
         cuerpo:[
-          [ 'Muy Insatisfecho', 40, 27, 15, 36, 20, 10, 148 ],
-          [ 'Insatisfecho',     30, 13, 10, 24, 15, 20, 112  ],
-          [ 'Satisfecho',       20, 18, 25, 10, 30, 35,  138 ],
-          [ 'Muy Satisfecho',   15, 32, 40, 15, 25, 45, 172 ],
+          [ 'Muy Insatisfecho', 8, 15, 12, 21, 20, 30, 18, 20 ,2 ],
+          [ 'Insatisfecho',     30, 13, 10, 24, 15, 20, 112, 8,2 ],
+          [ 'Satisfecho',       20, 18, 25, 10, 30, 35,  138, 8 ,2 ],
+          [ 'Muy Satisfecho',   15, 32, 40, 15, 25, 45, 172, 8,2 ],
         ],
-        pie: [ 'Total', 105, 90, 90, 85, 90, 110, 570 ]
+        pie: [ 'Total', 105, 90, 90, 85, 90, 110, 570,8,2 ]
       },      
       torta: {
         descripcion:["General"],        
