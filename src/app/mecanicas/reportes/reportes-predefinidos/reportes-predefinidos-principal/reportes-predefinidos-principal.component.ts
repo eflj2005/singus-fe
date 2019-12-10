@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 
 import { Label } from 'ng2-charts';
@@ -21,7 +21,8 @@ interface Sedes {
 @Component({
   selector: 'app-reportes-predefinidos-principal',
   templateUrl: './reportes-predefinidos-principal.component.html',
-  styleUrls: ['./reportes-predefinidos-principal.component.css']
+  styleUrls: ['./reportes-predefinidos-principal.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ReportesPredefinidosPrincipalComponent implements OnInit {
 

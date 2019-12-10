@@ -113,10 +113,17 @@ button{
     
 }
 
+kendo-pdf-document .impresion {
+  min-width: 1200px; 
+  max-width: 1200px;
+  width: 1200px;
+}
+
 kendo-pdf-export {
   font-family:  "Arial";
-  font-size: 12px;
+
 }
+
 
 @font-face {
   font-family: "Arial";
