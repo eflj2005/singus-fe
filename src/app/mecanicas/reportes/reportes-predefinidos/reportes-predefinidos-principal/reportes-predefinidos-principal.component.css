@@ -18,9 +18,21 @@ table .total{
   background-color: rgba(0,0,0,0.04); /* Black w/ opacity */
 }
 
+.container.filtros{
+  display: flex;
+  align-items: flex-end;
+  background-color: rgba(0,0,0,0); /* Black w/ opacity */
+}
+
+.container.filtrosContenedor{
+  display: flex;
+  
+}
+
 button{
     margin: .5rem;
 }
+
 .contenedor {
     display: block;
     position: relative;
@@ -49,7 +61,7 @@ button{
 
   .checkmark {
     position: absolute;
-    top: 0;
+    top: 4px;
     left: 0;
     height: 25px;
     width: 25px;
@@ -122,3 +134,39 @@ kendo-pdf-export {
   font-family: "Arial";
   src: url("/assets/fonts/arial.ttf") format("truetype");
 }
+
+.selecReporte{
+  display: inline-block;
+  margin: .5rem;
+}
+
+.creador{
+  font-size:1.8rem;
+}
+
+.contenedorCreador{
+  display: flex;
+  margin: 0rem 1rem 0 1rem ;
+}
+
+button.creador{
+  margin: 1rem;
+}
+
+.dropdown-menu.show{
+  min-width: 15rem;
+}
+
+.tablaFiltros td, .tablaFiltros th{
+  vertical-align: middle;
+}
+
+.tablaFiltros th:first-child{
+  width: 40px;
+}
+
+div h2{
+  text-align: center;
+  padding: 1rem;
+}
+

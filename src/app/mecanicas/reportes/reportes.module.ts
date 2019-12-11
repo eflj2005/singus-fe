@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
 import { ReportesPredefinidosModule } from "./reportes-predefinidos/reportes-predefinidos.module";
 import { ReportesPredefinidosPrincipalComponent } from "./reportes-predefinidos/reportes-predefinidos-principal/reportes-predefinidos-principal.component";
 
@@ -16,6 +17,7 @@ const rutas: Routes =[
   imports: [
     CommonModule,
     ReportesPredefinidosModule,
+    NgbTooltipModule,
     RouterModule.forChild(rutas)]
 })
 export class ReportesModule { }
