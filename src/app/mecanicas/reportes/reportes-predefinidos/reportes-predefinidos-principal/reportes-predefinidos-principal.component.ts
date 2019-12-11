@@ -261,33 +261,31 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       codigo: 76, 
       descripcion:'¿Su programa académico le ha servido para realizar su trabajo actual?',
       tabla:{
-        cabecera: [ "","Contaduria publica","Administracion finaciera","Administracion de empresas","Comunicaciones","Psicologia","Trabajo social","Lic. en pedagogia infantil","Administracion en seguridad y salud en el trabajo", "Total"],
+        cabecera: [ "","Ibagué", "Lerida", "Fresno", "Dorada", "Puerto Boyaca", "Total"],
         cuerpo:[
-          [ 'Alto',   44,  205, 200,  328, 125,  101, 70,  60 ,  1133 ],
-          [ 'Medio',  290, 40,  105,  70,  85,  155,  60,  45 ,  850 ],
-          [ 'Bajo',   40,  100, 83,  20,  88,   115, 89,  41,  576 ]
+          [ 'Si',  486, 440, 431,  468,  375, 2154 ],
+          [ 'No',  76,  71,   75,   65,   72,   359 ]
         ],
-        pie: [ 'Total', 374, 345, 388, 418, 298, 371,  219, 136,  2559 ]
+        pie: [ 'Total', 562, 511, 506, 533, 447, 2559 ]
       },      
       torta: {
         descripcion:["Opinion general"],        
-        etiquetas:['Alto','Medio','Bajo'],
-        datos:[ 1133, 850,  576 ],
+        etiquetas:['Si','No'],
+        datos:[ 2154, 359 ],
         colores:[{ backgroundColor:['rgba(0,255,0,0.3)','rgba(247, 234, 0)']}]
       },
       barras:{
-        descripcion:["Opinion de referencia por programa"],
-        etiquetas:[ "Contaduria publica","Administracion finaciera","Administracion de empresas","Comunicaciones","Psicologia","Trabajo social","Lic. en pedagogia infantil","Administracion en seguridad y salud en el trabajo" ],
+        descripcion:["Opinion de referencia por Sede"],
+        etiquetas:["Ibagué", "Lerida", "Fresno", "Dorada", "Puerto Boyaca" ],
         datos:[
-          { data:[ 44,  205, 200,  328, 125,  101, 70,  60 ],  label:'Alto'  },
-          { data:[ 290, 40,  105,  70,  85,  155,  60,  45 ],  label:'Medio'   },
-          { data:[ 40,  100, 83,  20,  88,   115, 89,  41 ],  label:'Bajo'   }       
+          { data:[ 486, 440, 431,  468,  375 ],  label:'Si'  },
+          { data:[ 76,  71,   75,   65,   72],  label:'No'   }       
         ],
       }
     },
     { 
       codigo: 77, 
-      descripcion:'¿Su programa académico le ha servido para realizar su trabajo actual?',
+      descripcion:'En el desempeño de su trabajo actual, ¿Cuál es el nivel de aplicabilidad de los conocimientos, habilidades y destrezas adquiridos durante el periodo de su formación académica?',
       tabla:{
         cabecera: [ "","Contaduria publica","Administracion finaciera","Administracion de empresas","Comunicaciones","Psicologia","Trabajo social","Lic. en pedagogia infantil","Administracion en seguridad y salud en el trabajo", "Total"],
         cuerpo:[
