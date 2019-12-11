@@ -28,6 +28,8 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
 
   public escalaPdf = 0.48;
 
+  reporteSeleccionado: any = {tipo:"",nombre:""}
+
   cohortes: Array<Cohorte> = [
     { Id:1, Nombre:201965,  Seleccionado: false },
     { Id:2, Nombre:201935,  Seleccionado: false },
@@ -206,35 +208,105 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
           [ 'Si',  220, 200, 20,  210,   115, 205, 80, 167 ,  1217 ],
           [ 'No',  120, 220, 400, 139,  135, 166, 130, 132 , 1442 ]
         ],
-        pie: [ 'Total', 340, 420, 420, 349, 250, 371,210,299, 2360 ]
+        pie: [ 'Total', 340, 420, 420, 349, 250, 371,210,299, 2659 ]
       },      
       torta: {
         descripcion:["Percepción del balance general"],        
         etiquetas:['Si','No'],
-        datos:[ 350, 2010],
+        datos:[ 1217, 1442],
         colores:[{ backgroundColor:['rgba(0,255,0,0.3)','rgba(247, 234, 0)']}]
       },
       barras:{
         descripcion:["Percepción del balance por programa"],
         etiquetas:["Contaduria publica","Administracion finaciera","Administracion de empresas","Comunicaciones","Psicologia","Trabajo social","Lic. en pedagogia infantil","Administracion en seguridad y salud en el trabajo"],
         datos:[
-          { data:[ 250, 10, 30,   20,   25, 15 ],  label:'Si'  },
-          { data:[ 120, 470, 420, 379,  245, 376 ],  label:'No'      }       
+          { data:[ 220, 200, 20,  210,  115, 205, 80, 167 ],  label:'Si'  },
+          { data:[ 120, 220, 400, 139,  135, 166, 130, 132 ],  label:'No'      }       
         ],
       }
     },
+    { 
+      descripcion:'¿Le recomendaría su institución a alguien que quiera estudiar educación superior?',
+      tabla:{
+        cabecera: [ "","201610", "201660", "201710", "201760", "201810", "201860", "Total"],
+        cuerpo:[
+          [ 'Si',  442, 420, 410,  448,  345, 471,  2541 ],
+          [ 'No',  4,   5,   10,   1,    5,   0,  25 ]
+        ],
+        pie: [ 'Total', 446, 425, 420, 349, 350, 471, 2566 ]
+      },      
+      torta: {
+        descripcion:["Opinion general"],        
+        etiquetas:['Si','No'],
+        datos:[ 2541,  25],
+        colores:[{ backgroundColor:['rgba(0,255,0,0.3)','rgba(247, 234, 0)']}]
+      },
+      barras:{
+        descripcion:["Opinion de referencia por cohorte"],
+        etiquetas:[ "201610", "201660", "201710", "201760", "201810", "201860" ],
+        datos:[
+          { data:[ 442, 420, 410,  448,  345, 471 ],  label:'Si'  },
+          { data:[  4,   5,   10,   1,    5,   0 ],  label:'No'   }       
+        ],
+      }
+    },
+    { 
+      descripcion:'¿Su programa académico le ha servido para realizar su trabajo actual?',
+      tabla:{
+        cabecera: [ "","Contaduria publica","Administracion finaciera","Administracion de empresas","Comunicaciones","Psicologia","Trabajo social","Lic. en pedagogia infantil","Administracion en seguridad y salud en el trabajo", "Total"],
+        cuerpo:[
+          [ 'Alto',   44,  205, 200,  328, 125,  101, 70,  60 ,  1133 ],
+          [ 'Medio',  290, 40,  105,  70,  85,  155,  60,  45 ,  850 ],
+          [ 'Bajo',   40,  100, 83,  20,  88,   115, 89,  41,  576 ]
+        ],
+        pie: [ 'Total', 374, 345, 388, 418, 298, 371,  219, 136,  2559 ]
+      },      
+      torta: {
+        descripcion:["Opinion general"],        
+        etiquetas:['Alto','Medio','Bajo'],
+        datos:[ 1133, 850,  576 ],
+        colores:[{ backgroundColor:['rgba(0,255,0,0.3)','rgba(247, 234, 0)']}]
+      },
+      barras:{
+        descripcion:["Opinion de referencia por programa"],
+        etiquetas:[ "Contaduria publica","Administracion finaciera","Administracion de empresas","Comunicaciones","Psicologia","Trabajo social","Lic. en pedagogia infantil","Administracion en seguridad y salud en el trabajo" ],
+        datos:[
+          { data:[ 44,  205, 200,  328, 125,  101, 70,  60 ],  label:'Alto'  },
+          { data:[ 290, 40,  105,  70,  85,  155,  60,  45 ],  label:'Medio'   },
+          { data:[ 40,  100, 83,  20,  88,   115, 89,  41 ],  label:'Bajo'   }       
+        ],
+      }
+    },
+    { 
+      descripcion:'¿Su programa académico le ha servido para realizar su trabajo actual?',
+      tabla:{
+        cabecera: [ "","Contaduria publica","Administracion finaciera","Administracion de empresas","Comunicaciones","Psicologia","Trabajo social","Lic. en pedagogia infantil","Administracion en seguridad y salud en el trabajo", "Total"],
+        cuerpo:[
+          [ 'Alto',   44,  205, 200,  328, 125,  101, 70,  60 ,  1133 ],
+          [ 'Medio',  290, 40,  105,  70,  85,  155,  60,  45 ,  850 ],
+          [ 'Bajo',   40,  100, 83,  20,  88,   115, 89,  41,  576 ]
+        ],
+        pie: [ 'Total', 374, 345, 388, 418, 298, 371,  219, 136,  2559 ]
+      },      
+      torta: {
+        descripcion:["Opinion general"],        
+        etiquetas:['Alto','Medio','Bajo'],
+        datos:[ 1133, 850,  576 ],
+        colores:[{ backgroundColor:['rgba(0,255,0,0.3)','rgba(247, 234, 0)']}]
+      },
+      barras:{
+        descripcion:["Opinion de referencia por programa"],
+        etiquetas:[ "Contaduria publica","Administracion finaciera","Administracion de empresas","Comunicaciones","Psicologia","Trabajo social","Lic. en pedagogia infantil","Administracion en seguridad y salud en el trabajo" ],
+        datos:[
+          { data:[ 44,  205, 200,  328, 125,  101, 70,  60 ],  label:'Alto'  },
+          { data:[ 290, 40,  105,  70,  85,  155,  60,  45 ],  label:'Medio'   },
+          { data:[ 40,  100, 83,  20,  88,   115, 89,  41 ],  label:'Bajo'   }       
+        ],
+      }
+    }
   ]
  
   
-
-
-
-
-  seleccion: any;
-
-  datosEstadistica: any = []
-
-
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
 
@@ -290,15 +362,37 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
   }
 
 
-crear(reporte){
-  switch (reporte) {
-    case 1:
+crear(reporte:any){
 
+  switch (reporte.value) {
+    case '1':
+      this.reporteSeleccionado.nombre = "Bateria de indicadores";
+      this.reporteSeleccionado.tipo = reporte.value;
       break;
-  
+    case '2':
+      this.reporteSeleccionado.nombre = "Estadistico o detallado de momento 0";
+      this.reporteSeleccionado.tipo = reporte.value;
+      break;
+    case '3':
+      this.reporteSeleccionado.nombre = "Formato de calidad institucional";
+      this.reporteSeleccionado.tipo = reporte.value;
+      break;
     default:
       break;
   }
+}
+
+SeleccionarTodos(elementos: any[] , chequeo: any){
+  let valor = !chequeo.checked;
+  console.log(valor);
+  elementos.forEach(elemento => {
+    elemento.Seleccionado = valor;
+    
+  });
+}
+
+DesseleccionarCabecera(chequeo:any){
+  chequeo.checked = false;
 }
 
 
