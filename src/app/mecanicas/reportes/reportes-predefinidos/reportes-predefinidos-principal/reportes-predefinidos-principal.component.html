@@ -242,41 +242,6 @@
       
             </div>  
           </div>
-<<<<<<< HEAD
-
-        </div>
-
-      </div>
-      
-      <div class="row">
-        <div class="col-md" >
-
-          <table class="table table-striped" >
-            <thead>
-              <tr>
-                <th scope="col" [class]="elementoIndex == (dato.tabla.cabecera.length - 1)?'total':''" *ngFor="let elemento of dato.tabla.cabecera; let elementoIndex = index">{{elemento}}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let fila of dato.tabla.cuerpo">
-                <ng-container *ngFor="let elemento of fila; let elementoIndex = index">
-                  <th scope="row" *ngIf="elementoIndex == 0">{{elemento}}</th>
-                  <td *ngIf="elementoIndex > 0">{{elemento}}</td>                              
-                </ng-container>              
-              </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                  <td *ngFor="let elemento of dato.tabla.pie">{{elemento}}</td>              
-                </tr>
-              </tfoot>          
-          </table>
-
-        </div>  
-      </div>
-
-      <hr>   
-=======
       
           <hr>   
       
@@ -318,17 +283,13 @@
   </div>
                                                     
   <div *ngIf="reporteSeleccionado.tipo == 3" >
->>>>>>> f4e8f61e514e9f270deb09b7eaf0695a69b25a40
 
     </div>
   
   </div>
-<<<<<<< HEAD
-=======
   
  
            
->>>>>>> f4e8f61e514e9f270deb09b7eaf0695a69b25a40
 </kendo-pdf-export>
 
 
