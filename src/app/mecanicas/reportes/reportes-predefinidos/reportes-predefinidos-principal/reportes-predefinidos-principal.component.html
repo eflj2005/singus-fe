@@ -1,152 +1,154 @@
-<h1 align="center">Reportes Predefinidos</h1>
+
+<!-- <div class="contenedorPrincipal" style="overflow-y:scroll;"> -->
+  <h1 align="center">Reportes Predefinidos</h1>
 
 
 
 
-<div class="container filtrosContenedor">
-  <div class="container filtros ">
-    <div class=" col-md-6 selecReporte">
-      <label >Eleccion de reporte:</label>
-      <select class="form-control" #selectReporte >
-          <option value="0" disabled >--Seleccione Reporte--</option>
-          <option value="1">Bateria de indicadores</option>
-          <option value="2">Estadistico o detallado de momento 0</option>
-          <option value="3">Formato de calidad institucional</option>
-      </select>
-    </div>
+  <div class="container filtrosContenedor">
+    <div class="container filtros ">
+      <div class=" col-md-6 selecReporte">
+        <label >Eleccion de reporte:</label>
+        <select class="form-control" #selectReporte >
+            <option value="0" disabled >--Seleccione Reporte--</option>
+            <option value="1">Bateria de indicadores</option>
+            <option value="2">Estadistico o detallado de momento 0</option>
+            <option value="3">Formato de calidad institucional</option>
+        </select>
+      </div>
 
-      <div class="row">
-        
-            <div ngbDropdown class="d-inline-block">
-              <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle>Cohortes</button>
-              <div ngbDropdownMenu aria-labelledby="dropdownForm1">
-                <div class="row" >
-                  <div class="col-md-12 cuadro">
-                    <div>
-                      <table class="table table-striped tablaFiltros" >                                       
-                        <thead>
-                          <tr class="colums">
-                            <th scope="col" >                               
-                                <label class="contenedor">
-                                    <input type="checkbox" #chkCohorte >
-                                    <span class="checkmark" (click)="SeleccionarTodos(cohortes, chkCohorte)" ></span>
-                                </label>
-                            </th>
-                            <th scope="col" >Cohorte</th>
-                          </tr>
-                        </thead>                      
-                                            
-                        <tbody>
-                          <tr *ngFor="let cohorte of cohortes" >
-                            <td>
-                              <label class="contenedor" >
-                                <input type="checkbox" [(ngModel)]="cohorte.Seleccionado" >
-                                <span class="checkmark" (click)="DesseleccionarCabecera(chkCohorte)"></span>
-                              </label>
-                            </td>
-                            <td  >{{cohorte.Nombre}}</td>
-                          </tr>
-                        </tbody>                          
-                      </table>
-                    </div>        
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div class="row">
           
-                      
-        
-            <div ngbDropdown class="d-inline-block">
-              <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle>Programas</button>
-              <div ngbDropdownMenu aria-labelledby="dropdownForm1">
-                <div class="row">
-                  <div class="col-md-12 cuadro">
-                    <div >
-                      <table class="table table-striped tablaFiltros" >
-                        <thead>
-                          <tr class="colums">
-                            <th scope="col">
-                                <label class="contenedor">
-                                    <input type="checkbox" #chkPrograma >
-                                    <span class="checkmark" (click)="SeleccionarTodos(programas, chkPrograma)"></span>
-                                </label>
-                            </th>
-                            <th scope="col">Programa</th>
-
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let programa of programas" >
-                            <td>
-                                <label class="contenedor">
-                                  <input type="checkbox" [(ngModel)]="programa.Seleccionado" >
-                                  <span class="checkmark" (click)="DesseleccionarCabecera(chkPrograma)"></span>
+              <div ngbDropdown class="d-inline-block">
+                <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle>Cohortes</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownForm1">
+                  <div class="row" >
+                    <div class="col-md-12 cuadro">
+                      <div>
+                        <table class="table table-striped tablaFiltros" >                                       
+                          <thead>
+                            <tr class="colums">
+                              <th scope="col" >                               
+                                  <label class="contenedor">
+                                      <input type="checkbox" #chkCohorte >
+                                      <span class="checkmark" (click)="SeleccionarTodos(cohortes, chkCohorte)" ></span>
+                                  </label>
+                              </th>
+                              <th scope="col" >Cohorte</th>
+                            </tr>
+                          </thead>                      
+                                              
+                          <tbody>
+                            <tr *ngFor="let cohorte of cohortes" >
+                              <td>
+                                <label class="contenedor" >
+                                  <input type="checkbox" [(ngModel)]="cohorte.Seleccionado" >
+                                  <span class="checkmark" (click)="DesseleccionarCabecera(chkCohorte)"></span>
                                 </label>
                               </td>
-                            <td >{{programa.Nombre}}</td>
-
-                          </tr>             
-                        </tbody>
-                      </table>
-                    </div>        
+                              <td  >{{cohorte.Nombre}}</td>
+                            </tr>
+                          </tbody>                          
+                        </table>
+                      </div>        
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-      
-                  
-        
-            <div ngbDropdown class="d-inline-block">
-              <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle>Sedes</button>
-              <div ngbDropdownMenu aria-labelledby="dropdownForm1">
-                <div class="row" >
-                  <div class="col-md-12 cuadro">
-                    <div >
-                      <table class="table table-striped tablaFiltros" >
-                        <thead>                  
-                          <tr class="colums">
-                            <th scope="col">
-                                <label class="contenedor">
-                                    <input type="checkbox" #chkSede >
-                                    <span class="checkmark" (click)="SeleccionarTodos(sedes, chkSede)"></span>
+            
+                        
+          
+              <div ngbDropdown class="d-inline-block">
+                <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle>Programas</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownForm1">
+                  <div class="row">
+                    <div class="col-md-12 cuadro">
+                      <div >
+                        <table class="table table-striped tablaFiltros" >
+                          <thead>
+                            <tr class="colums">
+                              <th scope="col">
+                                  <label class="contenedor">
+                                      <input type="checkbox" #chkPrograma >
+                                      <span class="checkmark" (click)="SeleccionarTodos(programas, chkPrograma)"></span>
                                   </label>
-                            </th>
-                            <th scope="col" >Sede</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let sede of sedes" >
-                            <td>
-                                <label class="contenedor">
-                                  <input type="checkbox" [(ngModel)]="sede.Seleccionado" >
-                                  <span class="checkmark" (click)="DesseleccionarCabecera(chkSede)"></span>
-                                </label>
-                            </td>
-                            <td >{{sede.Nombre}}</td>
-                          </tr>
-                        </tbody>              
-                      </table>
-                    </div>        
+                              </th>
+                              <th scope="col">Programa</th>
+
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let programa of programas" >
+                              <td>
+                                  <label class="contenedor">
+                                    <input type="checkbox" [(ngModel)]="programa.Seleccionado" >
+                                    <span class="checkmark" (click)="DesseleccionarCabecera(chkPrograma)"></span>
+                                  </label>
+                                </td>
+                              <td >{{programa.Nombre}}</td>
+
+                            </tr>             
+                          </tbody>
+                        </table>
+                      </div>        
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>  
-        </div> 
         
+                    
+          
+              <div ngbDropdown class="d-inline-block">
+                <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle>Sedes</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownForm1">
+                  <div class="row" >
+                    <div class="col-md-12 cuadro">
+                      <div >
+                        <table class="table table-striped tablaFiltros" >
+                          <thead>                  
+                            <tr class="colums">
+                              <th scope="col">
+                                  <label class="contenedor">
+                                      <input type="checkbox" #chkSede >
+                                      <span class="checkmark" (click)="SeleccionarTodos(sedes, chkSede)"></span>
+                                    </label>
+                              </th>
+                              <th scope="col" >Sede</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let sede of sedes" >
+                              <td>
+                                  <label class="contenedor">
+                                    <input type="checkbox" [(ngModel)]="sede.Seleccionado" >
+                                    <span class="checkmark" (click)="DesseleccionarCabecera(chkSede)"></span>
+                                  </label>
+                              </td>
+                              <td >{{sede.Nombre}}</td>
+                            </tr>
+                          </tbody>              
+                        </table>
+                      </div>        
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>  
+          </div> 
+          
+
+        
+          <div class="contenedorCreador">
+              <button type="button" class="btn btn-outline-secondary mr-2 creador" (click)="crear(selectReporte)" placement="top" ngbTooltip="Crear en pantalla"><i class="fa fa-pie-chart"></i></button>
+              <button type="button" class="btn btn-outline-secondary  creador" (click)="exportToPdf.saveAs('reporteEstadistico.pdf')" placement="top" ngbTooltip="Crear en pdf"><i class="fa fa-print"></i></button>   
+          </div>
+          
 
       
-        <div class="contenedorCreador">
-            <button type="button" class="btn btn-outline-secondary mr-2 creador" (click)="crear(selectReporte)" placement="top" ngbTooltip="Crear en pantalla"><i class="fa fa-pie-chart"></i></button>
-            <button type="button" class="btn btn-outline-secondary  creador" (click)="exportToPdf.saveAs('reporteEstadistico.pdf')" placement="top" ngbTooltip="Crear en pdf"><i class="fa fa-print"></i></button>   
-        </div>
-        
-
     
-  
 
 
-</div>
+  </div>
 
 
 <kendo-pdf-export #exportToPdf paperSize="Letter" margin="1cm" [scale]="escalaPdf">
@@ -154,6 +156,7 @@
 
   <div class="container">
 
+<<<<<<< HEAD
     <div class="row">
       <div class="col">
         <h2>{{reporteSeleccionado.nombre}}</h2>
@@ -173,6 +176,22 @@
         
             <div class="row">
 
+=======
+  <kendo-pdf-export #exportToPdf paperSize="Letter" margin="1cm" [scale]="escalaPdf">
+
+    <div><h2>{{reporteSeleccionado.nombre}}</h2></div>
+
+    <div *ngIf=" reporteSeleccionado.tipo == 2">
+        <div class="container" *ngFor="let dato of datos| slice:0; let i = index" >
+            <div class="row">
+              <div class="col-md" style="background: lightblue;">
+                  <h5>{{dato.descripcion}}</h5>      
+              </div>
+            </div>
+        
+            <div class="row">  
+        
+>>>>>>> 2814afa6ffe2c703be610b60734e6c9532cf1fec
               <div class="col-md-6 cardsContainer">
         
                 <div class="card" >
@@ -196,7 +215,10 @@
                 </div>
             
               </div>
+<<<<<<< HEAD
               
+=======
+>>>>>>> 2814afa6ffe2c703be610b60734e6c9532cf1fec
               <div class="col-md-6 cardsContainer" >
         
                 <div class="card " >
@@ -326,6 +348,7 @@
 </kendo-pdf-export>
 
 
+<!-- </div> -->
 
 
  
