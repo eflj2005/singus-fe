@@ -8,7 +8,10 @@ table{
 }
 
 
-body {font-family: 'lato';}
+body {
+    font-family: 'lato';
+    overflow: hidden;    
+}
 
 /* Set a style for all buttons */
 .mibutton {
