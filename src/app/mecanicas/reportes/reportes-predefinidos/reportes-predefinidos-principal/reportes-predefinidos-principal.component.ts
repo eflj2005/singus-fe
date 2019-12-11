@@ -55,7 +55,8 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
   ];
   
   datos: any = [
-    { 
+    {
+      codigo: 1, 
       descripcion:'¿Nivel de satisfacion con su institucion (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
       tabla:{
         cabecera: [ "", "201610", "201660", "201710", "201760", "201810", "201860", "Total"],
@@ -85,6 +86,7 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       }
     },
     { 
+      codigo: 2, 
       descripcion:'¿Nivel de satisfacion con la calidad de formacion integral recibida (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
       tabla:{
         cabecera: [ "","Ibagué", "Lerida", "Fresno", "Dorada", "Puerto Boyaca","Total"],
@@ -114,6 +116,7 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       }
     },
     { 
+      codigo: 3, 
       descripcion:'¿Nivel de satisfacion con la disponibilidad de tiempo de los profesores (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
       tabla:{
         cabecera: [ "","Contaduria publica","Administracion finaciera","Administracion de empresas","Comunicaciones","Psicologia","Trabajo social","Lic. en pedagogia infantil","Administracion en seguridad y salud en el trabajo","Total"],
@@ -143,6 +146,7 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       }
     },
     { 
+      codigo: 4, 
       descripcion:'¿Nivel de satisfacion con la Opotunidad de participacion  en   actividades extracurriculares (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
       tabla:{
         cabecera: [ "","201610", "201660", "201710", "201760", "201810", "201860", "Total"],
@@ -172,6 +176,7 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       }
     },
     { 
+      codigo: 5, 
       descripcion:'¿Nivel de satisfacion con las relaciones interpersonales con la comunidad institucional (1-4), 1 corresponde a "muy insatisfecho" y 4 a "muy satisfecho"',
       tabla:{
         cabecera: [ "", "Ibagué", "Lerida", "Fresno", "Dorada", "Puerto Boyaca", "Total"],
@@ -201,6 +206,7 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       }
     },
     { 
+      codigo: 11, 
       descripcion:'¿Existe un balance entre las actividades extracurriculares y académicas?',
       tabla:{
         cabecera: [ "", "Contaduria publica","Administracion finaciera","Administracion de empresas","Comunicaciones","Psicologia","Trabajo social","Lic. en pedagogia infantil","Administracion en seguridad y salud en el trabajo", "Total"],
@@ -226,6 +232,7 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       }
     },
     { 
+      codigo: 12, 
       descripcion:'¿Le recomendaría su institución a alguien que quiera estudiar educación superior?',
       tabla:{
         cabecera: [ "","201610", "201660", "201710", "201760", "201810", "201860", "Total"],
@@ -251,6 +258,7 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       }
     },
     { 
+      codigo: 76, 
       descripcion:'¿Su programa académico le ha servido para realizar su trabajo actual?',
       tabla:{
         cabecera: [ "","Contaduria publica","Administracion finaciera","Administracion de empresas","Comunicaciones","Psicologia","Trabajo social","Lic. en pedagogia infantil","Administracion en seguridad y salud en el trabajo", "Total"],
@@ -278,6 +286,7 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
       }
     },
     { 
+      codigo: 77, 
       descripcion:'¿Su programa académico le ha servido para realizar su trabajo actual?',
       tabla:{
         cabecera: [ "","Contaduria publica","Administracion finaciera","Administracion de empresas","Comunicaciones","Psicologia","Trabajo social","Lic. en pedagogia infantil","Administracion en seguridad y salud en el trabajo", "Total"],
