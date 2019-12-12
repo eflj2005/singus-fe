@@ -18,22 +18,118 @@
                 <th scope="col">Sede</th>
                 <th scope="col">Tipo</th>
                 <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let evento of  eventos$ | async; index as i">
-              <td><ngb-highlight [result]="evento.id | number" [term]="filter.value"></ngb-highlight></td>
-              <td><ngb-highlight [result]=" evento.nombre" [term]="filter.value"></ngb-highlight></td>
-              <td><ngb-highlight [result]="evento.fechaEvento" [term]="filter.value"></ngb-highlight></td>
-              <td><ngb-highlight [result]="evento.sede" [term]="filter.value"></ngb-highlight></td>
-              <td><ngb-highlight [result]="evento.tipo" [term]="filter.value"></ngb-highlight></td>
-              <td>
+                <td><ngb-highlight [result]="evento.id | number" [term]="filter.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]=" evento.nombre" [term]="filter.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="evento.fechaEvento" [term]="filter.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="evento.sede" [term]="filter.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="evento.tipo" [term]="filter.value"></ngb-highlight></td>
+                <td>
                   <button class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Editar" (click)="verPersona({id : persona.IdPersona, modo:2})">
                       <i class="fa fa-pencil"></i>
                   </button>
+                </td>
+                <td>
+                    <button class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Registrar asistencia" (click)="verModal(agregador)">
+                            <i class="fa fa-address-book-o"></i>
+                    </button>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
+
+    <ng-template #agregador let-modal>
+
+            <div class="modal-header">
+                <h4 class="modal-title">Crear Asistencia</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col text-center">
+                                <h4 >Seleccione personas</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                                <div class="col text-center">
+                                        <h5 >Lista de personas</h5>
+                                </div>
+                                <form >
+                                    <div class="form-group form-inline form ">
+                                        <div class="row">
+                                            <div class="col align-middle a">
+                                                <i class="fa fa-search search col-md-2 "></i>
+                                                <p>Buscar: </p>
+                                            </div>
+                                            <div class="col"> <input class="form-control" type="text" [formControl]="filterPersonas"/></div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <table class="table table-striped">
+                                    <thead class="thead">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Programa</th>
+                                        <th scope="col">Cedula</th>
+                                        <th scope="col"></th> 
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let persona of  personas$ | async; index as i">
+                                    <td><ngb-highlight [result]="persona.Id  | number" [term]="filterPersonas.value"></ngb-highlight></td>
+                                    <td><ngb-highlight [result]="persona.Nombre" [term]="filterPersonas.value"></ngb-highlight></td>
+                                    <td><ngb-highlight [result]="persona.Programa" [term]="filterPersonas.value"></ngb-highlight></td>
+                                    <td><ngb-highlight [result]="persona.Cedula" [term]="filterPersonas.value"></ngb-highlight></td>
+                                    <td>                                        
+                                        <label class="containerCheck">
+                                            <input type="checkbox" [(ngModel)]=" persona.Seleccionado" >
+                                            <span class="checkmark"></span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table> 
+
+                        </div>
+                        <div class="col">
+                                <div class="col text-center">
+                                        <h5 >Personas Seleccionadas</h5>
+                                </div>
+                                <table class="table table-striped">
+                                    <thead class="thead">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Programa</th>
+                                        <th scope="col">Cedula</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <ng-container *ngFor="let persona of PERSONAS; index as i">
+                                        <tr *ngIf="persona.Seleccionado == true"> 
+                                        <td>{{persona.Id }}</td>
+                                        <td>{{persona.Nombre}}</td>
+                                        <td>{{persona.Programa}}</td>
+                                        <td>{{persona.Cedula}}</td>
+                                        </tr>
+                                    </ng-container> 
+                                    </tbody>
+                                </table> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">Atras</button> 
+                <button type="button" class="btn btn-primary" (click)="modal.close('SI')">Agregar</button>                
+            </div>
+
+    </ng-template>
 </div>

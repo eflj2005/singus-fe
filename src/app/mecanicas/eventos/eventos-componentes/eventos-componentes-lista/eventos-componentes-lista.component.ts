@@ -1,5 +1,6 @@
 import { Component,  OnInit, PipeTransform} from '@angular/core';
 import { DecimalPipe } from '@angular/common';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
@@ -12,6 +13,15 @@ interface Evento {
   sede: string;
   tipo: string; 
 }
+
+interface PersonaTemporar { 
+  Id:number,
+  Nombre:string,
+  Programa:string,
+  Cedula:string,
+  Seleccionado: boolean
+}
+
 
 
 @Component({
@@ -68,19 +78,52 @@ export class EventosComponentesListaComponent implements OnInit {
 
   ];
 
+    PERSONAS: PersonaTemporar[] = [{
+      Id:1,
+      Nombre:"Cesar Duvan Martinez",
+      Programa:"Ingenieria de sistemas",
+      Cedula:"1007405687",
+      Seleccionado: false
+    },
+    {
+      Id:2,
+      Nombre:"Diego Fernando Osorio ",
+      Programa:"Ingenieria de sistemas",
+      Cedula:"1011234187",
+      Seleccionado: false
+    },
+    {
+      Id:2,
+      Nombre:"Diego Fernando Osorio ",
+      Programa:"Ingenieria de sistemas",
+      Cedula:"1011234187",
+      Seleccionado: false
+    }
+  ];
+
+  
+  personas$: Observable<PersonaTemporar[]>;
+  filterPersonas = new FormControl('');
+
   
   eventos$: Observable<Evento[]>;
 
   filter = new FormControl('');
 
-  constructor( private pipe: DecimalPipe, private AmbienteService : AmbienteService,) {
+  constructor(private modal: NgbModal ,private pipe: DecimalPipe, private AmbienteService : AmbienteService,) {
+    
     this.eventos$ = this.filter.valueChanges.pipe(
       startWith(''),
       map(text => this.buscar(text, pipe))
     )
+
+    this.personas$ = this.filterPersonas.valueChanges.pipe(
+      startWith(''),
+      map(text => this.buscarPersonas(text, pipe))
+    )
    }
 
-   buscar(text: string , pipe: PipeTransform): Evento[] {
+  buscar(text: string , pipe: PipeTransform): Evento[] {
     return this.EVENTOS.filter(evento => {
       const term = text.toLowerCase();
       return pipe.transform(evento.id).includes(term)
@@ -91,11 +134,27 @@ export class EventosComponentesListaComponent implements OnInit {
     });
   }
 
+  buscarPersonas(text: string , pipe: PipeTransform): PersonaTemporar[] {
+    return this.PERSONAS.filter(persona => {
+      const term = text.toLowerCase();
+      return pipe.transform(persona.Id).includes(term)
+          || persona.Nombre.toLowerCase().includes(term)
+          || persona.Programa.toLowerCase().includes(term)
+          || persona.Cedula.toLowerCase().includes(term);
+  
+    });
+  }
+
+  
+  verModal(agregador)
+  {
+    const respuesta  = this.modal.open(agregador, { centered: true , backdropClass: 'light-blue-backdrop', size: 'xl' } );
+  }
+
   ngOnInit() {
   }
 
   crear(datos){
-
     this.AmbienteService.eventosModo.modo = datos;
 
   }

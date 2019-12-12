@@ -377,7 +377,7 @@ crear(reporte:any){
       this.reporteSeleccionado.tipo = reporte.value;
       break;
     case '2':
-      this.reporteSeleccionado.nombre = "Estadistico o detallado de momento 0";
+      this.reporteSeleccionado.nombre = "Estadistico de momento 0";
       this.reporteSeleccionado.tipo = reporte.value;
       break;
     case '3':

@@ -4,55 +4,53 @@
           <h1 >Crear eventos</h1>
         </div>
     </div>
-
-    <div class="row">
-            <div class="container contenedor">
-                <div style="background-color: red;">
-                sdd
+    <div class="row spaceColor">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                            <label> Nombre:</label>
+                            <input type="text" class="form-control"  [(ngModel)]="x" >
+                    </div>
                 </div>
-    
-                <div style="background-color: blue;">
-                sdd
+                <div class="row">
+                    <div class="col">
+                            <label> Fecha:</label>
+                            <input type="date" class="form-control"  [(ngModel)]="y" >
+                    </div>
+                    <div class="col">
+                            <label> Sede:</label>
+                            <select  class="form-control" [(ngModel)]="m">
+                                <option>sede 1 </option>
+                                <option>sede 2 </option>
+                                <option>sede 3 </option>
+                            </select>
+                    </div>
+                </div>
+                <div class="row margin-top">
+                    <div class="col">
+                        <div class="input-group" >
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Descripción</span>
+                            </div>
+                            <textarea class="form-control" aria-label="With textarea" ></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row  margin-top">
+                    <div class="col">
+                        <button type="button" class="btn btn-outline-primary btn-lg">Crear</button>      
+                    </div>
                 </div>
             </div>
 
-    </div>
-
-
-        <div class="container contenedor">
-                <div class="form-group row" >
-                    <div class="col-md-5">
-                        <label> Nombre:</label>
-                        <input type="text" class="form-control"  [(ngModel)]="x" >
-                    </div>
-                    <div  class="col-md-2">
-                        <label> Fecha:</label>
-                        <input type="date" class="form-control"  [(ngModel)]="y" >
-                    </div>          
-                    <div class="col-md-5">
-                        <label> Sede:</label>
-                        <select  class="form-control" [(ngModel)]="z">
-                            <option>sede 1 </option>
-                            <option>sede 2 </option>
-                            <option>sede 3 </option>
-                        </select>
+            <div class="col">
+                <div class="row">
+                    <div class="col text-center ">
+                                <img src="../../../../../assets/imagenes/grados1.jpg" class="img-fluid img" alt="Responsive image">
                     </div>
                 </div>
-                <div class="form-group row" >
-                    <div class="col-md-3">
-                        <label> Tipo:</label>
-                        <select  class="form-control" [(ngModel)]="a">
-                            <option>tipo 1 </option>
-                            <option>tipo 2 </option>
-                            <option>tipo 3 </option>
-                        </select>
-                    </div>
-                    <div  class="col-md-2">
-                        <br>
-                        <button type="button" class="btn btn-outline-primary" (click)="verModal(agregador, 1)"><i class="fa fa-plus"></i>Agregar asistencia</button>
-                            
-                    </div>          
-                    <div class="col-md-5">
+                <div class="row">
+                    <div class="col">
                             <label> Cargar imagen:</label>
                             <div class="input-group mb-3  fileContainer">
                                 <div class="custom-file">
@@ -60,89 +58,15 @@
                                     <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
                                 </div>
                             </div>
-
-                    </div>
-                    <div class="col-md-2">
-                            <label> Previsualización:</label>
-                            <br>
-                            <button  type="button" class="btn btn-outline-primary " (click)="verModal(agregador, 2)"><i class="fa fa-eye"></i></button>
-
                     </div>
                 </div>
-                <button type="button" class="btn btn-outline-primary btn-lg btn-block" >Crear</button>
+            </div>
+
+    </div>
+    <div class="row">
+        <div class="col">
+            <button type="button" class="btn btn-outline-dark buttonGeneral" >Atras</button>
         </div>
-
-        <button type="button" class="btn btn-outline-dark buttonGeneral" >Atras</button>
-
-        <ng-template #agregador let-modal>
-
-                <div *ngIf="tipoInformacion == 1"> 
-                <div class="modal-header">
-                    <h4 class="modal-title">Crear Asistencia</h4>
-                </div>
-                <div class="modal-body">
-                
-                    <h5 align="center">Lista de personas</h5>
-                    <form >
-                            <div class="form-group form-inline form ">
-                                <div class="row col-md-10 form2"><i class="fa fa-search search "></i><p>Buscar: </p><input class="form-control" type="text" [formControl]="filter"/></div>
-                            </div>
-                        </form>
-                    
-                    
-                        <table class="table table-striped">
-                            <thead class="thead">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Programa</th>
-                                <th scope="col">Cedula</th>
-                                <th scope="col"></th> 
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr *ngFor="let persona of  personas$ | async; index as i">
-                            <td><ngb-highlight [result]="persona.Id  | number" [term]="filter.value"></ngb-highlight></td>
-                            <td><ngb-highlight [result]="persona.Nombre" [term]="filter.value"></ngb-highlight></td>
-                            <td><ngb-highlight [result]="persona.Programa" [term]="filter.value"></ngb-highlight></td>
-                            <td><ngb-highlight [result]="persona.Cedula" [term]="filter.value"></ngb-highlight></td>
-                            <td>                                        
-                                <label class="containerCheck">
-                                    <input type="checkbox" [(ngModel)]=" persona.Seleccionado" >
-                                    <span class="checkmark"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">Atras</button> 
-                    <button type="button" class="btn btn-primary" (click)="modal.close('SI')">Agregar</button>                
-                </div>
-                </div>
-
-                <div *ngIf="tipoInformacion == 2"> 
-                    <div class="modal-header">
-                        <h4 class="modal-title">Previsualización</h4>
-                        </div>
-                        <div class="modal-body" align="center">
-                                <div class="card" style="width: 18rem;">
-                                    <img src="../../../../../assets/imagenes/grados1.jpg" class="card-img-top" alt="...">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">Nombre evento</li>
-                                        <li class="list-group-item">Fecha</li>
-                                        <li class="list-group-item">Tipo del evento</li>
-                                        <li class="list-group-item">Lugar</li>
-                                    </ul>
-                                </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">Atras</button> 
-                            <button type="button" class="btn btn-primary" (click)="modal.close('SI')">Aceptar</button>               
-                        </div>
-                </div>
-
-            </ng-template>
+    </div>
 
 </div>
