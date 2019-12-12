@@ -151,23 +151,30 @@
   </div>
 
 
+<kendo-pdf-export #exportToPdf paperSize="Letter" margin="1cm" [scale]="escalaPdf">
 
 
+  <div class="container">
 
-  <kendo-pdf-export #exportToPdf paperSize="Letter" margin="1cm" [scale]="escalaPdf">
+    <div class="row">
+      <div class="col">
+        <h2>{{reporteSeleccionado.nombre}}</h2>
+      </div>
+    </div>
 
-    <div><h2>{{reporteSeleccionado.nombre}}</h2></div>
-
-    <div *ngIf=" reporteSeleccionado.tipo == 2">
-        <div class="container" *ngFor="let dato of datos| slice:0; let i = index" >
+    <div class="row" *ngIf=" reporteSeleccionado.tipo == 2">
+      <div class="col-md">
+        <div class="row" *ngFor="let dato of datos| slice:0; let i = index" >
+          <div class="col-md">
+            
             <div class="row">
               <div class="col-md" style="background: lightblue;">
-                  <h5>{{dato.descripcion}}</h5>      
+                <h5>{{dato.descripcion}}</h5>      
               </div>
             </div>
         
-            <div class="row">  
-        
+            <div class="row">
+
               <div class="col-md-6 cardsContainer">
         
                 <div class="card" >
@@ -191,6 +198,7 @@
                 </div>
             
               </div>
+              
               <div class="col-md-6 cardsContainer" >
         
                 <div class="card " >
@@ -248,11 +256,14 @@
             <hr>   
         
           </div>
+        </div>
+      </div>
 
     </div>
 
-    <div *ngIf="reporteSeleccionado.tipo == 1" >
-        <table class="table">
+    <div class="row" *ngIf="reporteSeleccionado.tipo == 1" >
+      <div class="col-md">
+        <!-- <table class="table">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -281,17 +292,52 @@
                 <td>@twitter</td>
               </tr>
             </tbody>
-          </table>
+        </table> -->
+        <div class="row" *ngFor="let indicador of bateriaIndicadores; let indicadorIndex = index">
+          <div class="col">
+
+              <table class="table table-striped" *ngFor="let datos of BuscarIndicador(indicador.codigo)">
+
+                  <thead>
+                    <tr>
+                      <th scope="col" [class]="elementoIndex == (datos.tabla.cabecera.length - 1)?'total':''"  *ngFor="let elemento of datos.tabla.cabecera; let elementoIndex = index">{{ elemento }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <ng-container *ngFor="let elemento of datos.tabla.cabecera; let elementoIndex = index">
+                        <th scope="row" *ngIf="elementoIndex == 0">{{indicador.descripcion}}</th>
+                        <td *ngIf="elementoIndex > 0">{{ ObtenerPorcentajeIndicador( indicador, datos, elementoIndex )  }}%</td>
+                        <!-- <td *ngIf="elementoIndex == (datos.tabla.cabecera.length - 1)">{{ ObtenerPorcentajeIndicador( indicador, datos, elementoIndex, true )  }}</td> -->
+                      </ng-container>              
+                    </tr>
+                  </tbody>
+                  <!-- <tfoot>
+                    <tr>
+                      <td *ngFor="let elemento of dato.tabla.pie">{{elemento}}</td>              
+                    </tr>
+                  </tfoot>           -->
+              </table>
+
+
+          </div>
+        </div>
+
+
+
+
+      </div>
     </div>
                                                       
-    <div *ngIf="reporteSeleccionado.tipo == 3" >
+    <div class="row" *ngIf="reporteSeleccionado.tipo == 3" >
 
 
     </div>
-    
   
-            
-  </kendo-pdf-export>
+  </div>
+           
+</kendo-pdf-export>
+
 
 <!-- </div> -->
 

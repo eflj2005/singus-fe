@@ -146,3 +146,7 @@ thead{
 .search{
     padding: 3px;
 }
+
+.menu{
+    max-width: 70px;
+}
