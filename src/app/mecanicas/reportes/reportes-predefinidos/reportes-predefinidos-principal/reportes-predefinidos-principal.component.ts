@@ -315,15 +315,15 @@ export class ReportesPredefinidosPrincipalComponent implements OnInit {
  
   
   bateriaIndicadores: any = [
-    { codigo: 1, Descripción: "Nivel de satisfacion con su institucion", aprocesar: [3,4] },
-    { codigo: 2, Descripción: "Nivel de satisfacion con la calidad de formacion integral recibida", aprocesar: [3,4] },
-    { codigo: 3, Descripción: "Nivel de satisfacion con la disponibilidad de tiempo de los profesores", aprocesar: [3,4] },
-    { codigo: 4, Descripción: "Nivel de satisfacion con la Opotunidad de participacion en actividades extracurriculares", aprocesar: [3,4] },
-    { codigo: 5, Descripción: "Nivel de satisfacion con las relaciones interpersonales con la comunidad institucional", aprocesar: [3,4] },
-    { codigo: 11, Descripción: "Existe un balance entre las actividades extracurriculares y académicas", aprocesar: [1] },
-    { codigo: 12, Descripción: "Le recomendaría su institución a alguien que quiera estudiar educación superior", aprocesar: [1] },
-    { codigo: 76, Descripción: "Su programa académico le ha servido para realizar su trabajo actual", aprocesar: [1,2] },    
-    { codigo: 77, Descripción: "Su programa académico le ha servido para realizar su trabajo actual", aprocesar: [1,2] }        
+    { codigo: 1, descripcion: "Nivel de satisfacion con su institucion", aProcesar: [3,4] },
+    { codigo: 2, descripcion: "Nivel de satisfacion con la calidad de formacion integral recibida", aProcesar: [3,4] },
+    { codigo: 3, descripcion: "Nivel de satisfacion con la disponibilidad de tiempo de los profesores", aProcesar: [3,4] },
+    { codigo: 4, descripcion: "Nivel de satisfacion con la Opotunidad de participacion en actividades extracurriculares", aProcesar: [3,4] },
+    { codigo: 5, descripcion: "Nivel de satisfacion con las relaciones interpersonales con la comunidad institucional", aProcesar: [3,4] },
+    { codigo: 11, descripcion: "Existe un balance entre las actividades extracurriculares y académicas", aProcesar: [1] },
+    { codigo: 12, descripcion: "Le recomendaría su institución a alguien que quiera estudiar educación superior", aProcesar: [1] },
+    { codigo: 76, descripcion: "Su programa académico le ha servido para realizar su trabajo actual", aProcesar: [1,2] },    
+    { codigo: 77, descripcion: "Su programa académico le ha servido para realizar su trabajo actual", aProcesar: [1,2] }        
   ];
   
   public pieChartType: ChartType = 'pie';
@@ -414,6 +414,31 @@ DesseleccionarCabecera(chequeo:any){
   chequeo.checked = false;
 }
 
+BuscarIndicador(codigo:number){
+var encontrado:any[] = [];
+
+  this.datos.forEach((elemento:any) => {
+    if(codigo == elemento.codigo){
+      encontrado.push(elemento);
+    }
+  });
+
+  return encontrado;
+}
+
+ObtenerPorcentajeIndicador( indicador:any, datos:any, indice:number){
+  var valor:number = 0;
+
+  indicador.aProcesar.forEach((elemento:number) => {
+    //console.log( datos.tabla.cuerpo[elemento] );
+    let componente = datos.tabla.cuerpo[elemento-1];
+    valor = valor + componente[indice];
+  });
+
+  valor = (valor /  datos.tabla.pie[indice]);
+   return (  Math.round(valor * 1000)/10  );
+
+}
 
 
 ExportToPdf(){
@@ -423,4 +448,5 @@ ExportToPdf(){
 
 
 }
+
 
