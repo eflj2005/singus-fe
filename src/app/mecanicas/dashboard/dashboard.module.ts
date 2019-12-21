@@ -12,6 +12,10 @@ import { UsuariosComponentesListaComponent } from '../usuarios/usuarios-componen
 import { UsuariosComponentesProcesarComponent } from '../usuarios/usuarios-componentes/usuarios-componentes-procesar/usuarios-componentes-procesar.component';
 import { DashboardEstadisticasComponent } from './dashboard-componentes/dashboard-estadisticas/dashboard-estadisticas.component';
 import { EventosPrincipalComponent } from "@mecanicas/eventos/eventos-principal/eventos-principal.component";
+import { ReportesAlertasPrincipalComponent } from "@mecanicas/reportes/reportes-alertas/reportes-alertas-principal/reportes-alertas-principal.component";
+import { ReportesPredefinidosPrincipalComponent } from "@mecanicas/reportes/reportes-predefinidos/reportes-predefinidos-principal/reportes-predefinidos-principal.component";
+import { ReportesPersonalizadoPrincipalComponent } from "@mecanicas/reportes/reportes-personalizado/reportes-personalizado-principal/reportes-personalizado-principal.component";
+import { AuditoriaPrincipalComponent } from "@mecanicas/auditoria/auditoria-principal/auditoria-principal.component";
 // import { ReportesModule } from "@mecanicas/reportes/reportes.module";
 //Rutas para redirecciones por url
 const rutas: Routes =[
@@ -23,7 +27,10 @@ const rutas: Routes =[
       {  path:'cargue', component: CarguePrincipalComponent},
       { path: 'eventos',  component: EventosPrincipalComponent },
       { path:'maestras', component: MaestrasPrincipalComponent },
-      { path: 'reportes', loadChildren: () => import('@mecanicas/reportes/reportes.module').then(m => m.ReportesModule) },
+      { path: 'predefinidos', component: ReportesPredefinidosPrincipalComponent },
+      { path: 'alertas', component: ReportesAlertasPrincipalComponent },
+      { path: 'personalizados', component: ReportesPersonalizadoPrincipalComponent },
+      { path: 'auditoria', component: AuditoriaPrincipalComponent },
       { path: 'usuarios', loadChildren: () => import('@mecanicas/usuarios/_usuarios.module').then(m => m.UsuariosModule) }
       // { path:'usuarios', component: UsuariosPrincipalComponent }
     ]}

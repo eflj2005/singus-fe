@@ -26,7 +26,7 @@ interface PersonaTemporarl {
 export class PersonasAgendamientoCrearComponent implements OnInit {
 
   PersonasSeleccionadas$: Observable<PersonaTemporarl[]>;
-  personas2$: Observable<PersonaTemporarl[]>;
+  personas$: Observable<PersonaTemporarl[]>;
   filter = new FormControl('');
   filter2 = new FormControl('');
 
@@ -38,15 +38,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     // this.dateFormatormat(this.now, "dddd, mmmm dS, yyyy");
     this.FechaInicio= formatDate(new Date(), 'yyyy-MM-dd', 'en');
  
-    this.PersonasSeleccionadas$ = this.filter.valueChanges.pipe(
-      startWith(''),
-      map(text => this.buscar(text, pipe , 1))
-    )
-
-    this.personas2$ = this.filter2.valueChanges.pipe(
-      startWith(''),
-      map(text => this.buscar(text, pipe , 2))
-    )
+    this.AplicarFiltros();
 
     if(this.PersonasSeleccionadas.length != 0  ){
       this.mostarBoton = true;
@@ -152,10 +144,12 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
         this.PersonasSeleccionadas.splice(indice,1);
         
       }
+
+    this.AplicarFiltros();
     });
   }
 
-  agregarPersonas( pipe: DecimalPipe){
+  agregarPersonas(pipe: DecimalPipe){
     
     this.Personas.forEach((elemento,indice) => {
 
@@ -166,6 +160,8 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
        this.Personas.splice(indice,1);
        
      }
+
+    this.AplicarFiltros();
    });
 
  }
@@ -180,6 +176,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     return this.PersonasSeleccionadas.filter(persona => {
       const term = text.toLowerCase();
       return pipe.transform(persona.IdPerona).includes(term)
+          || pipe.transform(persona.Id).includes(term)
           || persona.Nombre.toLowerCase().includes(term)
           || persona.Programa.toLowerCase().includes(term)
           || pipe.transform(persona.Cedula).includes(term)
@@ -189,6 +186,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     return this.Personas.filter(persona => {
       const term = text.toLowerCase();
       return pipe.transform(persona.IdPerona).includes(term)
+          || pipe.transform(persona.Id).includes(term)
           || persona.Nombre.toLowerCase().includes(term)
           || persona.Programa.toLowerCase().includes(term)
           || pipe.transform(persona.Cedula).includes(term)
@@ -196,6 +194,19 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     });
     
   }
+  }
+
+  AplicarFiltros(){
+
+    this.PersonasSeleccionadas$ = this.filter.valueChanges.pipe(
+      startWith(''),
+      map(text => this.buscar(text, this.pipe , 1))
+    )
+
+    this.personas$ = this.filter2.valueChanges.pipe(
+      startWith(''),
+      map(text => this.buscar(text, this.pipe , 2))
+    )
   }
 
 }

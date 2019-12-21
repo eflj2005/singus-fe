@@ -1,0 +1,106 @@
+
+<div class="row" >
+    <div class="col text-center">
+        <h1>Alertas</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <ngb-tabset>
+            <ngb-tab title="Cumpleaños">
+              <ng-template ngbTabContent>
+                <div class="row">
+                  <div class="col">
+                    <form >
+                      <div class="form-group form-inline form ">
+                          <div class="row col-md-10 form2"><i class="fa fa-search search "></i><p>Buscar: </p><input class="form-control" type="text" [formControl]="filter"/></div>
+                      </div>
+                    </form>
+      
+                  <table class="table table-striped">
+                      <thead  class="thead">     
+                          <tr class="colums">
+                              <th scope="col" class="semaforo">Semaforo</th>
+                              <th scope="col">#</th>
+                              <th scope="col">Nombre</th>
+                              <th scope="col">Programa</th>
+                              <th scope="col">Cedula</th>
+                              <th scope="col">ID</th>
+                              <th scope="col">Fecha nacimiento</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let persona of   personas$ | async; index as i">
+                            <td class="text-center">    
+                              <label class="contenedor">
+                                  <span class="checkmark"></span>
+                              </label>
+                          </td>
+                          <td><ngb-highlight [result]="persona.Id | number" [term]="filter.value"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="persona.Nombre" [term]="filter.value"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="persona.Programa" [term]="filter.value"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="persona.Cedula " [term]="filter.value"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="persona.IdPersona  | number" [term]="filter.value"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="persona.FechaNacimiento" [term]="filter.value"></ngb-highlight></td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>Actualización</ng-template>
+              <ng-template ngbTabContent>
+                <div class="row">
+                  <div class="col">
+                    <form >
+                      <div class="form-group form-inline form ">
+                          <div class="row col-md-10 form2"><i class="fa fa-search search "></i><p>Buscar: </p><input class="form-control" type="text" [formControl]="filter"/></div>
+                      </div>
+                  </form>
+      
+                  <table class="table table-striped">
+                      <thead  class="thead">     
+                          <tr class="colums">
+                              <th scope="col" class="semaforo">Semaforo</th>
+                              <th scope="col">#</th>
+                              <th scope="col">Nombre</th>
+                              <th scope="col">Programa</th>
+                              <th scope="col">Cedula</th>
+                              <th scope="col">ID</th>
+                              <th scope="col">Fecha ultima Actualizacion</th>
+ 
+                          </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let persona of   personas$ | async; index as i">
+                          <td class="text-center">    
+                            <label class="contenedor">
+                                <span class="checkmark"></span>
+                            </label>
+                          </td>
+                          <td><ngb-highlight [result]="persona.Id | number" [term]="filter.value"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="persona.Nombre" [term]="filter.value"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="persona.Programa" [term]="filter.value"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="persona.Cedula " [term]="filter.value"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="persona.IdPersona  | number" [term]="filter.value"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="persona.FechaUltimaActualizacion" [term]="filter.value"></ngb-highlight></td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Disabled" [disabled]="true">
+              <ng-template ngbTabContent>
+                <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id diam. Nulla facilisi. Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget tincidunt eu, congue et odio. Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie lectus ultrices et. Sed diam urna, egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla tortor arcu. Vivamus faucibus nisl enim, nec tristique ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet ultricies in eget neque. Phasellus nec tortor vel tellus pulvinar feugiat.</p>
+              </ng-template>
+            </ngb-tab>
+          </ngb-tabset>
+    </div>
+</div>

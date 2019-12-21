@@ -8,7 +8,8 @@ import { InicioModule } from "@mecanicas/inicio/inicio.module";
 import { PersonasModule} from '@mecanicas/personas/personas.module';
 import { MaestrasModule } from "@mecanicas/maestras/_maestras.module";
 import { ComunicacionesModule } from './comunicaciones/comunicaciones.module';
-
+import { ReportesModule } from '@mecanicas/reportes/reportes.module';
+import { AuditoriaModule } from '@mecanicas/auditoria/auditoria.module';
 
 
 
@@ -25,7 +26,9 @@ import { ComunicacionesModule } from './comunicaciones/comunicaciones.module';
     EventosModule,
     MaestrasModule,
     UsuariosModule,
-    ComunicacionesModule
+    ComunicacionesModule,
+    AuditoriaModule,
+    ReportesModule
   ]
 })
 export class MecanicasModule { }

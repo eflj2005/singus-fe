@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  PipeTransform } from '@angular/core';
 import {AmbienteService} from '@servicios/ambiente.service';
+import { FormControl } from '@angular/forms';
 import {formatDate} from '@angular/common';
+import { DecimalPipe } from '@angular/common';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 interface PersonaTemporarl { 
   Id:number,
@@ -15,9 +19,15 @@ Seleccionado: boolean}
 @Component({
   selector: 'app-personas-agendamiento-editar',
   templateUrl: './personas-agendamiento-editar.component.html',
-  styleUrls: ['./personas-agendamiento-editar.component.css']
+  styleUrls: ['./personas-agendamiento-editar.component.css'],
+  providers: [DecimalPipe]
 })
 export class PersonasAgendamientoEditarComponent implements OnInit {
+
+  PersonasSeleccionadas$: Observable<PersonaTemporarl[]>;
+  personas$: Observable<PersonaTemporarl[]>;
+  filter = new FormControl('');
+  filter2 = new FormControl('');
 
   mostarBoton: boolean ;
     seleccion: boolean  ;
@@ -25,11 +35,12 @@ export class PersonasAgendamientoEditarComponent implements OnInit {
   responsable = 1;
   FechaFinal : any;
   Nombre: string = "Agendamiento contaduria";
-  constructor(private datosAmbiente : AmbienteService) {
+  constructor(private datosAmbiente : AmbienteService, private pipe: DecimalPipe) {
     // this.dateFormatormat(this.now, "dddd, mmmm dS, yyyy");
     this.FechaInicio= formatDate(new Date(), 'yyyy-MM-dd', 'en');
     this.FechaFinal= formatDate(new Date(), 'yyyy-MM-dd', 'en');
- 
+    
+    this.AplicarFiltros();
 
     if(this.PersonasSeleccionadas.length != 0  ){
       this.mostarBoton = true;
@@ -135,6 +146,7 @@ PersonasSeleccionadas:Array<PersonaTemporarl> = [
         this.PersonasSeleccionadas.splice(indice,1);
         
       }
+      this.AplicarFiltros();
     });
   }
   agregarPersonas(){
@@ -148,6 +160,7 @@ PersonasSeleccionadas:Array<PersonaTemporarl> = [
        this.Personas.splice(indice,1);
        
      }
+     this.AplicarFiltros();
    });
  }
  Cancelar(){
@@ -155,4 +168,42 @@ PersonasSeleccionadas:Array<PersonaTemporarl> = [
   this.datosAmbiente.agendaModo.modo = 1;
   
 }
+
+  buscar(text: string , pipe: PipeTransform , tabla : number): PersonaTemporarl[] {
+      if (tabla == 1) {
+        return this.PersonasSeleccionadas.filter(persona => {
+          const term = text.toLowerCase();
+          return pipe.transform(persona.IdPerona).includes(term)
+              || pipe.transform(persona.Id).includes(term)
+              || persona.Nombre.toLowerCase().includes(term)
+              || persona.Programa.toLowerCase().includes(term)
+              || pipe.transform(persona.Cedula).includes(term)
+              || persona.FechaActualizacion.toLowerCase().includes(term);
+        });
+      } else {
+        return this.Personas.filter(persona => {
+          const term = text.toLowerCase();
+          return pipe.transform(persona.IdPerona).includes(term)
+              || pipe.transform(persona.Id).includes(term)
+              || persona.Nombre.toLowerCase().includes(term)
+              || persona.Programa.toLowerCase().includes(term)
+              || pipe.transform(persona.Cedula).includes(term)
+              || persona.FechaActualizacion.toLowerCase().includes(term);
+        });
+        
+      }
+  }
+
+  AplicarFiltros(){
+
+    this.PersonasSeleccionadas$ = this.filter.valueChanges.pipe(
+      startWith(''),
+      map(text => this.buscar(text, this.pipe , 1))
+    )
+
+    this.personas$ = this.filter2.valueChanges.pipe(
+      startWith(''),
+      map(text => this.buscar(text, this.pipe , 2))
+    )
+  }
 }
