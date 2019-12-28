@@ -14,10 +14,10 @@
               <tr>
                   <th scope="col">#</th>
                   <th scope="col">Cohorte</th>
-                  <th scope="col">ID</th>
+                  <th scope="col">Id Uniminuto</th>
                   <th scope="col">Sede</th>
                   <th scope="col">Nombre</th>
-                  <th scope="col">Cedula</th>
+                  <th scope="col">Documento</th>
                   <th scope="col">Programa</th>
                   <th scope="col">Celular</th>
                   <th scope="col">Correo Institucional</th>
@@ -27,16 +27,16 @@
               </thead>
               <tbody>
               <tr *ngFor="let persona of  personas$ | async; index as i">
-                <td><ngb-highlight [result]="persona.IdPersona  | number" [term]="filter2.value"></ngb-highlight></td>
-                <td><ngb-highlight [result]="persona.Cohorte" [term]="filter2.value"></ngb-highlight></td>
-                <td><ngb-highlight [result]="persona.Id | number" [term]="filter2.value"></ngb-highlight></td>
-                <td><ngb-highlight [result]="persona.Sede" [term]="filter2.value"></ngb-highlight></td>
-                <td><ngb-highlight [result]="persona.Nombre" [term]="filter2.value"></ngb-highlight></td>
-                <td><ngb-highlight [result]="persona.Cedula" [term]="filter2.value"></ngb-highlight></td>
-                <td><ngb-highlight [result]="persona.Programa" [term]="filter2.value"></ngb-highlight></td>
-                <td><ngb-highlight [result]="persona.Celular" [term]="filter2.value"></ngb-highlight></td>
-                <td><ngb-highlight [result]="persona.CorreoInstitucional" [term]="filter2.value"></ngb-highlight></td>
-                <td><ngb-highlight [result]="persona.CorreoPersonal" [term]="filter2.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="persona.id | number" [term]="filter2.value"></ngb-highlight></td>                
+                <td><ngb-highlight [result]="persona.cohorte" [term]="filter2.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="persona.iduniminuto  | number" [term]="filter2.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="persona.sede" [term]="filter2.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="persona.nombreCompleto" [term]="filter2.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="persona.documento | number" [term]="filter2.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="persona.programa" [term]="filter2.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="persona.celular" [term]="filter2.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="persona.correoInstitucional" [term]="filter2.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="persona.correoPersonal" [term]="filter2.value"></ngb-highlight></td>
                 <td>
                     <button class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Editar" (click)="verPersona({id : persona.IdPersona, modo:2})">
                         <i class="fa fa-pencil"></i>

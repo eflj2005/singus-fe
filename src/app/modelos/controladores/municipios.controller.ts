@@ -5,7 +5,7 @@ import { AmbienteService } from '@servicios/ambiente.service';
 
 import { CiudadesInterface } from '@interfaces/ciudades.interface';
 
-export class CiudadesController extends GenericoModel {
+export class MunicipiosController extends GenericoModel {
 
   registros: CiudadesInterface[]= [];
 
@@ -15,7 +15,7 @@ export class CiudadesController extends GenericoModel {
   ) {
     super(instanciaHttpClient,InstanciaAmbienteService);
 
-    this.nombreTabla = "ciudades";
+    this.nombreTabla = "municipios";
     this.fechasDefinidas = [];
 
     this.DetectarCampos().subscribe();

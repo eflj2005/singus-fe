@@ -28,12 +28,12 @@
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab  *ngIf="controladorCiudades.estaListo">
-          <ng-template ngbTabTitle>Ciudades</ng-template>
+        <ngb-tab  *ngIf="controladorMunicipios.estaListo">
+          <ng-template ngbTabTitle>Municipios</ng-template>
           <ng-template ngbTabContent>
             <div class="ngTabContainer">
-              <h1>Lista de Ciudades</h1><hr>
-              <app-maestras-componentes-lista nombreTabla="ciudades" [controlador]="controladorCiudades"></app-maestras-componentes-lista>
+              <h1>Lista de Municipios</h1><hr>
+              <app-maestras-componentes-lista nombreTabla="municipios" [controlador]="controladorMunicipios"></app-maestras-componentes-lista>
             </div>
           </ng-template>
         </ngb-tab>

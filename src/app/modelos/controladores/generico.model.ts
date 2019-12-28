@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { AmbienteService } from '@servicios/ambiente.service';
 import { filtroInterface } from '@interfaces/filtro.interface';
 import { RespuestaInterface } from '../interfaces/respuesta.interface';
+import { isNull } from 'util';
 
 export class GenericoModel {
   protected llamadoHttp :HttpClient;
@@ -249,9 +250,11 @@ export class GenericoModel {
 
   protected ProcesarFechas(objeto:any, sentido:string){        
     let regExp = /\-/gi;
-    this.camposFecha.forEach(campo => {    
-      if(sentido=="SET")  objeto[campo] = objeto[campo].replace(regExp, "");
-      if(sentido=="GET")  objeto[campo] = (objeto[campo]).substr(0,4) + "-" + (objeto[campo]).substr(5,2) + "-" + (objeto[campo]).substr(8,2);
+    this.camposFecha.forEach(campo => { 
+      if( !isNull(objeto[campo]) ){   
+        if(sentido=="SET")  objeto[campo] = objeto[campo].replace(regExp, "");
+        if(sentido=="GET")  objeto[campo] = (objeto[campo]).substr(0,4) + "-" + (objeto[campo]).substr(5,2) + "-" + (objeto[campo]).substr(8,2);
+      }
     });    
     return objeto;
   }

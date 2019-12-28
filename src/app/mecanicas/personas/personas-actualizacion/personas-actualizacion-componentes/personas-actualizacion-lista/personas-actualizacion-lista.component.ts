@@ -6,17 +6,19 @@ import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
-interface Persona {
-  IdPersona:number;
-  Cohorte:string;
-  Id:number;
-  Sede:string;
-  Nombre:string;
-  Cedula:string;
-  Programa:string;
-  Celular:string;
-  CorreoInstitucional:string;
-  CorreoPersonal:string;
+import { PersonasInterface } from '@interfaces/personas.interface';
+import { PersonasController } from '@controladores/personas.controller';
+import { HttpClient } from '@angular/common/http';
+import { RespuestaInterface } from '@interfaces/respuesta.interface';
+
+interface ListaPersonasInterface extends PersonasInterface {
+  nombreCompleto:string;
+  cohorte:string;
+  sede:string;
+  programa:string;
+  celular:string;
+  correoInstitucional:string;
+  correoPersonal:string;
 }
 
 @Component({
@@ -28,180 +30,100 @@ interface Persona {
 
 export class PersonasActualizacionListaComponent implements OnInit {
   
-  PERSONAS: Persona[] = [
+  registros: ListaPersonasInterface[];
+  
+  PERSONAS: ListaPersonasInterface[] = [
     {
-    IdPersona:1,
-    Cohorte:"123456",
-    Id:123412,
-    Sede:"Medellin",
-    Nombre:"Juan Carlos Bustos Tovio",
-    Cedula:"1007405687",
-    Programa:"Ing. Sistemas",
-    Celular:"3223542148",
-    CorreoInstitucional:"ASDKASJKDHA@Uniminuto.edu.co",
-    CorreoPersonal:"ASDKASJKDHA@Uniminuto.edu.co"
+    id:1,
+    nacimiento_fecha: "19830101",
+    iduniminuto:123412,
+    nombres:"Juan Carlos",
+    apellidos: "Bustos Tovio",
+    genero: "M",
+    tiposdocoumentos_id: 1,
+    documento:1007405687,
+    municipios_id: 73001,
+    actualizacion_fecha: "20190101",
+
+    nombreCompleto: "Juan Carlos Bustos Tovio",
+    cohorte:"123456",
+    sede:"Medellin",
+    programa:"Ing. Sistemas",
+    celular:"3223542148",
+    correoInstitucional:"ASDKASJKDHA@Uniminuto.edu.co",
+    correoPersonal:"ASDKASJKDHA@Uniminuto.edu.co"
   },
   {
-    IdPersona:2,
-    Cohorte:"1221456",
-    Id:623,
-    Sede:"Bogta",
-    Nombre:"Ppeptiyo flors xdsa",
-    Cedula:"42321",
-    Programa:"Ing. Sistemas",
-    Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
-    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
-  },
-  {
-    IdPersona:2,
-    Cohorte:"1221456",
-    Id:623,
-    Sede:"Bogta",
-    Nombre:"Ppeptiyo flors xdsa",
-    Cedula:"42321",
-    Programa:"Ing. Sistemas",
-    Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
-    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
-  },
-  {
-    IdPersona:2,
-    Cohorte:"1221456",
-    Id:623,
-    Sede:"Bogta",
-    Nombre:"Ppeptiyo flors xdsa",
-    Cedula:"42321",
-    Programa:"Ing. Sistemas",
-    Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
-    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
-  },
-  {
-    IdPersona:2,
-    Cohorte:"1221456",
-    Id:623,
-    Sede:"Bogta",
-    Nombre:"Ppeptiyo flors xdsa",
-    Cedula:"42321",
-    Programa:"Ing. Sistemas",
-    Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
-    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
-  },
-  {
-    IdPersona:2,
-    Cohorte:"1221456",
-    Id:623,
-    Sede:"Bogta",
-    Nombre:"Ppeptiyo flors xdsa",
-    Cedula:"42321",
-    Programa:"Ing. Sistemas",
-    Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
-    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
-  },
-  {
-    IdPersona:2,
-    Cohorte:"1221456",
-    Id:623,
-    Sede:"Bogta",
-    Nombre:"Ppeptiyo flors xdsa",
-    Cedula:"42321",
-    Programa:"Ing. Sistemas",
-    Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
-    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
-  },
-  {
-    IdPersona:2,
-    Cohorte:"1221456",
-    Id:623,
-    Sede:"Bogta",
-    Nombre:"Ppeptiyo flors xdsa",
-    Cedula:"42321",
-    Programa:"Ing. Sistemas",
-    Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
-    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
-  },
-  {
-    IdPersona:2,
-    Cohorte:"1221456",
-    Id:623,
-    Sede:"Bogta",
-    Nombre:"Ppeptiyo flors xdsa",
-    Cedula:"42321",
-    Programa:"Ing. Sistemas",
-    Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
-    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
-  },
-  {
-    IdPersona:2,
-    Cohorte:"1221456",
-    Id:623,
-    Sede:"Bogta",
-    Nombre:"Ppeptiyo flors xdsa",
-    Cedula:"42321",
-    Programa:"Ing. Sistemas",
-    Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
-    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
-  },
-  {
-    IdPersona:2,
-    Cohorte:"1221456",
-    Id:623,
-    Sede:"Bogta",
-    Nombre:"Ppeptiyo flors xdsa",
-    Cedula:"42321",
-    Programa:"Ing. Sistemas",
-    Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
-    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
-  },
-  {
-    IdPersona:2,
-    Cohorte:"1221456",
-    Id:623,
-    Sede:"Bogta",
-    Nombre:"Ppeptiyo flors xdsa",
-    Cedula:"42321",
-    Programa:"Ing. Sistemas",
-    Celular:"76543451",
-    CorreoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
-    CorreoPersonal:"ddaxcwedd@Uniminuto.edu.co"
+    id:2,
+    nacimiento_fecha: "19830101",
+    iduniminuto:623,
+    nombres:"Ppeptiyo",
+    apellidos:"flors xdsa",
+    genero: "M",
+    tiposdocoumentos_id: 1,
+    documento:42321,
+    municipios_id: 73001,
+    actualizacion_fecha: "20190101",
+
+    nombreCompleto: "Ppeptiyo flors xdsa",
+    cohorte:"1221456",
+    sede:"Bogta",
+    programa:"Ing. Sistemas",
+    celular:"76543451",
+    correoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+    correoPersonal:"ddaxcwedd@Uniminuto.edu.co"
   }
 ];
 
-  personas$: Observable<Persona[]>;
+  personas$: Observable<ListaPersonasInterface[]>;
 
   filter2 = new FormControl('');
   
+  controladorPersonas: PersonasController;
+
   constructor(
-    private AmbienteService : AmbienteService,
+    private servicioAmbiente : AmbienteService,
+    private llamadoHttp : HttpClient,
     private pipe: DecimalPipe
   ) {
-    this.personas$ = this.filter2.valueChanges.pipe(
-      startWith(''),
-      map(text => this.buscar(text, pipe))
-    )
+
+    this.controladorPersonas = new PersonasController(llamadoHttp,servicioAmbiente);
+
+    this.controladorPersonas.CargarDesdeDB( false ).subscribe(
+      (respuesta: RespuestaInterface) =>{
+        switch (respuesta.codigo){
+          case 200:
+            this.registros =this.controladorPersonas.todos;
+
+
+            this.personas$ = this.filter2.valueChanges.pipe(
+              startWith(''),
+              map(text => this.buscar(text, pipe))
+            )
+
+          break;
+          default:
+            alert("Error: "+respuesta.mensaje);
+          break;
+        }
+      } 
+    );
+
    }
 
-  buscar(text: string , pipe: PipeTransform): Persona[] {
-    return this.PERSONAS.filter(persona => {
+  buscar(text: string , pipe: PipeTransform): ListaPersonasInterface[] {
+    return this.registros.filter(persona => {
       const term = text.toLowerCase();
-      return pipe.transform(persona.IdPersona).includes(term)
-          || persona.Cohorte.toLowerCase().includes(term)
-          || pipe.transform(persona.Id).includes(term)
-          || persona.Sede.toLowerCase().includes(term)
-          || persona.Nombre.toLowerCase().includes(term)
-          || persona.Cedula.toLowerCase().includes(term)
-          || persona.Programa.toLowerCase().includes(term)
-          || persona.Celular.toLowerCase().includes(term)
-          || persona.CorreoInstitucional.toLowerCase().includes(term)
-          || persona.CorreoPersonal.toLowerCase().includes(term);
+      return pipe.transform(persona.id).includes(term)
+          || persona.cohorte.toLowerCase().includes(term)
+          || pipe.transform(persona.iduniminuto).includes(term)
+          || persona.sede.toLowerCase().includes(term)
+          || persona.nombres.toLowerCase().includes(term)
+          || pipe.transform(persona.documento).includes(term)
+          || persona.programa.toLowerCase().includes(term)
+          || persona.celular.toLowerCase().includes(term)
+          || persona.correoInstitucional.toLowerCase().includes(term)
+          || persona.correoPersonal.toLowerCase().includes(term);
   
     });
   }
@@ -211,8 +133,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
   
   verPersona(datos){
     
-    this.AmbienteService.actualizacionModo.modo = datos.modo
-    this.AmbienteService.actualizacionModo.boton = null
+    this.servicioAmbiente.actualizacionModo.modo = datos.modo
+    this.servicioAmbiente.actualizacionModo.boton = null
   
   }
   
