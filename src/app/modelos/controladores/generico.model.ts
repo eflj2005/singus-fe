@@ -110,7 +110,6 @@ export class GenericoModel {
   }
 
   public AgregarForanea(controlador:any){
-    controlador.CargarDesdeDB(false).subscribe();
     this.controladoresForaneos[controlador.nombreTabla] = controlador;
   }
 
@@ -218,7 +217,6 @@ export class GenericoModel {
 
   private ActualizarReferencias(datos:filtroInterface[]){
 
-
     let actualTemporal = this.posicionActual;
  
     this.Primero();
@@ -248,14 +246,18 @@ export class GenericoModel {
 
 
 
-  protected ProcesarFechas(objeto:any, sentido:string){        
+  protected ProcesarFechas(objeto:any, sentido:string){      
+    
+    
     let regExp = /\-/gi;
-    this.camposFecha.forEach(campo => { 
-      if( !isNull(objeto[campo]) ){   
+
+    for (var campo in objeto) {
+      if( campo.search("_fecha") != -1 ){
         if(sentido=="SET")  objeto[campo] = objeto[campo].replace(regExp, "");
         if(sentido=="GET")  objeto[campo] = (objeto[campo]).substr(0,4) + "-" + (objeto[campo]).substr(5,2) + "-" + (objeto[campo]).substr(8,2);
       }
-    });    
+    }
+
     return objeto;
   }
 
@@ -282,7 +284,6 @@ export class GenericoModel {
     return this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php", parametros).pipe(
       map(
         (respuesta: RespuestaInterface) => {
-         
           this.ActualizarReferencias(respuesta.mensaje.dbRefs);
 
           return respuesta;
@@ -290,7 +291,7 @@ export class GenericoModel {
       )
     );
 
-
+    return null;
   }
 
 

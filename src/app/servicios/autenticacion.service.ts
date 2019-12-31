@@ -64,7 +64,6 @@ export class AutenticacionService {
               // store user details and jwt token in local storage to keep user logged in between page refreshes
               localStorage.setItem('usuarioActual', JSON.stringify(usuarioRecibido));
               this.usuarioActualIntermediario.next(usuarioRecibido);
-         
           }
 
           return respuesta;
