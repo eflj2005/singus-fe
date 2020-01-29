@@ -1,1 +1,164 @@
-<p>auditoria-principal works!</p>
+<div class="row" >
+    <div class="col text-center">
+        <h1>Auditoría</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <ngb-tabset>
+            <ngb-tab title="Usuarios">
+              <ng-template ngbTabContent>
+
+                        <form >
+                            <div class="form-group form-inline form ">
+                                <i class="fa fa-search search "></i><p>Buscar: </p><input class="form-control" type="text" [formControl]="filter" />
+                            </div>
+                        </form>
+
+                        <table class="table table-striped">
+                            <thead  class="thead">     
+                                <tr class="colums">
+                                    <th scope="col">#</th>
+                                    <th scope="col">Documento</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Rol</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let usuarios of usuarios$ | async; index as i">
+                                <td><ngb-highlight [result]="usuarios.id | number" [term]="filter.value"></ngb-highlight></td>
+                                <td><ngb-highlight [result]="usuarios.documento | number" [term]="filter.value"></ngb-highlight></td>
+                                <td><ngb-highlight [result]="usuarios.nombres" [term]="filter.value"></ngb-highlight></td>
+                                <td><ngb-highlight [result]="usuarios.rol " [term]="filter.value"></ngb-highlight></td>
+                                <td >
+                                    <button type="button" class="btn btn-outline-secondary" (click)="VerHistorial(historial)"  placement="right" ngbTooltip="Ver"><i class="fa fa-eye"></i></button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+              
+
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>Graduados</ng-template>
+              <ng-template ngbTabContent>
+
+                    <form >
+                        <div class="form-group form-inline form ">
+                            <i class="fa fa-search search "></i><p>Buscar: </p><input class="form-control" type="text" [formControl]="filter2" />
+                        </div>
+                    </form>
+
+                    <table class="table table-striped">
+                        <thead  class="thead">     
+                            <tr class="colums">
+                                <th scope="col">#</th>
+                                <th scope="col">Id Uniminuto</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellidos</th>
+                                <th scope="col">Cohorte</th>
+                                <th scope="col">Programa</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let graduado of graduados$ | async; index as i">
+                            <td><ngb-highlight [result]="graduado.Id | number" [term]="filter.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="graduado.IdUniminuto | number" [term]="filter.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="graduado.Nombre" [term]="filter.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="graduado.Apellidos" [term]="filter.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="graduado.Programa " [term]="filter.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="graduado.cohorte " [term]="filter.value"></ngb-highlight></td>
+                            <td >
+                                <button type="button" class="btn btn-outline-secondary" (click)="VerHistorial(movimiento)"  placement="right" ngbTooltip="Ver"><i class="fa fa-eye"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+              </ng-template>
+            </ngb-tab>
+          </ngb-tabset>
+    </div>
+
+
+
+    <ng-template #historial let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title">Historial de movimientos</h4>
+          </div>
+          <div class="modal-body">
+            <h5 align="center">Nombre de usuario</h5>
+            <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Tipo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th >1</th>
+                    <td >8:45</td>
+                    <td>2/8/2019</td>
+                    <td>Agregar Agenda</td>
+
+                  </tr>
+                  <tr>
+                    <th >2</th>
+                    <td >10:35</td>
+                    <td>2/8/2019</td>
+                    <td>Agregar Comunicacion</td>
+
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td>16:12</td>
+                    <td>2/8/2019</td>
+                    <td>Cargue masivo</td>
+
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">Atras</button> 
+          </div>
+
+    </ng-template>
+
+    <ng-template #movimiento let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title">Historial de movimientos</h4>
+        </div>
+        <div class="modal-body">
+          <h5 align="center">Nombre de graduado</h5>
+          <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Hora</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Tipo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th >1</th>
+                  <td >8:45</td>
+                  <td>2/8/2019</td>
+                  <td>Actualizacion de datos</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">Atras</button> 
+        </div>
+
+  </ng-template>
+</div>

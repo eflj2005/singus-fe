@@ -147,7 +147,7 @@ export class GenericoModel {
     return validacion;
   }
 
-  //AVAMZADAS
+  //AVANZADAS
 
   protected DetectarCampos():Observable<any>{         //OJO SE DEBE HABILITAR SEGURIDAD DE TOKEN Y CAMBIAR POSISION EN BACKEND
 
