@@ -22,6 +22,7 @@ export class EventosController extends GenericoModel {
     super(instanciaHttpClient,InstanciaAmbienteService);
 
     this.nombreTabla = "eventos";
+    this.fechasDefinidas = ["evento_fecha", "creacion_fecha"];
 
     this.DetectarCampos().subscribe();
 
