@@ -1,4 +1,4 @@
-export interface EventosInterface {
+export interface EventoInterface {
   id: number;
   nombres: string;
   lugar: string;
