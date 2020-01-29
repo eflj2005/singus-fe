@@ -61,6 +61,7 @@ export class CambiarClaveComponent implements OnInit {
     this.procesando=true;
 
     this.datos.clave = this.claveNueva;
+
     this.controladorUsuarios.Modificar(this.datos);
 
     this.controladorUsuarios.Guardar(false).subscribe(

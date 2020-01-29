@@ -12,7 +12,7 @@ import { ServiciosModule } from '@servicios/servicios.module';
 import { GeneralesModule  } from '@generales/_generales.module';
 import { MecanicasModule } from '@mecanicas/mecanicas.module';
 
-import { ModelosModule } from '@modelos/_modelos.module'
+import { ModelosModule } from './modelos/_modelos.module'
 import { ErrorInterceptorService } from '@servicios/error.interceptor';
 import { JwtInterceptorService } from '@servicios/jwt.interceptor';
 import { DatePipe } from '@angular/common';

@@ -20,12 +20,11 @@
     ],
 
     "paths":{
-      "@servicios/*" : [ "src/app/servicios/*" ],
-      "@mecanicas/*" : [ "src/app/mecanicas/*" ],
-      "@modelos/*"   : [ "src/app/modelos/*" ],
-      "@interfaces/*"   : [ "src/app/modelos/interfaces/*" ],
-      "@controladores/*"   : [ "src/app/modelos/controladores/*" ],
-      "@generales/*" : [ "src/app/generales/*" ]
+      "@servicios/*"      : [ "src/app/servicios/*" ],
+      "@mecanicas/*"      : [ "src/app/mecanicas/*" ],
+      "@interfaces/*"     : [ "src/app/modelos/interfaces/*" ],
+      "@controladores/*"  : [ "src/app/modelos/controladores/*" ],
+      "@generales/*"      : [ "src/app/generales/*" ]
     }
 
 

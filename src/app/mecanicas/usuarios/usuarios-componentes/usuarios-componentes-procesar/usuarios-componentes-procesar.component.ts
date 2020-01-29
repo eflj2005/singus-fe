@@ -51,7 +51,7 @@ export class UsuariosComponentesProcesarComponent implements OnInit {
     if(this.modo==1) this.controladorUsuarios.Agregar(this.datos);  
     if(this.modo==2) this.controladorUsuarios.Modificar(this.datos);
 
-    this.controladorUsuarios.Guardar(false).subscribe(
+    this.controladorUsuarios.Guardar().subscribe(
       (notificacion:RespuestaInterface) => {
         switch (notificacion.codigo){
           case 200:         //login ok         

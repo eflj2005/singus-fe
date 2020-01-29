@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { AmbienteService } from '@servicios/ambiente.service';
 import { filtroInterface } from '@interfaces/filtro.interface';
 import { RespuestaInterface } from '../interfaces/respuesta.interface';
+import { isNull } from 'util';
 
 export class GenericoModel {
   protected llamadoHttp :HttpClient;
@@ -109,7 +110,6 @@ export class GenericoModel {
   }
 
   public AgregarForanea(controlador:any){
-    controlador.CargarDesdeDB(false).subscribe();
     this.controladoresForaneos[controlador.nombreTabla] = controlador;
   }
 
@@ -149,12 +149,12 @@ export class GenericoModel {
 
   //AVANZADAS
 
-  protected DetectarCampos():Observable<any>{         //OJO SE DEBE HABILITAR SEGURIDAD DE TOKEN Y CAMBIAR POSISION EN BACKEND
+  protected DetectarCampos():Observable<any>{
 
     let datosEnviados = new HttpParams()
       .set("accion","obtener_campos")
       .set("tabla",this.nombreTabla)
-      .set("conSeguridad", String(false) )  
+      .set("conSeguridad", String(true) )  
    
     return this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
       map(
@@ -217,7 +217,6 @@ export class GenericoModel {
 
   private ActualizarReferencias(datos:filtroInterface[]){
 
-
     let actualTemporal = this.posicionActual;
  
     this.Primero();
@@ -247,12 +246,18 @@ export class GenericoModel {
 
 
 
-  protected ProcesarFechas(objeto:any, sentido:string){        
+  protected ProcesarFechas(objeto:any, sentido:string){      
+    
+    
     let regExp = /\-/gi;
-    this.camposFecha.forEach(campo => {    
-      if(sentido=="SET")  objeto[campo] = objeto[campo].replace(regExp, "");
-      if(sentido=="GET")  objeto[campo] = (objeto[campo]).substr(0,4) + "-" + (objeto[campo]).substr(5,2) + "-" + (objeto[campo]).substr(8,2);
-    });    
+
+    for (var campo in objeto) {
+      if( campo.search("_fecha") != -1 ){
+        if(sentido=="SET")  objeto[campo] = objeto[campo].replace(regExp, "");
+        if(sentido=="GET")  objeto[campo] = (objeto[campo]).substr(0,4) + "-" + (objeto[campo]).substr(5,2) + "-" + (objeto[campo]).substr(8,2);
+      }
+    }
+
     return objeto;
   }
 
@@ -279,7 +284,6 @@ export class GenericoModel {
     return this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php", parametros).pipe(
       map(
         (respuesta: RespuestaInterface) => {
-         
           this.ActualizarReferencias(respuesta.mensaje.dbRefs);
 
           return respuesta;
@@ -287,7 +291,7 @@ export class GenericoModel {
       )
     );
 
-
+    return null;
   }
 
 

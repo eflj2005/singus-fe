@@ -22,7 +22,6 @@ export class UsuariosController extends GenericoModel {
     super(instanciaHttpClient,InstanciaAmbienteService);
 
     this.nombreTabla = "usuarios";
-    this.fechasDefinidas = ["creacion_fecha"];
 
     this.DetectarCampos().subscribe();
 

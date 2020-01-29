@@ -43,7 +43,7 @@ export class UsuariosComponentesListaComponent implements OnInit {
     this.registros =[];
     this.controladorUsuarios = new UsuariosController(llamadoHttp,servicioAmbiente);
 
-    this.controladorUsuarios.CargarDesdeDB( false ).subscribe(
+    this.controladorUsuarios.CargarDesdeDB().subscribe(
       (respuesta: RespuestaInterface) =>{
         switch (respuesta.codigo){
           case 200:

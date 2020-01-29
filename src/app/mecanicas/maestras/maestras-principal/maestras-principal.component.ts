@@ -8,7 +8,7 @@ import { AreasController } from '@controladores/areas.controller';
 
 
 import { UsuariosController } from '@controladores/usuarios.controller';
-import { CiudadesController } from '@controladores/ciudades.controller';
+import { MunicipiosController } from '@controladores/municipios.controller';
 
 
 @Component({
@@ -19,17 +19,16 @@ import { CiudadesController } from '@controladores/ciudades.controller';
 export class MaestrasPrincipalComponent implements OnInit {
 
   controladorAreas: AreasController;
-  controladorCiudades: CiudadesController;
+  controladorMunicipios: MunicipiosController;
   
   controladorUsuarios:UsuariosController;
 
   constructor(
-    private datosAmbiente: AmbienteService,
     private llamadoHttp: HttpClient,
     private servicioAmbiente: AmbienteService,
   ) { 
     this.controladorAreas = new AreasController(llamadoHttp,servicioAmbiente);
-    this.controladorCiudades = new CiudadesController(llamadoHttp, servicioAmbiente);
+    this.controladorMunicipios = new MunicipiosController(llamadoHttp, servicioAmbiente);
 
     this.controladorUsuarios = new UsuariosController(llamadoHttp,servicioAmbiente);    
 
