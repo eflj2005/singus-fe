@@ -89,7 +89,7 @@ export class PersonasActualizacionListaComponent implements OnInit {
 
     this.controladorPersonas = new PersonasController(llamadoHttp,servicioAmbiente);
 
-    this.controladorPersonas.CargarDesdeDB( false ).subscribe(
+    this.controladorPersonas.CargarDesdeDB().subscribe(
       (respuesta: RespuestaInterface) =>{
         switch (respuesta.codigo){
           case 200:

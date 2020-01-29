@@ -52,7 +52,7 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
     if(this.modo==1) this.controlador.Agregar(this.datos);
     if(this.modo==2) this.controlador.Modificar(this.datos);
 
-    this.controlador.Guardar(false).subscribe(
+    this.controlador.Guardar().subscribe(
       (notificacion:RespuestaInterface) => {
         switch (notificacion.codigo){
           case 200:         //login ok         

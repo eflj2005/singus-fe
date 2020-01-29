@@ -149,12 +149,12 @@ export class GenericoModel {
 
   //AVAMZADAS
 
-  protected DetectarCampos():Observable<any>{         //OJO SE DEBE HABILITAR SEGURIDAD DE TOKEN Y CAMBIAR POSISION EN BACKEND
+  protected DetectarCampos():Observable<any>{
 
     let datosEnviados = new HttpParams()
       .set("accion","obtener_campos")
       .set("tabla",this.nombreTabla)
-      .set("conSeguridad", String(false) )  
+      .set("conSeguridad", String(true) )  
    
     return this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
       map(
