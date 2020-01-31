@@ -111,6 +111,31 @@ export class PersonasActualizacionListaComponent implements OnInit {
     //   ]
     // }
 
+    // let caracteristicas = {
+    //   columnas: null,
+    //   enlaces: null,
+    //   filtros: null,
+    //   ordenamientos: null
+    // };
+
+    // let caracteristicas = {
+    //   columnas: null,
+    //   enlaces: null,
+    //   filtros: [
+    //     { tabla: null , campo: "id", condicion: "=", valor: "2" }
+    //   ],
+    //   ordenamientos: null
+    // };
+
+    // let caracteristicas = {
+    //   columnas: null,
+    //   enlaces: null,
+    //   filtros: null,
+    //   ordenamientos: [
+    //     { columna: "id" , orden: "DESC" },
+    //   ]
+    // };
+
     let caracteristicas = {
       columnas: [
         { 
@@ -179,30 +204,6 @@ export class PersonasActualizacionListaComponent implements OnInit {
     console.log(caracteristicas2);
 
 
-    // let caracteristicas = {
-    //   columnas: null,
-    //   enlaces: null,
-    //   filtros: null,
-    //   ordenamientos: null
-    // };
-
-    // let caracteristicas = {
-    //   columnas: null,
-    //   enlaces: null,
-    //   filtros: [
-    //     { tabla: null , campo: "id", condicion: "=", valor: "2" }
-    //   ],
-    //   ordenamientos: null
-    // };
-
-    // let caracteristicas = {
-    //   columnas: null,
-    //   enlaces: null,
-    //   filtros: null,
-    //   ordenamientos: [
-    //     { columna: "id" , orden: "DESC" },
-    //   ]
-    // };
 
 
 
