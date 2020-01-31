@@ -1,7 +1,7 @@
 import { Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, isEmpty } from 'rxjs/operators';
 
 import { AmbienteService } from '@servicios/ambiente.service';
 import { filtroInterface } from '@interfaces/filtro.interface';
@@ -178,7 +178,7 @@ export class GenericoModel {
 
   }
 
-  public CargarDesdeDB(  conToken:boolean=true , filtrosRecibidos:filtroInterface=null ): Observable<any> {
+  public CargarDesdeDB(  conToken:boolean=true , modoCargue:string="S", caracteristicas:any=null): Observable<any> {
   
     let re1 = /\"/gi;
     let re2 = /{/gi;
@@ -188,10 +188,11 @@ export class GenericoModel {
       .set("accion","obtener_registros")
       .set("tabla",this.nombreTabla)
       .set("conSeguridad", String(conToken) )      
-      .set("modo","S")                       //S = simple => consulta directa, A = avanzada => consulta con inner join
-      //.set("filtros", JSON.stringify(filtrosRecibidos).replace(re1, "").replace(re2, "").replace(re3, ""));
-      .set("filtros", JSON.stringify(filtrosRecibidos));      
+      .set("modo", modoCargue )                       //S = simple => consulta directa, A = avanzada => consulta con inner join
+      .set("caracteristicas", JSON.stringify(caracteristicas));      
    
+  //  console.log(JSON.stringify(caracteristicas));
+
     return this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
       map(
         (respuesta: RespuestaInterface) => {
@@ -248,13 +249,20 @@ export class GenericoModel {
 
   protected ProcesarFechas(objeto:any, sentido:string){      
     
-    
     let regExp = /\-/gi;
 
     for (var campo in objeto) {
       if( campo.search("_fecha") != -1 ){
-        if(sentido=="SET")  objeto[campo] = objeto[campo].replace(regExp, "");
-        if(sentido=="GET")  objeto[campo] = (objeto[campo]).substr(0,4) + "-" + (objeto[campo]).substr(5,2) + "-" + (objeto[campo]).substr(8,2);
+
+        if(sentido=="SET"){
+          if( isNull(objeto[campo]) || (objeto[campo] != "") )    objeto[campo] = "NULL";
+          else                                                    objeto[campo] = objeto[campo].replace(regExp, "");
+        } 
+        if(sentido=="GET"){
+          if( !isNull(objeto[campo]) && (objeto[campo] != "") )   objeto[campo] = (objeto[campo]).substr(0,4) + "-" + (objeto[campo]).substr(5,2) + "-" + (objeto[campo]).substr(8,2);
+          else                                                    objeto[campo] = "";
+        }
+
       }
     }
 

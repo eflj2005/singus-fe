@@ -32,7 +32,7 @@ export class DashboardMenuComponent {
 this.usuario = "Juan Bustos";
 
   this.menu  = [ 
-    { opcion: 'Egresados'         , url:'/cargue'                     , icon: "fa-download"                , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
+    { opcion: 'Egresados'         , url: '/cargue'                     , icon: "fa-download"                , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
     { opcion: 'Graduados'         , url: '/cambiar'                   , icon: "fa-cloud-download"          , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
     { opcion: 'Micrositio'        , url: '/clientes'                  , icon: "fa-file"                    , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
     { opcion: 'Empleabilidad'     , url: '/empleados'                 , icon: "fa-stack-overflow"          , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
@@ -46,7 +46,7 @@ this.usuario = "Juan Bustos";
     { opcion: 'Perzonalizados'    , url: '/estadosProcesos'           , icon: "fa-file-code-o"             , agrupamiento: "Reportes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
     { opcion: 'Maestras'          , url: '/maestras'                  , icon: "fa-share-alt-square"        , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
     { opcion: 'Usuario'           , url: '/usuarios/lista'            , icon: "fa-user-circle-o "          , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
-    { opcion: 'Cambiar Clave'     , url: '/usuarios/lista'            , icon: "fa-user-circle-o "          , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },    
+    { opcion: 'Cambiar Clave'     , url: '/usuarios/cambiarclave'     , icon: "fa-user-circle-o "          , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },    
     { opcion: 'Auditoria'         , url: '/tiposProcesos'             , icon: "fa-bar-chart "              , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
   ];
 

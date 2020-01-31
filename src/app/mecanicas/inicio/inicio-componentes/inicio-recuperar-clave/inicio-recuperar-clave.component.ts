@@ -50,7 +50,17 @@ export class InicioRecuperarClaveComponent implements OnInit {
     
     this.procesando=true;
 
-    const respuesta1 = this.controladorUsuarios.CargarDesdeDB(false, { documento: this.documento }).subscribe(
+
+    let caracteristicas = {
+      columnas: null,
+      enlaces: null,
+      filtros: [
+        { tabla: null , campo: "documento", condicion: "=", valor: this.documento }
+      ],
+      ordenamientos: null
+    };
+
+    const respuesta1 = this.controladorUsuarios.CargarDesdeDB(false, "S", caracteristicas).subscribe(
       (notificacion1:RespuestaInterface) => {
         
         switch (notificacion1.codigo){

@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { UsuarioInterface } from '@interfaces/usuario.interface';
+import { EstructuraConsultas } from '@generales/estructura-consultas';
 
 @Component({
   selector: 'app-cambiar-clave',
@@ -45,7 +46,18 @@ export class CambiarClaveComponent implements OnInit {
     this.claveNueva="";
     this.claveConfirmada="";
 
-    this.controladorUsuarios.CargarDesdeDB( false, { id: servicioAmbiente.inicioIdUsrTemp} ).subscribe(
+    let caracteristicas = {
+      columnas: null,
+      enlaces: null,
+      filtros: [
+        { tabla: null , campo: "id", condicion: "=", valor: servicioAmbiente.inicioIdUsrTemp }
+      ],
+      ordenamientos: null
+    };
+
+    let caracteristicas2 = new EstructuraConsultas("F", null , "id" , "=" , String(servicioAmbiente.inicioIdUsrTemp) );
+
+    this.controladorUsuarios.CargarDesdeDB( false, "S", caracteristicas2 ).subscribe(
       (respuesta:RespuestaInterface) => {    
         this.datos= this.controladorUsuarios.actual;
       }
