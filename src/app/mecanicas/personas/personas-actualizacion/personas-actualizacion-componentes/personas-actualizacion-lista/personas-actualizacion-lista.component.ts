@@ -34,48 +34,48 @@ export class PersonasActualizacionListaComponent implements OnInit {
   
   registros: ListaPersonasInterface[];
   
-  PERSONAS: ListaPersonasInterface[] = [
-    {
-    id:1,
-    nacimiento_fecha: "19830101",
-    iduniminuto:123412,
-    nombres:"Juan Carlos",
-    apellidos: "Bustos Tovio",
-    genero: "M",
-    tiposdocoumentos_id: 1,
-    documento:1007405687,
-    municipios_id: 73001,
-    actualizacion_fecha: "20190101",
+//   PERSONAS: ListaPersonasInterface[] = [
+//     {
+//     id:1,
+//     nacimiento_fecha: "19830101",
+//     iduniminuto:123412,
+//     nombres:"Juan Carlos",
+//     apellidos: "Bustos Tovio",
+//     genero: "M",
+//     tiposdocoumentos_id: 1,
+//     documento:1007405687,
+//     municipios_id: 73001,
+//     actualizacion_fecha: "20190101",
 
-    nombreCompleto: "Juan Carlos Bustos Tovio",
-    cohorte:"123456",
-    sede:"Medellin",
-    programa:"Ing. Sistemas",
-    celular:"3223542148",
-    correoInstitucional:"ASDKASJKDHA@Uniminuto.edu.co",
-    correoPersonal:"ASDKASJKDHA@Uniminuto.edu.co"
-  },
-  {
-    id:2,
-    nacimiento_fecha: "19830101",
-    iduniminuto:623,
-    nombres:"Ppeptiyo",
-    apellidos:"flors xdsa",
-    genero: "M",
-    tiposdocoumentos_id: 1,
-    documento:42321,
-    municipios_id: 73001,
-    actualizacion_fecha: "20190101",
+//     nombreCompleto: "Juan Carlos Bustos Tovio",
+//     cohorte:"123456",
+//     sede:"Medellin",
+//     programa:"Ing. Sistemas",
+//     celular:"3223542148",
+//     correoInstitucional:"ASDKASJKDHA@Uniminuto.edu.co",
+//     correoPersonal:"ASDKASJKDHA@Uniminuto.edu.co"
+//   },
+//   {
+//     id:2,
+//     nacimiento_fecha: "19830101",
+//     iduniminuto:623,
+//     nombres:"Ppeptiyo",
+//     apellidos:"flors xdsa",
+//     genero: "M",
+//     tiposdocoumentos_id: 1,
+//     documento:42321,
+//     municipios_id: 73001,
+//     actualizacion_fecha: "20190101",
 
-    nombreCompleto: "Ppeptiyo flors xdsa",
-    cohorte:"1221456",
-    sede:"Bogta",
-    programa:"Ing. Sistemas",
-    celular:"76543451",
-    correoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
-    correoPersonal:"ddaxcwedd@Uniminuto.edu.co"
-  }
-];
+//     nombreCompleto: "Ppeptiyo flors xdsa",
+//     cohorte:"1221456",
+//     sede:"Bogta",
+//     programa:"Ing. Sistemas",
+//     celular:"76543451",
+//     correoInstitucional:"ASDKASJihgfA@Uniminuto.edu.co",
+//     correoPersonal:"ddaxcwedd@Uniminuto.edu.co"
+//   }
+// ];
 
   personas$: Observable<ListaPersonasInterface[]>;
 
