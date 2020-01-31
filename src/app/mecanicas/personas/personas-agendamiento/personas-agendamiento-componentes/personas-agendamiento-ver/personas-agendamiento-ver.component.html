@@ -27,57 +27,53 @@
         <div class="row" >
             <div class="col-md-12 cuadro">
                 <h3  align='center'>Seleccionados</h3>
-                <div class="row" >
-                    <table class="table table-striped" >
+
+                <form >
+                    <div class="form-group form-inline form ">
+                        <div class="row col-md-10 form2"><i class="fa fa-search search "></i><p>Buscar: </p><input class="form-control" type="text" [formControl]="filter"/></div>
+                    </div>
+                </form>
+    
+                <table class="table table-striped">
                         
-                            <thead>
+                    <thead class="thead">
                             
-                                <tr class="colums">
-                                <th scope="col">#</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Programa</th>
-                                <th scope="col">Cedula</th>
-                                <th scope="col">ID</th>
-                                <th scope="col">Celular</th>
-                                <th scope="col">Correo Institucional</th>
-                                <th scope="col">Correo Personal</th>
-                                <th scope="col">Fecha Actualizacion</th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-        
-                                </tr>
-                            </thead>
-                        
-                        
-                            <tbody  >
-                        
-                                <tr *ngFor="let personaSelecionada of PersonasSeleccionadas" >
-        
-                                <td scope="row">{{personaSelecionada.Id}}</td>
-                                <td>{{personaSelecionada.Nombre}}</td>
-                                <td>{{personaSelecionada.Programa}}</td>
-                                <td>{{personaSelecionada.Cedula}}</td>
-                                <td>{{personaSelecionada.IdPersona}}</td>
-                                <td>{{personaSelecionada.Celular}}</td>
-                                <td>{{personaSelecionada.CorreoInstitucional}}</td>
-                                <td>{{personaSelecionada.CorreoPersonal}}</td>
-                                <td>{{personaSelecionada.FechaActualizacion}}</td>
-                                <td><button class="btn btn-outline-secondary "  placement="right" ngbTooltip="Editar" (click)="verPersona({modo:2})" title="Actualizar"><a routerLink="/lista"> </a><i class="fa fa-pencil"></i></button></td>
-                                <td>
-                                        <label class="contenedor">
-                                                <input type="checkbox" [(ngModel)]="personaSelecionada.Seleccionado" >
-                                                <span class="checkmark"></span>
-                                        </label>
-        
-                                </td>
-                                </tr>
-        
-                            
-                            </tbody>
-                        
-                        </table>
-                    
-                </div>        
+                        <tr class="colums">
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Programa</th>
+                            <th scope="col">Cedula</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Celular</th>
+                            <th scope="col">Correo Institucional</th>
+                            <th scope="col">Correo Personal</th>
+                            <th scope="col">Fecha Actualizacion</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+              
+                    <tbody>
+                      <tr *ngFor="let persona of   PersonasSeleccionadas$ | async; index as i">
+                        <td><ngb-highlight [result]="persona.Id | number" [term]="filter.value"></ngb-highlight></td>
+                        <td><ngb-highlight [result]="persona.Nombre" [term]="filter.value"></ngb-highlight></td>
+                        <td><ngb-highlight [result]="persona.Programa" [term]="filter.value"></ngb-highlight></td>
+                        <td><ngb-highlight [result]="persona.Cedula | number" [term]="filter.value"></ngb-highlight></td>
+                        <td><ngb-highlight [result]="persona.IdPersona  | number" [term]="filter.value"></ngb-highlight></td>
+                        <td><ngb-highlight [result]="persona.Celular  | number" [term]="filter.value"></ngb-highlight></td>
+                        <td><ngb-highlight [result]="persona.CorreoInstitucional" [term]="filter.value"></ngb-highlight></td>
+                        <td><ngb-highlight [result]="persona.CorreoPersonal" [term]="filter.value"></ngb-highlight></td>
+                        <td><ngb-highlight [result]="persona.FechaActualizacion" [term]="filter.value"></ngb-highlight></td>
+                        <td><button class="btn btn-outline-secondary "  placement="right" ngbTooltip="Editar" (click)="verPersona({modo:2})" title="Actualizar"><a routerLink="/lista"> </a><i class="fa fa-pencil"></i></button></td>
+                        <td>    
+                            <label class="contenedor">
+                                <input type="checkbox" [(ngModel)]="persona.Seleccionado" >
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>       
             </div>
         </div>
         

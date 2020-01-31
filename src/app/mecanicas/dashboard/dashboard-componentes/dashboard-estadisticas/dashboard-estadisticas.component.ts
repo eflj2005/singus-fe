@@ -17,7 +17,7 @@ export class DashboardEstadisticasComponent implements OnInit {
       tabla:{
         cabecera: [ "", "201610", "201660", "201710", "201760", "201810", "201860", "Total"],
         cuerpo:[
-          [ 'Graduados', 69, 64, 138, 92, 132, 61, 556 ]
+          [ 'Graduados', 690, 440, 538, 502, 432, 461, 556 ]
         ],
         pie: [ 'Total', 69, 64, 138, 92, 132, 61, 556 ]
       },      
