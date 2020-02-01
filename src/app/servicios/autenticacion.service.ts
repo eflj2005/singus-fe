@@ -8,6 +8,7 @@ import { UsuarioInterface } from '@interfaces/usuario.interface';
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
 
 import * as jwt_decode from 'jwt-decode';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class AutenticacionService {
 
   constructor(
     private llamadoHttp: HttpClient,
-    private datosAmbiente: AmbienteService
+    private datosAmbiente: AmbienteService,
+    private enrutador: Router
   ) { 
     this.usuarioActualIntermediario = new BehaviorSubject<UsuarioInterface>(JSON.parse(localStorage.getItem('usuarioActual')));
     this.usuarioActual = this.usuarioActualIntermediario.asObservable();
@@ -47,14 +49,15 @@ export class AutenticacionService {
     return llamado;
   }  
 
-  IniciarSesion( documento:number, clave: string ): Observable<RespuestaInterface> {
+  IniciarSesion( documento:number, clave: string, generarToken: boolean ): Observable<RespuestaInterface> {
       
-    let datosEnviados =  { accion:'iniciar_sesion', documento: documento, clave : clave };
+    let datosEnviados =  { accion:'iniciar_sesion', documento: documento, clave: clave, generarToken: generarToken };
     return this.llamadoHttp.post<RespuestaInterface>( this.datosAmbiente.GetUrlRecursos() + "pasarela.php", datosEnviados ).pipe(
       map(
         (respuesta: RespuestaInterface) => {
           console.log(respuesta);
           if (respuesta.codigo == 200){
+            if(generarToken){
               let token = respuesta.mensaje;
               let decoded = jwt_decode(token); 
 
@@ -64,6 +67,7 @@ export class AutenticacionService {
               // store user details and jwt token in local storage to keep user logged in between page refreshes
               localStorage.setItem('usuarioActual', JSON.stringify(usuarioRecibido));
               this.usuarioActualIntermediario.next(usuarioRecibido);
+            }
           }
 
           return respuesta;

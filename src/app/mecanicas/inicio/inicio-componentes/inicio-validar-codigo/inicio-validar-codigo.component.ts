@@ -26,7 +26,7 @@ export class InicioValidarCodigoComponent implements OnInit {
     private llamadoHttp :HttpClient,
     private servicioAmbiente: AmbienteService,
   ) {
-    this.controladorUsuarios = new UsuariosController(llamadoHttp,servicioAmbiente);
+    this.controladorUsuarios = new UsuariosController(llamadoHttp,servicioAmbiente,false);
     this.codigoModelo="[A-Z0-9]{3}-[A-Z0-9]{3}";
     
     this.procesando=false;

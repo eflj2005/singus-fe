@@ -17,15 +17,16 @@ export class UsuariosController extends GenericoModel {
 
   constructor( 
     private instanciaHttpClient :HttpClient,
-    private InstanciaAmbienteService :AmbienteService 
+    private InstanciaAmbienteService :AmbienteService,
+    conSeguridad:boolean=true
   ) {
     super(instanciaHttpClient,InstanciaAmbienteService);
 
     this.nombreTabla = "usuarios";
 
-    this.DetectarCampos().subscribe();
+    this.DetectarCampos(conSeguridad).subscribe();
 
-    this.AgregarForanea( new AreasController(instanciaHttpClient,InstanciaAmbienteService)  );
+    if(conSeguridad)  this.AgregarForanea( new AreasController(instanciaHttpClient,InstanciaAmbienteService)  );
   }
 
   public GenerarCodigo(idUsuario:number): Observable<RespuestaInterface>{

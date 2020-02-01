@@ -67,7 +67,7 @@ export class InicioLoguearComponent implements OnInit {
     this.procesando=true;
 
     if( this.documento != "" && this.clave != ""  ){
-      const respuesta = this.autenticador.IniciarSesion(Number(this.documento),this.clave).subscribe(
+      const respuesta = this.autenticador.IniciarSesion(Number(this.documento),this.clave, true).subscribe(
         (notificacion:RespuestaInterface) => {
           switch (notificacion.codigo){
             case 200:         //login ok

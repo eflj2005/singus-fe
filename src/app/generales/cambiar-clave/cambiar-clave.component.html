@@ -9,7 +9,7 @@
         <!-- <div>&nbsp;</div> -->
     </div>
 
-    <div *ngIf = "servicioAmbiente.inicioModo == 1">
+    <div [hidden] = "servicioAmbiente.inicioModo != 1">
         <label><b>Actual</b></label>
         <input type="password" class="form-control" [(ngModel)]="claveActual" placeholder="Contraseña Actual" [pattern]="claveModelo" #claveMensajeA="ngModel" required>
         <ngb-alert  *ngIf="claveMensajeA.errors?.pattern || claveActual=='' " type="custom" [dismissible]="false">La contraseña no puede estar vacia, debe tener Mayusculas, Minusculas, Numeros y Minimo 6 caracteres</ngb-alert>
@@ -30,20 +30,22 @@
 
 <!-- contenedor para opciones o botones de login normal-->
 
+<!-- [disabled]  =   "( claveMensajeA.errors?.pattern || claveMensajeN.errors?.pattern || claveActual=='' || claveNueva=='' || claveNueva != claveConfirmada )" -->
+
 <div  class="contenedor opcionesPie roundDown">
     <button 
         class       =   "mibutton" 
         *ngIf       =   "servicioAmbiente.inicioModo == 1  && procesando == false"
         [disabled]  =   "( claveMensajeA.errors?.pattern || claveMensajeN.errors?.pattern || claveActual=='' || claveNueva=='' || claveNueva != claveConfirmada )"
         (click)     =   "ConfirmarCambio()"
-    >Crear Contraseña</button>
+    >Modificar Contraseña</button>
 
     <button 
         class       =   "mibutton" 
         *ngIf       =   "servicioAmbiente.inicioModo != 1 && procesando == false"
         [disabled]  =   "( claveMensajeN.errors?.pattern  || claveNueva=='' || claveNueva != claveConfirmada )"
         (click)     =   "ConfirmarCambio()"
-    >Modificar Contraseña</button>
+    >Crear Contraseña</button>
   
 
     <button class="mibutton" *ngIf="procesando == true" disabled ><i class="fa fa-spinner fa-spin"></i></button>

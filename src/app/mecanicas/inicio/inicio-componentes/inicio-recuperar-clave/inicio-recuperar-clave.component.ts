@@ -6,6 +6,7 @@ import { UsuarioInterface } from '@interfaces/usuario.interface';
 import { UsuariosController } from '@controladores/usuarios.controller';
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { HttpClient } from '@angular/common/http';
+import { EstructuraConsultas } from '@generales/estructura-consultas';
 
 @Component({
   selector: 'app-inicio-recuperar-clave',
@@ -32,7 +33,7 @@ export class InicioRecuperarClaveComponent implements OnInit {
      private llamadoHttp: HttpClient,
      private servicioEmergentes: NgbModal,
   ) {
-    this.controladorUsuarios = new UsuariosController( llamadoHttp, datosAmbiente );
+    this.controladorUsuarios = new UsuariosController( llamadoHttp, datosAmbiente, false );
     this.datos = {} as UsuarioInterface;
     this.documentoModelo="^[0-9]*$";
     
@@ -51,14 +52,7 @@ export class InicioRecuperarClaveComponent implements OnInit {
     this.procesando=true;
 
 
-    let caracteristicas = {
-      columnas: null,
-      enlaces: null,
-      filtros: [
-        { tabla: null , campo: "documento", condicion: "=", valor: this.documento }
-      ],
-      ordenamientos: null
-    };
+    let caracteristicas = new EstructuraConsultas("F", null , "documento" , "=" , String(this.documento) );
 
     const respuesta1 = this.controladorUsuarios.CargarDesdeDB(false, "S", caracteristicas).subscribe(
       (notificacion1:RespuestaInterface) => {
@@ -67,7 +61,7 @@ export class InicioRecuperarClaveComponent implements OnInit {
           case 200:         //Guardado ok
             this.datos = notificacion1.mensaje[0];
 
-            const respuesta2 = this.controladorUsuarios.GenerarCodigo(  this.datos.id   ).subscribe(     //OJO cambiar 2 por id recibido
+            const respuesta2 = this.controladorUsuarios.GenerarCodigo(  this.datos.id   ).subscribe(     
               (notificacion2:RespuestaInterface) => {
                 switch (notificacion2.codigo){
                   case 200:         //login ok         

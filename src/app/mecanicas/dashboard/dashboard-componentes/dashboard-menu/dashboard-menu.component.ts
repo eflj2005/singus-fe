@@ -79,8 +79,6 @@ this.usuario = "Juan Bustos";
 
   CerrarSesion(){
     this.autenticador.CerrarSesion();
-    this.RecargarComponente();
-
   }
 
   RecargarComponente(){
@@ -93,6 +91,7 @@ this.usuario = "Juan Bustos";
       this.rutas.navigate([this.rutas.url]);
     });
   }
+  
   Reiniciar(){
     this.datosAmbiente.actualizacionModo.modo = 1;
     this.datosAmbiente.agendaModo.modo = 1

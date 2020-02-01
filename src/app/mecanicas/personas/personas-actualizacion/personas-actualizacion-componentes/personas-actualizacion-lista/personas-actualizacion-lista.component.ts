@@ -91,123 +91,30 @@ export class PersonasActualizacionListaComponent implements OnInit {
 
     this.controladorPersonas = new PersonasController(llamadoHttp,servicioAmbiente);
 
+  
+    let caracteristicas = new EstructuraConsultas();
 
-    // let caracteristicas = {
-    //   columnas: [
-    //     { tabla: "" , columna: "", alias: "" },
-    //     { tabla: "" , columna: "", alias: "" }
-    //   ],
-    //   enlaces: [
-    //     { tablaE: "" , tablaPk: "", tablaFk: "" },
-    //     { tablaE: "" , tablaPk: "", tablaFk: "" }
-    //   ],
-    //   filtros: [
-    //     { tabla: "" , campo: "", condicion: "", valor: "" },
-    //     { tabla: "" , campo: "", condicion: "", valor: "" },        
-    //   ],
-    //   ordenamientos: [
-    //     { columna: "" , orden: "" },
-    //     { columna: "" , orden: "" },
-    //   ]
-    // }
-
-    // let caracteristicas = {
-    //   columnas: null,
-    //   enlaces: null,
-    //   filtros: null,
-    //   ordenamientos: null
-    // };
-
-    // let caracteristicas = {
-    //   columnas: null,
-    //   enlaces: null,
-    //   filtros: [
-    //     { tabla: null , campo: "id", condicion: "=", valor: "2" }
-    //   ],
-    //   ordenamientos: null
-    // };
-
-    // let caracteristicas = {
-    //   columnas: null,
-    //   enlaces: null,
-    //   filtros: null,
-    //   ordenamientos: [
-    //     { columna: "id" , orden: "DESC" },
-    //   ]
-    // };
-
-    let caracteristicas = {
-      columnas: [
-        { 
-          tabla: null ,
-          columna: "CONCAT( personas.nombres , ' ' , personas.apellidos )",
-          alias: "nombreCompleto" 
-        },
-        { tabla: "cohortes" ,   columna: "descripcion" ,  alias: "cohorte"  },
-        { tabla: "sedes" ,      columna: "descripcion" ,  alias: "sede"     }, 
-        { tabla: "programas" ,  columna: "descripcion" ,  alias: "programa" }, 
-        { 
-          tabla: null ,
-          columna: "( SELECT numero FROM telefonos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM telefonos WHERE personas_id = personas.id AND tipo = 'C' ) AND tipo = 'C' LIMIT 1 )" ,
-          alias: "celular" 
-        },
-        { 
-          tabla: null ,
-          columna: "( SELECT correo FROM correos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM correos WHERE personas_id = personas.id AND tipo = 'I' ) AND tipo = 'I' LIMIT 1 )" ,
-          alias: "correoInstitucional" 
-        },{ 
-          tabla: null ,
-          columna: "( SELECT correo FROM correos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM correos WHERE personas_id = personas.id AND tipo = 'P' ) AND tipo = 'P' LIMIT 1 )" ,
-          alias: "correoPersonal" 
-        }
-      ],
-      enlaces: [
-        { tablaE: "estudios" ,  tablaPk: "personas",  tablaFk: "estudios" },
-        { tablaE: "cohortes" ,  tablaPk: "cohortes",  tablaFk: "estudios" },
-        { tablaE: "sedes" ,     tablaPk: "sedes",     tablaFk: "estudios" },
-        { tablaE: "programas" , tablaPk: "programas", tablaFk: "estudios" },                
-      ],
-      filtros: [
-        { tabla: "sedes" , campo: "instituciones_id", condicion: "=", valor: "1" }
-      ],
-      ordenamientos: [
-        { columna: "cohorte" , orden: "DESC" },
-        { columna: "sede" , orden: "ASC" },
-        { columna: "apellidos" , orden: "ASC" },
-      ]
-    };
-
-    console.log("Original");
-    console.log(caracteristicas);
-
-    let caracteristicas2 = new EstructuraConsultas();
-    caracteristicas2.AgregarColumna( null ,         "CONCAT( personas.nombres , ' ' , personas.apellidos )" , "nombreCompleto" );
-    caracteristicas2.AgregarColumna( "cohortes" ,   "descripcion" ,                                           "cohorte" );
-    caracteristicas2.AgregarColumna( "sedes" ,      "descripcion" ,                                           "sede" );
-    caracteristicas2.AgregarColumna( "programas" ,  "descripcion" ,                                           "programa ");
-    caracteristicas2.AgregarColumna( null ,         "( SELECT numero FROM telefonos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM telefonos WHERE personas_id = personas.id AND tipo = 'C' ) AND tipo = 'C' LIMIT 1 )" , "celular" );
-    caracteristicas2.AgregarColumna( null ,         "( SELECT correo FROM correos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM correos WHERE personas_id = personas.id AND tipo = 'I' ) AND tipo = 'I' LIMIT 1 )" ,     "correoInstitucional" );
-    caracteristicas2.AgregarColumna( null ,         "( SELECT correo FROM correos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM correos WHERE personas_id = personas.id AND tipo = 'P' ) AND tipo = 'P' LIMIT 1 )" ,     "correoPersonal" );
+    caracteristicas.AgregarColumna( null ,         "CONCAT( personas.nombres , ' ' , personas.apellidos )" , "nombreCompleto" );
+    caracteristicas.AgregarColumna( "cohortes" ,   "descripcion" ,                                           "cohorte" );
+    caracteristicas.AgregarColumna( "sedes" ,      "descripcion" ,                                           "sede" );
+    caracteristicas.AgregarColumna( "programas" ,  "descripcion" ,                                           "programa ");
+    caracteristicas.AgregarColumna( null ,         "( SELECT numero FROM telefonos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM telefonos WHERE personas_id = personas.id AND tipo = 'C' ) AND tipo = 'C' LIMIT 1 )" , "celular" );
+    caracteristicas.AgregarColumna( null ,         "( SELECT correo FROM correos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM correos WHERE personas_id = personas.id AND tipo = 'I' ) AND tipo = 'I' LIMIT 1 )" ,     "correoInstitucional" );
+    caracteristicas.AgregarColumna( null ,         "( SELECT correo FROM correos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM correos WHERE personas_id = personas.id AND tipo = 'P' ) AND tipo = 'P' LIMIT 1 )" ,     "correoPersonal" );
     
-    caracteristicas2.AgregarEnlace( "estudios" ,  "personas" ,  "estudios" );
-    caracteristicas2.AgregarEnlace( "cohortes" ,  "cohortes" ,  "estudios" );
-    caracteristicas2.AgregarEnlace( "sedes" ,     "sedes" ,     "estudios" );
-    caracteristicas2.AgregarEnlace( "programas" , "programas" , "estudios" );  
+    caracteristicas.AgregarEnlace( "estudios" ,  "personas" ,  "estudios" );
+    caracteristicas.AgregarEnlace( "cohortes" ,  "cohortes" ,  "estudios" );
+    caracteristicas.AgregarEnlace( "sedes" ,     "sedes" ,     "estudios" );
+    caracteristicas.AgregarEnlace( "programas" , "programas" , "estudios" );  
     
-    caracteristicas2.AgregarFiltro( "sedes" , "instituciones_id" , "=", "1" );
+    caracteristicas.AgregarFiltro( "sedes" , "instituciones_id" , "=", "1" );
     
-    caracteristicas2.AgregarOrdenamiento( "cohorte" , "DESC" );
-    caracteristicas2.AgregarOrdenamiento( "sede" , "ASC" );
-    caracteristicas2.AgregarOrdenamiento( "apellidos" , "ASC" );    
-
-    console.log("nuevo");
-    console.log(caracteristicas2);
+    caracteristicas.AgregarOrdenamiento( "cohorte" , "DESC" );
+    caracteristicas.AgregarOrdenamiento( "sede" , "ASC" );
+    caracteristicas.AgregarOrdenamiento( "apellidos" , "ASC" );    
 
 
-
-
-
-    this.controladorPersonas.CargarDesdeDB(true, "A", caracteristicas2 ).subscribe(
+    this.controladorPersonas.CargarDesdeDB(true, "A", caracteristicas ).subscribe(
       (respuesta: RespuestaInterface) =>{
         switch (respuesta.codigo){
           case 200:

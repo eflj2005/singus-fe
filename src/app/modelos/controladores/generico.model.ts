@@ -149,12 +149,12 @@ export class GenericoModel {
 
   //AVANZADAS
 
-  protected DetectarCampos():Observable<any>{
+  protected DetectarCampos(conToken:boolean=true):Observable<any>{
 
     let datosEnviados = new HttpParams()
       .set("accion","obtener_campos")
       .set("tabla",this.nombreTabla)
-      .set("conSeguridad", String(true) )  
+      .set("conSeguridad", String(conToken) )  
    
     return this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
       map(
