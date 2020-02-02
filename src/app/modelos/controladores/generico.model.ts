@@ -92,6 +92,7 @@ export class GenericoModel {
 
   public EliminarTodo(){
     this.registros.length = 0;
+    this.posicionActual = null;
   }
 
   public Encontrar( nombreAtributo:string, valorBuscado:any ): boolean{
@@ -198,16 +199,19 @@ export class GenericoModel {
         (respuesta: RespuestaInterface) => {
 
           this.EliminarTodo();
-          respuesta.mensaje.forEach(
-            (elemento:any) => {
-              elemento.dbRef=null;
-              elemento.modo=null;
-              elemento = this.ProcesarFechas(elemento,"GET");
-              this.registros.push(elemento);
-            }
-          );
 
-          if( respuesta.mensaje.length > 0 ) this.posicionActual=0;
+          if(!isNull(respuesta.mensaje)){
+            respuesta.mensaje.forEach(
+              (elemento:any) => {
+                elemento.dbRef=null;
+                elemento.modo=null;
+                elemento = this.ProcesarFechas(elemento,"GET");
+                this.registros.push(elemento);
+              }
+            );
+
+            if( respuesta.mensaje.length > 0 ) this.posicionActual=0;
+          }
 
           return respuesta;
         }

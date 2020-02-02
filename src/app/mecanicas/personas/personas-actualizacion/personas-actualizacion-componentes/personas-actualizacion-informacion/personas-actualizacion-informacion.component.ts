@@ -1,7 +1,15 @@
-import { Component, OnInit, Renderer2 , ElementRef, ViewChild} from '@angular/core';
-import {AmbienteService} from '@servicios/ambiente.service';
+import { Component, OnInit,  ElementRef } from '@angular/core';
+import { AmbienteService } from '@servicios/ambiente.service';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClient } from '@angular/common/http';
+
+import { PersonasController } from '@controladores/personas.controller';
+import { EstructuraConsultas } from '@generales/estructura-consultas';
+import { CorreosController } from '@controladores/correos.controller';
+import { TelefonosController } from '@controladores/telefonos.controller';
+import { PersonasInterface } from '@interfaces/personas.interface';
+import { TelefonosInterface } from '@interfaces/telefonos.interface';
 
 
 
@@ -22,56 +30,108 @@ interface Trabajo {
 export class PersonasActualizacionInformacionComponent implements OnInit {
 
   tipoInformacion : number ;
-  opcion: any = { nombreOpcion:"Datos personales", tipo:"1" } ;
-habilitado: any;
-descripcionProyecto : any ="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología";
-descripcionPrograma : any ="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología";
-  constructor(private datosAmbiente : AmbienteService,private router: Router, private modal: NgbModal, private render: Renderer2,private el: ElementRef ) {
-    this.habilitado = "disabled";
-   }
+  grupoDatos : any = { } ;
+
+  controladorPersonas: PersonasController;
+  controladorCorreos: CorreosController;
+  controladorTelefonos: TelefonosController;
+
+  datosPersona:PersonasInterface;
+  datosTelefono:TelefonosInterface;
+
+  descripcionProyecto : any ="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología";
+  descripcionPrograma : any ="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología";
+  
+  constructor(
+    private servicioAmbiente : AmbienteService,
+    private llamadoHttp : HttpClient,
+    private router: Router, 
+    private modal: NgbModal, 
+    private el: ElementRef 
+  ) {
+
+
+    let caracteristicasConsultas = null;
+
+    // console.log(this.servicioAmbiente);
+
+    let personaId = this.servicioAmbiente.controlMecanicasPersonas.datos.id;
+
+    this.cambiarGrupoDatos( 1 );
+
+    this.controladorPersonas = new PersonasController( llamadoHttp , servicioAmbiente );
+    this.controladorCorreos = new CorreosController( llamadoHttp , servicioAmbiente );
+    this.controladorTelefonos = new TelefonosController( llamadoHttp , servicioAmbiente );
+
+    caracteristicasConsultas = new EstructuraConsultas( "F" , null , "id" , "=" , personaId );
+
+    this.controladorPersonas.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaP:PersonasInterface) => {                // Carge de datos basicos
+      
+      this.controladorPersonas.ObtenerForanea("tiposdocumentos").CargarDesdeDB().subscribe( (respuestaT:PersonasInterface) => {                 // Carge de foranea de personas -> tipos documentos
+  
+        this.controladorPersonas.ObtenerForanea("municipios").CargarDesdeDB().subscribe( (respuestaT:PersonasInterface) => {                    // Carge de foranea de personas -> municipios
+
+          caracteristicasConsultas = new EstructuraConsultas( "F", null , "personas_id" , "=" , personaId );
+  
+          this.controladorCorreos.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaC:PersonasInterface) => {           // Carge de correos
+         
+            this.controladorTelefonos.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaT:PersonasInterface) => {       // Carge de telefonos
+
+              this.datosPersona = this.controladorPersonas.actual;                                                                                                  
+
+            });
+      
+          });
+              
+        });
+
+      });
+
+    });
+
+
+  }
 
   ngOnInit() {
 
   }
+
+
+
   Cancelar(){
-    this.datosAmbiente.actualizacionModo.modo = 1
+    this.servicioAmbiente.controlMecanicasPersonas.modo = 1
   }
 
-  cambiarOpcion(tipo){
-
-    switch (tipo) {
+  cambiarGrupoDatos( posicion : number ){
+    switch (posicion) {
       case 1:
-          this.opcion.nombreOpcion = "Datos personales";
-          this.opcion.tipo= tipo;
-        break;
+        this.grupoDatos.nombre = "Datos personales";
+        this.grupoDatos.posicion= 1;
+      break;
       case 2:
-          this.opcion.nombreOpcion = "Estudios";
-          this.opcion.tipo= tipo;
-        break;
+        this.grupoDatos.nombre = "Estudios";
+        this.grupoDatos.posicion= 2;
+      break;
       case 3:
-          this.opcion.nombreOpcion = "Empleo";
-          this.opcion.tipo= tipo;
-        break;
+        this.grupoDatos.nombre = "Empleo";
+        this.grupoDatos.posicion= 3;
+      break;
       case 4:
-          this.opcion.nombreOpcion = "Reconocimientos";
-          this.opcion.tipo= tipo;
-        break;
+        this.grupoDatos.nombre = "Reconocimientos";
+        this.grupoDatos.posicion= 4;
+      break;
       case 5:
-          this.opcion.nombreOpcion = "Datos historicos";
-          this.opcion.tipo= tipo;
-        break;      
-    
-      default:
-        break;
+        this.grupoDatos.nombre = "Datos historicos";
+        this.grupoDatos.posicion= 5;
+      break;      
     }
-
   }
+
   Actualizar(){
     this.router.navigateByUrl("/agendamiento");
   }
 
-  agregarInfo(agregador, tipoInfo)
-  {
+  agregarInfo(agregador, tipoInfo){
   
     this.tipoInformacion = tipoInfo;
 

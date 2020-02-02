@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 
-import { GenericoModel } from './generico.model';
+import { MunicipiosInterface } from '@interfaces/municipios.interface';
+
 import { AmbienteService } from '@servicios/ambiente.service';
 
-import { CiudadesInterface } from '@interfaces/ciudades.interface';
+import { GenericoModel } from './generico.model';
+import { DepartamentosController } from './departamentos.controller';
 
 export class MunicipiosController extends GenericoModel {
 
-  registros: CiudadesInterface[]= [];
+  registros: MunicipiosInterface[]= [];
 
   constructor( 
     private instanciaHttpClient :HttpClient,
@@ -19,6 +21,8 @@ export class MunicipiosController extends GenericoModel {
     this.fechasDefinidas = [];
 
     this.DetectarCampos().subscribe();
+
+    this.AgregarForanea( new DepartamentosController(instanciaHttpClient,InstanciaAmbienteService) );
 
   }
 

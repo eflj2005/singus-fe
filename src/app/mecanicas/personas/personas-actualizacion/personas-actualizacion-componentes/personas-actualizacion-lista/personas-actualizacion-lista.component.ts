@@ -106,7 +106,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     caracteristicas.AgregarEnlace( "cohortes" ,  "cohortes" ,  "estudios" );
     caracteristicas.AgregarEnlace( "sedes" ,     "sedes" ,     "estudios" );
     caracteristicas.AgregarEnlace( "programas" , "programas" , "estudios" );  
-    
+
+    caracteristicas.AgregarFiltro( "personas" , "id" , "=", "1" );
     caracteristicas.AgregarFiltro( "sedes" , "instituciones_id" , "=", "1" );
     
     caracteristicas.AgregarOrdenamiento( "cohorte" , "DESC" );
@@ -123,7 +124,7 @@ export class PersonasActualizacionListaComponent implements OnInit {
 
             this.personas$ = this.filter2.valueChanges.pipe(
               startWith(''),
-              map(text => this.buscar(text, pipe))
+              map(text => this.Buscar(text, pipe))
             )
 
           break;
@@ -136,7 +137,7 @@ export class PersonasActualizacionListaComponent implements OnInit {
 
    }
 
-  buscar(text: string , pipe: PipeTransform): ListaPersonasInterface[] {
+  Buscar(text: string , pipe: PipeTransform): ListaPersonasInterface[] {
     return this.registros.filter(persona => {
       const term = text.toLowerCase();
       return pipe.transform(persona.id).includes(term)
@@ -156,10 +157,10 @@ export class PersonasActualizacionListaComponent implements OnInit {
   ngOnInit() {
   }
   
-  verPersona(datos){
+  VerPersona( datos : any ){
     
-    this.servicioAmbiente.actualizacionModo.modo = datos.modo
-    this.servicioAmbiente.actualizacionModo.boton = null
+    this.servicioAmbiente.controlMecanicasPersonas.modo = datos.modo;
+    this.servicioAmbiente.controlMecanicasPersonas.datos = { id: datos.id };
   
   }
   

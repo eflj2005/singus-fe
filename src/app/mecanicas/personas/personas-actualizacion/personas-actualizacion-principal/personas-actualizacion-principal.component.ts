@@ -9,9 +9,7 @@ import {AmbienteService} from '@servicios/ambiente.service'
 export class PersonasActualizacionPrincipalComponent implements OnInit {
 
 
-  constructor(private datosAmbiente: AmbienteService) { 
-
-
+  constructor(private servicioAmbiente: AmbienteService) { 
 
   }
 

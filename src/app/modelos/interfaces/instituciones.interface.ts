@@ -1,6 +1,5 @@
-export interface TiposdocumentosInterface {
+export interface InstitucionesInterface {
   id: number;
-  sigla: string;
   descripcion: string;
   modo?:string;
   dbRef?:string;

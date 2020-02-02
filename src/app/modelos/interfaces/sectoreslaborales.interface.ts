@@ -1,4 +1,4 @@
-export interface CiudadesInterface {
+export interface SectoreslaboralesInterface {
   id: number;
   descripcion: string;
   modo?:string;

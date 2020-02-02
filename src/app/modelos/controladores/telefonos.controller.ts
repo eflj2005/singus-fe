@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 
-import { GenericoModel } from './generico.model';
+import { GenericoModel } from '@controladores/generico.model';
 import { AmbienteService } from '@servicios/ambiente.service';
 
-import { AreasInterface } from '@interfaces/areas.interface';
+import { TelefonosInterface } from '@interfaces/telefonos.interface';
 
-export class AreasController extends GenericoModel {
+export class TelefonosController extends GenericoModel {
 
-  registros: AreasInterface[]= [];
+  registros: TelefonosInterface[]= [];
 
   constructor( 
     private instanciaHttpClient :HttpClient,
@@ -15,7 +15,7 @@ export class AreasController extends GenericoModel {
   ) {
     super(instanciaHttpClient,InstanciaAmbienteService);
 
-    this.nombreTabla = "areas";
+    this.nombreTabla = "telefonos";
     this.fechasDefinidas = [];
 
     this.DetectarCampos().subscribe();

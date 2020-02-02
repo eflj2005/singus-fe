@@ -24,7 +24,7 @@ export class DashboardMenuComponent {
     agrupamiento:"",
   }
   
-  constructor(private rutas: Router, private ruta: ActivatedRoute, private autenticador: AutenticacionService,private datosAmbiente : AmbienteService) {
+  constructor(private rutas: Router, private ruta: ActivatedRoute, private autenticador: AutenticacionService,private servicioAmbiente : AmbienteService) {
  
 
 
@@ -91,9 +91,10 @@ this.usuario = "Juan Bustos";
       this.rutas.navigate([this.rutas.url]);
     });
   }
-  
+
   Reiniciar(){
-    this.datosAmbiente.actualizacionModo.modo = 1;
-    this.datosAmbiente.agendaModo.modo = 1
+    this.servicioAmbiente.controlMecanicasPersonas.modo = 1;
+    this.servicioAmbiente.agendaModo.modo = 1
   }
+
 }

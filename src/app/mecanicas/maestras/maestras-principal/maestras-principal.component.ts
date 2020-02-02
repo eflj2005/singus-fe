@@ -4,11 +4,30 @@ import { HttpClient } from '@angular/common/http';
 
 
 
+
 import { AreasController } from '@controladores/areas.controller';
+import { TiposdocumentosController } from '@controladores/tiposdocumentos.controller';
 
+import { CohortesController } from '@controladores/cohortes.controller';
 
-import { UsuariosController } from '@controladores/usuarios.controller';
+import { ProgramasController } from '@controladores/programas.controller';
+import { InstitucionesController } from '@controladores/instituciones.controller';
+import { SedesController } from '@controladores/sedes.controller';
+
+import { TiposestudiosController } from '@controladores/tiposestudios.controller';
+import { TitulosController } from '@controladores/titulos.controller';
+import { MecanismosgradosController } from '@controladores/mecanismosgrados.controller';
+
 import { MunicipiosController } from '@controladores/municipios.controller';
+import { DepartamentosController } from '@controladores/departamentos.controller';
+import { PaisesController } from '@controladores/paises.controller';
+
+import { SectoreslaboralesController } from '@controladores/sectoreslaborales.controller';
+import { TiposcontratosController } from '@controladores/tiposcontratos.controller';
+import { RangossalarialesController } from '@controladores/rangossalariales.controller';
+
+
+
 
 
 @Component({
@@ -19,19 +38,51 @@ import { MunicipiosController } from '@controladores/municipios.controller';
 export class MaestrasPrincipalComponent implements OnInit {
 
   controladorAreas: AreasController;
-  controladorMunicipios: MunicipiosController;
+  controladorTiposDocumentos: TiposdocumentosController;
   
-  controladorUsuarios:UsuariosController;
+  controladorCohortes: CohortesController;
+
+  controladorProgramas: ProgramasController;
+  controladorInstituciones: InstitucionesController;
+  controladorSedes: SedesController;
+
+  controladorTiposestudios: TiposestudiosController;
+  controladorTitulos: TitulosController;
+  controladorMecanismosgrados: MecanismosgradosController;
+
+  controladorMunicipios: MunicipiosController;
+  controladorDepartamentos: DepartamentosController;
+  controladorPaises: PaisesController;
+
+  controladorSectoreslaborales: SectoreslaboralesController;
+  controladorTiposcontratos: TiposcontratosController;
+  controladorRangossalariales: RangossalarialesController;
 
   constructor(
     private llamadoHttp: HttpClient,
     private servicioAmbiente: AmbienteService,
   ) { 
+    
     this.controladorAreas = new AreasController(llamadoHttp,servicioAmbiente);
+    this.controladorTiposDocumentos = new TiposdocumentosController(llamadoHttp,servicioAmbiente);
+
+    this.controladorCohortes = new CohortesController(llamadoHttp,servicioAmbiente);
+
+    this.controladorProgramas = new ProgramasController(llamadoHttp,servicioAmbiente);
+    this.controladorInstituciones = new InstitucionesController(llamadoHttp,servicioAmbiente);
+    this.controladorSedes = new SedesController(llamadoHttp,servicioAmbiente);
+
+    this.controladorTiposestudios = new TiposestudiosController(llamadoHttp,servicioAmbiente);
+    this.controladorTitulos = new TitulosController(llamadoHttp,servicioAmbiente);
+    this.controladorMecanismosgrados = new MecanismosgradosController(llamadoHttp,servicioAmbiente);    
+
     this.controladorMunicipios = new MunicipiosController(llamadoHttp, servicioAmbiente);
-
-    this.controladorUsuarios = new UsuariosController(llamadoHttp,servicioAmbiente);    
-
+    this.controladorDepartamentos = new DepartamentosController(llamadoHttp, servicioAmbiente);
+    this.controladorPaises = new PaisesController(llamadoHttp, servicioAmbiente);
+  
+    this.controladorSectoreslaborales = new SectoreslaboralesController(llamadoHttp, servicioAmbiente);
+    this.controladorTiposcontratos = new TiposcontratosController(llamadoHttp, servicioAmbiente); 
+    this.controladorRangossalariales = new RangossalarialesController(llamadoHttp, servicioAmbiente); 
   }
 
   ngOnInit() {

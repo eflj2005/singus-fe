@@ -12,20 +12,12 @@ export class AmbienteService {
   inicioPaso:number =null;  //pasos de registro de administrador =>  1 = Registro, 2 = Validación código
   inicioIdUsrTemp:number =null;
   
-  actualizacionModo:any = {
-                            modo: 0,          // Modo 1 es lista de personas -> Modo 2 es Editar a una persona
-                            datos:null,
-                            boton: null
-                              } 
+  public controlMecanicasPersonas:any = {  } 
+
   agendaModo:any = {
                       modo: 0,          // Modo 1 es lista de personas -> Modo 2 es Editar a una persona
                       datos:null
                     }    
-                    
-  maestrasModo: any = { 
-                        modo:0,          //Modo 1 son todas las maestras
-                        datos: null
-                      }
 
                                           
   eventosModo: any = { 
@@ -45,21 +37,17 @@ export class AmbienteService {
 
     this.inicioModo = 0;
     this.inicioPaso = 0;
+
+    this.controlMecanicasPersonas = { modo: 1, datos: null } // Modo 1 -> lista | Modo 2 -> Editar
+
+
     this.eventosModo.modo =  0;
     
-    this.actualizacionModo = {
-      modo: 1,        
-      datos: null,
-      boton:null
-        }
     this.agendaModo = {
       modo: 1,        
       datos: null
       }
-    this.maestrasModo = {
-      modo: 1,
-      datos: null
-    }
+   
   }
 
   GetUrlRecursos(){
