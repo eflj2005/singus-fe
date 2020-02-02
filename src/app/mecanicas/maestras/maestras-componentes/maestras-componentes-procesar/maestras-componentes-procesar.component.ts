@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
-import { AreaInterface } from '@interfaces/area.interface';
+import { AreasInterface } from '@interfaces/areas.interface';
 
 @Component({
   selector: 'app-maestras-componentes-procesar',
@@ -18,7 +18,7 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
   titulo:string;
 
   modo:number;
-  datos:AreaInterface;
+  datos:AreasInterface;
 
   numeroModelo:string;
   correoModelo:string;  

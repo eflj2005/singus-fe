@@ -37,7 +37,7 @@ export class PersonasAgendamientoVerComponent implements OnInit {
   responsable = 1;
   FechaFinal : any;
   Nombre: string = "Agenda Contaduria Publica";
-constructor(private datosAmbiente : AmbienteService,private router: Router, private pipe: DecimalPipe) {
+constructor(private servicioAmbiente : AmbienteService,private router: Router, private pipe: DecimalPipe) {
   // this.dateFormatormat(this.now, "dddd, mmmm dS, yyyy");
   this.FechaInicio= formatDate(new Date(), 'yyyy-MM-dd', 'en');
   this.FechaFinal= formatDate(new Date(), 'yyyy-MM-dd', 'en');
@@ -133,13 +133,13 @@ PersonasSeleccionadas: Array<PersonaTemporarl> = [{
 ];
 
   verPersona(datos){
-    this.datosAmbiente.actualizacionModo.modo = datos.modo;
-    this.datosAmbiente.actualizacionModo.boton = 1;
+    this.servicioAmbiente.controlMecanicasPersonas.modo = datos.modo;
+    this.servicioAmbiente.controlMecanicasPersonas.boton = 1;
     this.router.navigateByUrl("/lista");
   }
 
   Cancelar(){
-  this.datosAmbiente.agendaModo.modo = 1;
+  this.servicioAmbiente.agendaModo.modo = 1;
   }
 
   AplicarFiltros(){

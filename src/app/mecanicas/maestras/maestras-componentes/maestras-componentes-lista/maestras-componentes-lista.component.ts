@@ -37,6 +37,7 @@ export class MaestrasComponentesListaComponent implements OnInit {
   ngOnInit() {
     this.controlador.CargarDesdeDB().subscribe(
       (respuesta: RespuestaInterface) =>{
+
         switch (respuesta.codigo){
           case 200:
             this.registros =this.controlador.todos;

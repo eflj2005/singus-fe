@@ -1,6 +1,5 @@
-export interface TiposdocumentosInterface {
+export interface TiposestudiosInterface {
   id: number;
-  sigla: string;
   descripcion: string;
   modo?:string;
   dbRef?:string;

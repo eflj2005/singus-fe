@@ -9,4 +9,6 @@ export interface PersonasInterface {
   documento:number;
   municipios_id:number;
   actualizacion_fecha:string;
+  modo?:string;
+  dbRef?:string;  
 }

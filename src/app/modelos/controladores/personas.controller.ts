@@ -1,16 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { PersonasInterface } from '@interfaces/personas.interface';
-import { RespuestaInterface } from '@interfaces/respuesta.interface';
 
 import { AmbienteService } from '@servicios/ambiente.service';
 
 import { GenericoModel } from './generico.model';
 import { TiposdocumentosController } from './tiposdocumentos.controller';
 import { MunicipiosController } from './municipios.controller';
-
 
 export class PersonasController extends GenericoModel {
 

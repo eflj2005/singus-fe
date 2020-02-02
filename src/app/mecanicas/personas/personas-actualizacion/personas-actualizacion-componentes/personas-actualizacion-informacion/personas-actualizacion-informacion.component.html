@@ -1,166 +1,170 @@
 <div class="container column">
    
-    <h1 align='center'>Editar Persona</h1>
+  <h1 align='center'>Editar Persona</h1>
           
   <div class="form-group row">
-        <div class="col-md-1 form-group column  " >
-          <button type="button" class="btn editperson active" (click)="cambiarOpcion(1)">
-            <div>
-              <img src="../../../../../../assets/imagenes/persona.png" class="img-fluid editperson" alt="Responsive image">
-            </div>
-          </button>
-          <button type="button" class="btn  editperson" (click)="cambiarOpcion(2)">                
-            <div>
-              <img src="../../../../../../assets/imagenes/estudios.png" class="img-fluid editperson" alt="Responsive image">
-            </div>
-          </button>
-          <button type="button" class="btn editperson" (click)="cambiarOpcion(3)">                
-            <div>
-              <img src="../../../../../../assets/imagenes/trabajo.png" class="img-fluid editperson" alt="Responsive image">
-            </div>
-          </button>
-          <button type="button" class="btn editperson" (click)="cambiarOpcion(4)">                
-              <div>
-                <img src="../../../../../../assets/imagenes/logros.png" class="img-fluid editperson" alt="Responsive image">
-              </div>
-          </button> 
-          <button type="button" class="btn editperson" (click)="cambiarOpcion(5)">                
-              <div>
-                <img src="../../../../../../assets/imagenes/estadistica.png" class="img-fluid editperson" alt="Responsive image">
-              </div>
-          </button>          
+    <div class="col-md-1 form-group column  " >
+      <button type="button" class="btn editperson active" (click)="cambiarGrupoDatos(1)">
+        <div><img src="../../../../../../assets/imagenes/persona.png" class="img-fluid editperson" alt="Responsive image"></div>
+      </button>
+      <button type="button" class="btn  editperson" (click)="cambiarGrupoDatos(2)">                
+        <div><img src="../../../../../../assets/imagenes/estudios.png" class="img-fluid editperson" alt="Responsive image"></div>
+      </button>
+      <button type="button" class="btn editperson" (click)="cambiarGrupoDatos(3)">                
+        <div><img src="../../../../../../assets/imagenes/trabajo.png" class="img-fluid editperson" alt="Responsive image"></div>
+      </button>
+      <button type="button" class="btn editperson" (click)="cambiarGrupoDatos(4)">                
+          <div><img src="../../../../../../assets/imagenes/logros.png" class="img-fluid editperson" alt="Responsive image"></div>
+      </button> 
+      <button type="button" class="btn editperson" (click)="cambiarGrupoDatos(5)">                
+          <div><img src="../../../../../../assets/imagenes/estadistica.png" class="img-fluid editperson" alt="Responsive image"></div>
+      </button>          
+    </div>
+    <div class=" col-md-11 column infoSpace " >
+      <h3>{{ grupoDatos.nombre }}</h3>
+
+      <hr my-1>
+
+      <div  *ngIf="grupoDatos.posicion == 1">
+        <div class="form-group row mb-2" >
+
+          <div class="col-md-1 px-1">
+            <label class="mb-1">Cohorte:</label>
+            <input disabled type="text" class="form-control form-control-sm"  [(ngModel)]="cohorte" >
+          </div>
+
+          <div  class="col-md-2 px-1">
+            <label class="mb-1"> Sede:</label>
+            <select class="form-control form-control-sm" [(ngModel)]="sede">
+              <option value="" disabled >--Seleccione Sede--</option>
+              <option value="{{sedeBase.Id}}" *ngFor="let sedeBase of sedes">{{sedeBase.Descripcion}}</option>
+            </select>
+          </div>
+          
+          <div class="col-md-5 px-1">
+            <label class="mb-1">Titulo :</label>
+            <select class="form-control form-control-sm" [(ngModel)]="titulo">
+              <option value="" >--Seleccione titulo--</option>
+              <option value="{{tituloBase.Id}}" *ngFor="let tituloBase of titulos">{{tituloBase.Descripcion}}</option>
+            </select>
+          </div>
+
+          <div class="col-md-4 px-1">
+            <label class="mb-1">Programa :</label>
+            <select class="form-control form-control-sm" [(ngModel)]="programa">
+              <option value="" >--Seleccione Programa--</option>
+              <option value="{{programaBase.Id}}" *ngFor="let programaBase of programas">{{programaBase.Descripcion}}</option>
+            </select>
+          </div>
+
         </div>
-        <div class=" col-md-11 infoSpace " >
-            <h3>{{opcion.nombreOpcion}}</h3>
-            <hr>
+        <div class="form-group row mb-2">
 
-            <div  *ngIf="opcion.tipo == 1">
-                <div class="form-group row" >
-                    <div class="col-md-1">
-                      <label> Cohorte:</label>
-                      <input disabled type="text" class="form-control"  [(ngModel)]="cohorte" >
-                    </div>
-                    <div  class="col-md-2">
-                      <label> Sede:</label>
-                      <select class="form-control" [(ngModel)]="sede">
-                              <option value="0" disabled >--Seleccione Sede--</option>
-                              <option value="{{sedeBase.Id}}" *ngFor="let sedeBase of sedes">{{sedeBase.Descripcion}}</option>
-                      </select>
-                    </div>          
-                    <div class="col-md-5">
-                      <label >Titulo :</label>
-                      <select class="form-control" [(ngModel)]="titulo">
-                          <option value="0" disabled >--Seleccione titulo--</option>
-                          <option value="{{tituloBase.Id}}" *ngFor="let tituloBase of titulos">{{tituloBase.Descripcion}}</option>
-                      </select>
-                    </div>
-                    <div class="col-md-4">
-                          <label >Programa :</label>
-                          <select class="form-control" [(ngModel)]="programa">
-                              <option value="0" disabled >--Seleccione Programa--</option>
-                              <option value="{{programaBase.Id}}" *ngFor="let programaBase of programas">{{programaBase.Descripcion}}</option>
-                          </select>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <div  class="col-md-2">
-                          <label> Id:</label>
-                          <input disabled type="text"   class="form-control"  [(ngModel)]="id"  >
-                    </div>
-                    <div class="col-md-1">
-                        <label>TipoDoc:</label>
-                        <select disabled class="form-control" [(ngModel)]="genero">
-                            <option value="0" disabled >--Seleccione genero--</option>
-                            <option value="{{generoBase.Id}}" *ngFor="let generoBase of generos">{{programaBase.Descripcion}}</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label >Documento :</label>
-                        <input disabled type="number"   class="form-control"  [(ngModel)]="cedula" name="cedula">
-                    </div>
-                    <div class="col-md-3">
-                        <label >Expedida :</label>
-                        <select disabled class="form-control" [(ngModel)]="expedicion">
-                            <option value="0" disabled >--Seleccione Expedición--</option>
-                            <option value="{{expedidaBase.Id}}" *ngFor="let expedidaBase of expediciones">{{expedidaBase.Descripcion}}</option>
-                        </select>
-                    </div> 
-                  </div>
-                  <div class="form-group row">
+          <div  class="col-md-2 px-1">
+            <label class="mb-1"> Id:</label>
+            <input disabled type="text"   class="form-control form-control-sm"  [(ngModel)]="datosPersona.id"  >
+          </div>
 
-                      <div class="col-md-6">
-                          <label>Nombres:</label>
-                          <input disabled type="text"   class="form-control"   [(ngModel)]="nombres" >
-                        </div>
-                        
-                        <div class="col-md-6">
-                          <label>Apellidos:</label>
-                          <input disabled type="text"   class="form-control"    [(ngModel)]="apellidos" >
-                        </div>
-                        
-                  </div>
-                  <div class="form-group row">
-                      <div class="col-md-1">
-                          <label>Genero:</label>
-                          <select class="form-control" [(ngModel)]="genero">
-                              <option value="0" disabled >--Seleccione genero--</option>
-                              <option value="{{generoBase.Id}}" *ngFor="let generoBase of generos">{{programaBase.Descripcion}}</option>
-                          </select>
-                    </div>
-                    <div class="col-md-2">
-                            <label >Fecha Nacimiento :</label>
-                            <input disabled type="date" class="form-control " [(ngModel)]="fechaNacimiento">
-                    </div>
+          <div class="col-md-2 px-1">
+            <label class="mb-1">TipoDoc:</label>
+            <select disabled class="form-control form-control-sm" [(ngModel)]="datosPersona.tiposdocumentos_id">
+              <option disabled value="" >--Seleccione Tipo--</option>
+              <option *ngFor="let elemento of controladorPersonas.ObtenerForanea('tiposdocumentos').todos; let indiceTiposDocumentos = index" value="{{elemento.id}}">{{elemento.sigla}}</option>
+            </select>
+          </div>
 
-                  </div>
-                  <hr>
-                  <div class="form-group row">
-                      <div class="col-md-4">
-                          <label >Correo Personal:</label>
-                          <div class="addInfo">
-                            <input disabled type="email" name="email" ngModel [email]="true" class="form-control " [(ngModel)]="correoPersonal" placeholder="Ejemplo@hotmail.com">
-                            <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregador, 1)"><i class="fa fa-plus"></i></button>
-                          </div>
-                      </div>
-                      <div class="col-md-3">
-                          <label >Correo Institucional:</label>
-                          <input disabled type="email" name="email" ngModel [email]="true" class="form-control disabled" [(ngModel)]="correoInstitucional" placeholder="Ejemplo@hotmail.com">   
-                      </div> 
+          <div class="col-md-3 px-1">
+            <label class="mb-1">Documento :</label>
+            <input disabled type="number"   class="form-control form-control-sm"  [(ngModel)]="datosPersona.documento">
+          </div>
 
-                      <div class="col-md-4">
-                          <label>Direccion:</label>
-                        <div class="addInfo">
-                          <input disabled type="text"   class="form-control "    [(ngModel)]="direccion" >
-                          <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregador, 2)"><i class="fa fa-plus"></i></button>
-                        </div>
-                      </div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-md-3">
-                        <label >Municipio de Residencia:</label>
-                        <select class="form-control" [(ngModel)]="residencia">
-                            <option value="0" disabled >--Seleccione Residencia--</option>
-                            <option value="{{residenciaBase.Id}}" *ngFor="let residenciaBase of residencias">{{residenciaBase.Descripcion}}</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label >Telefono :</label>
-                        <div class="addInfo">
-                          <input disabled type="number"   class="form-control "  [(ngModel)]="telefono" >
-                          <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregador, 3)"><i class="fa fa-plus"></i></button>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <label >Celular :</label>
-                        <div class="addInfo">
-                          <input  disabled type="number"   class="form-control "  [(ngModel)]="celular" >
-                          <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregador, 4)"><i class="fa fa-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
+          <div class="col-md-5 px-1">
+            <label class="mb-1">Expedida :</label>
+            <select  class="form-control form-control-sm" [(ngModel)]="datosPersona.municipios_id">
+              <option value="" disabled >--Seleccione Expedición--</option>
+              <option *ngFor="let elemento of controladorPersonas.ObtenerForanea('municipios').todos; let indiceExpedicion = index" value="{{elemento.id}}">{{elemento.descripcion}}</option>              
+            </select>
+          </div>
+
+        </div>
+        <div class="form-group row mb-2">
+
+          <div class="col-md-3 px-1">
+            <label class="mb-1">Nombres:</label>
+            <input disabled type="text"   class="form-control form-control-sm"   [(ngModel)]="datosPersona.nombres" >
+          </div>
+
+          <div class="col-md-3 px-1">
+            <label class="mb-1">Apellidos:</label>
+            <input disabled type="text"   class="form-control form-control-sm"    [(ngModel)]="datosPersona.apellidos" >
+          </div>
+
+          <div class="col-md-2 px-1">
+            <label class="mb-1">Genero:</label>
+            <select disabled class="form-control form-control-sm" [(ngModel)]="datosPersona.genero">
+              <option value="0" disabled >--Seleccione genero--</option>
+              <option value="M">M</option>
+              <option value="F">F</option>              
+            </select>
+          </div>
+
+          <div class="col-md-4 px-1">
+            <label class="mb-1">Fecha Nacimiento:</label>
+            <input type="date" class="form-control form-control-sm " [(ngModel)]="datosPersona.nacimiento_fecha">
+          </div>
+          
+        </div>      
+        <hr class="my-1">
+        <div class="form-group row mb-2">
+          <div class="col-md-3 px-1">
+            <label class="mb-1">Correo Personal:</label>
+            <div class="input-group input-group-sm" >
+              <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="correoPersonal">
+              <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="button" (click)="agregarInfo(agregador, 1)"><i class="fa fa-plus"></i></button>
+              </div>
             </div>
+          </div>
 
-            <div *ngIf="opcion.tipo == 2" #element>
+          <div class="col-md-3 px-1">
+            <label class="mb-1">Correo Institucional:</label>
+            <input disabled type="email" class="form-control form-control-sm" [(ngModel)]="correoInstitucional">   
+          </div> 
+          <div class="col-md-6 px-1">
+            <label class="mb-1">Direccion Residencia:</label>
+            <div class="addInfo">
+              <input disabled type="text"   class="form-control form-control-sm "    [(ngModel)]="direccion" >
+              <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregador, 2)"><i class="fa fa-plus"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row mb-2">
+          <div class="col-md-3 px-1">
+            <label class="mb-1">Telefono :</label>
+            <div class="addInfo">
+              <input disabled type="number"   class="form-control form-control-sm "  [(ngModel)]="telefono" >
+              <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregador, 3)"><i class="fa fa-plus"></i></button>
+            </div>
+          </div>
+          <div class="col-md-3 px-1">
+            <label class="mb-1">Celular :</label>
+            <div class="addInfo">
+              <input  disabled type="number"   class="form-control form-control-sm "  [(ngModel)]="celular" >
+              <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregador, 4)"><i class="fa fa-plus"></i></button>
+            </div>
+          </div>
+          <div class="col-md-6 px-1">
+            <label class="mb-1">Municipio de Residencia:</label>
+            <input disabled type="text"   class="form-control form-control-sm "    [(ngModel)]="residencia" >            
+          </div>
+        </div>
+      </div>
+
+
+
+      
+            <div *ngIf="grupoDatos.posicion == 2" #element>
                 <table class="table">
                     <thead>
                       <tr>
@@ -204,7 +208,7 @@
 
             </div>
           
-            <div *ngIf="opcion.tipo == 3">
+            <div *ngIf="grupoDatos.posicion == 3">
                 <table class="table">
                     <thead>
                       <tr>
@@ -248,7 +252,7 @@
 
             </div>
 
-            <div  *ngIf="opcion.tipo == 4">
+            <div  *ngIf="grupoDatos.posicion == 4">
                 <table class="table">
                     <thead>
                       <tr>
@@ -331,19 +335,19 @@
                   <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregadorCantidad, 8)"><i class="fa fa-plus"></i>Agregar</button>
 
             </div>
-            <div  *ngIf="opcion.tipo == 5">
+            <div  *ngIf="grupoDatos.posicion == 5">
                 <div class="form-group row" >
                     <div class="col-md-4">
-                            <label>Fcha de actualizacion de datos:</label>
-                            <input type="date"   class="form-control"    [(ngModel)]="fechaActualizacion" >
+                            <label class="mb-1">Fcha de actualizacion de datos:</label>
+                            <input type="date"   class="form-control form-control-sm"    [(ngModel)]="fechaActualizacion" >
                     </div>
                     <div class="col-md-4">
-                            <label>Registro bienestar:</label>
-                            <input type="text"   class="form-control"    [(ngModel)]="bienestar" >
+                            <label class="mb-1">Registro bienestar:</label>
+                            <input type="text"   class="form-control form-control-sm"    [(ngModel)]="bienestar" >
                         </div>
                     <div class="col-md-4">
-                            <label>Encuesta OLE:</label>
-                            <input type="text"   class="form-control"    [(ngModel)]="encuentaOle" >
+                            <label class="mb-1">Encuesta OLE:</label>
+                            <input type="text"   class="form-control form-control-sm"    [(ngModel)]="encuentaOle" >
                     </div>      
                 </div>
             </div>
@@ -356,7 +360,11 @@
   <div class="buttonDown">
     <button type="button" class="btn btn-primary " (click)="GuardarAsociado()">Guardar</button>
     <button type="button" class="btn btn-outline-dark buttonGeneral" (click)="Cancelar()">Cancelar</button>
-    <button *ngIf="datosAmbiente.actualizacionModo.boton ==1" type="button" class="btn btn-primary butonGeneral" (click)="Actualizar()">Actualizar</button>
+
+
+    <!-- <button *ngIf="datosAmbiente.actualizacionModo.boton ==1" type="button" class="btn btn-primary butonGeneral" (click)="Actualizar()">Actualizar</button> -->
+
+
   </div>
 
 
@@ -368,7 +376,7 @@
             <h4 class="modal-title">Correo Personal</h4>
           </div>
           <div class="modal-body">
-            <input type="text" class="form-control col-md-12"  placeholder="Ingrese su nuevo correo" [(ngModel)]="telefono" >
+            <input type="text" class="form-control form-control-sm col-md-12"  placeholder="Ingrese su nuevo correo" [(ngModel)]="telefono" >
             <h5 align="center">Historico</h5>
             <table class="table">
                 <thead class="thead-light">
@@ -411,7 +419,7 @@
               <h4 class="modal-title">Direccion</h4>
             </div>
             <div class="modal-body">
-                <input type="text" class="form-control col-md-12"  placeholder="Ingrese su nueva dirección" [(ngModel)]="telefono" >
+                <input type="text" class="form-control form-control-sm col-md-12"  placeholder="Ingrese su nueva dirección" [(ngModel)]="telefono" >
                 <h5 align="center">Historico</h5>
                 <table class="table">
                     <thead class="thead-light">
@@ -454,7 +462,7 @@
               <h4 class="modal-title">Telefono</h4>
             </div>
             <div class="modal-body">
-                <input type="text" class="form-control col-md-12"  placeholder="Ingrese su nuevo Telefono" [(ngModel)]="telefono" >
+                <input type="text" class="form-control form-control-sm col-md-12"  placeholder="Ingrese su nuevo Telefono" [(ngModel)]="telefono" >
                 <h5 align="center">Historico</h5>
                 <table class="table">
                     <thead class="thead-light">
@@ -497,7 +505,7 @@
               <h4 class="modal-title">Celular</h4>
             </div>
             <div class="modal-body">
-                <input type="text" class="form-control col-md-12"  placeholder="Ingrese su nuevo celular" [(ngModel)]="telefono" >
+                <input type="text" class="form-control form-control-sm col-md-12"  placeholder="Ingrese su nuevo celular" [(ngModel)]="telefono" >
                 <h5 align="center">Historico</h5>
                 <table class="table">
                     <thead class="thead-light">
@@ -548,24 +556,24 @@
             <div class="form-group row" >
                 <div class="col-md-6">
                   <label >Titulo:</label>
-                  <textarea type="textarea" class="form-control"  [(ngModel)]="descripcionProyecto" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología">
+                  <textarea type="textarea" class="form-control form-control-sm"  [(ngModel)]="descripcionProyecto" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología">
                   </textarea>
                 </div>
                 <div class="col-md-6">
                     <label >Institucion:</label>
-                    <textarea type="textarea" class="form-control"  [(ngModel)]="descripcionPrograma" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología">
+                    <textarea type="textarea" class="form-control form-control-sm"  [(ngModel)]="descripcionPrograma" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología">
                     </textarea>
                 </div>
             </div>
             <div class="form-group row" >
                 <div class="col-md-6">
                   <label >Mecanismo de graduación:</label>
-                  <textarea type="textarea" class="form-control"  [(ngModel)]="descripcionProyecto" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología">
+                  <textarea type="textarea" class="form-control form-control-sm"  [(ngModel)]="descripcionProyecto" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología">
                   </textarea>
                 </div>
                 <div class="col-md-6">
                     <label >Descripción del mecanismo /Programa:</label>
-                    <textarea type="textarea" class="form-control"  [(ngModel)]="descripcionPrograma" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología">
+                    <textarea type="textarea" class="form-control form-control-sm"  [(ngModel)]="descripcionPrograma" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología">
                     </textarea>
                 </div>
             </div>
@@ -584,15 +592,15 @@
             <div class="form-group row"  >
                 <div class="col-md-4">
                   <label >Cargo :</label><br/>
-                  <textarea type="textarea" class="form-control"  [(ngModel)]="empleoDirecctamente" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología"></textarea>
+                  <textarea type="textarea" class="form-control form-control-sm"  [(ngModel)]="empleoDirecctamente" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología"></textarea>
                 </div>
                 <div class="col-md-4">
                   <label >Empresa :</label><br/>
-                  <textarea type="textarea" class="form-control"  [(ngModel)]="empleoRelacionado" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología"></textarea>
+                  <textarea type="textarea" class="form-control form-control-sm"  [(ngModel)]="empleoRelacionado" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología"></textarea>
                 </div>
                 <div class="col-md-4">
                   <label >Tiempo laburado :</label><br/>
-                  <textarea type="number" class="form-control"  [(ngModel)]="empleoNoRelacionado" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología"></textarea>
+                  <textarea type="number" class="form-control form-control-sm"  [(ngModel)]="empleoNoRelacionado" value="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología"></textarea>
                 </div>
             </div>
             <div class="form-group row"  >
@@ -613,7 +621,7 @@
                 </div>
                 <div class="col-md-4">
                     <label >Total Ingresos Mensuales :</label><br/>
-                    <input type="number"   class="form-control"    [(ngModel)]="salario" >
+                    <input type="number"   class="form-control form-control-sm"    [(ngModel)]="salario" >
                 </div>
             </div>
           </div>
@@ -630,16 +638,16 @@
          <div   class="modal-body infoSpace " >
             <div class="form-group row" > 
                 <div class="col-md-4">
-                        <label>Reconocimiento otorgado:</label>
-                        <input type="text"   class="form-control"    [(ngModel)]="reconocimiento" >
+                        <label class="mb-1">Reconocimiento otorgado:</label>
+                        <input type="text"   class="form-control form-control-sm"    [(ngModel)]="reconocimiento" >
                 </div>
                 <div class="col-md-4">
-                        <label>Motivo del reconocimiento:</label>
-                        <input type="text"   class="form-control"    [(ngModel)]="motivo" >
+                        <label class="mb-1">Motivo del reconocimiento:</label>
+                        <input type="text"   class="form-control form-control-sm"    [(ngModel)]="motivo" >
                 </div>
                 <div class="col-md-4">
-                        <label>Institución que reconoce:</label>
-                        <input type="text"   class="form-control"    [(ngModel)]="otorgaReconocimiento" >
+                        <label class="mb-1">Institución que reconoce:</label>
+                        <input type="text"   class="form-control form-control-sm"    [(ngModel)]="otorgaReconocimiento" >
                 </div>
               </div>
 
@@ -657,8 +665,8 @@
          <div   class="modal-body infoSpace " >
             <div class="form-group row" >
                 <div class="col-md-4">
-                    <label>Sector:</label>
-                    <input type="text"   class="form-control"    [(ngModel)]="sector" >
+                    <label class="mb-1">Sector:</label>
+                    <input type="text"   class="form-control form-control-sm"    [(ngModel)]="sector" >
                 </div>
                 <div class="col-md-3">
                     <label >Tipo:</label><br/>
@@ -692,15 +700,15 @@
                     </div>
                 </div> 
                 <div class="col-md-2">
-                  <label>Tiempo (años):</label>
-                  <input type="number"   class="form-control"    [(ngModel)]="sector" >
+                  <label class="mb-1">Tiempo (años):</label>
+                  <input type="number"   class="form-control form-control-sm"    [(ngModel)]="sector" >
               </div>
             </div>
 
             <div class="form-group row" >
                 <div class="col-md-12">
-                    <label>Nombre:</label>
-                    <input type="text"   class="form-control"    [(ngModel)]="sector" >
+                    <label class="mb-1">Nombre:</label>
+                    <input type="text"   class="form-control form-control-sm"    [(ngModel)]="sector" >
                 </div>
             </div>
          </div>

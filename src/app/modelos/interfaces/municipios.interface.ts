@@ -1,7 +1,7 @@
-export interface TiposdocumentosInterface {
+export interface MunicipiosInterface {
   id: number;
-  sigla: string;
   descripcion: string;
+  departamentos_id:number;
   modo?:string;
   dbRef?:string;
 }

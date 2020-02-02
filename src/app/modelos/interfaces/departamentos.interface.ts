@@ -1,7 +1,7 @@
-export interface TiposdocumentosInterface {
+export interface DepartamentosInterface {
   id: number;
-  sigla: string;
   descripcion: string;
+  paises_id:number;
   modo?:string;
   dbRef?:string;
 }

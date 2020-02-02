@@ -189,12 +189,13 @@ export class PersonasActualizacionListaComponent implements OnInit {
     caracteristicas2.AgregarColumna( null ,         "( SELECT correo FROM correos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM correos WHERE personas_id = personas.id AND tipo = 'I' ) AND tipo = 'I' LIMIT 1 )" ,     "correoInstitucional" );
     caracteristicas2.AgregarColumna( null ,         "( SELECT correo FROM correos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM correos WHERE personas_id = personas.id AND tipo = 'P' ) AND tipo = 'P' LIMIT 1 )" ,     "correoPersonal" );
     
-    caracteristicas2.AgregarEnlace( "estudios" ,  "personas" ,  "estudios" );
-    caracteristicas2.AgregarEnlace( "cohortes" ,  "cohortes" ,  "estudios" );
-    caracteristicas2.AgregarEnlace( "sedes" ,     "sedes" ,     "estudios" );
-    caracteristicas2.AgregarEnlace( "programas" , "programas" , "estudios" );  
-    
-    caracteristicas2.AgregarFiltro( "sedes" , "instituciones_id" , "=", "1" );
+    caracteristicas.AgregarEnlace( "estudios" ,  "personas" ,  "estudios" );
+    caracteristicas.AgregarEnlace( "cohortes" ,  "cohortes" ,  "estudios" );
+    caracteristicas.AgregarEnlace( "sedes" ,     "sedes" ,     "estudios" );
+    caracteristicas.AgregarEnlace( "programas" , "programas" , "estudios" );  
+
+    caracteristicas.AgregarFiltro( "personas" , "id" , "=", "1" );
+    caracteristicas.AgregarFiltro( "sedes" , "instituciones_id" , "=", "1" );
     
     caracteristicas2.AgregarOrdenamiento( "cohorte" , "DESC" );
     caracteristicas2.AgregarOrdenamiento( "sede" , "ASC" );
@@ -216,7 +217,7 @@ export class PersonasActualizacionListaComponent implements OnInit {
 
             this.personas$ = this.filter2.valueChanges.pipe(
               startWith(''),
-              map(text => this.buscar(text, pipe))
+              map(text => this.Buscar(text, pipe))
             )
 
           break;
@@ -229,7 +230,7 @@ export class PersonasActualizacionListaComponent implements OnInit {
 
    }
 
-  buscar(text: string , pipe: PipeTransform): ListaPersonasInterface[] {
+  Buscar(text: string , pipe: PipeTransform): ListaPersonasInterface[] {
     return this.registros.filter(persona => {
       const term = text.toLowerCase();
       return pipe.transform(persona.id).includes(term)
@@ -249,10 +250,10 @@ export class PersonasActualizacionListaComponent implements OnInit {
   ngOnInit() {
   }
   
-  verPersona(datos){
+  VerPersona( datos : any ){
     
-    this.servicioAmbiente.actualizacionModo.modo = datos.modo
-    this.servicioAmbiente.actualizacionModo.boton = null
+    this.servicioAmbiente.controlMecanicasPersonas.modo = datos.modo;
+    this.servicioAmbiente.controlMecanicasPersonas.datos = { id: datos.id };
   
   }
   
