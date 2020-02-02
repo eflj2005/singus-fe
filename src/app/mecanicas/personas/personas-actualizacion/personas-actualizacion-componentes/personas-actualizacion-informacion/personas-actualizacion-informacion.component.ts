@@ -57,8 +57,6 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
 
     let personaId = this.servicioAmbiente.controlMecanicasPersonas.datos.id;
 
-    this.cambiarGrupoDatos( 1 );
-
     this.controladorPersonas = new PersonasController( llamadoHttp , servicioAmbiente );
     this.controladorCorreos = new CorreosController( llamadoHttp , servicioAmbiente );
     this.controladorTelefonos = new TelefonosController( llamadoHttp , servicioAmbiente );
@@ -89,6 +87,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
 
     });
 
+    this.cambiarGrupoDatos( 1 );
 
   }
 

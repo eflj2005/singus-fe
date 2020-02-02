@@ -116,12 +116,13 @@
         </div>      
         <hr class="my-1">
         <div class="form-group row mb-2">
+
           <div class="col-md-3 px-1">
             <label class="mb-1">Correo Personal:</label>
-            <div class="input-group input-group-sm" >
+            <div class="input-group input-group-sm">
               <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="correoPersonal">
               <div class="input-group-append">
-                <button class="btn btn-outline-primary" type="button" (click)="agregarInfo(agregador, 1)"><i class="fa fa-plus"></i></button>
+                <button type="button" class="btn btn-outline-primary"  (click)="agregarInfo(agregador, 1)"><i class="fa fa-plus"></i></button>
               </div>
             </div>
           </div>
@@ -129,17 +130,22 @@
           <div class="col-md-3 px-1">
             <label class="mb-1">Correo Institucional:</label>
             <input disabled type="email" class="form-control form-control-sm" [(ngModel)]="correoInstitucional">   
-          </div> 
+          </div>
+
           <div class="col-md-6 px-1">
             <label class="mb-1">Direccion Residencia:</label>
-            <div class="addInfo">
-              <input disabled type="text"   class="form-control form-control-sm "    [(ngModel)]="direccion" >
-              <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregador, 2)"><i class="fa fa-plus"></i></button>
+            <div class="input-group input-group-sm">
+              <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="direccion" >
+              <div class="input-group-append">            
+                <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregador, 2)"><i class="fa fa-plus"></i></button>
+              </div>
             </div>
           </div>
+
         </div>
 
         <div class="form-group row mb-2">
+
           <div class="col-md-3 px-1">
             <label class="mb-1">Telefono :</label>
             <div class="addInfo">
@@ -147,6 +153,7 @@
               <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregador, 3)"><i class="fa fa-plus"></i></button>
             </div>
           </div>
+
           <div class="col-md-3 px-1">
             <label class="mb-1">Celular :</label>
             <div class="addInfo">
@@ -154,10 +161,12 @@
               <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregador, 4)"><i class="fa fa-plus"></i></button>
             </div>
           </div>
+
           <div class="col-md-6 px-1">
             <label class="mb-1">Municipio de Residencia:</label>
             <input disabled type="text"   class="form-control form-control-sm "    [(ngModel)]="residencia" >            
           </div>
+
         </div>
       </div>
 
