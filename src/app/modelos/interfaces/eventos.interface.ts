@@ -1,8 +1,9 @@
 export interface EventoInterface {
   id: number;
-  nombres: string;
+  nombre: string;
   lugar: string;
   descripcion: number;
   imagen: string;
-  fecha: string;
+  evento_fecha: string;
+  creacion_fecha: string;
 }

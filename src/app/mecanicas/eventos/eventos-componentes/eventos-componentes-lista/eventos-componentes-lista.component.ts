@@ -9,14 +9,15 @@ import {AmbienteService} from '@servicios/ambiente.service';
 import { EventoInterface } from '@interfaces/eventos.interface';
 import { EventosController } from '@controladores/eventos.controller';
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
+import { EstructuraConsultas } from '@generales/estructura-consultas';
+import { PersonasInterface } from '@interfaces/personas.interface';
+import { AsistenciaController } from '@controladores/asistencia.controller';
 
-interface Evento {
-  id:number;
-  nombre: string;
-  fechaEvento: string;
-  sede: string;
-  tipo: string; 
+interface Asistencia extends PersonasInterface {
+  nombreCompleto:string;
 }
+
+
 
 interface PersonaTemporar { 
   Id:number,
@@ -36,57 +37,19 @@ interface PersonaTemporar {
 })
 export class EventosComponentesListaComponent implements OnInit {
 
-  // Inicio de lineas agregadas
   registrosEventos: EventoInterface[];
   registrosEventos$: Observable<EventoInterface[]>;
   controladorEventos: EventosController;
-  // Fin
+  controladorAsistencias: AsistenciaController;
 
-  EVENTOS: Evento[] =[
-    {
-      id:1,
-      nombre:"reunion graduados 2019",
-      fechaEvento:"5-02-2019",
-      sede: "soacha",
-      tipo:"reunion"
-    },
-    {
-      id:2,
-      nombre:"reunion graduados 2019",
-      fechaEvento:"5-02-2019",
-      sede: "soacha",
-      tipo:"reunion"
-    },
-    {
-      id:3,
-      nombre:"reunion graduados 2019",
-      fechaEvento:"5-02-2019",
-      sede: "soacha",
-      tipo:"reunion"
-    },
-    {
-      id:4,
-      nombre:"reunion graduados 2019",
-      fechaEvento:"5-02-2019",
-      sede: "soacha",
-      tipo:"reunion"
-    },
-    {
-      id:5,
-      nombre:"reunion graduados 2019",
-      fechaEvento:"5-02-2019",
-      sede: "soacha",
-      tipo:"reunion"
-    },
-    {
-      id:6,
-      nombre:"reunion graduados 2019",
-      fechaEvento:"5-02-2019",
-      sede: "soacha",
-      tipo:"reunion"
-    }
+  asistencia: Asistencia[];
+  personas: Asistencia[];
+  personas$: Observable<Asistencia[]>;
+  
+  filter = new FormControl('');
+  filterPersonas = new FormControl('');
 
-  ];
+
 
     PERSONAS: PersonaTemporar[] = [{
       Id:1,
@@ -112,13 +75,10 @@ export class EventosComponentesListaComponent implements OnInit {
   ];
 
   
-  personas$: Observable<PersonaTemporar[]>;
-  filterPersonas = new FormControl('');
-
   
-  eventos$: Observable<Evento[]>;
+ 
 
-  filter = new FormControl('');
+
 
   // Constructor parameters: add llamdo http and change the Ambiente service
   // constructor body: vacio de datos en la variable registro  e intancia del controladorUsuarios 
@@ -129,15 +89,20 @@ export class EventosComponentesListaComponent implements OnInit {
               )           
   {
 
-  /*  this.registrosEventos= [];
+
+    this.registrosEventos= [];
     this.controladorEventos = new EventosController(llamadoHttp,servicioAmbiente);
 
-    this.controladorEventos.CargarDesdeDB().subscribe(
+    this.controladorEventos.CargarDesdeDB(true,"S").subscribe(
       (respuesta: RespuestaInterface) =>{
         switch(respuesta.codigo){
           case 200:
             this.registrosEventos = this.controladorEventos.todos;
-            this.AplicarFiltros();
+            
+            this.registrosEventos$ = this.filter.valueChanges.pipe(
+              startWith(''),
+              map(text => this.buscar(text, pipe))
+            )
             break;
           default:
             alert("Error: "+respuesta.mensaje);
@@ -145,27 +110,60 @@ export class EventosComponentesListaComponent implements OnInit {
         }
       }
     );
-    */
-   
-    this.eventos$ = this.filter.valueChanges.pipe(
-      startWith(''),
-      map(text => this.buscar(text, pipe))
-    )
 
-    this.personas$ = this.filterPersonas.valueChanges.pipe(
-      startWith(''),
-      map(text => this.buscarPersonas(text, pipe))
-    )
+    this.AplicarFiltros();
+
+
+    // this.personas$ = this.filterPersonas.valueChanges.pipe(
+    //   startWith(''),
+    //   map(text => this.buscarPersonas(text, pipe))
+    // )
+    this.asistencia = [];
+
+    // CONSULTA  
+    // SELECT  personas.id as 'id',
+		//         personas.iduniminuto as 'iduniminuto',
+    //         CONCAT(personas.nombres, ' ' , personas.apellidos) as 'nombreCompleto'
+    //   FROM asistencias
+   	//       INNER JOIN eventos
+    // 	      ON asistencias.eventos_id = eventos.id
+    //       INNER JOIN personas
+    // 	      ON asistencias.personas_id = personas.id
+    //   WHERE asistencias.eventos_id = 1 ;
+
+    this.controladorAsistencias = new AsistenciaController(llamadoHttp,servicioAmbiente);
+    let caracteristicas = new EstructuraConsultas();
+    caracteristicas.AgregarColumna( "personas", "id" , "id" );
+    caracteristicas.AgregarColumna( "personas", "iduniminuto" , "iduniminuto" );
+    caracteristicas.AgregarColumna( null, "CONCAT( personas.nombres , ' ' , personas.apellidos )" , "nombreCompleto" );
+    caracteristicas.AgregarEnlace( "asistencias" , "asistencias" , "eventos" );
+    caracteristicas.AgregarEnlace( "asistencias" , "asistencias" , "personas" );   
+    caracteristicas.AgregarFiltro( "asistencias" , "eventos_id" , "=", "1" );
+
+    this.controladorAsistencias.CargarDesdeDB(true, "A" , caracteristicas).subscribe(
+      (respuesta: RespuestaInterface) =>{
+
+        switch(respuesta.codigo){
+          case 200:
+            this.asistencia = this.controladorAsistencias.todos;
+            break;
+          default:
+            alert("Error: "+respuesta.mensaje);
+            break;
+        }
+      }
+      
+    );
+
    }
 
-  buscar(text: string , pipe: PipeTransform): Evento[] {
-    return this.EVENTOS.filter(evento => {
+  buscar(text: string , pipe: PipeTransform):EventoInterface[] {
+    return this.registrosEventos.filter(evento => {
       const term = text.toLowerCase();
       return pipe.transform(evento.id).includes(term)
           || evento.nombre.toLowerCase().includes(term)
-          || evento.fechaEvento.toLowerCase().includes(term)
-          || evento.sede.toLowerCase().includes(term)
-          || evento.tipo.toLowerCase().includes(term);
+          || evento.evento_fecha.toLowerCase().includes(term)
+          || evento.lugar.toLowerCase().includes(term);
     });
   }
 
@@ -181,8 +179,11 @@ export class EventosComponentesListaComponent implements OnInit {
   }
 
   
-  verModal(agregador)
+  verModal(agregador, idEvento)
   {
+
+    console.log(this.asistencia);
+
     const respuesta  = this.modal.open(agregador, { centered: true , backdropClass: 'light-blue-backdrop', size: 'xl' } );
   }
 
@@ -198,15 +199,14 @@ export class EventosComponentesListaComponent implements OnInit {
   // Add aplicar filtros con los nuevos datos 
   AplicarFiltros(){
         
-    this.eventos$ = this.filter.valueChanges.pipe(
+    this.registrosEventos$ = this.filter.valueChanges.pipe(
       startWith(''),
-      map(text => this.buscar(text, this.pipe))
-    )
+      map(text => this.buscar(text, this.pipe)));
 
-    this.personas$ = this.filterPersonas.valueChanges.pipe(
-      startWith(''),
-      map(text => this.buscarPersonas(text, this.pipe))
-    )
+    // this.personas$ = this.filterPersonas.valueChanges.pipe(
+    //   startWith(''),
+    //   map(text => this.buscarPersonas(text, this.pipe))
+    // )
   };
 
 }

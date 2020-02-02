@@ -16,25 +16,23 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Fecha del evento</th>
                 <th scope="col">Sede</th>
-                <th scope="col">Tipo</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let evento of  eventos$ | async; index as i">
+            <tr *ngFor="let evento of  registrosEventos$ | async; index as i" >
                 <td><ngb-highlight [result]="evento.id | number" [term]="filter.value"></ngb-highlight></td>
                 <td><ngb-highlight [result]=" evento.nombre" [term]="filter.value"></ngb-highlight></td>
-                <td><ngb-highlight [result]="evento.fechaEvento" [term]="filter.value"></ngb-highlight></td>
-                <td><ngb-highlight [result]="evento.sede" [term]="filter.value"></ngb-highlight></td>
-                <td><ngb-highlight [result]="evento.tipo" [term]="filter.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="evento.evento_fecha" [term]="filter.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="evento.lugar" [term]="filter.value"></ngb-highlight></td>
                 <td>
-                  <button class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Editar" (click)="verPersona({id : persona.IdPersona, modo:2})">
+                  <button class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Editar" >
                       <i class="fa fa-pencil"></i>
                   </button>
                 </td>
                 <td>
-                    <button class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Registrar asistencia" (click)="verModal(agregador)">
+                    <button class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Registrar asistencia" (click)="verModal(agregador, evento.id)" >
                             <i class="fa fa-address-book-o"></i>
                     </button>
                 </td>
@@ -42,6 +40,7 @@
             </tbody>
         </table>
     </div>
+</div>
 
     <ng-template #agregador let-modal>
 
@@ -106,18 +105,16 @@
                                     <thead class="thead">
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Programa</th>
-                                        <th scope="col">Cedula</th>
+                                        <th scope="col">Id Uniminuto</th>
+                                        <th scope="col">Nombre completo</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <ng-container *ngFor="let persona of PERSONAS; index as i">
-                                        <tr *ngIf="persona.Seleccionado == true"> 
-                                        <td>{{persona.Id }}</td>
-                                        <td>{{persona.Nombre}}</td>
-                                        <td>{{persona.Programa}}</td>
-                                        <td>{{persona.Cedula}}</td>
+                                    <ng-container *ngFor="let persona of asistencia; index as i">
+                                        <tr > 
+                                        <td>{{persona.id }}</td>
+                                        <td>{{persona.iduniminuto}}</td>
+                                        <td>{{persona.nombreCompleto}}</td>
                                         </tr>
                                     </ng-container> 
                                     </tbody>
@@ -132,4 +129,3 @@
             </div>
 
     </ng-template>
-</div>
