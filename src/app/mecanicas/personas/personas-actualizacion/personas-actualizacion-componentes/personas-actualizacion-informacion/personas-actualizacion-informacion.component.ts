@@ -10,6 +10,7 @@ import { CorreosController } from '@controladores/correos.controller';
 import { TelefonosController } from '@controladores/telefonos.controller';
 import { PersonasInterface } from '@interfaces/personas.interface';
 import { TelefonosInterface } from '@interfaces/telefonos.interface';
+import { CorreosInterface } from '@interfaces/correos.interface';
 
 
 
@@ -20,7 +21,14 @@ interface Trabajo {
   population: number;
 }
 
-
+interface PersonaCompletoInterface extends PersonasInterface{
+  correoPersonal : string;
+  correoInstitucional : string;
+  telefonoCelular: number;
+  telefonoFijo: number;
+  direccionResidencia: string;
+  municipioResidencia: string;
+}
 
 @Component({
   selector: 'personas-actualizacion-informacion',
@@ -29,15 +37,34 @@ interface Trabajo {
 })
 export class PersonasActualizacionInformacionComponent implements OnInit {
 
-  tipoInformacion : number ;
+  tipoHistorico : number ;
   grupoDatos : any = { } ;
 
   controladorPersonas: PersonasController;
   controladorCorreos: CorreosController;
   controladorTelefonos: TelefonosController;
 
-  datosPersona:PersonasInterface;
-  datosTelefono:TelefonosInterface;
+  datosPersona:PersonaCompletoInterface = {
+    id: null,
+    nacimiento_fecha: "",
+    iduniminuto: null,
+    nombres: "",
+    apellidos: "",
+    genero: "",
+    tiposdocoumentos_id: null,
+    documento: null,
+    municipios_id: null,
+    actualizacion_fecha: "",
+    correoPersonal : "",
+    correoInstitucional : "",
+    telefonoCelular: null,
+    telefonoFijo: null,
+    direccionResidencia: "",
+    municipioResidencia: "",
+  };
+
+  datosTelefonos:TelefonosInterface;
+  datosCorreos:CorreosInterface[];
 
   descripcionProyecto : any ="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología";
   descripcionPrograma : any ="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología";
@@ -61,29 +88,35 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     this.controladorCorreos = new CorreosController( llamadoHttp , servicioAmbiente );
     this.controladorTelefonos = new TelefonosController( llamadoHttp , servicioAmbiente );
 
-    caracteristicasConsultas = new EstructuraConsultas( "F" , null , "id" , "=" , personaId );
+    caracteristicasConsultas = new EstructuraConsultas();
+    caracteristicasConsultas.AgregarColumna( null , "( SELECT numero FROM telefonos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM telefonos WHERE personas_id = personas.id AND tipo = 'C' ) AND tipo = 'C' LIMIT 1 )" ,                                                           "telefonoCelular" );
+    caracteristicasConsultas.AgregarColumna( null , "( SELECT numero FROM telefonos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM telefonos WHERE personas_id = personas.id AND tipo = 'F' ) AND tipo = 'F' LIMIT 1 )" ,                                                           "telefonoFijo" );    
+    caracteristicasConsultas.AgregarColumna( null , "( SELECT correo FROM correos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM correos WHERE personas_id = personas.id AND tipo = 'I' ) AND tipo = 'I' LIMIT 1 )" ,                                                               "correoInstitucional" );
+    caracteristicasConsultas.AgregarColumna( null , "( SELECT correo FROM correos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM correos WHERE personas_id = personas.id AND tipo = 'P' ) AND tipo = 'P' LIMIT 1 )" ,                                                               "correoPersonal" );   
+    caracteristicasConsultas.AgregarColumna( null , "( SELECT direccion FROM direcciones WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM direcciones WHERE personas_id = personas.id ) LIMIT 1 )" ,                                                                                  "direccionResidencia" );   
+    caracteristicasConsultas.AgregarColumna( null , "( SELECT municipios.descripcion FROM  direcciones INNER JOIN municipios ON municipios.id = direcciones.municipios_id WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM direcciones WHERE personas_id = personas.id ) LIMIT 1)" ,  "municipioResidencia" );   
+    caracteristicasConsultas.AgregarFiltro( "personas" , "id" , "=", personaId );
 
-    this.controladorPersonas.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaP:PersonasInterface) => {                // Carge de datos basicos
+    this.controladorPersonas.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaP:PersonasInterface) => {                // Carge de datos basicos
       
-      this.controladorPersonas.ObtenerForanea("tiposdocumentos").CargarDesdeDB().subscribe( (respuestaT:PersonasInterface) => {                 // Carge de foranea de personas -> tipos documentos
-  
-        this.controladorPersonas.ObtenerForanea("municipios").CargarDesdeDB().subscribe( (respuestaT:PersonasInterface) => {                    // Carge de foranea de personas -> municipios
-
-          caracteristicasConsultas = new EstructuraConsultas( "F", null , "personas_id" , "=" , personaId );
-  
-          this.controladorCorreos.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaC:PersonasInterface) => {           // Carge de correos
-         
-            this.controladorTelefonos.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaT:PersonasInterface) => {       // Carge de telefonos
-
-              this.datosPersona = this.controladorPersonas.actual;                                                                                                  
-
-            });
+      this.datosPersona = this.controladorPersonas.actual;                                                                                                            
+      this.controladorPersonas.ObtenerForanea("tiposdocumentos").CargarDesdeDB().subscribe( (respuestaT:PersonasInterface) => {  } );           // Carge de foranea de personas -> tipos documentos
+      this.controladorPersonas.ObtenerForanea("municipios").CargarDesdeDB().subscribe( (respuestaT:PersonasInterface) => {  } );                // Carge de foranea de personas -> municipios
       
-          });
-              
+      caracteristicasConsultas = new EstructuraConsultas( "F", null , "personas_id" , "=" , personaId );
+
+      this.controladorCorreos.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaC:PersonasInterface) => {           // Carge de correos
+     
+        this.datosCorreos =  this.controladorCorreos.todos;
+
+        this.controladorTelefonos.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaT:PersonasInterface) => {       // Carge de telefonos
+
+
+
         });
-
+  
       });
+
 
     });
 
@@ -97,7 +130,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
 
 
 
-  Cancelar(){
+  Regresar(){
     this.servicioAmbiente.controlMecanicasPersonas.modo = 1
   }
 
@@ -130,16 +163,23 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     this.router.navigateByUrl("/agendamiento");
   }
 
-  agregarInfo(agregador, tipoInfo){
+  AdicionarHistorico( modalRecibido : any , tipoHistoricoRecibido : number ){
   
-    this.tipoInformacion = tipoInfo;
+console.log(this.controladorCorreos.todos);
 
-    if(tipoInfo <= 4){
-      const respuesta  = this.modal.open(agregador, { centered: true , backdropClass: 'light-blue-backdrop' } );
+    this.tipoHistorico = tipoHistoricoRecibido;
+
+    let parametrosModal = null;
+
+    if(tipoHistoricoRecibido <= 4){
+      parametrosModal = { centered : true,  backdropClass: 'light-blue-backdrop'  };
     }else{
-      const respuesta  = this.modal.open(agregador, {  size: 'lg' ,  backdropClass: 'light-blue-backdrop'  } );
+      parametrosModal = { size : 'lg'  ,  backdropClass: 'light-blue-backdrop'  };
+      // const respuesta  = this.modal.open(modalRecibido, {  size: 'lg' ,  backdropClass: 'light-blue-backdrop'  } );
     }
     
+    const respuesta  = this.modal.open( modalRecibido, parametrosModal );
+
   }
 
 }

@@ -192,14 +192,9 @@ export class GenericoModel {
       .set("modo", modoCargue )                       //S = simple => consulta directa, A = avanzada => consulta con inner join
       .set("caracteristicas", JSON.stringify(caracteristicas));  
       
-   //   console.log(datosEnviados);
-   
-   //console.log(JSON.stringify(caracteristicas));
-
     return this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
       map(
         (respuesta: RespuestaInterface) => {
-          console.log(respuesta);
           this.EliminarTodo();
 
           if(!isNull(respuesta.mensaje)){
