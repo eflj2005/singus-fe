@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
+                        <div class="col personastable">
                                 <div class="col text-center">
                                         <h5 >Lista de personas</h5>
                                 </div>
@@ -70,26 +70,26 @@
                                         </div>
                                     </div>
                                 </form>
-                                <table class="table table-striped">
+                                <table class="table table-striped personastable">
                                     <thead class="thead">
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Programa</th>
-                                        <th scope="col">Cedula</th>
+                                        <th scope="col">Id Uniminuto</th>
+                                        <th scope="col">Nombres</th>
+                                        <th scope="col">Apellidos</th>
                                         <th scope="col"></th> 
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr *ngFor="let persona of  personas$ | async; index as i">
-                                    <td><ngb-highlight [result]="persona.Id  | number" [term]="filterPersonas.value"></ngb-highlight></td>
-                                    <td><ngb-highlight [result]="persona.Nombre" [term]="filterPersonas.value"></ngb-highlight></td>
-                                    <td><ngb-highlight [result]="persona.Programa" [term]="filterPersonas.value"></ngb-highlight></td>
-                                    <td><ngb-highlight [result]="persona.Cedula" [term]="filterPersonas.value"></ngb-highlight></td>
+                                    <td><ngb-highlight [result]="persona.id  | number" [term]="filterPersonas.value"></ngb-highlight></td>
+                                    <td><ngb-highlight [result]="persona.iduniminuto | number" [term]="filterPersonas.value"></ngb-highlight></td>
+                                    <td><ngb-highlight [result]="persona.nombres" [term]="filterPersonas.value"></ngb-highlight></td>
+                                    <td><ngb-highlight [result]="persona.apellidos" [term]="filterPersonas.value"></ngb-highlight></td>
                                     <td>                                        
                                         <label class="containerCheck">
                                             <input type="checkbox" [(ngModel)]=" persona.Seleccionado" >
-                                            <span class="checkmark"></span>
+                                            <span class="checkmark" (click)="cambiarSeleccion(persona.id, persona.Seleccionado, persona.iduniminuto, persona.nombres, persona.apellidos)" ></span>
                                             </label>
                                         </td>
                                     </tr>
@@ -97,11 +97,11 @@
                                 </table> 
 
                         </div>
-                        <div class="col">
+                        <div class="col personastable">
                                 <div class="col text-center">
                                         <h5 >Personas Seleccionadas</h5>
                                 </div>
-                                <table class="table table-striped">
+                                <table class="table table-striped ">
                                     <thead class="thead">
                                     <tr>
                                         <th scope="col">#</th>
@@ -111,7 +111,7 @@
                                     </thead>
                                     <tbody>
                                     <ng-container *ngFor="let persona of asistencia; index as i">
-                                        <tr > 
+                                        <tr *ngIf="persona.Seleccionado == true" > 
                                         <td>{{persona.id }}</td>
                                         <td>{{persona.iduniminuto}}</td>
                                         <td>{{persona.nombreCompleto}}</td>

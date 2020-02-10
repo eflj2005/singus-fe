@@ -1,4 +1,7 @@
-
+.personastable{
+  overflow: auto;
+  height: 25rem;
+}
 .containerCheck {
     display: block;
     position: relative;
