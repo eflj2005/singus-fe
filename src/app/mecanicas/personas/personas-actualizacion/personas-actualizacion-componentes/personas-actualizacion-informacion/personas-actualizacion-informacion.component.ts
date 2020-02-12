@@ -58,7 +58,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
   controladorTelefonos: TelefonosController;
   controladorDirecciones: DireccionesController;
 
-  controladorEstudios: EstudiosController
+  controladorEstudios: EstudiosController;
 
   datosPersona:PersonaCompletoInterface = {
     id: null,
@@ -123,6 +123,8 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     this.controladorTelefonos = new TelefonosController( llamadoHttp , servicioAmbiente );
     this.controladorDirecciones= new DireccionesController( llamadoHttp , servicioAmbiente );
 
+    this.controladorEstudios= new EstudiosController( llamadoHttp , servicioAmbiente );
+
     caracteristicasConsultas = new EstructuraConsultas();
     caracteristicasConsultas.AgregarColumna( null , "( SELECT numero FROM telefonos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM telefonos WHERE personas_id = personas.id AND tipo = 'C' ) AND tipo = 'C' LIMIT 1 )" ,                                                           "telefonoCelular" );
     caracteristicasConsultas.AgregarColumna( null , "( SELECT numero FROM telefonos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM telefonos WHERE personas_id = personas.id AND tipo = 'F' ) AND tipo = 'F' LIMIT 1 )" ,                                                           "telefonoFijo" );    
@@ -164,9 +166,6 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
   
       });
 
-      caracteristicasConsultas = new EstructuraConsultas();
-      caracteristicasConsultas.AgregarFiltro( null , "personas_id" , "=", String(this.personaId) );
-      caracteristicasConsultas.AgregarOrdenamiento("registro_fecha","DESC");
       this.controladorEstudios.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaE:RespuestaInterface) => {           // Carge de estudios
 
         this.datosEstudios = this.controladorEstudios.todos;
