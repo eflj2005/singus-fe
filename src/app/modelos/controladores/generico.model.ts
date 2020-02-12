@@ -204,8 +204,8 @@ export class GenericoModel {
     return this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
       map(
         (respuesta: RespuestaInterface) => {
-          this.EliminarTodo();
 
+          this.EliminarTodo();
           if(!isNull(respuesta.mensaje)){
             respuesta.mensaje.forEach(
               (elemento:any) => {

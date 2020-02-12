@@ -57,13 +57,13 @@ export class PersonasActualizacionListaComponent implements OnInit {
     caracteristicas.AgregarColumna( null ,         "( SELECT correo FROM correos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM correos WHERE personas_id = personas.id AND tipo = 'I' ) AND tipo = 'I' LIMIT 1 )" ,     "correoInstitucional" );
     caracteristicas.AgregarColumna( null ,         "( SELECT correo FROM correos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM correos WHERE personas_id = personas.id AND tipo = 'P' ) AND tipo = 'P' LIMIT 1 )" ,     "correoPersonal" );
     
-    caracteristicas.AgregarEnlace( "estudios" ,  "personas" ,  "estudios" );
-    caracteristicas.AgregarEnlace( "cohortes" ,  "cohortes" ,  "estudios" );
-    caracteristicas.AgregarEnlace( "sedes" ,     "sedes" ,     "estudios" );
-    caracteristicas.AgregarEnlace( "programas" , "programas" , "estudios" );  
+    caracteristicas2.AgregarEnlace( "estudios" ,  "personas" ,  "estudios" );
+    caracteristicas2.AgregarEnlace( "cohortes" ,  "cohortes" ,  "estudios" );
+    caracteristicas2.AgregarEnlace( "sedes" ,     "sedes" ,     "estudios" );
+    caracteristicas2.AgregarEnlace( "programas" , "programas" , "estudios" );  
 
-    caracteristicas.AgregarFiltro( "personas" , "id" , "=", "1" );
-    caracteristicas.AgregarFiltro( "sedes" , "instituciones_id" , "=", "1" );
+    caracteristicas2.AgregarFiltro( "personas" , "id" , "=", "1" );
+    caracteristicas2.AgregarFiltro( "sedes" , "instituciones_id" , "=", "1" );
     
     caracteristicas.AgregarOrdenamiento( "cohorte" , "DESC" );
     caracteristicas.AgregarOrdenamiento( "sede" , "ASC" );
