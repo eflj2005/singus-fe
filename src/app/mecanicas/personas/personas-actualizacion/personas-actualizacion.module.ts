@@ -5,18 +5,11 @@ import {PersonasActualizacionComponentesModule} from '@mecanicas/personas/person
 
 
 
-
-
-
-
-
 @NgModule({
   declarations: [PersonasActualizacionPrincipalComponent],
   imports: [
     CommonModule,
     PersonasActualizacionComponentesModule,
-
-
   ]
 })
 export class PersonasActualizacionModule { }

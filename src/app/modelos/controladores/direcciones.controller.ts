@@ -4,6 +4,7 @@ import { GenericoModel } from '@controladores/generico.model';
 import { AmbienteService } from '@servicios/ambiente.service';
 
 import { DireccionesInterface } from '@interfaces/direcciones.interface';
+import { MunicipiosController } from './municipios.controller';
 
 export class DireccionesController extends GenericoModel {
 
@@ -19,6 +20,8 @@ export class DireccionesController extends GenericoModel {
     this.fechasDefinidas = [];
 
     this.DetectarCampos().subscribe();
+
+    this.AgregarForanea( new MunicipiosController(instanciaHttpClient,InstanciaAmbienteService) );
   }
 
 }

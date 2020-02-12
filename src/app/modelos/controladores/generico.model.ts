@@ -86,7 +86,7 @@ export class GenericoModel {
   }
 
   public Eliminar(){
-    this.registros.splice( this.posicionActual );
+    this.registros.splice( this.posicionActual, 1 );
     this.Primero();
   }
 
@@ -114,12 +114,21 @@ export class GenericoModel {
     this.controladoresForaneos[controlador.nombreTabla] = controlador;
   }
 
-  public ObtenerForanea(nombre:string){
+  public ObtenerForanea(nombre : string){
     return this.controladoresForaneos[nombre];
   }
 
+  public ReemplazarForanea( nombre : string , controladorForanero : any ){
+    return this.controladoresForaneos[nombre] = controladorForanero;
+  }
+
+
   public TieneForanea(nombre:string){
     return (nombre in this.controladoresForaneos);
+  }
+
+  public CargarFornea( nombre : string, caracteristicas:any=null){
+    this.controladoresForaneos[nombre].CargarDesdeDB( true, "S", caracteristicas ).subscribe(  (respuesta:RespuestaInterface) => {   }); // Carge de foranea
   }
 
 

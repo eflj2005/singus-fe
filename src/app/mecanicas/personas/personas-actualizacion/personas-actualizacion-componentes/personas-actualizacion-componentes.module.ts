@@ -5,7 +5,6 @@ import {  NgbTypeaheadModule } from "@ng-bootstrap/ng-bootstrap";
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
 import { GeneralesModule } from '@generales/_generales.module';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
@@ -22,18 +21,15 @@ import { PersonasActualizacionDetalleComponent } from './personas-actualizacion-
     PersonasActualizacionInformacionComponent, 
     PersonasActualizacionDetalleComponent],
   imports: [
-    FormsModule,
-    NgbAlertModule,
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,    
     GeneralesModule,
     NgbTypeaheadModule,
-    ReactiveFormsModule,
     NgbDropdownModule,
     BrowserModule,
-    NgbModule,
-    NgbTooltipModule
-
-
+    NgbTooltipModule,
+    NgbAlertModule,    
   ], exports: [
     PersonasActualizacionListaComponent,
     PersonasActualizacionInformacionComponent, 
