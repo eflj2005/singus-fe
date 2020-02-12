@@ -237,7 +237,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         this.parametrosHistorico = { "lista" : [] , "descripcionA": "telefono", "modeloValidacionA" : this.numeroModelo };                
       break;      
       case 4:
-        this.tituloHistorico = "Telefonos Fijos";
+        this.tituloHistorico = "Telefonos Celulares";
         this.parametrosHistorico = { "lista" : [] , "descripcionA": "celular", "modeloValidacionA" : this.numeroModelo };                
       break;      
 
