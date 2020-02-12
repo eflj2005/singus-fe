@@ -246,8 +246,12 @@ export class EventosComponentesListaComponent implements OnInit {
      console.log(this.modificacion);
   }
 
-  crearAsistencia(){};
+  crearAsistencia(){
+    
+  };
 
-  eliminarAsistencia(){};
+  eliminarAsistencia(){
+
+  };
 
 }
