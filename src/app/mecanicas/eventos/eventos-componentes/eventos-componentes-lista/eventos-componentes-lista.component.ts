@@ -13,7 +13,7 @@ import { EstructuraConsultas } from '@generales/estructura-consultas';
 import { PersonasInterface } from '@interfaces/personas.interface';
 import { AsistenciaController } from '@controladores/asistencia.controller';
 import { PersonasController } from '@controladores/personas.controller';
-import { element } from 'protractor';
+import { AsistenciasInterface } from '@interfaces/asistencias.interface';
 
 
 interface Asistencia extends PersonasInterface {
@@ -21,8 +21,7 @@ interface Asistencia extends PersonasInterface {
   Seleccionado: Boolean;
 }
 
-interface Modificacion{
-  id: number;
+interface Modificacion extends AsistenciasInterface {
   tipo: string;
 }
 
@@ -45,7 +44,7 @@ export class EventosComponentesListaComponent implements OnInit {
   asistencia: Asistencia[];
   personas:Asistencia[]; //PersonasInterface[];
   personas$: Observable<Asistencia[]>;
-  
+  evento: Number;
   filter = new FormControl('');
   filterPersonas = new FormControl('');
 
@@ -88,6 +87,7 @@ export class EventosComponentesListaComponent implements OnInit {
   
   verModal(agregador, idEvento)
   {
+    this.evento = idEvento;
     this.consultarAsistencia(idEvento)
     this.consultarPersonas();
     const respuesta  = this.modal.open(agregador, { centered: true , backdropClass: 'light-blue-backdrop', size: 'xl' } );
@@ -110,10 +110,10 @@ export class EventosComponentesListaComponent implements OnInit {
       startWith(''),
       map(text => this.buscar(text, this.pipe)));
       
-      // this.personas$ = this.filterPersonas.valueChanges.pipe(
-      //   startWith(''),
-      //  map(text => this.buscarPersonas(text, this.pipe))
-      // )
+      this.personas$ = this.filterPersonas.valueChanges.pipe(
+        startWith(''),
+       map(text => this.buscarPersonas(text, this.pipe))
+      );
   };
 
   consultarAsistencia(idEvento){
@@ -242,15 +242,19 @@ export class EventosComponentesListaComponent implements OnInit {
      }else{
        this.modificacion.push(Object.assign({"id":id, "tipo":"eliminar"}));
      }
-    
-     console.log(this.modificacion);
   }
 
-  crearAsistencia(){
-    
-  };
+  limpiar(){
+    this.asistencia = [];
+    this.personas = [];
+    this.modificacion = [];
+    this.AplicarFiltros();
+    this.modal.dismissAll('NO');
+  }
 
-  eliminarAsistencia(){
+  actualizarAsistencia(){
+    console.log(this.modificacion);
+    console.log(this.evento);
 
   };
 
