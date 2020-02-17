@@ -262,9 +262,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
   }
 
   FiltrarDatos( arreglo : any , campo : string , valor : any ){
-
     let resultados = arreglo.filter( elemento => elemento[campo] == valor );
-
     return resultados;
   }
 

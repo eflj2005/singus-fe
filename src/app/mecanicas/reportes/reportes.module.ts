@@ -8,13 +8,13 @@ import { ReportesPersonalizadoModule } from "./reportes-personalizado/reportes-p
 import { ReportesAlertasPrincipalComponent } from "./reportes-alertas/reportes-alertas-principal/reportes-alertas-principal.component";
 import { ReportesPredefinidosPrincipalComponent } from "./reportes-predefinidos/reportes-predefinidos-principal/reportes-predefinidos-principal.component";
 
-// const rutas: Routes =[
+const rutas: Routes =[
   
-//   { path:'', component: ReportesPredefinidosPrincipalComponent , children:[
-//     { path:'predefinidos', component: ReportesPredefinidosPrincipalComponent},
-//     { path:'alertas', component: ReportesAlertasPrincipalComponent}
-//   ]}
-// ];
+  { path:'', component: ReportesPredefinidosPrincipalComponent , children:[
+    { path:'predefinidos', component: ReportesPredefinidosPrincipalComponent},
+    { path:'alertas', component: ReportesAlertasPrincipalComponent}
+  ]}
+];
 
 
 @NgModule({
@@ -24,7 +24,10 @@ import { ReportesPredefinidosPrincipalComponent } from "./reportes-predefinidos/
     ReportesAlertasModule,
     ReportesPredefinidosModule,
     ReportesPersonalizadoModule,    
-    NgbTooltipModule]
+    NgbTooltipModule,
+    RouterModule.forChild(rutas)    
+  ],
+  exports: [ RouterModule ]
 })
 
 export class ReportesModule { }

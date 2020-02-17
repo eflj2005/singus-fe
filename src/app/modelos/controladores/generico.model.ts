@@ -86,11 +86,15 @@ export class GenericoModel {
   }
 
   public Eliminar(){
-    this.registros.splice( this.posicionActual, 1 );
+    if( this.registros[this.posicionActual].modo == "I" )
+      this.registros.splice( this.posicionActual, 1 );
+    else{
+      this.registros[this.posicionActual].modo = "E";
+    }
     this.Primero();
   }
 
-  public EliminarTodo(){
+  public LimpiarTodo(){
     this.registros.length = 0;
     this.posicionActual = null;
   }
@@ -205,7 +209,7 @@ export class GenericoModel {
       map(
         (respuesta: RespuestaInterface) => {
 
-          this.EliminarTodo();
+          this.LimpiarTodo();
           if(!isNull(respuesta.mensaje)){
             respuesta.mensaje.forEach(
               (elemento:any) => {
@@ -296,7 +300,7 @@ export class GenericoModel {
       accion : "procesar_registros",
       tabla: this.nombreTabla,
       conSeguridad: conToken,      
-      datos : this.registros      
+      datos : aProcesar      
     };
 
     return this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php", parametros).pipe(

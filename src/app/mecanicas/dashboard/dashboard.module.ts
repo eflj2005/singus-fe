@@ -31,7 +31,9 @@ const rutas: Routes =[
       { path: 'alertas', component: ReportesAlertasPrincipalComponent },
       { path: 'personalizados', component: ReportesPersonalizadoPrincipalComponent },
       { path: 'auditoria', component: AuditoriaPrincipalComponent },
+      // { path: 'reportes', loadChildren: () => import('@mecanicas/reportes/reportes.module').then(m => m.ReportesModule) },
       { path: 'usuarios', loadChildren: () => import('@mecanicas/usuarios/_usuarios.module').then(m => m.UsuariosModule) }
+
       // { path:'usuarios', component: UsuariosPrincipalComponent }
     ]}
 
