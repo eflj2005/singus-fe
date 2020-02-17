@@ -238,9 +238,9 @@ export class EventosComponentesListaComponent implements OnInit {
      if(!(posicion == -1)){
        this.modificacion.splice(posicion,1)
      }else if(estado){
-       this.modificacion.push(Object.assign({"id":id, "tipo":"agregar"}));
+       this.modificacion.push(Object.assign({"personas_id":id, "tipo":"agregar" , "eventos_id": this.evento}));
      }else{
-       this.modificacion.push(Object.assign({"id":id, "tipo":"eliminar"}));
+       this.modificacion.push(Object.assign({"personas_id":id, "tipo":"eliminar", "eventos_id": this.evento }));
      }
   }
 
