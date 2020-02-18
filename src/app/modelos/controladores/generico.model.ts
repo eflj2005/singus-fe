@@ -238,14 +238,30 @@ export class GenericoModel {
 
     while(!this.esFin){
       if(this.registros[this.posicionActual].dbRef != null  ){
-        datos.forEach(elemento => {
-          if( elemento.dbRef == this.registros[this.posicionActual].dbRef ){
-            this.registros[this.posicionActual].id = elemento.id;
-            this.registros[this.posicionActual].dbRef = null;
-          }
-        });
+        let modoRegistro = this.registros[this.posicionActual].modo;
+
+        if(modoRegistro == "I"){
+          datos.forEach(elemento => {
+            if( elemento.dbRef == this.registros[this.posicionActual].dbRef ){
+              this.registros[this.posicionActual].id = elemento.id;
+              this.registros[this.posicionActual].dbRef = null;
+            }
+          });
+        }
+
+        if(modoRegistro == "E"){
+          let nuevaPosicion = this.posicionActual - 1;
+          this.registros.splice( this.posicionActual, 1 );
+          this.posicionActual = nuevaPosicion;
+        }
+
+        if(modoRegistro == "I" || modoRegistro == "A"){
+          this.registros[this.posicionActual].modo = null;
+        }
+
+
       }
-      this.registros[this.posicionActual].modo = null;
+
       this.Siguiente();
     }
 
@@ -283,7 +299,12 @@ export class GenericoModel {
     return objeto;
   }
 
-
+  private limpiarEliminados(){
+    while ( this.Encontrar("modo","E") ){
+      this.registros.splice( this.posicionActual, 1 );
+      this.Primero();
+    }
+  }
 
   public Guardar(conToken:boolean=true ): Observable<any>{
     var aProcesar:any[] = [];
@@ -306,14 +327,17 @@ export class GenericoModel {
     return this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php", parametros).pipe(
       map(
         (respuesta: RespuestaInterface) => {
-          this.ActualizarReferencias(respuesta.mensaje.dbRefs);
-
+          if( respuesta.codigo == 200 ){
+            this.ActualizarReferencias(respuesta.mensaje.dbRefs);
+          }
+          else{
+            console.log(respuesta);
+          }
           return respuesta;
         }
       )
     );
 
-    return null;
   }
 
 

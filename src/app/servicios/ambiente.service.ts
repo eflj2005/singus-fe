@@ -12,7 +12,11 @@ export class AmbienteService {
   inicioPaso:number =null;  //pasos de registro de administrador =>  1 = Registro, 2 = Validación código
   inicioIdUsrTemp:number =null;
   
-  public controlMecanicasPersonas:any = {  } 
+  public controlMecanicasPersonas:any = { 
+    modo : 0,           // Modo 1 es lista de personas -> Modo 2 es Editar a una persona
+    datos: {},          // datos transferidos
+    origen: ""          // Ruta Origen de llamada
+   } 
 
   agendaModo:any = {
                       modo: 0,          // Modo 1 es lista de personas -> Modo 2 es Editar a una persona

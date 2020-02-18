@@ -1,14 +1,9 @@
-
-        <div class="row" *ngIf="servicioAmbiente.controlMecanicasPersonas.modo==1">
-            <div class="col-md-12 col-sm-12 col-log-12">
-            <personas-actualizacion-lista></personas-actualizacion-lista>
-            </div>
-        </div>
-        <div class="row" *ngIf="servicioAmbiente.controlMecanicasPersonas.modo==2">
-            <div class="col-md-12 col-sm-12 col-log-12">
-                <personas-actualizacion-informacion></personas-actualizacion-informacion>
-            </div>
-        </div>
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-log-12">
+    <personas-actualizacion-lista [class]="servicioAmbiente.controlMecanicasPersonas.modo==1?'d-block':'d-none'"></personas-actualizacion-lista>
+    <personas-actualizacion-informacion *ngIf="servicioAmbiente.controlMecanicasPersonas.modo==2"></personas-actualizacion-informacion>
+  </div>
+</div>
 
     
 

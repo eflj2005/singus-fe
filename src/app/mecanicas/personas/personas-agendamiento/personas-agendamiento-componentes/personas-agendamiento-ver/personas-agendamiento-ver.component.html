@@ -55,7 +55,7 @@
               
                     <tbody>
                       <tr *ngFor="let persona of   PersonasSeleccionadas$ | async; index as i">
-                        <td><ngb-highlight [result]="persona.Id | number" [term]="filter.value"></ngb-highlight></td>
+                        <td><ngb-highlight [result]="persona.id | number" [term]="filter.value"></ngb-highlight></td>
                         <td><ngb-highlight [result]="persona.Nombre" [term]="filter.value"></ngb-highlight></td>
                         <td><ngb-highlight [result]="persona.Programa" [term]="filter.value"></ngb-highlight></td>
                         <td><ngb-highlight [result]="persona.Cedula | number" [term]="filter.value"></ngb-highlight></td>
@@ -64,7 +64,7 @@
                         <td><ngb-highlight [result]="persona.CorreoInstitucional" [term]="filter.value"></ngb-highlight></td>
                         <td><ngb-highlight [result]="persona.CorreoPersonal" [term]="filter.value"></ngb-highlight></td>
                         <td><ngb-highlight [result]="persona.FechaActualizacion" [term]="filter.value"></ngb-highlight></td>
-                        <td><button class="btn btn-outline-secondary "  placement="right" ngbTooltip="Editar" (click)="verPersona({modo:2})" title="Actualizar"><a routerLink="/lista"> </a><i class="fa fa-pencil"></i></button></td>
+                        <td><button class="btn btn-outline-secondary "  placement="right" ngbTooltip="Editar" (click)="VerPersona({id : persona.id, modo : 2})" title="Actualizar"><i class="fa fa-pencil"></i></button></td>
                         <td>    
                             <label class="contenedor">
                                 <input type="checkbox" [(ngModel)]="persona.Seleccionado" >

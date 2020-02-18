@@ -29,7 +29,7 @@
               <tr *ngFor="let persona of  personas$ | async; index as i">
                 <td><ngb-highlight [result]="persona.id | number" [term]="filter2.value"></ngb-highlight></td>                
                 <td><ngb-highlight [result]="persona.cohorte" [term]="filter2.value"></ngb-highlight></td>
-                <td><ngb-highlight [result]="persona.iduniminuto  | number" [term]="filter2.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="persona.iduniminuto" [term]="filter2.value"></ngb-highlight></td>
                 <td><ngb-highlight [result]="persona.sede" [term]="filter2.value"></ngb-highlight></td>
                 <td><ngb-highlight [result]="persona.nombreCompleto" [term]="filter2.value"></ngb-highlight></td>
                 <td><ngb-highlight [result]="persona.documento | number" [term]="filter2.value"></ngb-highlight></td>
@@ -38,7 +38,7 @@
                 <td><ngb-highlight [result]="persona.correoInstitucional" [term]="filter2.value"></ngb-highlight></td>
                 <td><ngb-highlight [result]="persona.correoPersonal" [term]="filter2.value"></ngb-highlight></td>
                 <td>
-                    <button class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Editar" (click)="VerPersona({id : persona.id, modo:2})">
+                    <button class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Editar" (click)="VerPersona({id : persona.id, modo : 2, registro : persona})">
                         <i class="fa fa-pencil"></i>
                     </button>
                   </td>

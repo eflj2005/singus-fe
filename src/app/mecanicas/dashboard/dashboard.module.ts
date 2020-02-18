@@ -22,7 +22,7 @@ const rutas: Routes =[
   
     { path:'', component: DashboardPrincipalComponent , children:[
       { path:'estadisticas', component:DashboardEstadisticasComponent},
-      { path:'lista', component:PersonasActualizacionPrincipalComponent},
+      { path:'personas', component:PersonasActualizacionPrincipalComponent},
       { path:'agendamiento', component: PersonasAgendamientoPrincipalComponent },
       {  path:'cargue', component: CarguePrincipalComponent},
       { path: 'eventos',  component: EventosPrincipalComponent },

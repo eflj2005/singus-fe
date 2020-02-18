@@ -37,7 +37,7 @@ this.usuario = "Juan Bustos";
     { opcion: 'Micrositio'        , url: '/clientes'                  , icon: "fa-file"                    , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
     { opcion: 'Empleabilidad'     , url: '/empleados'                 , icon: "fa-stack-overflow"          , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
     { opcion: 'Emprendimiento'    , url: '/tiposDocumentos'           , icon: "fa-files-o"                 , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
-    { opcion: 'Personas'          , url: '/lista'                     , icon: "fa-pencil-square-o"         , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"     , orden: 2  },
+    { opcion: 'Personas'          , url: '/personas'                     , icon: "fa-pencil-square-o"         , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"     , orden: 2  },
     { opcion: 'Agendamientos'     , url: '/agendamiento'              , icon: "fa-window-restore"          , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"     , orden: 2  },
     { opcion: 'Eventos'           , url: '/eventos'                   , icon: "fa-users"                   , agrupamiento: "Actividades"       ,iconPrincipal:"fa-suitcase"           , orden: 3  },
     { opcion: 'Comunicación'      , url: '/cargos'                    , icon: "fa-envelope"                , agrupamiento: "Actividades"       ,iconPrincipal:"fa-suitcase"           , orden: 3  },

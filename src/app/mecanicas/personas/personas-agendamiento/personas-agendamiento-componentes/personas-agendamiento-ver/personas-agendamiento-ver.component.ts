@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
 interface PersonaTemporarl { 
-  Id:number,
+  id:number,
   Nombre:string,
   Programa:string,
   Cedula:number,
@@ -37,7 +37,12 @@ export class PersonasAgendamientoVerComponent implements OnInit {
   responsable = 1;
   FechaFinal : any;
   Nombre: string = "Agenda Contaduria Publica";
-constructor(private servicioAmbiente : AmbienteService,private router: Router, private pipe: DecimalPipe) {
+constructor(
+  private servicioAmbiente : AmbienteService,
+  private router: Router, 
+  private pipe: DecimalPipe,
+  private enrutador: Router
+) {
   // this.dateFormatormat(this.now, "dddd, mmmm dS, yyyy");
   this.FechaInicio= formatDate(new Date(), 'yyyy-MM-dd', 'en');
   this.FechaFinal= formatDate(new Date(), 'yyyy-MM-dd', 'en');
@@ -59,7 +64,7 @@ constructor(private servicioAmbiente : AmbienteService,private router: Router, p
 
 
 PersonasSeleccionadas: Array<PersonaTemporarl> = [{
-  Id:1,
+  id:1,
   Nombre:"Juan Camilo Caviedes Toro ",
   Programa:"Contaduria",
   Cedula:1007405687,
@@ -71,7 +76,7 @@ PersonasSeleccionadas: Array<PersonaTemporarl> = [{
   Seleccionado: true
 },
 {
-  Id:2,
+  id:2,
   Nombre:"Fernando Suarez Martinez ",
   Programa:"Contaduria",
   Cedula:1011234187,
@@ -83,7 +88,7 @@ PersonasSeleccionadas: Array<PersonaTemporarl> = [{
   Seleccionado: true
 },
 {
-  Id:1,
+  id:1,
   Nombre:"Ernesto Gonzales Cabrera ",
   Programa:"Contaduria",
   Cedula:1007405687,
@@ -95,7 +100,7 @@ PersonasSeleccionadas: Array<PersonaTemporarl> = [{
   Seleccionado: false
 },
 {
-  Id:2,
+  id:2,
   Nombre:"Angie Jimena Cabezas ",
   Programa:"Contaduria",
   Cedula:1011234187,
@@ -107,7 +112,7 @@ PersonasSeleccionadas: Array<PersonaTemporarl> = [{
   Seleccionado: true
 },
 {
-  Id:1,
+  id:1,
   Nombre:"Luis Felipe Perez ",
   Programa:"Contaduria",
   Cedula:1007405687,
@@ -119,7 +124,7 @@ PersonasSeleccionadas: Array<PersonaTemporarl> = [{
   Seleccionado: false
 },
 {
-  Id:2,
+  id:2,
   Nombre:"Luisa Mara Sanchez Ortiz ",
   Programa:"Contaduria",
   Cedula:1011234187,
@@ -132,10 +137,11 @@ PersonasSeleccionadas: Array<PersonaTemporarl> = [{
 }
 ];
 
-  verPersona(datos){
+  VerPersona( datos : any ){
     this.servicioAmbiente.controlMecanicasPersonas.modo = datos.modo;
-    this.servicioAmbiente.controlMecanicasPersonas.boton = 1;
-    this.router.navigateByUrl("/lista");
+    this.servicioAmbiente.controlMecanicasPersonas.datos = { id: datos.id, registro : datos.registro  };
+    this.servicioAmbiente.controlMecanicasPersonas.origen = this.enrutador.url
+    this.router.navigateByUrl("/personas");
   }
 
   Cancelar(){
@@ -155,7 +161,7 @@ PersonasSeleccionadas: Array<PersonaTemporarl> = [{
     return this.PersonasSeleccionadas.filter(persona => {
         const term = text.toLowerCase();
         return pipe.transform(persona.IdPersona).includes(term)
-            || pipe.transform(persona.Id).includes(term)
+            || pipe.transform(persona.id).includes(term)
             || persona.Nombre.toLowerCase().includes(term)
             || persona.Programa.toLowerCase().includes(term)
             || persona.CorreoInstitucional.toLowerCase().includes(term)

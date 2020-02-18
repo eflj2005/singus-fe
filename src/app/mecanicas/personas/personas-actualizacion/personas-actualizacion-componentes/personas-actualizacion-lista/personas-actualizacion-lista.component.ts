@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
 
 import { EstructuraConsultas } from '@generales/estructura-consultas';
+import { Router } from '@angular/router';
 
 interface ListaPersonasInterface extends PersonasInterface {
   nombreCompleto:string;
@@ -43,7 +44,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
   constructor(
     private servicioAmbiente : AmbienteService,
     private llamadoHttp : HttpClient,
-    private pipe: DecimalPipe
+    private pipe: DecimalPipe,
+    private enrutador: Router
   ) {
 
     this.controladorPersonas = new PersonasController(llamadoHttp,servicioAmbiente);
@@ -62,7 +64,7 @@ export class PersonasActualizacionListaComponent implements OnInit {
     caracteristicas.AgregarEnlace( "sedes" ,     "sedes" ,     "estudios" );
     caracteristicas.AgregarEnlace( "programas" , "programas" , "estudios" );  
 
-    // caracteristicas.AgregarFiltro( "personas" , "id" , "=", "1" );
+     caracteristicas.AgregarFiltro( "personas" , "id" , "=", "1" );
     caracteristicas.AgregarFiltro( "sedes" , "instituciones_id" , "=", "1" );
     
     caracteristicas.AgregarOrdenamiento( "cohorte" , "DESC" );
@@ -98,7 +100,7 @@ export class PersonasActualizacionListaComponent implements OnInit {
           || persona.cohorte.toLowerCase().includes(term)
           || pipe.transform(persona.iduniminuto).includes(term)
           || persona.sede.toLowerCase().includes(term)
-          || persona.nombres.toLowerCase().includes(term)
+          || persona.nombreCompleto.toLowerCase().includes(term)
           || pipe.transform(persona.documento).includes(term)
           || persona.programa.toLowerCase().includes(term)
           || persona.celular.toLowerCase().includes(term)
@@ -115,7 +117,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     
     this.servicioAmbiente.controlMecanicasPersonas.modo = datos.modo;
     this.servicioAmbiente.controlMecanicasPersonas.datos = { id: datos.id };
-  
+    this.servicioAmbiente.controlMecanicasPersonas.origen = this.enrutador.url
+
   }
   
 }

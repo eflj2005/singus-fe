@@ -91,6 +91,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
   correoModelo:string;
   numeroModelo:string;
   
+  huboCambios : boolean = false ;
 
   constructor(
     private servicioAmbiente : AmbienteService,
@@ -99,6 +100,8 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     private modal: NgbModal, 
     private utilidadFechas: DatePipe
   ) {
+
+    console.log(this.servicioAmbiente.controlMecanicasPersonas.origen);
 
     this.correoModelo="^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$";
     this.numeroModelo="^[0-9]*$";
@@ -188,6 +191,8 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
 
   Regresar(){
     this.servicioAmbiente.controlMecanicasPersonas.modo = 1
+
+    this.router.navigateByUrl(this.servicioAmbiente.controlMecanicasPersonas.origen);
   }
 
   cambiarGrupoDatos( posicion : number ){
@@ -268,7 +273,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
 
   AgregarHistorico( ){
 
-      switch (this.tipoHistorico) {
+    switch (this.tipoHistorico) {
 
       case 1:
         let nuevoRegistroCorreo: CorreosInterface = {
@@ -320,6 +325,8 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
 
     }
 
+    this.huboCambios = true;
+
   }
 
   EliminarHistorico( referencia : string ){
@@ -337,5 +344,18 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
       controladorActual.Eliminar();
     }
     
+  }
+
+  ModificarPersona(){
+    if(this.huboCambios){
+
+      if( this.controladorCorreos.Encontrar("modo", "I") ){
+
+        this.controladorCorreos.Guardar().subscribe( (respuesta:RespuestaInterface) => { 
+          
+        });
+      }
+
+    }
   }
 }
