@@ -99,15 +99,21 @@ export class GenericoModel {
     this.posicionActual = null;
   }
 
-  public Encontrar( nombreAtributo:string, valorBuscado:any ): boolean{
+  public Encontrar( nombreAtributo:string, valorBuscado:any, condicionInversa:boolean = false ): boolean{
     let actualTemporal = this.posicionActual;
     let encontrado:boolean = false;
 
     this.Primero();
 
     while(!this.esFin && !encontrado){
-      if(this.actual[nombreAtributo] == valorBuscado )  encontrado=true;
-      else                                              this.Siguiente();
+      if( !condicionInversa ){
+        if(this.actual[nombreAtributo] == valorBuscado )  encontrado=true;
+        else                                              this.Siguiente();
+      }
+      else{
+        if(this.actual[nombreAtributo] != valorBuscado )  encontrado=true;
+        else                                              this.Siguiente();
+      }
     }
 
     if(!encontrado) this.posicionActual = actualTemporal;
@@ -327,12 +333,7 @@ export class GenericoModel {
     return this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php", parametros).pipe(
       map(
         (respuesta: RespuestaInterface) => {
-          if( respuesta.codigo == 200 ){
-            this.ActualizarReferencias(respuesta.mensaje.dbRefs);
-          }
-          else{
-            console.log(respuesta);
-          }
+          if( respuesta.codigo == 200 ) this.ActualizarReferencias(respuesta.mensaje.dbRefs);
           return respuesta;
         }
       )

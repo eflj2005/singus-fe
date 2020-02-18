@@ -267,7 +267,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
   }
 
   FiltrarDatos( arreglo : any , campo : string , valor : any ){
-    let resultados = arreglo.filter( elemento => elemento[campo] == valor );
+    let resultados = arreglo.filter( (elemento: { [x: string]: any; }) => elemento[campo] == valor );
     return resultados;
   }
 
@@ -349,13 +349,49 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
   ModificarPersona(){
     if(this.huboCambios){
 
-      if( this.controladorCorreos.Encontrar("modo", "I") ){
+      if( this.controladorCorreos.Encontrar("modo", null, true) ){
+        this.controladorCorreos.Guardar().subscribe( 
+          (respuesta:RespuestaInterface) => { 
+            if( respuesta.codigo == 200 ){
+              this.controladorCorreos.todos.forEach(elemento => {
+                if( elemento.registro_fecha == this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd') ){
+                  if( elemento.tipo == "P" ){
+                    this.datosPersona.correoPersonal = elemento.correo;
+                  }
+                  else{
+                    this.datosPersona.correoInstitucional = elemento.correo;
+                  }
+                }
+              });
+            }
+            else{
+              console.log(respuesta);
+            }          
+          }
+        );
+      }
 
-        this.controladorCorreos.Guardar().subscribe( (respuesta:RespuestaInterface) => { 
-          
-        });
+      if( this.controladorTelefonos.Encontrar("modo", null, true) ){
+        this.controladorTelefonos.Guardar().subscribe( 
+          (respuesta:RespuestaInterface) => { 
+            if( respuesta.codigo != 200 ){
+              console.log(respuesta);
+            }          
+          }
+        );
+      }
+
+      if( this.controladorDirecciones.Encontrar("modo", null, true) ){
+        this.controladorDirecciones.Guardar().subscribe( 
+          (respuesta:RespuestaInterface) => { 
+            if( respuesta.codigo != 200 ){
+              console.log(respuesta);
+            }          
+          }
+        );
       }
 
     }
   }
+  
 }
