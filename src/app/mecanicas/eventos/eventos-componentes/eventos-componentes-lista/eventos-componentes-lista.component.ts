@@ -87,6 +87,10 @@ export class EventosComponentesListaComponent implements OnInit {
   
   verModal(agregador, idEvento)
   {
+    this.asistencia = [];
+    this.personas = [];
+    this.modificacion = [];
+    this.AplicarFiltros();
     this.evento = idEvento;
     this.consultarAsistencia(idEvento)
     this.consultarPersonas();
@@ -210,6 +214,7 @@ export class EventosComponentesListaComponent implements OnInit {
   }
 
   cambiarSeleccion(id,estado, idUni, nombre, apellido){
+
      if(estado){
        estado = false;
        for (let i = 0; i < this.asistencia.length ; i++) {
@@ -222,26 +227,26 @@ export class EventosComponentesListaComponent implements OnInit {
        this.asistencia.push(Object.assign({"id":id, "iduniminuto":idUni, "nombreCompleto":nombre + " " + apellido ,"Seleccionado": estado}));
 
      }
-      console.log("aqui");
       console.log(this.asistencia);
       this.agregarModificacion(id,estado);
+      console.log(this.modificacion);
 
   }
 
   agregarModificacion(id,estado){
 
-    let elemento = (element) => element.id == id;
+    let elemento = (element) => element.personas_id == id;
     let posicion = this.modificacion.findIndex(elemento);
-    
+
     console.log(posicion);
 
-     if(!(posicion == -1)){
-       this.modificacion.splice(posicion,1)
-     }else if(estado){
-       this.modificacion.push(Object.assign({"personas_id":id, "tipo":"agregar" , "eventos_id": this.evento}));
-     }else{
-       this.modificacion.push(Object.assign({"personas_id":id, "tipo":"eliminar", "eventos_id": this.evento }));
-     }
+      if(!(posicion == -1)){
+        this.modificacion.splice(posicion,1)
+      }else if(estado){
+        this.modificacion.push(Object.assign({"personas_id":id, "tipo":"agregar" , "eventos_id": this.evento}));
+      }else{
+        this.modificacion.push(Object.assign({"personas_id":id, "tipo":"eliminar", "eventos_id": this.evento }));
+      }
   }
 
   limpiar(){
@@ -255,6 +260,29 @@ export class EventosComponentesListaComponent implements OnInit {
   actualizarAsistencia(){
     console.log(this.modificacion);
     console.log(this.evento);
+    let agregar: Modificacion[] ;
+    let eliminar: Modificacion[] ;
+    agregar = [];
+    eliminar = [];
+    for (let i = 0; i < this.modificacion.length; i++) {
+      if ( this.modificacion[i].tipo == "agregar" ) {
+        agregar.push(Object.assign(this.modificacion[i]))
+      }else{
+        eliminar.push(Object.assign(this.modificacion[i]))
+      }
+    }
+
+    if (!(agregar.length == 0) && !(eliminar.length == 0)) {
+      
+    } else {
+      
+    }
+
+    this.controladorAsistencias.Agregar(agregar);
+    // this.controladorAsistencias.Eliminar(eliminar);
+    console.log(agregar);
+    console.log(eliminar);
+ 
 
   };
 
