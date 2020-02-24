@@ -36,11 +36,11 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
     private utilidadFechas: DatePipe
   ) {
 
-    this.controladorUsuarios = new UsuariosController(llamadoHttp,servicioAmbiente);
+    this.controladorUsuarios = new UsuariosController(llamadoHttp,servicioAmbiente, false);
 
     this.datos = {} as UsuarioInterface;
     this.datos.estado='A';
-    this.datos.creacion_fecha = this.utilidadFechas.transform(new Date(), 'yyyyMMdd');
+    this.datos.creacion_fecha = this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd');
     this.datos.areas_id = 1;
     this.datos.rol = 'A';
 
@@ -87,7 +87,7 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
         if(result == 'SI'){ //se recibe close
 
           this.controladorUsuarios.Agregar(this.datos);
-      
+
           const respuesta1 = this.controladorUsuarios.Guardar(false).subscribe(
             (notificacion1:RespuestaInterface) => {
               switch (notificacion1.codigo){
@@ -116,6 +116,7 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
                         break;
                         case 400:         //autenticación erronea / Usuario Bloqueado / Usuario Inactivo
                           alert(notificacion2.asunto + ": " + notificacion2.mensaje);
+                          console.log(notificacion2);
                           this.procesando=false; 
                         break;
                       }
@@ -125,6 +126,7 @@ export class InicioRegistrarAdministradorComponent implements OnInit {
                 break;
                 case 400:         //autenticación erronea / Usuario Bloqueado / Usuario Inactivo
                   alert(notificacion1.asunto + ": " + notificacion1.mensaje);
+                  console.log(notificacion1);
                   // this.hayNotificaion = true;
                   // this.notificacionMensaje = notificacion.asunto + ": " + notificacion.mensaje;
                   this.procesando=false; 

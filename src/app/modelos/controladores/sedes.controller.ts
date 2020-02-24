@@ -4,6 +4,7 @@ import { GenericoModel } from './generico.model';
 import { AmbienteService } from '@servicios/ambiente.service';
 
 import { SedesInterface } from '@interfaces/sedes.interface';
+import { InstitucionesController } from './instituciones.controller';
 
 export class SedesController extends GenericoModel {
 
@@ -19,6 +20,9 @@ export class SedesController extends GenericoModel {
     this.fechasDefinidas = [];
 
     this.DetectarCampos().subscribe();
+
+    this.AgregarForanea( new InstitucionesController(instanciaHttpClient,InstanciaAmbienteService)  );
+
   }
 
 }

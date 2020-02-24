@@ -1,0 +1,11 @@
+{
+  "/api_backend/*": {
+      "target": "https://singuspruebas.000webhostapp.com/singusbe/",
+      "secure": false,
+      "pathRewrite": {
+        "^/api_backend": ""
+      },
+      "changeOrigin": true,
+      "logLevel": "debug"
+  }
+}

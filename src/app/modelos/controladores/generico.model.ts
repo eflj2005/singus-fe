@@ -102,7 +102,7 @@ export class GenericoModel {
   public Encontrar( nombreAtributo:string, valorBuscado:any, condicionInversa:boolean = false ): boolean{
     let actualTemporal = this.posicionActual;
     let encontrado:boolean = false;
-
+    
     this.Primero();
 
     while(!this.esFin && !encontrado){
@@ -137,7 +137,7 @@ export class GenericoModel {
     return (nombre in this.controladoresForaneos);
   }
 
-  public CargarFornea( nombre : string, caracteristicas:any=null){
+  public CargarForanea( nombre : string, caracteristicas:any=null){
     this.controladoresForaneos[nombre].CargarDesdeDB( true, "S", caracteristicas ).subscribe(  (respuesta:RespuestaInterface) => {   }); // Carge de foranea
   }
 
@@ -291,7 +291,7 @@ export class GenericoModel {
       if( campo.search("_fecha") != -1 ){
 
         if(sentido=="SET"){
-          if( isNull(objeto[campo]) || (objeto[campo] != "") )    objeto[campo] = "NULL";
+          if( isNull(objeto[campo]) || (objeto[campo] == "") )    objeto[campo] = "NULL";
           else                                                    objeto[campo] = objeto[campo].replace(regExp, "");
         } 
         if(sentido=="GET"){
@@ -330,6 +330,7 @@ export class GenericoModel {
       datos : aProcesar      
     };
 
+    console.log(parametros);
     return this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php", parametros).pipe(
       map(
         (respuesta: RespuestaInterface) => {

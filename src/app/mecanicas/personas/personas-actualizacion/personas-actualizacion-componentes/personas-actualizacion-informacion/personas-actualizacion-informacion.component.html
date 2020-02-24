@@ -187,49 +187,51 @@
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Titulo</th>
-                  <th scope="col">Institucion</th>
-                  <th scope="col">Fecha de drado</th>
-                  <th scope="col">Mecanismo de grado</th>
-                  <th scope="col">Fecha de registro</th>                  
+                  <th scope="col">Institución</th>
+                  <th scope="col">Fecha grado</th>
+                  <th scope="col">Mecanismo grado</th>
+                  <th scope="col">Fecha de registro</th>
+                  <th scope="col">Acción</th>                  
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Markkkkkkkkkkkk</td>
-                  <td>Ottoooooooooooo</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
+                <tr *ngFor="let elemento of datosEstudios; let indiceEstudios = index;">
+                  <th scope="row">{{ elemento.id }}</th>
+                  <td>{{ controladorEstudios.ObtenerForanea("titulos").Encontrar('id',elemento.titulos_id) ? controladorEstudios.ObtenerForanea("titulos").actual.descripcion : '&nbsp;' }}</td>
+                  <td>
+                    {{ 
+                      controladorEstudios.ObtenerForanea("sedes").Encontrar('id',elemento.sedes_id) 
+                        ? controladorEstudios.ObtenerForanea("sedes").ObtenerForanea("instituciones").Encontrar('id',controladorEstudios.ObtenerForanea("sedes").actual.instituciones_id) 
+                          ? controladorEstudios.ObtenerForanea("sedes").ObtenerForanea("instituciones").actual.descripcion
+                          : '&nbsp;'
+                        : '&nbsp;' 
+                    }}
+                  </td>
+                  <td> {{ elemento.grado_fecha }}</td>
+                  <td> {{ controladorEstudios.ObtenerForanea("mecanismosgrados").Encontrar('id',elemento.mecanismosgrados_id) ? controladorEstudios.ObtenerForanea("mecanismosgrados").actual.descripcion : '&nbsp;' }}</td>
+                  <td> {{ elemento.registro_fecha }}</td>
+                  <td>&nbsp;</td>                  
                 </tr>
               </tbody>
             </table>
-            <hr>
-            <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregadorCantidad, 5)"><i class="fa fa-plus"></i>Agregar</button>
           
           </div>
 
         </div>
 
+        <div class="row">
+
+          <div class="col">
+            <hr>
+            <button type="button" class="btn btn-outline-primary" (click)="agregarInfo(agregadorCantidad, 5)"><i class="fa fa-plus"></i>Agregar</button>
+
+          </div>
+        </div>
+
+
       </div>
 
-      <div *ngIf="grupoDatos.posicion == 3">
+      <!-- <div *ngIf="grupoDatos.posicion == 3">
 
         <table class="table">
           <thead>
@@ -376,7 +378,7 @@
           </div>      
         </div>
 
-      </div>
+      </div> -->
 
     </div>  
   </div>

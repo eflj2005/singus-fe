@@ -18,6 +18,8 @@ import { DireccionesInterface } from '@interfaces/direcciones.interface';
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { EstudiosController } from '@controladores/estudios.controller';
 import { EstudiosInterface } from '@interfaces/estudios.interface';
+import { JitCompilerFactory } from '@angular/platform-browser-dynamic';
+import { MunicipiosController } from '@controladores/municipios.controller';
 
 
 
@@ -140,10 +142,10 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     this.controladorPersonas.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaP:RespuestaInterface) => {                // Carge de datos basicos
       
       this.datosPersona = this.controladorPersonas.actual;                                                                                                            
-      this.controladorPersonas.CargarFornea("tiposdocumentos");           // Carge de foranea de personas -> tipos documentos
-      this.controladorPersonas.CargarFornea("municipios", new EstructuraConsultas( "O",  "descripcion"  , "ASC") );                                                               // Carge de foranea de municipios -> personas
-      this.controladorPersonas.ObtenerForanea("municipios").CargarFornea("departamentos", new EstructuraConsultas( "O",  "descripcion"  , "ASC") );                               // Carge de foranea de Departamentos -> municipios -> personas
-      this.controladorPersonas.ObtenerForanea("municipios").ObtenerForanea("departamentos").CargarFornea("paises", new EstructuraConsultas( "O",  "descripcion"  , "ASC") );      // Carge de foranea de paises ->dDepartamentos -> municipios -> personas
+      this.controladorPersonas.CargarForanea("tiposdocumentos");           // Carge de foranea de personas -> tipos documentos
+      this.controladorPersonas.CargarForanea("municipios", new EstructuraConsultas( "O",  "descripcion"  , "ASC") );                                                               // Carge de foranea de municipios -> personas
+      this.controladorPersonas.ObtenerForanea("municipios").CargarForanea("departamentos", new EstructuraConsultas( "O",  "descripcion"  , "ASC") );                               // Carge de foranea de Departamentos -> municipios -> personas
+      this.controladorPersonas.ObtenerForanea("municipios").ObtenerForanea("departamentos").CargarForanea("paises", new EstructuraConsultas( "O",  "descripcion"  , "ASC") );      // Carge de foranea de paises ->dDepartamentos -> municipios -> personas
       
       caracteristicasConsultas = new EstructuraConsultas( "F", null , "personas_id" , "=" , String(this.personaId) );
       caracteristicasConsultas.AgregarOrdenamiento( "registro_fecha" , "DESC" );
@@ -161,18 +163,30 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
             this.controladorDirecciones.ReemplazarForanea( "municipios" , this.controladorPersonas.ObtenerForanea("municipios") );
             
             this.datosDirecciones =  this.controladorDirecciones.todos;
-  
+
+
+            caracteristicasConsultas = new EstructuraConsultas( "F", null , "personas_id" , "=" , String(this.personaId) );
+            caracteristicasConsultas.AgregarOrdenamiento( "grado_fecha" , "DESC" );
+      
+            this.controladorEstudios.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaE:RespuestaInterface) => {           // Carge de estudios
+              
+              this.controladorEstudios.CargarForanea("titulos");
+              this.controladorEstudios.CargarForanea("sedes");
+              this.controladorEstudios.ObtenerForanea("sedes").CargarForanea("instituciones");
+              this.controladorEstudios.CargarForanea("mecanismosgrados");
+      
+              this.datosEstudios = this.controladorEstudios.todos;
+      
+            });            
+
+
+
+
           });
   
 
         });
   
-      });
-
-      this.controladorEstudios.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaE:RespuestaInterface) => {           // Carge de estudios
-
-        this.datosEstudios = this.controladorEstudios.todos;
-
       });
 
     });
@@ -347,6 +361,8 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
   }
 
   ModificarPersona(){
+    var controlCambios = true;
+
     if(this.huboCambios){
 
       if( this.controladorCorreos.Encontrar("modo", null, true) ){
@@ -365,27 +381,49 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
               });
             }
             else{
+              controlCambios = false;
               console.log(respuesta);
             }          
           }
         );
       }
 
-      if( this.controladorTelefonos.Encontrar("modo", null, true) ){
-        this.controladorTelefonos.Guardar().subscribe( 
-          (respuesta:RespuestaInterface) => { 
-            if( respuesta.codigo != 200 ){
-              console.log(respuesta);
-            }          
-          }
-        );
+      if(controlCambios){
+        if( this.controladorTelefonos.Encontrar("modo", null, true) ){
+          this.controladorTelefonos.Guardar().subscribe( 
+            (respuesta:RespuestaInterface) => { 
+              if( respuesta.codigo != 200 ){
+                this.controladorTelefonos.todos.forEach(elemento => {
+                  if( elemento.registro_fecha == this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd') ){
+                    if( elemento.tipo == "F" ){
+                      this.datosPersona.telefonoFijo = elemento.numero;
+                    }
+                    else{
+                      this.datosPersona.telefonoCelular = elemento.numero;
+                    }
+                  }
+                });
+              }          
+            }
+          );
+        }
       }
 
       if( this.controladorDirecciones.Encontrar("modo", null, true) ){
         this.controladorDirecciones.Guardar().subscribe( 
           (respuesta:RespuestaInterface) => { 
             if( respuesta.codigo != 200 ){
-              console.log(respuesta);
+              this.controladorDirecciones.todos.forEach(elemento => {
+                let controladorMunicipios : MunicipiosController;
+
+                if( elemento.registro_fecha == this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd') ){
+                    this.datosPersona.direccionResidencia = elemento.direccion;
+
+                    controladorMunicipios = this.controladorDirecciones.ObtenerForanea("municipios");
+                    controladorMunicipios.Encontrar("id",elemento.municipios_id);
+                    this.datosPersona.municipioResidencia = controladorMunicipios.actual.descripcion;
+                }
+              });
             }          
           }
         );
