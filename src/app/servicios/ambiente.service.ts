@@ -35,7 +35,8 @@ export class AmbienteService {
 
   constructor() {
     this.urlRecursos["DEV1"]="http://localhost/singus-be/";
-    this.urlRecursos["DEV2"]="http://localhost:4200/api_backend/";    
+    this.urlRecursos["DEV2"]="http://localhost:4200/api_backend_1/";
+    this.urlRecursos["DEV3"]="http://localhost:4200/api_backend_2/";
     this.urlRecursos["PRO"]="http://localhost/singus/";
 
     this.urlMode = "DEV2";

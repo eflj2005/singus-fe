@@ -239,7 +239,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
   }
 
 
-  ActivarModalHistoricos( modalRecibido : any , tipoHistoricoRecibido : number ){
+  ActivarModalHistoricos( modalRecibido : any , tipoHistoricoRecibido : number, idHistorico?: Number ){
     this.tipoHistorico = tipoHistoricoRecibido;
     switch (tipoHistoricoRecibido) {
       case 1:
@@ -257,6 +257,15 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
       case 4:
         this.tituloHistorico = "Telefonos Celulares";
         this.parametrosHistorico = { "lista" : [] , "descripcionA": "celular", "modeloValidacionA" : this.numeroModelo };                
+      break;      
+      case 5:
+        this.tituloHistorico = "Estudios";
+        this.parametrosHistorico = { "lista" : {} , "id": idHistorico };              
+        
+        let datostemp = this.FiltrarDatos( this.datosEstudios, "id", idHistorico );
+        if(datostemp.length > 0)  this.parametrosHistorico["lista"] = datostemp[0];
+        else                      this.parametrosHistorico["lista"] = {}  
+        
       break;      
 
     }

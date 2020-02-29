@@ -180,7 +180,7 @@
 
         <div class="row">
 
-          <div class="col">
+          <div class="col-md-12">
 
             <table class="table">
               <thead>
@@ -210,7 +210,7 @@
                   <td> {{ elemento.grado_fecha }}</td>
                   <td> {{ controladorEstudios.ObtenerForanea("mecanismosgrados").Encontrar('id',elemento.mecanismosgrados_id) ? controladorEstudios.ObtenerForanea("mecanismosgrados").actual.descripcion : '&nbsp;' }}</td>
                   <td> {{ elemento.registro_fecha }}</td>
-                  <td>&nbsp;</td>                  
+                  <td><button  type="button" class="btn btn-outline-secondary " (click)="ActivarModalHistoricos( modalhistoricosOtros, 5, elemento.id )"  placement="right" ngbTooltip="Seguir"><i class="fa fa-eye"></i></button></td>                  
                 </tr>
               </tbody>
             </table>
@@ -392,7 +392,7 @@
 
 
 
-<!-- Modal de informacion personal -->
+  <!-- Modal de informacion personal -->
 
   <ng-template #modalhistoricosPersonal let-modal>
 
@@ -504,6 +504,120 @@
 
 
 
+  <!-- modal para informacion como estudios o trabajos -->
+
+  <ng-template #modalhistoricosOtros let-modal>
+
+    <div class="modal-header"> <h4 class="modal-title"> {{ tituloHistorico }}</h4> </div>
+    <div class="modal-body container">       
+
+
+      <div class="row">
+        <div class="col">
+          <form>
+
+            <input type="hidden" class="form-control" name="persona_id" [(ngModel)]="parametrosHistorico.lista.personas_id">
+
+            <div class="form-row justify-content-between">
+
+              <div class="form-group col-sm-2 px-1 mb-1">
+                <label for="id" class=" col-form-label col-form-label-sm">Id:</label>
+                <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="parametrosHistorico.lista.id">
+              </div>
+
+              <div class="form-group col-sm-2 px-1 mb-1">
+                <label for="registro_fecha" class="col-form-label col-form-label-sm">registro_fecha:</label>
+                <input type="text" class="form-control form-control-sm" id="registro_fecha" name="registro_fecha" [(ngModel)]="parametrosHistorico.lista.registro_fecha">  
+              </div>
+
+            </div>
+
+            <div class="form-row justify-content-between">
+
+              <div class="form-group col-sm-8 px-1 mb-1">
+                <label for="tiposestudios_id" class="col-form-label col-form-label-sm">tiposestudios_id:</label>
+                <input type="text" class="form-control form-control-sm" id="tiposestudios_id" name="tiposestudios_id" [(ngModel)]="parametrosHistorico.lista.tiposestudios_id">
+              </div>
+
+              <div class="form-group col-sm-2 px-1 mb-1">
+                <label for="grados_fecha" class="col-form-label col-form-label-sm">grados_fecha:</label>
+                <input type="text" class="form-control form-control-sm" id="grados_fecha" name="grados_fecha" [(ngModel)]="parametrosHistorico.lista.grados_fecha">
+              </div>
+
+              <div class="form-group col-sm-2 px-1 mb-1">
+                <label for="cohortes_id" class="col-form-label col-form-label-sm">cohortes_id:</label>
+                <input type="text" class="form-control form-control-sm" id="cohortes_id" name="cohortes_id" [(ngModel)]="parametrosHistorico.lista.cohortes_id">
+              </div>
+
+            </div>
+
+            <div class="form-row justify-content-between">
+
+              <div class="form-group col-sm-7 px-1 mb-1">
+                <label for="titulos_id" class="col-form-label col-form-label-sm">titulos_id:</label>
+                <input type="text" class="form-control form-control-sm" id="titulos_id" name="titulos_id" [(ngModel)]="parametrosHistorico.lista.titulos_id">
+              </div>
+
+              <div class="form-group col-sm-5 px-1 mb-1">
+                <label for="mecanismosgrados_id" class="col-form-label col-form-label-sm">mecanismosgrados_id:</label>
+                <input type="text" class="form-control form-control-sm" id="mecanismosgrados_id" name="mecanismosgrados_id" [(ngModel)]="parametrosHistorico.lista.mecanismosgrados_id">
+                </div>
+
+            </div>
+
+
+            <div class="form-group row px-1 mb-1">
+              <label for="descripcionmecanismo" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Descripcion Mecanismo de Grado:</label>
+              <div class="col-sm-9">
+                <textarea class="form-control form-control-sm" id="descripcionmecanismo" name="descripcionmecanismo" rows="3" [(ngModel)]="parametrosHistorico.lista.descripcionmecanismo"></textarea>
+              </div>
+            </div>
+
+
+            <div class="form-group row px-1 mb-1">
+              <label for="sedes_id" class="col-sm-2 col-form-label col-form-label-sm text-wrap">Institución:</label>
+              <div class="col-sm-3">
+                <input type="text" class="form-control form-control-sm" id="sedes_id" name="sedes_id" [(ngModel)]="parametrosHistorico.lista.sedes_id">
+              </div>
+              <label for="sedes_id2" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Sede:</label>
+              <div class="col-sm-2">
+                <input type="text" class="form-control form-control-sm" id="sedes_id2" name="sedes_id2" [(ngModel)]="parametrosHistorico.lista.sedes_id">
+              </div>
+            </div>
+
+
+
+
+          </form>
+        </div>
+      </div>
+ 
+      <div class="row">
+        <div class="col">
+          <div class="input-group input-group-sm">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="nuevoValorHistorico['valorA']" [placeholder]="'Ingrese su nuevo '+ ObtenerParametroHistorico('descripcionA')"  #controlMensaje="ngModel" [pattern]="ObtenerParametroHistorico('modeloValidacionA')" required>
+            <div class="input-group-append">           
+              <button type="button" class="btn btn-primary" (click)="AgregarHistorico()" [disabled]="controlMensaje.errors?.pattern || nuevoValorHistorico['valorA']=='' || ( nuevoValorHistorico['valorB']=='' && tipoHistorico == 2 ) ">Agregar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div *ngIf=" tipoHistorico != 2 then thenBlock_2 else elseBlock_2 "></div>
+      <ng-template #thenBlock_2>
+        <div class="row"> <div class="col"> <ngb-alert class="py-1" *ngIf="controlMensaje.errors?.pattern || nuevoValorHistorico['valorA']=='' " type="custom" [dismissible]="false">Debe registrar un {{ ObtenerParametroHistorico('descripcionA') }}</ngb-alert>  </div>  </div>
+      </ng-template>
+      <ng-template #elseBlock_2>
+        <div class="row"> <div class="col"> <ngb-alert class="py-1" *ngIf="controlMensaje.errors?.pattern || nuevoValorHistorico['valorA']=='' || nuevoValorHistorico['valorB']==''" type="custom" [dismissible]="false">Debe registrar una {{ ObtenerParametroHistorico('descripcionA') }} y un {{ ObtenerParametroHistorico('descripcionB') }}</ngb-alert>  </div>  </div>
+      </ng-template>        
+      
+    </div>
+    <div class="modal-footer "> <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">Atras</button> </div>
+
+
+  </ng-template>
 
 
     <!-- modal para informacion como estudios o trabajos -->
