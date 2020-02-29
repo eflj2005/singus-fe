@@ -260,28 +260,43 @@ export class EventosComponentesListaComponent implements OnInit {
   actualizarAsistencia(){
     console.log(this.modificacion);
     console.log(this.evento);
-    let agregar: Modificacion[] ;
-    let eliminar: Modificacion[] ;
-    agregar = [];
-    eliminar = [];
+    // this.controladorAsistencias.registros = this.modificacion;
+    
     for (let i = 0; i < this.modificacion.length; i++) {
-      if ( this.modificacion[i].tipo == "agregar" ) {
-        agregar.push(Object.assign(this.modificacion[i]))
-      }else{
-        eliminar.push(Object.assign(this.modificacion[i]))
+      
+      if(this.modificacion[i].tipo == "agregar" ) this.controladorAsistencias.Agregar(this.modificacion[i]);
+      else{ 
+        this.modificacion[i].modo = "E";
+        this.controladorAsistencias.registros.push(this.modificacion[i]);
       }
-    }
-
-    if (!(agregar.length == 0) && !(eliminar.length == 0)) {
-      
-    } else {
       
     }
 
-    this.controladorAsistencias.Agregar(agregar);
-    // this.controladorAsistencias.Eliminar(eliminar);
-    console.log(agregar);
-    console.log(eliminar);
+    console.log(this.controladorAsistencias.registros);
+
+    // let agregar: Modificacion[] ;
+    // let eliminar: Modificacion[] ;
+    // agregar = [];
+    // eliminar = [];
+    // for (let i = 0; i < this.modificacion.length; i++) {
+    //   if ( this.modificacion[i].tipo == "agregar" ) {
+    //     agregar.push(Object.assign(this.modificacion[i]))
+    //   }else{
+    //     eliminar.push(Object.assign(this.modificacion[i]))
+    //   }
+    // }
+
+    // if (!(agregar.length == 0) && !(eliminar.length == 0)) {
+    //   this.controladorAsistencias.Agregar(agregar);
+
+    // } else {
+      
+    // }
+
+    // this.controladorAsistencias.Agregar(agregar);
+    // // this.controladorAsistencias.Eliminar(eliminar);
+    // console.log(agregar);
+    // console.log(eliminar);
  
 
   };
