@@ -19,6 +19,7 @@ import { AsistenciasInterface } from '@interfaces/asistencias.interface';
 interface Asistencia extends PersonasInterface {
   nombreCompleto:string;
   Seleccionado: Boolean;
+  Asistencia: Number;
 }
 
 interface Modificacion extends AsistenciasInterface {
@@ -95,7 +96,7 @@ export class EventosComponentesListaComponent implements OnInit {
     this.consultarAsistencia(idEvento)
     this.consultarPersonas();
     const respuesta  = this.modal.open(agregador, { centered: true , backdropClass: 'light-blue-backdrop', size: 'xl' } );
-
+  
   }
 
   ngOnInit() {
@@ -124,7 +125,8 @@ export class EventosComponentesListaComponent implements OnInit {
         
     this.controladorAsistencias = new AsistenciaController(this.llamadoHttp,this.servicioAmbiente);
     let caracteristicas = new EstructuraConsultas();
-    caracteristicas.AgregarColumna( "personas", "id" , null );
+    caracteristicas.AgregarColumna( "asistencias", "id" , null );
+    caracteristicas.AgregarColumna( "personas", "id" , "personas_id" );
     caracteristicas.AgregarColumna( "personas", "iduniminuto" , null);
     caracteristicas.AgregarColumna( null, "CONCAT( personas.nombres , ' ' , personas.apellidos )" , "nombreCompleto" );
     caracteristicas.AgregarEnlace( "eventos" , "eventos" , "asistencias" );
@@ -137,6 +139,7 @@ export class EventosComponentesListaComponent implements OnInit {
         switch(respuesta.codigo){
           case 200:
             this.asistencia = this.controladorAsistencias.todos;
+            console.log(this.asistencia);
             break;
           default:
             alert("Error: "+respuesta.mensaje);
@@ -203,39 +206,41 @@ export class EventosComponentesListaComponent implements OnInit {
       this.asistencia[i].Seleccionado = true;
     }
    
-    for (let i = 0; posicion < this.asistencia.length; i++) {
-      if (this.personas[i].id == this.asistencia[posicion].id){
+    for (let i = 0; posicion < this.asistencia.length;) {
+ 
+      if (this.personas[i].id == this.asistencia[posicion].personas_id){
         this.personas[i].Seleccionado = true;
+        this.personas[i].Asistencia = this.asistencia[posicion].id;
         posicion++;
         i = 0;
-      } 
+      }else i++; 
     }
 
   }
 
-  cambiarSeleccion(id,estado, idUni, nombre, apellido){
+  cambiarSeleccion(personas_id,estado, idUni, nombre, apellido, idAsistencia){
 
      if(estado){
        estado = false;
        for (let i = 0; i < this.asistencia.length ; i++) {
-        if (this.asistencia[i].id == id){
+        if (this.asistencia[i].personas_id == personas_id){
           this.asistencia[i].Seleccionado = estado;
         }
       }
      }else{
        estado = true;
-       this.asistencia.push(Object.assign({"id":id, "iduniminuto":idUni, "nombreCompleto":nombre + " " + apellido ,"Seleccionado": estado}));
+       this.asistencia.push(Object.assign({"personas_id":personas_id, "iduniminuto":idUni, "nombreCompleto":nombre + " " + apellido ,"Seleccionado": estado}));
 
      }
       console.log(this.asistencia);
-      this.agregarModificacion(id,estado);
+      this.agregarModificacion(personas_id,estado, idAsistencia);
       console.log(this.modificacion);
 
   }
 
-  agregarModificacion(id,estado){
+  agregarModificacion(personas_id,estado, idAsistencia){
 
-    let elemento = (element) => element.personas_id == id;
+    let elemento = (element) => element.personas_id == personas_id;
     let posicion = this.modificacion.findIndex(elemento);
 
     console.log(posicion);
@@ -243,9 +248,9 @@ export class EventosComponentesListaComponent implements OnInit {
       if(!(posicion == -1)){
         this.modificacion.splice(posicion,1)
       }else if(estado){
-        this.modificacion.push(Object.assign({"personas_id":id, "tipo":"agregar" , "eventos_id": this.evento}));
+        this.modificacion.push(Object.assign({"id":null, "personas_id":personas_id, "tipo":"agregar" , "eventos_id": this.evento}));
       }else{
-        this.modificacion.push(Object.assign({"personas_id":id, "tipo":"eliminar", "eventos_id": this.evento }));
+        this.modificacion.push(Object.assign({"id":idAsistencia, "personas_id":personas_id, "tipo":"eliminar", "eventos_id": this.evento }));
       }
   }
 
@@ -258,10 +263,7 @@ export class EventosComponentesListaComponent implements OnInit {
   }
 
   actualizarAsistencia(){
-    console.log(this.modificacion);
-    console.log(this.evento);
-    // this.controladorAsistencias.registros = this.modificacion;
-    
+    this.controladorAsistencias.registros = [];
     for (let i = 0; i < this.modificacion.length; i++) {
       
       if(this.modificacion[i].tipo == "agregar" ) this.controladorAsistencias.Agregar(this.modificacion[i]);
@@ -274,6 +276,20 @@ export class EventosComponentesListaComponent implements OnInit {
 
     console.log(this.controladorAsistencias.registros);
 
+    this.controladorAsistencias.Guardar().subscribe(
+      (notificacion:RespuestaInterface) => {
+        switch (notificacion.codigo){
+          case 200:         //login ok         
+
+            alert("GUARDADO");
+            this.limpiar();
+          break;
+          case 400:         //autenticación erronea / Usuario Bloqueado / Usuario Inactivo
+            alert(notificacion.asunto + ": " + notificacion.mensaje);
+          break;
+        }
+      }
+    );
     // let agregar: Modificacion[] ;
     // let eliminar: Modificacion[] ;
     // agregar = [];

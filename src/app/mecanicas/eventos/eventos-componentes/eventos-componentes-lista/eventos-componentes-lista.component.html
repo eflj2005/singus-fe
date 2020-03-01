@@ -89,7 +89,7 @@
                                     <td>                                        
                                         <label class="containerCheck">
                                             <input type="checkbox" [(ngModel)]=" persona.Seleccionado" >
-                                            <span class="checkmark" (click)="cambiarSeleccion(persona.id, persona.Seleccionado, persona.iduniminuto, persona.nombres, persona.apellidos)" ></span>
+                                            <span class="checkmark" (click)="cambiarSeleccion(persona.id, persona.Seleccionado, persona.iduniminuto, persona.nombres, persona.apellidos, persona.Asistencia )" ></span>
                                             </label>
                                         </td>
                                     </tr>
@@ -112,7 +112,7 @@
                                     <tbody>
                                     <ng-container *ngFor="let persona of asistencia; index as i">
                                         <tr *ngIf="persona.Seleccionado == true" > 
-                                        <td>{{persona.id }}</td>
+                                        <td>{{persona.personas_id}}</td>
                                         <td>{{persona.iduniminuto}}</td>
                                         <td>{{persona.nombreCompleto}}</td>
                                         </tr>
