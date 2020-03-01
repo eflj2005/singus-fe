@@ -20,6 +20,7 @@ interface Asistencia extends PersonasInterface {
   nombreCompleto:string;
   Seleccionado: Boolean;
   Asistencia: Number;
+  personas_id: Number;
 }
 
 interface Modificacion extends AsistenciasInterface {
