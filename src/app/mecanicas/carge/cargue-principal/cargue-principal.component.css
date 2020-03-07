@@ -1,17 +1,11 @@
 .contenedor{
     overflow: auto;
-    min-height: 15rem;
-    max-height: 27rem;
     background-color: rgb(255,255,255); /* Fallback color */
     background-color: rgba(0,0,0,0.04); /* Black w/ opacity */
-    margin: 1.7rem;
 }
 
-.fileContainer{
-    padding: 3rem;
-
+.custom-file-input:lang(es)~.custom-file-label::after {
+    content: "Examiar";
 }
 
-.buttonGeneral{
-    margin: 2rem;
-}
+.bg-gray {background-color:#cccccc;}

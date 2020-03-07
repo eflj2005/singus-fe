@@ -1,64 +1,117 @@
 
-<h1 align='center'>Cargue de {{tipoCargue.nombre}}</h1>
-<div>
-    <h4>Estado del proceso </h4>
-    <ngb-progressbar value="{{estado.porcentaje}}" showValue="true"></ngb-progressbar>
-</div>
 
-<div class="contenedor">
-    <div *ngIf="estado.paso == 1">
-        <h3 align='center'>Paso 1 : Cargar archivo</h3>
-        <div class="input-group mb-3  fileContainer">
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm">
+      <div class="row">
+        <div class="col-sm">
+          <h1 align='center'>Cargue de {{ controlCargue.nombre }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm">
+      <div class="row">
+        <div class="col-sm-2">
+          <h5>Progreso: </h5>
+        </div>
+        <div class="col-sm-10">
+          <ngb-progressbar value="{{ controlCargue.progresoTotal }}" showValue="true"></ngb-progressbar>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row contenedor" *ngIf="controlCargue.pasoActualValor == 1">
+    <div class="col-sm">
+
+      <div class="row">
+        <div class="col-sm">      
+          <h3 align='center'>Paso {{ controlCargue.pasoActualValor }}: {{ controlCargue.pasoActualNombre }}</h3>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm">                
+          <div class="input-group mb-3">
             <div class="input-group-prepend ">
-                <span class="input-group-text" id="inputGroupFileAddon01">Seleccionar archivo</span>
+                  <span class="input-group-text" id="inputGroupFileAddon01">Buscar archivo</span>
             </div>
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                <label class="custom-file-label" for="inputGroupFile01">Nombre del archivo</label>
+                <input #inputArchivo type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" (change)="SeleccionarArchivo($event)" accept=".xls,.xlsx"> 
+                <label class="custom-file-label" for="inputGroupFile01">{{ datosArchivo==null ? '' : datosArchivo.name }}</label>
             </div>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" (click)="CargarArchivo()">Cargar</button>
+            </div>            
+          </div>
+        </div>  
+      </div>
+
+      <div class="row">
+        <div class="col-sm">
+
+          <div class="row">
+            <div class="col-sm-12">
+              RESUMEN     
+            </div>
+          </div>
+
+          
+          <div class="row" *ngFor="let registroC of arregloResumen; let indiceCohorte = index">
+            <div class="col-sm-12">
+
+              <div class="row  bg-gray">
+                <div class="col-sm-2">
+                  {{ registroC.cohorte }}
+                </div>
+                <div class="col-sm-8">
+                  &nbsp;
+                </div>
+                <div class="col-sm-2">
+                  {{ registroC.cantidad }} Registros   
+                </div>
+              </div>
+    
+              <div class="row" *ngFor="let registroP of registroC.programas; let indicePrograma = index">
+                <div class="col-sm-2">
+                  &nbsp;
+                  
+                </div>
+                <div class="col-sm-8">
+                  {{ registroP.nombre }}
+                </div>
+                <div class="col-sm-2">
+                  {{ registroP.cantidad }} Registros   
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
-        <button type="button" class="btn btn-outline-primary btn-lg btn-block" (click)="cambioPaso(2)">Siguiente</button>
+      </div>
+   
+
+      <div class="row justify-content-end">
+        <div class="col-sm-3">
+          <button type="button" class="btn btn-outline-primary btn-block" (click)="cambioPaso(2)">Siguiente</button>
+        </div>
+        <div class="col-sm-3">
+          <button type="button" class="btn btn-outline-dark buttonGeneral" (click)="Cancelar()">Cancelar</button>
+        </div>
+      </div>
+
     </div>
-
-    <div *ngIf="estado.paso == 2">
-            <h3 align='center'>Paso 2 : Verificacion datos</h3>
-            <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                      </tr>
-                    </tbody>
-                  </table>
-            <button type="button" class="btn btn-outline-primary btn-lg btn-block" (click)="cambioPaso(3)">Siguiente</button>
-        </div>
-
-        <div *ngIf="estado.paso == 3">
-                <h3 align='center'>Paso 3 : Datos nuevos y correcciones</h3>
-                <hr>
-                <h4>Datos nuevos</h4>
+  
+    
+    
+        <!-- <div *ngIf="estado.paso == 2">
+                <h3 align='center'>Paso 2 : Verificacion datos</h3>
                 <table class="table">
                         <thead>
                           <tr>
@@ -88,42 +141,85 @@
                             <td>@twitter</td>
                           </tr>
                         </tbody>
-                </table>
-                <hr>
-                <h4>Cambios</h4>
-                <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                          </tr>
-                        </tbody>
-                </table>
-                <button type="button" class="btn btn-outline-primary btn-lg btn-block" (click)="cambioPaso(4)">Guardar</button>
+                      </table>
+                <button type="button" class="btn btn-outline-primary btn-lg btn-block" (click)="cambioPaso(3)">Siguiente</button>
             </div>
     
+            <div *ngIf="estado.paso == 3">
+                    <h3 align='center'>Paso 3 : Datos nuevos y correcciones</h3>
+                    <hr>
+                    <h4>Datos nuevos</h4>
+                    <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Handle</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">3</th>
+                                <td>Larry</td>
+                                <td>the Bird</td>
+                                <td>@twitter</td>
+                              </tr>
+                            </tbody>
+                    </table>
+                    <hr>
+                    <h4>Cambios</h4>
+                    <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Handle</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">3</th>
+                                <td>Larry</td>
+                                <td>the Bird</td>
+                                <td>@twitter</td>
+                              </tr>
+                            </tbody>
+                    </table>
+                    <button type="button" class="btn btn-outline-primary btn-lg btn-block" (click)="cambioPaso(4)">Guardar</button>
+                </div>
+        -->
+    </div>
+
 </div>
 
-<button type="button" class="btn btn-outline-dark buttonGeneral" (click)="Cancelar()">Cancelar</button>
+
+
+
+
+
