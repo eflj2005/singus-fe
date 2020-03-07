@@ -264,7 +264,8 @@ export class EventosComponentesListaComponent implements OnInit {
   }
 
   actualizarAsistencia(){
-    this.controladorAsistencias.registros = [];
+    this.controladorAsistencias.LimpiarTodo();
+    
     for (let i = 0; i < this.modificacion.length; i++) {
       
       if(this.modificacion[i].tipo == "agregar" ) this.controladorAsistencias.Agregar(this.modificacion[i]);
