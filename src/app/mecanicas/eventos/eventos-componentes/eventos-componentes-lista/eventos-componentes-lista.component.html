@@ -27,7 +27,7 @@
                 <td><ngb-highlight [result]="evento.evento_fecha" [term]="filter.value"></ngb-highlight></td>
                 <td><ngb-highlight [result]="evento.lugar" [term]="filter.value"></ngb-highlight></td>
                 <td>
-                  <button class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Editar" >
+                  <button class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Editar" (click)="crear(2, evento)">
                       <i class="fa fa-pencil"></i>
                   </button>
                 </td>

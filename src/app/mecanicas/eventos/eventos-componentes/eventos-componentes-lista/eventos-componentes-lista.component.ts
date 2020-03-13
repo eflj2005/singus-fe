@@ -14,6 +14,7 @@ import { PersonasInterface } from '@interfaces/personas.interface';
 import { AsistenciaController } from '@controladores/asistencia.controller';
 import { PersonasController } from '@controladores/personas.controller';
 import { AsistenciasInterface } from '@interfaces/asistencias.interface';
+ //import { EventosComponentesCrearComponent } from '@mecanicas/eventos/eventos-componentes/eventos-componentes-crear/eventos-componentes-crear.component';
 
 
 interface Asistencia extends PersonasInterface {
@@ -55,6 +56,9 @@ export class EventosComponentesListaComponent implements OnInit {
               private pipe: DecimalPipe, 
               private llamadoHttp :HttpClient,
               private servicioAmbiente: AmbienteService
+     
+     
+     //         private componenteCrear: EventosComponentesCrearComponent
               )           
   {
     this.registrosEventos  = [];
@@ -103,10 +107,10 @@ export class EventosComponentesListaComponent implements OnInit {
   ngOnInit() {
   }
 
-  crear(datos){
-    // change this.Ambiente service, now It's this.servicioAmbiente
-    this.servicioAmbiente.eventosModo.modo = datos;
-
+  crear(modo, datosEvento){
+    this.servicioAmbiente.eventosModo.modo = modo
+   // if(modo != 1) this.componenteCrear.datos = datosEvento ;
+  
   }
 
   // Add aplicar filtros con los nuevos datos 
