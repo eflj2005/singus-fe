@@ -1,9 +1,11 @@
 export interface EventoInterface {
-  id: number;
-  nombre: string;
-  lugar: string;
-  descripcion: number;
-  imagen: string;
-  evento_fecha: string;
-  creacion_fecha: string;
+  id:Number;
+  nombre:String;
+  lugar:String;
+  descripcion:String;
+  imagen:String;
+  evento_fecha:String;
+  creacion_fecha:String;
+  modo?:String;
+  dbRef?:String;
 }
