@@ -39,7 +39,7 @@ export class AmbienteService {
     this.urlRecursos["DEV3"]="http://localhost:4200/api_backend_2/";
     this.urlRecursos["PRO"]="http://localhost/singus/";
 
-    this.urlMode = "DEV2";
+    this.urlMode = "DEV3";
 
     this.inicioModo = 0;
     this.inicioPaso = 0;

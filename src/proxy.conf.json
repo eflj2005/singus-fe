@@ -9,7 +9,7 @@
       "logLevel": "error"
   },
   "/api_backend_2/*": {
-    "target": "http://35.193.123.179/singus/singusbe/",
+    "target": "http://35.224.163.198/singus-be/",
     "secure": false,
     "pathRewrite": {
       "^/api_backend_2": ""
