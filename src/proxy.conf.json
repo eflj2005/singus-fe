@@ -6,7 +6,7 @@
         "^/api_backend_1": ""
       },
       "changeOrigin": true,
-      "logLevel": "error"
+      "logLevel": "debug"
   },
   "/api_backend_2/*": {
     "target": "http://35.224.163.198/singus-be/",
@@ -15,6 +15,6 @@
       "^/api_backend_2": ""
     },
     "changeOrigin": true,
-    "logLevel": "debug"
+    "logLevel": "error"
   }
 }
