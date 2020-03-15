@@ -5,7 +5,7 @@
 }
 
 .custom-file-input:lang(es)~.custom-file-label::after {
-    content: "Examiar";
+    content: "Examinar";
 }
 
 .bg-gray {background-color:#cccccc;}
