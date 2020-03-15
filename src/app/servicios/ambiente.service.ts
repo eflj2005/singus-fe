@@ -26,7 +26,7 @@ export class AmbienteService {
                                           
   eventosModo: any = { 
     modo:0,          //Modo 0 es lista de eventos -> Modo 1 es crear evento -> Modo 2 es editar evento 
-    datos: null
+    datos: null  
   }
 
 
