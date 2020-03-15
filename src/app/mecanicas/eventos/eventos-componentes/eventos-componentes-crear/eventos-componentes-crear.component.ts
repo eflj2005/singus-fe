@@ -20,16 +20,19 @@ export class EventosComponentesCrearComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.datos = this.servicioAmbiente.eventosModo.datos;
   }
 
   atras(){
     this.servicioAmbiente.eventosModo.modo = 0 ;
+    this.servicioAmbiente.eventosModo.datos = null;
   }
 
   procesar(){
 
+    console.log(this.datos);
     if(this.servicioAmbiente.eventosModo.modo == 1) this.controladorEvento.Agregar(this.datos);
-    else this.controladorEvento.Modificar(this.datos) 
+    else this.controladorEvento.Modificar(this.datos) ;
 
 
     this.controladorEvento.Guardar().subscribe(
