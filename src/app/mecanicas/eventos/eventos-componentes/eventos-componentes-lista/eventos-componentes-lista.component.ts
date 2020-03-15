@@ -109,6 +109,20 @@ export class EventosComponentesListaComponent implements OnInit {
     if(modo != 1){
       this.servicioAmbiente.eventosModo.datos = datosEvento;
     }
+    else{
+      let datosEvento: EventoInterface = {
+        id: null,
+        descripcion:"",
+        evento_fecha:"",
+        imagen:"",
+        lugar:"",
+        nombre:"",
+        creacion_fecha: ""
+      };
+
+
+      this.servicioAmbiente.eventosModo.datos = datosEvento;
+    }
   
   }
 

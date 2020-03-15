@@ -21,6 +21,7 @@ export class EventosComponentesCrearComponent implements OnInit {
 
   ngOnInit() {
     this.datos = this.servicioAmbiente.eventosModo.datos;
+    console.log(this.servicioAmbiente.eventosModo.datos);
   }
 
   atras(){
