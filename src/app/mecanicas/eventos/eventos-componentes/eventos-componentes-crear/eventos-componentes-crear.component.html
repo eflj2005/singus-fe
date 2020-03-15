@@ -6,64 +6,70 @@
         </div>
     </div>
 
-    <div class="row-12 spaceColor">
-        <div class="row">
-            <div class="col">
-                <div class="row">
-                    <div class="col">
-                            <label> Nombre:</label>
-                            <input type="text" class="form-control"  [(ngModel)]="datos.nombre" required>
+
+    <div class="row spaceColor">
+        <div class="col">
+
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <div class="col">
+                                <label> Nombre:</label>
+                                <input type="text" class="form-control" [(ngModel)]="datos.nombre" required>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                            <label> Fecha:</label>
-                            <input type="date" class="form-control"  [(ngModel)]="datos.evento_fecha" required>
+                    <div class="row">
+                        <div class="col">
+                                <label> Fecha:</label>
+                                <input type="date" class="form-control" [(ngModel)]="datos.evento_fecha" required>
+                        </div>
+                        <div class="col">
+                                <label> Sede:</label>
+                                <input type="text" class="form-control" [(ngModel)]="datos.lugar" required>
+                        </div>
                     </div>
-                    <div class="col">
-                            <label> Sede:</label>
-                            <input type="text" class="form-control"  [(ngModel)]="datos.lugar" required>
-                    </div>
-                </div>
-                <div class="row margin-top">
-                    <div class="col">
-                        <div class="input-group" >
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Descripción</span>
+                    <div class="row margin-top">
+                        <div class="col">
+                            <div class="input-group" >
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Descripción</span>
+                                </div>
+                                <textarea class="form-control" [(ngModel)]="datos.descripcion" ></textarea>
                             </div>
-                            <textarea class="form-control"  [(ngModel)]="datos.descripcion" required></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col">
+                    <div class="row">
+                        <div class="col">
+                                <label> Cargar imagen:</label>
+                                <div class="input-group mb-3  fileContainer">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                        <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col text-center ">
+                                    <img src="../../../../../assets/imagenes/grados1.jpg" class="img-fluid img" alt="Responsive image">
                         </div>
                     </div>
                 </div>
-
             </div>
 
-            <div class="col">
-                <div class="row">
-                    <div class="col">
-                            <label> Cargar imagen:</label>
-                            <div class="input-group mb-3  fileContainer">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                                    <label class="custom-file-label" for="inputGroupFile01" [(ngModel)]="datos.imagen">Seleccionar archivo</label>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col text-center ">
-                                <img src="../../../../../assets/imagenes/grados1.jpg" class="img-fluid img" alt="Responsive image">
-                    </div>
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-outline-primary btn-lg" (click)="procesar()">Crear</button>      
                 </div>
             </div>
-            </div>
-
-        <div class="row">
-            <div class="col">
-                <button type="button" class="btn btn-outline-primary btn-lg" (click)="procesar()">Crear</button>      
-            </div>
+      
         </div>
     </div>
+
 
     <div class="row">
         <div class="col">
