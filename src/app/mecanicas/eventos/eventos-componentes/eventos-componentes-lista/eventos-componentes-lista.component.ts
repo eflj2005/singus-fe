@@ -103,14 +103,12 @@ export class EventosComponentesListaComponent implements OnInit {
   ngOnInit() {
   }
 
-  crear(modo, datosEvento){
+  crear(modo: number, datosEvento: EventoInterface = null){
 
-    this.servicioAmbiente.eventosModo.modo = modo
-    if(modo != 1){
-      this.servicioAmbiente.eventosModo.datos = datosEvento;
-    }
-    else{
-      let datosEvento: EventoInterface = {
+    this.servicioAmbiente.eventosModo.modo = modo;
+
+    if(modo == 1){
+       datosEvento = {
         id: null,
         descripcion:"",
         evento_fecha:"",
@@ -119,10 +117,8 @@ export class EventosComponentesListaComponent implements OnInit {
         nombre:"",
         creacion_fecha: ""
       };
-
-
-      this.servicioAmbiente.eventosModo.datos = datosEvento;
     }
+    this.servicioAmbiente.eventosModo.datos = datosEvento;
   
   }
 
