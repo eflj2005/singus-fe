@@ -76,8 +76,11 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
   datosArchivo: File = null;
   contendoArchivo: any = null;          //borrar y convertir en varieable local
   
+
   arregloArchivo: any[] = [];
   arregloResumen: any[] = [];
+  arregloNuevasPersonas: any[] = [];
+  arregloNuevosEstudios: any[] = [];
   
   constructor( 
     progreso: NgbProgressbarConfig,
@@ -142,6 +145,7 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
     let jsonData = null;
     const reader = new FileReader();
     const file = this.datosArchivo;
+    let conteoRef: number;
 
     reader.onload = (event) => {
       const data = reader.result;
@@ -174,6 +178,7 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
 
 
         this.arregloResumen = [];
+        conteoRef = 1;
 
         this.arregloArchivo.forEach((registro: any, indice: any) => {
 
@@ -181,6 +186,10 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
           let encontrado: boolean;
           let posicionCohorte: number;
           let posicionPrograma: number;
+
+
+          this.arregloArchivo[indice].ref = "#"+conteoRef;
+          conteoRef++;
 
           posActual = 0;
           encontrado = false;
@@ -229,26 +238,29 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
 
   AnalizarDatos(){
     let parametros = {
-      accion : "analizar_registros",
-      conSeguridad: true,      
+      accion : "cargar_registros_tipo1",
+      conSeguridad: true,
+      modoCargue: 1,
       datos : this.arregloArchivo 
     };
 
     console.log(parametros);
     
-    const llamado: Observable<any> = this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php", parametros).pipe(
-      map(
-        (respuesta: RespuestaInterface) => {
-          return respuesta;
-        }
-      )
-    );
-
-    llamado.subscribe(
+    this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php", parametros).subscribe(
       (respuesta: RespuestaInterface) => {
-        console.log(respuesta);
+        if(respuesta.codigo == 200){
+          console.log(respuesta);
+          //respuesta.forEach((registro: any, indice: any) => {          
+        }
+        else{
+          console.log(respuesta);
+          alert("Error en proceso de analisis")
+        }
+        
       }
     );
+
+
 
   }
 
