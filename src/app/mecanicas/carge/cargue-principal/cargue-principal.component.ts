@@ -174,9 +174,6 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
       else{
         this.arregloArchivo = ObjetoLibro.Datos;
 
-        console.log( this.arregloArchivo );
-
-
         this.arregloResumen = [];
         conteoRef = 1;
 
@@ -226,7 +223,6 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
 
         });
 
-        console.log(this.arregloResumen);
         this.controlCargue.nombreArchivo = this.datosArchivo.name
         this.inputArchivo.nativeElement.value = null;
         this.datosArchivo = null;
@@ -250,7 +246,35 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
       (respuesta: RespuestaInterface) => {
         if(respuesta.codigo == 200){
           console.log(respuesta);
-          //respuesta.forEach((registro: any, indice: any) => {          
+          
+          respuesta.mensaje.nuevasPersonas.forEach((registro: any, indice: any) => {          
+
+            let posActual = 0;
+            let encontrado = false;
+            while(posActual < this.arregloArchivo.length && !encontrado ){
+              if( registro == this.arregloArchivo[posActual].ref )  encontrado = true;
+              else                                                  posActual++;
+            }
+
+            if(encontrado) this.arregloNuevasPersonas.push( this.arregloArchivo[posActual] );
+
+          });
+
+          respuesta.mensaje.nuevosEstudios.forEach((registro: any, indice: any) => {    
+
+            let posActual = 0;
+            let encontrado = false;
+            while(posActual < this.arregloArchivo.length && !encontrado ){
+              if( registro == this.arregloArchivo[posActual].ref )  encontrado = true;
+              else                                                  posActual++;
+            }
+
+            if(encontrado) this.arregloNuevosEstudios.push( this.arregloArchivo[posActual] );
+
+          });
+
+          console.log(this.arregloNuevasPersonas);
+          console.log(this.arregloNuevosEstudios);
         }
         else{
           console.log(respuesta);

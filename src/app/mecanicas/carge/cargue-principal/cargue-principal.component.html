@@ -144,20 +144,50 @@
 
         <div class="row">
           <div class="col-sm">
-            Registros Nuevos (XXX de XXX):
+            Nuevas Personas ( {{arregloNuevasPersonas.length }} de {{ arregloArchivo.length }} ):
           </div>
         </div>
 
         <div class="row justify-content-center ">                
-          <div class="col-sm">
+          <div class="col-sm overflow-auto tablaInformacion">
 
-            <table class="table">
+            <table class="table table-sm">
               <thead>
                 <tr>
-                  <th scope="col" *ngFor="let elemento of estructurasArchivos.tipo_1; let indiceCampos = index;">{{ elemento }}</th>          
+                  <th scope="col">Ref</th>
+                  <th scope="col">SPRIDEN_ID</th>
+                  <th scope="col">TIPO_DOCUMENTO</th>
+                  <th scope="col">APELLIDOS</th>
+                  <th scope="col">S_NOMBRE</th>
+                  <th scope="col">CARRERA</th>
+                  <th scope="col">CIUDAD_EXP_DOC</th>
+                  <th scope="col">EDAD</th>
+                  <th scope="col">TEL_RE</th>
+                  <th scope="col">TEL_TR</th>
+                  <th scope="col">TEL_CEL</th>
+                  <th scope="col">MAIL_ESTU</th>
+                  <th scope="col">PER_GRADO</th>
                 </tr>
               </thead>
               <tbody>
+
+                <tr *ngFor="let elemento of arregloNuevasPersonas; let indicePersonas = index;">
+
+                  <th scope="row">{{ elemento.ref }}</th>
+                  <th scope="row">{{ elemento.SPRIDEN_ID }}</th>
+                  <th scope="row">{{ elemento.TIPO_DOCUMENTO }}</th>
+                  <th scope="row">{{ elemento.APELLIDOS }}</th>
+                  <th scope="row">{{ elemento.S_NOMBRE }}</th>
+                  <th scope="row">{{ elemento.CARRERA }}</th>
+                  <th scope="row">{{ elemento.CIUDAD_EXP_DOC }}</th>
+                  <th scope="row">{{ elemento.EDAD }}</th>
+                  <th scope="row">{{ elemento.TEL_RE }}</th>
+                  <th scope="row">{{ elemento.TEL_TR }}</th>
+                  <th scope="row">{{ elemento.TEL_CEL }}</th>
+                  <th scope="row">{{ elemento.MAIL_ESTU }}</th>
+                  <th scope="row">{{ elemento.PER_GRADO }}</th>
+
+                </tr>
 
               </tbody>
             </table>
@@ -172,20 +202,29 @@
 
         <div class="row">
           <div class="col-sm">
-            Registros Con Cambios (XXX de XXX):
+            Nuevos Estudios ( {{arregloNuevosEstudios.length }} de {{ arregloArchivo.length }} ):
           </div>
         </div>
 
         <div class="row">                
-          <div class="col-sm ">
+          <div class="col-sm overflow-auto tablaInformacion">
 
-            <table class="table">
+            <table class="table table-sm">
               <thead>
                 <tr>
+                  <th scope="col">Ref</th>
                   <th scope="col" *ngFor="let elemento of estructurasArchivos.tipo_1; let indiceCampos = index;">{{ elemento }}</th>          
                 </tr>
               </thead>
               <tbody>
+
+                <tr *ngFor="let elemento of arregloNuevosEstudios; let indicePersonas = index;">
+
+                  <th scope="row">{{ elemento.ref }}</th>
+
+                  <!-- <th scope="row" *ngFor="let elemento of estructurasArchivos.tipo_1; let indiceCampos = index;">{{ elemento }}</th> -->
+
+                </tr>
 
               </tbody>
             </table>
