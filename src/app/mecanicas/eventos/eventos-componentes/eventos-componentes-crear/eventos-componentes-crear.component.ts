@@ -41,9 +41,6 @@ export class EventosComponentesCrearComponent implements OnInit {
   Procesar(){
 
 
-    console.log(this.img);
-    console.log(this.datos);
-    console.log(this.controladorEventos.registros);
     if(this.servicioAmbiente.eventosModo.modo == 1){
       this.datos.creacion_fecha =  this.today.getFullYear() + "-" + this.ElCero(this.today.getMonth()  + 1) + "-" + this.ElCero(this.today.getDate());
       console.log(this.datos);
