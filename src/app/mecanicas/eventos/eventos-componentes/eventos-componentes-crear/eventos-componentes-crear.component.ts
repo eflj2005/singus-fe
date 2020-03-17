@@ -45,28 +45,39 @@ export class EventosComponentesCrearComponent implements OnInit {
     console.log(this.datos);
     console.log(this.controladorEventos.registros);
     if(this.servicioAmbiente.eventosModo.modo == 1){
-      this.datos.creacion_fecha =  this.today.getFullYear() + "-" + (this.today.getMonth()  + 1) + "-" + this.today.getDate();
+      this.datos.creacion_fecha =  this.today.getFullYear() + "-" + this.ElCero(this.today.getMonth()  + 1) + "-" + this.ElCero(this.today.getDate());
       console.log(this.datos);
       this.controladorEventos.Agregar(this.datos);
     } 
     else this.controladorEventos.Modificar(this.datos) ;
 
 
-    this.controladorEventos.Guardar().subscribe(
-      (notificacion:RespuestaInterface) => {
-        switch (notificacion.codigo){
-          case 200:         //login ok         
+     this.controladorEventos.Guardar().subscribe(
+       (notificacion:RespuestaInterface) => {
+         switch (notificacion.codigo){
+           case 200:         //login ok         
 
             alert("GUARDADO");
  
-          break;
-          case 400:         //autenticación erronea / Usuario Bloqueado / Usuario Inactivo
-            alert(notificacion.asunto + ": " + notificacion.mensaje);
-          break;
-        }
-      }
-    ); 
+           break;
+           case 400:         //autenticación erronea / Usuario Bloqueado / Usuario Inactivo
+          alert(notificacion.asunto + ": " + notificacion.mensaje);
+           break;
+         }
+       }
+     ); 
      
   }
+
+  ElCero(numero){
+
+    if(numero<10){
+      numero = "0"+numero;
+    }
+
+    console.log(numero);
+    return numero;
+  }
+ 
 
 }
