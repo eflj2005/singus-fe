@@ -16,6 +16,8 @@ export class EventosComponentesCrearComponent implements OnInit {
   controladorEventos: EventosController;
   datos: EventoInterface;
 
+  img: any;
+
   constructor(private servicioAmbiente : AmbienteService) {
     if(this.servicioAmbiente.eventosModo.modo == 1) this.titulo="Crear Evento";
     else this.titulo="Modificar Evento"
@@ -26,14 +28,17 @@ export class EventosComponentesCrearComponent implements OnInit {
     console.log(this.servicioAmbiente.eventosModo.datos);
   }
 
-  atras(){
+  Atras(){
     this.servicioAmbiente.eventosModo.modo = 0 ;
     this.servicioAmbiente.eventosModo.datos = null;
   }
 
-  procesar(){
+  Procesar(){
 
+
+    console.log(this.img);
     console.log(this.datos);
+    console.log(this.controladorEventos.registros);
     if(this.servicioAmbiente.eventosModo.modo == 1) this.controladorEventos.Agregar(this.datos);
     else this.controladorEventos.Modificar(this.datos) ;
 
