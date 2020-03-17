@@ -3,6 +3,7 @@ import {AmbienteService} from '@servicios/ambiente.service';
 import { EventoInterface } from '@interfaces/eventos.interface';
 import { EventosController } from "@controladores/eventos.controller";
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-eventos-componentes-crear',
@@ -15,12 +16,16 @@ export class EventosComponentesCrearComponent implements OnInit {
   titulo:string;
   controladorEventos: EventosController;
   datos: EventoInterface;
-
+  today: Date ;  
   img: any;
 
-  constructor(private servicioAmbiente : AmbienteService) {
+  constructor(private servicioAmbiente : AmbienteService, private llamadoHttp : HttpClient) {
     if(this.servicioAmbiente.eventosModo.modo == 1) this.titulo="Crear Evento";
-    else this.titulo="Modificar Evento"
+    else this.titulo="Modificar Evento";
+    //
+    this.today = new Date();
+
+    this.controladorEventos= new EventosController(this.llamadoHttp,this.servicioAmbiente);
    }
 
   ngOnInit() {
@@ -39,7 +44,11 @@ export class EventosComponentesCrearComponent implements OnInit {
     console.log(this.img);
     console.log(this.datos);
     console.log(this.controladorEventos.registros);
-    if(this.servicioAmbiente.eventosModo.modo == 1) this.controladorEventos.Agregar(this.datos);
+    if(this.servicioAmbiente.eventosModo.modo == 1){
+      this.datos.creacion_fecha =  this.today.getFullYear() + "-" + (this.today.getMonth()  + 1) + "-" + this.today.getDate();
+      console.log(this.datos);
+      this.controladorEventos.Agregar(this.datos);
+    } 
     else this.controladorEventos.Modificar(this.datos) ;
 
 
@@ -56,7 +65,8 @@ export class EventosComponentesCrearComponent implements OnInit {
           break;
         }
       }
-    );  
+    ); 
+     
   }
 
 }
