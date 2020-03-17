@@ -12,11 +12,13 @@ import { RespuestaInterface } from '@interfaces/respuesta.interface';
 
 export class EventosComponentesCrearComponent implements OnInit {
 
-  controladorEvento: EventosController;
+  titulo:string;
+  controladorEventos: EventosController;
   datos: EventoInterface;
 
   constructor(private servicioAmbiente : AmbienteService) {
-    
+    if(this.servicioAmbiente.eventosModo.modo == 1) this.titulo="Crear Evento";
+    else this.titulo="Modificar Evento"
    }
 
   ngOnInit() {
@@ -32,11 +34,11 @@ export class EventosComponentesCrearComponent implements OnInit {
   procesar(){
 
     console.log(this.datos);
-    if(this.servicioAmbiente.eventosModo.modo == 1) this.controladorEvento.Agregar(this.datos);
-    else this.controladorEvento.Modificar(this.datos) ;
+    if(this.servicioAmbiente.eventosModo.modo == 1) this.controladorEventos.Agregar(this.datos);
+    else this.controladorEventos.Modificar(this.datos) ;
 
 
-    this.controladorEvento.Guardar().subscribe(
+    this.controladorEventos.Guardar().subscribe(
       (notificacion:RespuestaInterface) => {
         switch (notificacion.codigo){
           case 200:         //login ok         
