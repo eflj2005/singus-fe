@@ -38,7 +38,7 @@ export class EventosComponentesCrearComponent implements OnInit {
 
     console.log(this.img);
     console.log(this.datos);
-    console.log(this.controladorEventos.registros);
+    console.log(this.controladorEventos.todos);
     if(this.servicioAmbiente.eventosModo.modo == 1) this.controladorEventos.Agregar(this.datos);
     else this.controladorEventos.Modificar(this.datos) ;
 

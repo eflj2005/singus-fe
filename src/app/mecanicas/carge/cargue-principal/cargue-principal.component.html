@@ -154,26 +154,23 @@
             <table class="table table-sm">
               <thead>
                 <tr>
-                  <th scope="col">Ref</th>
-                  <th scope="col">SPRIDEN_ID</th>
-                  <th scope="col">TIPO_DOCUMENTO</th>
-                  <th scope="col">APELLIDOS</th>
-                  <th scope="col">S_NOMBRE</th>
-                  <th scope="col">CARRERA</th>
-                  <th scope="col">CIUDAD_EXP_DOC</th>
-                  <th scope="col">EDAD</th>
-                  <th scope="col">TEL_RE</th>
-                  <th scope="col">TEL_TR</th>
-                  <th scope="col">TEL_CEL</th>
-                  <th scope="col">MAIL_ESTU</th>
-                  <th scope="col">PER_GRADO</th>
+                  <th scope="col">Id</th>
+                  <th scope="col">T. Doc.</th>
+                  <th scope="col">Apellidos</th>
+                  <th scope="col">Nombres</th>
+                  <th scope="col">Programa</th>
+                  <th scope="col">Exp.</th>
+                  <th scope="col">Edad</th>
+                  <th scope="col">Tel. Res.</th>
+                  <th scope="col">Tel. Trab.</th>
+                  <th scope="col">Tel Cel.</th>
+                  <th scope="col">Correo</th>
+                  <th scope="col">Cohorte</th>
                 </tr>
               </thead>
               <tbody>
 
                 <tr *ngFor="let elemento of arregloNuevasPersonas; let indicePersonas = index;">
-
-                  <th scope="row">{{ elemento.ref }}</th>
                   <th scope="row">{{ elemento.SPRIDEN_ID }}</th>
                   <th scope="row">{{ elemento.TIPO_DOCUMENTO }}</th>
                   <th scope="row">{{ elemento.APELLIDOS }}</th>
