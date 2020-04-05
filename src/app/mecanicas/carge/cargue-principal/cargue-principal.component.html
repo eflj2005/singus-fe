@@ -140,95 +140,186 @@
         </div>
       </div>
 
-      <div class="row overflow-auto">
-
-        <div class="row">
-          <div class="col-sm">
-            Nuevas Personas ( {{arregloNuevasPersonas.length }} de {{ arregloArchivo.length }} ):
+      <div class="row overflow-auto pb-2">
+        <div class="col-sm">
+          <div class="row">
+            <div class="col-sm">
+              Nuevas Personas ( {{arregloNuevasPersonas.length }} de {{ arregloArchivo.length }} ):
+            </div>
           </div>
+
+          <div class="row justify-content-center ">                
+            <div class="col-sm overflow-auto tablaInformacion">
+
+              <table class="table table-sm table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Documento</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Nombres</th>
+                    <th scope="col">Programa</th>
+                    <th scope="col">Exp.</th>
+                    <th scope="col">Tel. Res.</th>
+                    <th scope="col">Tel. Trab.</th>
+                    <th scope="col">Tel Cel.</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Cohorte</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr *ngFor="let elemento of arregloNuevasPersonas; let indicePersonas = index;">
+                    <th scope="row">{{ elemento.SPRIDEN_ID }}</th>
+                    <td>{{ elemento.DOCUMENTO }}</td>
+                    <td>{{ elemento.APELLIDOS }}</td>
+                    <td>{{ elemento.P_NOMBRE + " " + elemento.S_NOMBRE }}</td>
+                    <td>{{ elemento.CARRERA }}</td>
+                    <td>{{ elemento.CIUDAD_EXP_DOC }}</td>
+                    <td>{{ elemento.TEL_RE }}</td>
+                    <td>{{ elemento.TEL_TR }}</td>
+                    <td>{{ elemento.TEL_CEL }}</td>
+                    <td>{{ elemento.MAIL_ESTU }}</td>
+                    <td>{{ elemento.PER_GRADO }}</td>
+
+                  </tr>
+
+                </tbody>
+              </table>
+            
+            </div>
+          </div>
+
         </div>
+      </div>
 
-        <div class="row justify-content-center ">                
-          <div class="col-sm overflow-auto tablaInformacion">
 
-            <table class="table table-sm">
-              <thead>
-                <tr>
-                  <th scope="col">Id</th>
-                  <th scope="col">T. Doc.</th>
-                  <th scope="col">Apellidos</th>
-                  <th scope="col">Nombres</th>
-                  <th scope="col">Programa</th>
-                  <th scope="col">Exp.</th>
-                  <th scope="col">Edad</th>
-                  <th scope="col">Tel. Res.</th>
-                  <th scope="col">Tel. Trab.</th>
-                  <th scope="col">Tel Cel.</th>
-                  <th scope="col">Correo</th>
-                  <th scope="col">Cohorte</th>
-                </tr>
-              </thead>
-              <tbody>
+      <div class="row overflow-auto pb-2">
+        <div class="col-sm">
 
-                <tr *ngFor="let elemento of arregloNuevasPersonas; let indicePersonas = index;">
-                  <th scope="row">{{ elemento.SPRIDEN_ID }}</th>
-                  <th scope="row">{{ elemento.TIPO_DOCUMENTO }}</th>
-                  <th scope="row">{{ elemento.APELLIDOS }}</th>
-                  <th scope="row">{{ elemento.S_NOMBRE }}</th>
-                  <th scope="row">{{ elemento.CARRERA }}</th>
-                  <th scope="row">{{ elemento.CIUDAD_EXP_DOC }}</th>
-                  <th scope="row">{{ elemento.EDAD }}</th>
-                  <th scope="row">{{ elemento.TEL_RE }}</th>
-                  <th scope="row">{{ elemento.TEL_TR }}</th>
-                  <th scope="row">{{ elemento.TEL_CEL }}</th>
-                  <th scope="row">{{ elemento.MAIL_ESTU }}</th>
-                  <th scope="row">{{ elemento.PER_GRADO }}</th>
-
-                </tr>
-
-              </tbody>
-            </table>
-          
+          <div class="row">
+            <div class="col-sm">
+              Nuevos Estudios ( {{arregloNuevosEstudios.length }} de {{ arregloArchivo.length }} ):
+            </div>
           </div>
+
+          <div class="row">                
+            <div class="col-sm overflow-auto tablaInformacion">
+
+              <table class="table table-sm table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col" >Documento</th>
+                    <th scope="col" >Apellidos</th>
+                    <th scope="col" >Nombres</th>
+                    <th scope="col" >Programa</th>
+                    <th scope="col" >Cohorte</th>
+                    <th scope="col" >F. Grado</th>
+                    <th scope="col" >Acta</th>
+                    <th scope="col" >Libro</th>
+                    <th scope="col" >Folio</th>
+                    <th scope="col" >Diploma</th>
+                          
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr *ngFor="let elemento of arregloNuevosEstudios; let indicePersonas = index;">
+                    <th scope="row">{{ elemento.SPRIDEN_ID }}</th>
+                    <td>{{ elemento.DOCUMENTO }}</td>
+                    <td>{{ elemento.APELLIDOS }}</td>
+                    <td>{{ elemento.P_NOMBRE + " " + elemento.S_NOMBRE }}</td>
+                    <td>{{ elemento.CARRERA }}</td>
+                    <td>{{ elemento.PER_GRADO }}</td>
+                    <td>{{ elemento.FECHA_GRADO }}</td>
+                    <td>{{ elemento.ACTA_GRADO }}</td>
+                    <td>{{ elemento.LIBRO }}</td>
+                    <td>{{ elemento.FOLIO }}</td>
+                    <td>{{ elemento.N_DIPLOMA }}</td>
+                  </tr>
+
+                </tbody>
+              </table>
+            
+            </div>
+          </div>
+
         </div>
 
       </div>
 
-
-      <div class="row overflow-auto">
-
-        <div class="row">
-          <div class="col-sm">
-            Nuevos Estudios ( {{arregloNuevosEstudios.length }} de {{ arregloArchivo.length }} ):
+      <div class="row overflow-auto pb-2">
+        <div class="col-sm">
+          <div class="row">
+            <div class="col-sm">
+              Registros con Cambios ( {{arregloCambios.length }} de {{ arregloArchivo.length }} ):
+            </div>
           </div>
-        </div>
 
-        <div class="row">                
-          <div class="col-sm overflow-auto tablaInformacion">
+          <div class="row justify-content-center ">                
+            <div class="col-sm overflow-auto tablaInformacion">
 
-            <table class="table table-sm">
-              <thead>
-                <tr>
-                  <th scope="col">Ref</th>
-                  <th scope="col" *ngFor="let elemento of estructurasArchivos.tipo_1; let indiceCampos = index;">{{ elemento }}</th>          
-                </tr>
-              </thead>
-              <tbody>
+              <table class="table table-sm table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Documento</th>
+                    <th scope="col">Tip. Doc</th>
+                    <th scope="col">Exp. Doc.</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Nombres</th>
+                    <th scope="col">Genero</th>
+                    <th scope="col">Programa</th>
+                    <th scope="col">Tel. Res.</th>
+                    <th scope="col">Tel. Trab.</th>
+                    <th scope="col">Tel Cel.</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Promedio</th>                    
+                    <th scope="col">Cohorte</th>
+                    <th scope="col">F. Grado</th>
+                    <th scope="col">Acta</th>
+                    <th scope="col">Libro</th>
+                    <th scope="col">Folio</th>
+                    <th scope="col">Diploma</th>
+                    <th scope="col">Cambios</th>
+                  </tr>
+                </thead>
+                <tbody>
 
-                <tr *ngFor="let elemento of arregloNuevosEstudios; let indicePersonas = index;">
+                  <tr *ngFor="let elemento of arregloCambios; let indicePersonas = index;">
+                    <th scope="row">{{ elemento.SPRIDEN_ID }}</th>
+                    <td>
+                      <div *ngIf = " ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.TIPO_DOCUMENTO ">{{ elemento.TIPO_DOCUMENTO }}</div>
+                      <ng-container *ngIf = " !ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) ">{{ elemento.TIPO_DOCUMENTO }}</ng-container>
+                    </td>
+                    <td>{{ elemento.DOCUMENTO }}</td>
+                    <td>{{ elemento.CIUDAD_EXP_DOC }}</td>
+                    <td>{{ elemento.APELLIDOS }}</td>
+                    <td>{{ elemento.P_NOMBRE + " " + elemento.S_NOMBRE }}</td>
+                    <td>{{ elemento.GENERO }}</td>
+                    <td>{{ elemento.CARRERA }}</td>
+                    <td>{{ elemento.TEL_RE }}</td>
+                    <td>{{ elemento.TEL_TR }}</td>
+                    <td>{{ elemento.TEL_CEL }}</td>
+                    <td>{{ elemento.MAIL_ESTU }}</td>
+                    <td>{{ elemento.PROMEDIO }}</td>
+                    <td>{{ elemento.PER_GRADO }}</td>
+                    <td>{{ elemento.FECHA_GRADO }}</td>
+                    <td>{{ elemento.ACTA_GRADO }}</td>
+                    <td>{{ elemento.LIBRO }}</td>
+                    <td>{{ elemento.FOLIO }}</td>
+                    <td>{{ elemento.N_DIPLOMA }}</td>
+                    <td>{{ elemento.cambios }}</td>                    
+                  </tr>
 
-                  <th scope="row">{{ elemento.ref }}</th>
-
-                  <!-- <th scope="row" *ngFor="let elemento of estructurasArchivos.tipo_1; let indiceCampos = index;">{{ elemento }}</th> -->
-
-                </tr>
-
-              </tbody>
-            </table>
-          
+                </tbody>
+              </table>
+            
+            </div>
           </div>
-        </div>
 
+        </div>
       </div>
 
       <div class="row">

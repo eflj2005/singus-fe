@@ -46,8 +46,9 @@ export class EventosComponentesCrearComponent implements OnInit {
       console.log(this.datos);
       this.controladorEventos.Agregar(this.datos);
     } 
-    else this.controladorEventos.Modificar(this.datos) ;
-
+    else{ 
+      this.controladorEventos.Modificar(this.datos) ;
+    }
 
      this.controladorEventos.Guardar().subscribe(
        (notificacion:RespuestaInterface) => {
