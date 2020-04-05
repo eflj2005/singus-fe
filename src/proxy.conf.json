@@ -3,7 +3,7 @@
       "target": "http://35.224.163.198:8080/singus-be/",
       "secure": false,
       "pathRewrite": {
-        "^/api_backend_1": ""
+        "^/api_backend_dev": ""
       },
       "changeOrigin": true,
       "logLevel": "debug"
@@ -12,7 +12,7 @@
     "target": "http://localhost/singus-be/",
     "secure": false,
     "pathRewrite": {
-      "^/api_backend_2": ""
+      "^/api_backend_pro": ""
     },
     "changeOrigin": true,
     "logLevel": "error"
