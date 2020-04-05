@@ -107,19 +107,10 @@ export class EventosComponentesListaComponent implements OnInit {
 
     this.servicioAmbiente.eventosModo.modo = modo;
 
-    if(modo == 1){
-       datosEvento = {
-        id: null,
-        descripcion:"",
-        evento_fecha:"",
-        imagen:"",
-        lugar:"",
-        nombre:"",
-        creacion_fecha: ""
-      };
+    if(modo != 1){
+      this.servicioAmbiente.eventosModo.datos = datosEvento.id;
     }
-    this.servicioAmbiente.eventosModo.datos = datosEvento;
-  
+
   }
 
   // Add aplicar filtros con los nuevos datos 

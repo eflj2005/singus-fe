@@ -3,18 +3,24 @@ import { FormControl } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import {AmbienteService} from '@servicios/ambiente.service';
 
-interface Persona {
-  IdPersona:number;
-  Id:number;
-  Nombre:string;
-  Cedula:string;
-  Programa:string;
-  FechaNacimiento: string;
-  FechaUltimaActualizacion: string;
-  
+import { PersonasInterface } from '@interfaces/personas.interface';
+import { PersonasController } from '@controladores/personas.controller';
+import { HttpClient } from '@angular/common/http';
+import { RespuestaInterface } from '@interfaces/respuesta.interface';
+import { EstructuraConsultas } from '@generales/estructura-consultas';
+
+
+interface ListaPersonas extends PersonasInterface{
+  nombreCompleto: string;
+  documento: number;
+  idUniminuto: number; 
+  nacimiento_fecha: string;
+  programa : string ;
+  actualizacion_fecha: string ;  
+
 }
-
 
 
 @Component({
@@ -25,89 +31,53 @@ interface Persona {
 })
 export class ReportesAlertasPrincipalComponent implements OnInit {
 
-  personas$: Observable<Persona[]>;
+  personas$: Observable<ListaPersonas[]>;
+  registros: ListaPersonas[];
   filter = new FormControl('');
 
-  Personas: Array<Persona> = [ 
-  {
-    Id:1,
-    Nombre:"Juan Camilo Caviedes Toro ",
-    Programa:"Contaduria",
-    Cedula:"1007405687",
-    IdPersona:12345678,
-    FechaUltimaActualizacion:"12-12-2019",
-    FechaNacimiento: "14-5-2000"
-  },
-  {
-    Id:2,
-    Nombre:"Fernando Suarez Martinez ",
-    Programa:"Contaduria",
-    Cedula:"1007405687",
-    IdPersona:12345678,
-    FechaUltimaActualizacion:"12-12-2019",
-    FechaNacimiento: "14-5-2000"
-  },
-  {
-    Id:1,
-    Nombre:"Ernesto Gonzales Cabrera ",
-    Programa:"Contaduria",
-    Cedula:"1007405687",
-    IdPersona:12345678,
-    FechaUltimaActualizacion:"12-12-2019",
-    FechaNacimiento: "14-5-2000"
-  },
-  {
-    Id:2,
-    Nombre:"Angie Jimena Cabezas ",
-    Programa:"Contaduria",
-    Cedula:"1007405687",
-    IdPersona:12345678,
-    FechaUltimaActualizacion:"12-12-2019",
-    FechaNacimiento: "14-5-2000"
-  },
-  {
-    Id:1,
-    Nombre:"Luis Felipe Perez ",
-    Programa:"Contaduria",
-    Cedula:"1007405687",
-    IdPersona:12345678,
-    FechaUltimaActualizacion:"12-12-2019",
-    FechaNacimiento: "14-5-2000"
-  },
-  {
-    Id:2,
-    Nombre:"Luisa Mara Sanchez Ortiz ",
-    Programa:"Contaduria",
-    Cedula:"1007405687",
-    IdPersona:12345678,
-    FechaUltimaActualizacion:"12-12-2019",
-    FechaNacimiento: "14-5-2000"
-  },
-  {
-    Id:1,
-    Nombre:"Cesar Duvan Martinez",
-    Programa:"Ingenieria de sistemas",
-    Cedula:"1007405687",
-    IdPersona:12345678,
-    FechaUltimaActualizacion:"12-12-2019",
-    FechaNacimiento: "14-5-2000"
-  },
-  {
-    Id:2,
-    Nombre:"Diego Fernando Osorio ",
-    Programa:"Ingenieria de sistemas",
-    Cedula:"1007405687",
-    IdPersona:12345678,
-    FechaUltimaActualizacion:"12-12-2019",
-    FechaNacimiento: "14-5-2000"
-  }
-];
+  controladorPersonas: PersonasController;
 
-  constructor(private pipe: DecimalPipe) { 
-    this.AplicarFiltros();
+  constructor(private pipe: DecimalPipe, private llamadoHttp : HttpClient,   private servicioAmbiente : AmbienteService,) { 
+    
+    this.controladorPersonas = new PersonasController(llamadoHttp,servicioAmbiente);
+    this.registros=[];
+
+    let caracteristicas  = new EstructuraConsultas();
+    caracteristicas.AgregarColumna( null , "CONCAT( personas.nombres , ' ' , personas.apellidos )" , "nombreCompleto" );
+    caracteristicas.AgregarColumna( "personas", "documento" , "documento");
+    caracteristicas.AgregarColumna("personas", "iduniminuto", "idUniminuto");
+    caracteristicas.AgregarColumna("personas", "nacimiento_fecha", "nacimineto_fecha");
+    caracteristicas.AgregarColumna("personas", "actualizacion_fecha", "actualizacion_fecha");
+    caracteristicas.AgregarColumna("programas", "descripcion", "programa");
+    
+    caracteristicas.AgregarEnlace( "estudios" ,  "personas" ,  "estudios" );
+    caracteristicas.AgregarEnlace( "ofertas" ,  "ofertas" ,  "estudios" );
+    caracteristicas.AgregarEnlace( "programas" ,  "programas" ,  "ofertas" );
+
+    this.controladorPersonas.CargarDesdeDB(true, "A", caracteristicas ).subscribe(
+      (respuesta: RespuestaInterface) =>{
+        switch (respuesta.codigo){
+          case 200:
+           
+          this.registros = this.controladorPersonas.todos;
+console.log(this.registros);
+          this.AplicarFiltros();
+
+          break;
+          default:
+            alert("Error: "+respuesta.mensaje);
+          break;
+        }
+      } 
+    );
+
+   
+
   }
 
   ngOnInit() {
+    this.AplicarFiltros();
+  
   }
 
 
@@ -120,17 +90,16 @@ export class ReportesAlertasPrincipalComponent implements OnInit {
     )
   }
 
-  buscar(text: string , pipe: PipeTransform ): Persona[] {
+  buscar(text: string , pipe: PipeTransform ): ListaPersonas[] {
 
-      return this.Personas.filter(persona => {
+      return this.registros.filter(persona => {
         const term = text.toLowerCase();
-        return pipe.transform(persona.IdPersona).includes(term)
-            || pipe.transform(persona.Id).includes(term)
-            || persona.Nombre.toLowerCase().includes(term)
-            || persona.Programa.toLowerCase().includes(term)
-            || pipe.transform(persona.Cedula).includes(term)
-            || persona.FechaUltimaActualizacion.toLowerCase().includes(term)
-            || persona.FechaNacimiento.toLowerCase().includes(term);
+        return pipe.transform(persona.idUniminuto).includes(term)
+            || pipe.transform(persona.documento).includes(term)
+            || persona.nombreCompleto.toLowerCase().includes(term)
+            || persona.programa.toLowerCase().includes(term)
+            || persona.nacimiento_fecha.toLowerCase().includes(term)
+            || persona.actualizacion_fecha.toLowerCase().includes(term);
       });
       
     }

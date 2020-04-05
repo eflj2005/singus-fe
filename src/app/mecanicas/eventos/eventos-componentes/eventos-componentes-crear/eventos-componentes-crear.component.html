@@ -47,15 +47,15 @@
                                 <label> Cargar imagen:</label>
                                 <div class="input-group mb-3  fileContainer">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                                        <label class="custom-file-label" for="inputGroupFile01" (change)="img">Seleccionar archivo</label>
+                                        <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" (change)="ImagenSelecionada($event)" >
+                                        <label class="custom-file-label" for="inputGroupFile01" >Seleccionar archivo</label>
                                     </div>
                                 </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col text-center ">
-                                    <img src="../../../../../assets/imagenes/grados1.jpg" class="img-fluid img" alt="Responsive image">
+                                    <img src="../../../../../assets/imagenesEventos/{{datos.imagen}}" class="img-fluid img" alt="Responsive image">
                         </div>
                     </div>
                 </div>

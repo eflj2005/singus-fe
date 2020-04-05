@@ -21,13 +21,12 @@
                   <table class="table table-striped">
                       <thead  class="thead">     
                           <tr class="colums">
-                              <th scope="col" class="semaforo">Semaforo</th>
-                              <th scope="col">#</th>
-                              <th scope="col">Nombre</th>
-                              <th scope="col">Programa</th>
-                              <th scope="col">Cedula</th>
-                              <th scope="col">ID</th>
-                              <th scope="col">Fecha nacimiento</th>
+                            <th scope="col" class="semaforo">Semaforo</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Programa</th>
+                            <th scope="col">Doc. Identificación</th>
+                            <th scope="col">Id Uniminuto</th>
+                            <th scope="col">Fecha de nacimiento</th>
                           </tr>
                       </thead>
                       <tbody>
@@ -37,12 +36,11 @@
                                   <span class="checkmark"></span>
                               </label>
                           </td>
-                          <td><ngb-highlight [result]="persona.Id | number" [term]="filter.value"></ngb-highlight></td>
-                          <td><ngb-highlight [result]="persona.Nombre" [term]="filter.value"></ngb-highlight></td>
-                          <td><ngb-highlight [result]="persona.Programa" [term]="filter.value"></ngb-highlight></td>
-                          <td><ngb-highlight [result]="persona.Cedula " [term]="filter.value"></ngb-highlight></td>
-                          <td><ngb-highlight [result]="persona.IdPersona  | number" [term]="filter.value"></ngb-highlight></td>
-                          <td><ngb-highlight [result]="persona.FechaNacimiento" [term]="filter.value"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="persona.nombreCompleto" [term]="filter.value"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="persona.programa" [term]="filter.value"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="persona.documento| number " [term]="filter.value"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="persona.idUniminuto  | number" [term]="filter.value"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="persona.nacimiento_fecha" [term]="filter.value"></ngb-highlight></td>
 
                         </tr>
                       </tbody>
@@ -66,12 +64,11 @@
                       <thead  class="thead">     
                           <tr class="colums">
                               <th scope="col" class="semaforo">Semaforo</th>
-                              <th scope="col">#</th>
                               <th scope="col">Nombre</th>
                               <th scope="col">Programa</th>
-                              <th scope="col">Cedula</th>
-                              <th scope="col">ID</th>
-                              <th scope="col">Fecha ultima Actualizacion</th>
+                              <th scope="col">Doc. Identificación</th>
+                              <th scope="col">Id Uniminuto</th>
+                              <th scope="col">Ultima Actualización</th>
  
                           </tr>
                       </thead>
@@ -82,12 +79,11 @@
                                 <span class="checkmark"></span>
                             </label>
                           </td>
-                          <td><ngb-highlight [result]="persona.Id | number" [term]="filter.value"></ngb-highlight></td>
-                          <td><ngb-highlight [result]="persona.Nombre" [term]="filter.value"></ngb-highlight></td>
-                          <td><ngb-highlight [result]="persona.Programa" [term]="filter.value"></ngb-highlight></td>
-                          <td><ngb-highlight [result]="persona.Cedula " [term]="filter.value"></ngb-highlight></td>
-                          <td><ngb-highlight [result]="persona.IdPersona  | number" [term]="filter.value"></ngb-highlight></td>
-                          <td><ngb-highlight [result]="persona.FechaUltimaActualizacion" [term]="filter.value"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="persona.nombreCompleto" [term]="filter.value"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="persona.programa" [term]="filter.value"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="persona.documento| number " [term]="filter.value"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="persona.idUniminuto  | number" [term]="filter.value"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="persona.actualizacion_fecha" [term]="filter.value"></ngb-highlight></td>
 
                         </tr>
                       </tbody>

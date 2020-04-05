@@ -106,7 +106,7 @@ export class PersonasActualizacionListaComponent implements OnInit {
           || persona.celular.toLowerCase().includes(term)
           || persona.correoInstitucional.toLowerCase().includes(term)
           || persona.correoPersonal.toLowerCase().includes(term);
-  
+          
     });
   }
  
