@@ -35,11 +35,11 @@ export class AmbienteService {
 
   constructor() {
 
-    this.urlRecursos["DEV"]="http://localhost:4200/api_backend_dev/";    
-    this.urlRecursos["PRO"]="http://localhost/api_backend_pro/";
+    this.urlRecursos["DEV"]="http://localhost:4200/api_backend/";    
+    this.urlRecursos["PRO"]="http://35.224.163.198/singus-be/";
   
 
-    this.urlMode = "DEV";
+    this.urlMode = "PRO";
 
     this.inicioModo = 0;
     this.inicioPaso = 0;

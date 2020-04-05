@@ -1,20 +1,11 @@
 {
-  "/api_backend_dev/*": {
+  "/api_backend/*": {
       "target": "http://35.224.163.198:8080/singus-be/",
       "secure": false,
       "pathRewrite": {
-        "^/api_backend_dev": ""
+        "^/api_backend": ""
       },
       "changeOrigin": true,
       "logLevel": "debug"
   },
-  "/api_backend_pro/*": {
-    "target": "http://localhost/singus-be/",
-    "secure": false,
-    "pathRewrite": {
-      "^/api_backend_pro": ""
-    },
-    "changeOrigin": true,
-    "logLevel": "error"
-  }
 }
