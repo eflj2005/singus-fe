@@ -1,20 +1,11 @@
 {
-  "/api_backend_1/*": {
-      "target": "https://singuspruebas.000webhostapp.com/singusbe/",
+  "/api_backend/*": {
+      "target": "http://35.224.163.198:8080/singus-be/",
       "secure": false,
       "pathRewrite": {
-        "^/api_backend_1": ""
+        "^/api_backend": ""
       },
       "changeOrigin": true,
       "logLevel": "debug"
   },
-  "/api_backend_2/*": {
-    "target": "http://35.224.163.198/singus-be/",
-    "secure": false,
-    "pathRewrite": {
-      "^/api_backend_2": ""
-    },
-    "changeOrigin": true,
-    "logLevel": "error"
-  }
 }

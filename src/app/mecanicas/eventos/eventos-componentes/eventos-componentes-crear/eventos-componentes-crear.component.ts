@@ -61,18 +61,20 @@ export class EventosComponentesCrearComponent implements OnInit {
   }
 
   Procesar(){
-     if(this.servicioAmbiente.eventosModo.modo == 1){
-       this.datos.creacion_fecha =  this.today.getFullYear() + "-" + this.ElCero(this.today.getMonth()  + 1) + "-" + this.ElCero(this.today.getDate());
-       console.log(this.datos);
-       this.controladorEventos.Agregar(this.datos);
-     } 
-       else this.controladorEventos.Modificar(this.datos) ;
 
+    if(this.servicioAmbiente.eventosModo.modo == 1){
+      this.datos.creacion_fecha =  this.today.getFullYear() + "-" + this.ElCero(this.today.getMonth()  + 1) + "-" + this.ElCero(this.today.getDate());
+      console.log(this.datos);
+      this.controladorEventos.Agregar(this.datos);
+    } 
+    else{ 
+      this.controladorEventos.Modificar(this.datos) ;
+    }
 
-      this.controladorEventos.Guardar().subscribe(
-        (notificacion:RespuestaInterface) => {
-          switch (notificacion.codigo){
-            case 200:         //login ok         
+     this.controladorEventos.Guardar().subscribe(
+       (notificacion:RespuestaInterface) => {
+         switch (notificacion.codigo){
+           case 200:         //login ok               
 
              alert("GUARDADO");
  

@@ -81,6 +81,7 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
   arregloResumen: any[] = [];
   arregloNuevasPersonas: any[] = [];
   arregloNuevosEstudios: any[] = [];
+  arregloCambios: any[] = [];
   
   constructor( 
     progreso: NgbProgressbarConfig,
@@ -273,8 +274,27 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
 
           });
 
+          respuesta.mensaje.personasCambios.forEach((registro: any, indice: any) => {    
+
+            let posActual = 0;
+            let encontrado = false;
+            while(posActual < this.arregloArchivo.length && !encontrado ){
+              if( registro.referencia == this.arregloArchivo[posActual].ref )  encontrado = true;
+              else                                                             posActual++;
+            }
+
+            this.arregloArchivo[posActual].cambios = registro.cambios;
+
+            if(encontrado) this.arregloCambios.push( this.arregloArchivo[posActual] );
+
+          });          
+
+
           console.log(this.arregloNuevasPersonas);
           console.log(this.arregloNuevosEstudios);
+          console.log(this.arregloCambios);
+
+          console.log(respuesta.mensaje.personasCambios);
         }
         else{
           console.log(respuesta);
@@ -286,6 +306,10 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
 
 
 
+  }
+
+  ValidarCampoEnObjeto( campo: string, objeto: any ){
+    return ( campo in objeto);
   }
 
 }
