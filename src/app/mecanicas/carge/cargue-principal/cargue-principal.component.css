@@ -14,3 +14,7 @@
     max-height: 270px;
     min-height: 270px;
 }
+
+.tablaInformacion .conCambio{
+    background-color: #25d825;
+}
