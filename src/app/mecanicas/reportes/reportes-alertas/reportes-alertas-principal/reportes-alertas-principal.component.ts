@@ -57,10 +57,8 @@ export class ReportesAlertasPrincipalComponent implements OnInit {
     this.controladorPersonas.CargarDesdeDB(true, "A", caracteristicas ).subscribe(
       (respuesta: RespuestaInterface) =>{
         switch (respuesta.codigo){
-          case 200:
-           
+          case 200:  
           this.registros = this.controladorPersonas.todos;
-console.log(this.registros);
           this.AplicarFiltros();
 
           break;
