@@ -289,77 +289,80 @@
 
                   <tr *ngFor="let elemento of arregloCambios; let indicePersonas = index;">
                     <th scope="row">{{ elemento.SPRIDEN_ID }}</th>
-                    <td>
-                      <div [class]="ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.TIPO_DOCUMENTO ">{{ elemento.TIPO_DOCUMENTO }}</div>
-                      <ng-container *ngIf = " !ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) ">{{ elemento.TIPO_DOCUMENTO }}</ng-container>
-                    </td>
-                    <td>
-                      <div [class]="ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.TIPO_DOCUMENTO ">{{ elemento.TIPO_DOCUMENTO }}</div>
-                      <ng-container *ngIf = " !ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) ">{{ elemento.DOCUMENTO }}</ng-container>
+                    <!-- <td>
+                      <div [class]="ValidarCampoEnObjeto('DOCUMENTO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('DOCUMENTO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.DOCUMENTO ">{{ elemento.DOCUMENTO }}</div>
+                      <ng-container *ngIf = " !ValidarCampoEnObjeto('DOCUMENTO',elemento.cambios) ">{{ elemento.DOCUMENTO }}</ng-container>
                     </td>
                     <td>
                       <div [class]="ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.TIPO_DOCUMENTO ">{{ elemento.TIPO_DOCUMENTO }}</div>
                       <ng-container *ngIf = " !ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) ">{{ elemento.TIPO_DOCUMENTO }}</ng-container>
                     </td>
                     <td>
-                      <div [class]="ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.TIPO_DOCUMENTO ">{{ elemento.TIPO_DOCUMENTO }}</div>
-                      <ng-container *ngIf = " !ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) ">{{ elemento.CIUDAD_EXP_DOC }}</ng-container>
+                      <div [class]="ValidarCampoEnObjeto('CIUDAD_EXP_DOC',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('CIUDAD_EXP_DOC',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.CIUDAD_EXP_DOC ">{{ elemento.CIUDAD_EXP_DOC }}</div>
+                      <ng-container *ngIf = " !ValidarCampoEnObjeto('CIUDAD_EXP_DOC',elemento.cambios) ">{{ elemento.CIUDAD_EXP_DOC }}</ng-container>
                     </td>
                     <td>
-                      <div [class]="ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.TIPO_DOCUMENTO ">{{ elemento.TIPO_DOCUMENTO }}</div>
-                      <ng-container *ngIf = " !ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) ">{{ elemento.P_NOMBRE + " " + elemento.S_NOMBRE }}</ng-container>
+                      <div [class]="ValidarCampoEnObjeto('P_NOMBRE',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('P_NOMBRE',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.P_NOMBRE ">{{ elemento.P_NOMBRE }}</div>
+                      <ng-container *ngIf = " !ValidarCampoEnObjeto('P_NOMBRE',elemento.cambios) ">{{ elemento.P_NOMBRE + " " + elemento.S_NOMBRE }}</ng-container>
                     </td>
                     <td>
-                      <div [class]="ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.TIPO_DOCUMENTO ">{{ elemento.TIPO_DOCUMENTO }}</div>
-                      <ng-container *ngIf = " !ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) ">{{ elemento.APELLIDOS }}</ng-container>
+                      <div [class]="ValidarCampoEnObjeto('APELLIDOS',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('APELLIDOS',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.APELLIDOS ">{{ elemento.APELLIDOS }}</div>
+                      <ng-container *ngIf = " !ValidarCampoEnObjeto('APELLIDOS',elemento.cambios) ">{{ elemento.APELLIDOS }}</ng-container>
                     </td>
                     <td>
-                      <div [class]="ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.TIPO_DOCUMENTO ">{{ elemento.TIPO_DOCUMENTO }}</div>
-                      <ng-container *ngIf = " !ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) ">{{ elemento.GENERO }}</ng-container>
+                      <div [class]="ValidarCampoEnObjeto('GENERO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('GENERO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.GENERO ">{{ elemento.GENERO }}</div>
+                      <ng-container *ngIf = " !ValidarCampoEnObjeto('GENERO',elemento.cambios) ">{{ elemento.GENERO }}</ng-container>
                     </td>
                     <td>
-                      <div [class]="ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.TIPO_DOCUMENTO ">{{ elemento.TIPO_DOCUMENTO }}</div>
-                      <ng-container *ngIf = " !ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) ">{{ elemento.TIPO_DOCUMENTO }}</ng-container>
+                      <div [class]="ValidarCampoEnObjeto('CARRERA',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('CARRERA',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.CARRERA ">{{ elemento.CARRERA }}</div>
+                      <ng-container *ngIf = " !ValidarCampoEnObjeto('CARRERA',elemento.cambios) ">{{ elemento.CARRERA }}</ng-container>
                     </td>
                     <td>
-                      <div [class]="ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.TIPO_DOCUMENTO ">{{ elemento.TIPO_DOCUMENTO }}</div>
-                      <ng-container *ngIf = " !ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) ">{{ elemento.TIPO_DOCUMENTO }}</ng-container>
+                      <div [class]="ValidarCampoEnObjeto('TEL_RE',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('TEL_RE',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.TEL_RE ">{{ elemento.TEL_RE }}</div>
+                      <ng-container *ngIf = " !ValidarCampoEnObjeto('TEL_RE',elemento.cambios) ">{{ elemento.TEL_RE }}</ng-container>
                     </td>
                     <td>
-                      <div [class]="ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.TIPO_DOCUMENTO ">{{ elemento.TIPO_DOCUMENTO }}</div>
-                      <ng-container *ngIf = " !ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) ">{{ elemento.TIPO_DOCUMENTO }}</ng-container>
+                      <div [class]="ValidarCampoEnObjeto('TEL_TR',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('TEL_TR',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.TEL_TR ">{{ elemento.TEL_TR }}</div>
+                      <ng-container *ngIf = " !ValidarCampoEnObjeto('TEL_TR',elemento.cambios) ">{{ elemento.TEL_TR }}</ng-container>
                     </td>
                     <td>
-                      <div [class]="ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.TIPO_DOCUMENTO ">{{ elemento.TIPO_DOCUMENTO }}</div>
-                      <ng-container *ngIf = " !ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) ">{{ elemento.TIPO_DOCUMENTO }}</ng-container>
+                      <div [class]="ValidarCampoEnObjeto('TEL_CEL',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('TEL_CEL',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.TEL_CEL ">{{ elemento.TEL_CEL }}</div>
+                      <ng-container *ngIf = " !ValidarCampoEnObjeto('TEL_CEL',elemento.cambios) ">{{ elemento.TEL_CEL }}</ng-container>
                     </td>
                     <td>
-                      <div [class]="ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.TIPO_DOCUMENTO ">{{ elemento.TIPO_DOCUMENTO }}</div>
-                      <ng-container *ngIf = " !ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) ">{{ elemento.TIPO_DOCUMENTO }}</ng-container>
+                      <div [class]="ValidarCampoEnObjeto('MAIL_ESTU',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('MAIL_ESTU',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.MAIL_ESTU ">{{ elemento.MAIL_ESTU }}</div>
+                      <ng-container *ngIf = " !ValidarCampoEnObjeto('MAIL_ESTU',elemento.cambios) ">{{ elemento.MAIL_ESTU }}</ng-container>
                     </td>
                     <td>
-                      <div [class]="ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.TIPO_DOCUMENTO ">{{ elemento.TIPO_DOCUMENTO }}</div>
-                      <ng-container *ngIf = " !ValidarCampoEnObjeto('TIPO_DOCUMENTO',elemento.cambios) ">{{ elemento.TIPO_DOCUMENTO }}</ng-container>
+                      <div [class]="ValidarCampoEnObjeto('PROMEDIO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('PROMEDIO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.PROMEDIO ">{{ elemento.PROMEDIO }}</div>
+                      <ng-container *ngIf = " !ValidarCampoEnObjeto('PROMEDIO',elemento.cambios) ">{{ elemento.PROMEDIO }}</ng-container>
                     </td>
+                    <td>
+                      <div [class]="ValidarCampoEnObjeto('PER_GRADO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('PER_GRADO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.PER_GRADO ">{{ elemento.PER_GRADO }}</div>
+                      <ng-container *ngIf = " !ValidarCampoEnObjeto('PER_GRADO',elemento.cambios) ">{{ elemento.PER_GRADO }}</ng-container>
+                    </td>
+                    <td>
+                      <div [class]="ValidarCampoEnObjeto('FECHA_GRADO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('FECHA_GRADO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.FECHA_GRADO ">{{ elemento.FECHA_GRADO }}</div>
+                      <ng-container *ngIf = " !ValidarCampoEnObjeto('FECHA_GRADO',elemento.cambios) ">{{ elemento.FECHA_GRADO }}</ng-container>
+                    </td>
+                    <td>
+                      <div [class]="ValidarCampoEnObjeto('ACTA_GRADO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('ACTA_GRADO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.ACTA_GRADO ">{{ elemento.ACTA_GRADO }}</div>
+                      <ng-container *ngIf = " !ValidarCampoEnObjeto('ACTA_GRADO',elemento.cambios) ">{{ elemento.ACTA_GRADO }}</ng-container>
+                    </td>
+                    <td>
+                      <div [class]="ValidarCampoEnObjeto('LIBRO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('LIBRO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.LIBRO ">{{ elemento.LIBRO }}</div>
+                      <ng-container *ngIf = " !ValidarCampoEnObjeto('LIBRO',elemento.cambios) ">{{ elemento.LIBRO }}</ng-container>
+                    </td>
+                    <td>
+                      <div [class]="ValidarCampoEnObjeto('FOLIO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('FOLIO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.FOLIO ">{{ elemento.FOLIO }}</div>
+                      <ng-container *ngIf = " !ValidarCampoEnObjeto('FOLIO',elemento.cambios) ">{{ elemento.FOLIO }}</ng-container>
+                    </td>
+                    <td>
+                      <div [class]="ValidarCampoEnObjeto('N_DIPLOMA',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('N_DIPLOMA',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.N_DIPLOMA ">{{ elemento.N_DIPLOMA }}</div>
+                      <ng-container *ngIf = " !ValidarCampoEnObjeto('N_DIPLOMA',elemento.cambios) ">{{ elemento.N_DIPLOMA }}</ng-container>
+                    </td>
+                    <td>{{ elemento.cambios.toString() }}</td> -->
 
-                    <td>{{ elemento.DOCUMENTO }}</td>
-                    <td>{{ elemento.CIUDAD_EXP_DOC }}</td>
-                    <td>{{  }}</td>
-                    <td>{{ elemento.P_NOMBRE + " " + elemento.S_NOMBRE }}</td>
-                    <td>{{ elemento.GENERO }}</td>
-                    <td>{{ elemento.CARRERA }}</td>
-                    <td>{{ elemento.TEL_RE }}</td>
-                    <td>{{ elemento.TEL_TR }}</td>
-                    <td>{{ elemento.TEL_CEL }}</td>
-                    <td>{{ elemento.MAIL_ESTU }}</td>
-                    <td>{{ elemento.PROMEDIO }}</td>
-                    <td>{{ elemento.PER_GRADO }}</td>
-                    <td>{{ elemento.FECHA_GRADO }}</td>
-                    <td>{{ elemento.ACTA_GRADO }}</td>
-                    <td>{{ elemento.LIBRO }}</td>
-                    <td>{{ elemento.FOLIO }}</td>
-                    <td>{{ elemento.N_DIPLOMA }}</td>
-                    <td>{{ elemento.cambios }}</td>                    
                   </tr>
 
                 </tbody>
