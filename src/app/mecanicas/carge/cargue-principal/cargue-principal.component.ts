@@ -247,12 +247,22 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
   }
 
 
-  AnalizarDatos(){
+  AnalizarDatos( tipoAnalisis: string ){
+    var datosAnalizados: any[] = [];
+    switch(tipoAnalisis){
+      case "Todos":
+        datosAnalizados = this.arregloArchivo;
+      break;
+      case "Cambios":
+        datosAnalizados = this.arregloCambios;
+      break;
+    }
+
     let parametros = {
       accion : "cargar_registros_tipo1",
       conSeguridad: true,
       modoCargue: 1,
-      datos : this.arregloArchivo 
+      datos : datosAnalizados 
     };
 
     console.log(parametros);
@@ -284,7 +294,7 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
               else                                                  posActual++;
             }
 
-            if(encontrado) this.arregloNuevosEstudios.push( this.arregloArchivo[posActual] );
+            if(encontrado) this.arregloNuevosEstudios.push(  this.arregloArchivo[posActual]  );
 
           });
 
@@ -343,22 +353,32 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
     switch(control){
       case 'nuevasPersonas':
         if(this.seleccionarTodos.nuevasPersonas){
-
           for (var posicion in this.arregloNuevasPersonas) {  
             this.arregloNuevasPersonas[posicion].seleccionado = false;
           }  
-
           this.seleccionarTodos.nuevasPersonas = false;
         }
         else{
           for (var posicion in this.arregloNuevasPersonas) {  
             this.arregloNuevasPersonas[posicion].seleccionado = true;
           }  
-
           this.seleccionarTodos.nuevasPersonas = true;
         }
-        
       break;
+      case 'nuevosEstudios':
+        if(this.seleccionarTodos.nuevosEstudios){
+          for (var posicion in this.arregloNuevosEstudios) {  
+            this.arregloNuevosEstudios[posicion].seleccionado = false;
+          }  
+          this.seleccionarTodos.nuevosEstudios = false;
+        }
+        else{
+          for (var posicion in this.arregloNuevosEstudios) {  
+            this.arregloNuevosEstudios[posicion].seleccionado = true;
+          }  
+          this.seleccionarTodos.nuevosEstudios = true;
+        }
+      break;      
     }
   }
 
