@@ -165,6 +165,24 @@
                     <th scope="col">Tel Cel.</th>
                     <th scope="col">Correo</th>
                     <th scope="col">Cohorte</th>
+                    <th scope="col">
+                      
+                      <ng-container *ngIf="seleccionarTodos.nuevasPersonas; then btn_nuevasPersonas_check_on; else btn_nuevasPersonas_check_off"></ng-container>
+
+                      <ng-template #btn_nuevasPersonas_check_off>
+                        <button class="btn btn-sm" placement="left" ngbTooltip="Sel. Todos" (click)="SeleccionarTodos('nuevasPersonas')">
+                          <i class="fa fa-circle-o"></i>
+                        </button>
+                      </ng-template>                      
+
+                      <ng-template #btn_nuevasPersonas_check_on>
+                        <button class="btn btn-sm" placement="left" ngbTooltip="Sel. Ninguno" (click)="SeleccionarTodos('nuevasPersonas')">
+                          <i class="fa fa-check-circle-o"></i>
+                        </button>
+                      </ng-template>  
+
+                      <!-- <button type="button" class="btn btn-outline-secondary btn-block form-control-sm mx-1 px-1"> (click)="SeleccionarTodos(seleccionarTodos.nuevasPersonas)">Invertir</button> -->
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -181,6 +199,14 @@
                     <td>{{ elemento.TEL_CEL }}</td>
                     <td>{{ elemento.MAIL_ESTU }}</td>
                     <td>{{ elemento.PER_GRADO }}</td>
+                    <td class="text-center">
+                      <!-- <input [name]=" 'NuevasPersonasChequeo_' + elemento.SPRIDEN_ID" type="checkbox" [value]="elemento.seleccionado" (change)="checkIfAllSelected()"> -->
+
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1" [checked]="elemento.seleccionado">
+                        <label class="custom-control-label " for="customCheck1"></label>
+                      </div>
+                    </td>
 
                   </tr>
 
@@ -268,7 +294,8 @@
                     <th scope="col">Tip. Doc</th>
                     <th scope="col">Exp. Doc.</th>
                     <th scope="col">Apellidos</th>
-                    <th scope="col">Nombres</th>
+                    <th scope="col">P. Nombre</th>
+                    <th scope="col">S. Nombre</th>
                     <th scope="col">Genero</th>
                     <th scope="col">Programa</th>
                     <th scope="col">Tel. Res.</th>
@@ -289,7 +316,7 @@
 
                   <tr *ngFor="let elemento of arregloCambios; let indicePersonas = index;">
                     <th scope="row">{{ elemento.SPRIDEN_ID }}</th>
-                    <!-- <td>
+                    <td>
                       <div [class]="ValidarCampoEnObjeto('DOCUMENTO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('DOCUMENTO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.DOCUMENTO ">{{ elemento.DOCUMENTO }}</div>
                       <ng-container *ngIf = " !ValidarCampoEnObjeto('DOCUMENTO',elemento.cambios) ">{{ elemento.DOCUMENTO }}</ng-container>
                     </td>
@@ -302,12 +329,16 @@
                       <ng-container *ngIf = " !ValidarCampoEnObjeto('CIUDAD_EXP_DOC',elemento.cambios) ">{{ elemento.CIUDAD_EXP_DOC }}</ng-container>
                     </td>
                     <td>
-                      <div [class]="ValidarCampoEnObjeto('P_NOMBRE',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('P_NOMBRE',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.P_NOMBRE ">{{ elemento.P_NOMBRE }}</div>
-                      <ng-container *ngIf = " !ValidarCampoEnObjeto('P_NOMBRE',elemento.cambios) ">{{ elemento.P_NOMBRE + " " + elemento.S_NOMBRE }}</ng-container>
-                    </td>
-                    <td>
                       <div [class]="ValidarCampoEnObjeto('APELLIDOS',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('APELLIDOS',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.APELLIDOS ">{{ elemento.APELLIDOS }}</div>
                       <ng-container *ngIf = " !ValidarCampoEnObjeto('APELLIDOS',elemento.cambios) ">{{ elemento.APELLIDOS }}</ng-container>
+                    </td>
+                    <td>
+                      <div [class]="ValidarCampoEnObjeto('P_NOMBRE',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('P_NOMBRE',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.P_NOMBRE ">{{ elemento.P_NOMBRE }}</div>
+                      <ng-container *ngIf = " !ValidarCampoEnObjeto('P_NOMBRE',elemento.cambios) ">{{ elemento.P_NOMBRE }}</ng-container>
+                    </td>
+                    <td>
+                      <div [class]="ValidarCampoEnObjeto('S_NOMBRE',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('S_NOMBRE',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.P_NOMBRE ">{{ elemento.S_NOMBRE }}</div>
+                      <ng-container *ngIf = " !ValidarCampoEnObjeto('S_NOMBRE',elemento.cambios) ">{{  elemento.S_NOMBRE }}</ng-container>
                     </td>
                     <td>
                       <div [class]="ValidarCampoEnObjeto('GENERO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('GENERO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.GENERO ">{{ elemento.GENERO }}</div>
@@ -361,7 +392,9 @@
                       <div [class]="ValidarCampoEnObjeto('N_DIPLOMA',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('N_DIPLOMA',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.N_DIPLOMA ">{{ elemento.N_DIPLOMA }}</div>
                       <ng-container *ngIf = " !ValidarCampoEnObjeto('N_DIPLOMA',elemento.cambios) ">{{ elemento.N_DIPLOMA }}</ng-container>
                     </td>
-                    <td>{{ elemento.cambios.toString() }}</td> -->
+                    <td>{{ elemento.cambios }}</td>
+
+
 
                   </tr>
 

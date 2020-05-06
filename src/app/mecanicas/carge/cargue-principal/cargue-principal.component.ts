@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { Observable } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-cargue-principal',
@@ -76,17 +77,24 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
   datosArchivo: File = null;
   contendoArchivo: any = null;          //borrar y convertir en varieable local
   
+  seleccionarTodos: any = {
+    nuevasPersonas: false,
+    nuevosEstudios: false,
+    conCambios: false
+  }
+  
 
   arregloArchivo: any[] = [];
   arregloResumen: any[] = [];
   arregloNuevasPersonas: any[] = [];
   arregloNuevosEstudios: any[] = [];
   arregloCambios: any[] = [];
-  
+
   constructor( 
     progreso: NgbProgressbarConfig,
     private servicioAmbiente : AmbienteService,
     private llamadoHttp : HttpClient,
+    private utilidadFechas: DatePipe
   ) { 
 
     progreso.max      = 100;
@@ -155,7 +163,7 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
         const sheet = workBook.Sheets[name];
         if(name == "Datos"){
           console.log( XLSX.utils.decode_range(sheet['!ref']) );
-          initial[name] = XLSX.utils.sheet_to_json( sheet, {defval:"", range: 1, header: this.estructurasArchivos.tipo_1 } );
+          initial[name] = XLSX.utils.sheet_to_json( sheet, {defval:"", range: 1, header: this.estructurasArchivos.tipo_1} );
         }
         return initial;
       }, {});
@@ -188,6 +196,12 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
 
           this.arregloArchivo[indice].ref = "#"+conteoRef;
           conteoRef++;
+
+          this.arregloArchivo[indice].seleccionado = false;
+
+
+          let fechaTemp = this. ExcelDateToJSDate( this.arregloArchivo[indice].FECHA_GRADO );
+          this.arregloArchivo[indice].FECHA_GRADO =  this.utilidadFechas.transform( fechaTemp, 'yyyy-MM-dd');
 
           posActual = 0;
           encontrado = false;
@@ -310,6 +324,42 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
 
   ValidarCampoEnObjeto( campo: string, objeto: any ){
     return ( campo in objeto);
+  }
+
+
+  ExcelDateToJSDate(excelDate: number) {
+
+    // JavaScript dates can be constructed by passing milliseconds
+    // since the Unix epoch (January 1, 1970) example: new Date(12312512312);
+
+    // 1. Subtract number of days between Jan 1, 1900 and Jan 1, 1970, plus 1 (Google "excel leap year bug")             
+    // 2. Convert to milliseconds.
+
+  	return new Date((excelDate - (25567 + 1))*86400*1000);
+
+  }
+
+  SeleccionarTodos(control: string){
+    switch(control){
+      case 'nuevasPersonas':
+        if(this.seleccionarTodos.nuevasPersonas){
+
+          for (var posicion in this.arregloNuevasPersonas) {  
+            this.arregloNuevasPersonas[posicion].seleccionado = false;
+          }  
+
+          this.seleccionarTodos.nuevasPersonas = false;
+        }
+        else{
+          for (var posicion in this.arregloNuevasPersonas) {  
+            this.arregloNuevasPersonas[posicion].seleccionado = true;
+          }  
+
+          this.seleccionarTodos.nuevasPersonas = true;
+        }
+        
+      break;
+    }
   }
 
 }
