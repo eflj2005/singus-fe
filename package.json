@@ -30,7 +30,11 @@
     "chart.js": "^2.9.3",
     "chartjs-plugin-labels": "^1.1.0",
     "jwt-decode": "^2.2.0",
+<<<<<<< HEAD
+    "moment": "^2.24.0",
+=======
     "moment": "^2.25.3",
+>>>>>>> 5d586bc7239faecce8a955351a42a1d04e2c57d1
     "moment-range": "^4.0.2",
     "ng2-charts": "^2.3.0",
     "rxjs": "~6.4.0",

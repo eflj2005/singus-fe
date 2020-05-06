@@ -21,6 +21,26 @@
     border-radius: 20%;
   }
 
+  .verde{
+    background-color:  rgb(52, 235, 15);
+  }
+
+  .gris{
+    background-color:  #ccc;
+  }
+
+  .rojo{
+    background-color:  rgb(235, 8, 8);
+  }
+
+  .negro{
+    background-color:  rgb(2, 2, 2);
+  }
+
+  .amarillo{
+    background-color:  rgb(241, 238, 7);
+  }
+
   .semaforo{
       width: 5rem;
       text-align: center;
