@@ -33,7 +33,7 @@
                         <tr *ngFor="let persona of   personas$ | async; index as i">
                             <td class="text-center">    
                               <label class="contenedor">
-                                  <span class="checkmark"></span>
+                                  <span class="checkmark" [ngClass]="{'negro':persona.diasRestantesCumple == 0,'gris': persona.diasRestantesCumple > 30 ,'rojo': persona.diasRestantesCumple <= 5,'amarillo': persona.diasRestantesCumple <= 8 && persona.diasRestantesCumple > 5,'verde': persona.diasRestantesCumple <= 31}"></span>
                               </label>
                           </td>
                           <td><ngb-highlight [result]="persona.nombreCompleto" [term]="filter.value"></ngb-highlight></td>
@@ -76,7 +76,7 @@
                         <tr *ngFor="let persona of   personas$ | async; index as i">
                           <td class="text-center">    
                             <label class="contenedor">
-                                <span class="checkmark"></span>
+                              <span class="checkmark" [ngClass]="{'verde': persona.diasRestantesActualizacion <= 31,'amarillo': persona.diasRestantesActualizacion <= 186 && persona.diasRestantesActualizacion > 31, 'rojo': persona.diasRestantesActualizacion <= 720 , 'gris': persona.diasRestantesActualizacion > 720 }"></span>
                             </label>
                           </td>
                           <td><ngb-highlight [result]="persona.nombreCompleto" [term]="filter.value"></ngb-highlight></td>
