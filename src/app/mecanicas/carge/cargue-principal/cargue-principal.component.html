@@ -140,7 +140,7 @@
         </div>
       </div>
 
-      <div class="row overflow-auto pb-2">
+      <div class="row overflow-auto pb-4">
         <div class="col-sm">
           <div class="row">
             <div class="col-sm">
@@ -149,21 +149,23 @@
           </div>
 
           <div class="row justify-content-center ">                
-            <div class="col-sm overflow-auto tablaInformacion">
+            <div class="col-sm overflow-auto tablaInformacionA">
 
               <table class="table table-sm table-striped">
                 <thead>
                   <tr>
+                    <th scope="col">Programa</th>                    
+                    <th scope="col">Cohorte</th>
                     <th scope="col">Id</th>
                     <th scope="col">Documento</th>
+                    <th scope="col">Exp. Doc.</th>                    
                     <th scope="col">Apellidos</th>
                     <th scope="col">Nombres</th>
-                    <th scope="col">Programa</th>
+                    <th scope="col">Genero</th>
                     <th scope="col">Tel. Res.</th>
                     <th scope="col">Tel. Trab.</th>
                     <th scope="col">Tel Cel.</th>
                     <th scope="col">Correo</th>
-                    <th scope="col">Cohorte</th>
                     <th scope="col">
                       
                       <ng-container *ngIf="seleccionarTodos.nuevasPersonas; then btn_nuevasPersonas_check_on; else btn_nuevasPersonas_check_off"></ng-container>
@@ -186,16 +188,18 @@
                 <tbody>
 
                   <tr *ngFor="let elemento of arregloNuevasPersonas; let indicePersonas = index;">
-                    <th scope="row">{{ elemento.SPRIDEN_ID }}</th>
+                    <th scope="row">{{ elemento.CARRERA }}</th>
+                    <td>{{ elemento.PER_GRADO }}</td>
+                    <td>{{ elemento.SPRIDEN_ID }}</td>
                     <td>{{ elemento.DOCUMENTO }}</td>
+                    <td>{{ elemento.CIUDAD_EXP_DOC }}</td>
                     <td>{{ elemento.APELLIDOS }}</td>
                     <td>{{ elemento.P_NOMBRE + " " + elemento.S_NOMBRE }}</td>
-                    <td>{{ elemento.CARRERA }}</td>
+                    <td>{{ elemento.GENERO }}</td>
                     <td>{{ elemento.TEL_RE }}</td>
                     <td>{{ elemento.TEL_TR }}</td>
                     <td>{{ elemento.TEL_CEL }}</td>
                     <td>{{ elemento.MAIL_ESTU }}</td>
-                    <td>{{ elemento.PER_GRADO }}</td>
                     <td class="text-center">
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="customCheck_nuevasPersonas_{{ indicePersonas }}" [checked]="elemento.seleccionado">
@@ -215,7 +219,7 @@
       </div>
 
 
-      <div class="row overflow-auto pb-2">
+      <div class="row overflow-auto pb-4">
         <div class="col-sm">
 
           <div class="row">
@@ -225,7 +229,7 @@
           </div>
 
           <div class="row">                
-            <div class="col-sm overflow-auto tablaInformacion">
+            <div class="col-sm overflow-auto tablaInformacionA">
 
               <table class="table table-sm table-striped">
                 <thead>
@@ -261,7 +265,6 @@
                   </tr>
                 </thead>
                 <tbody>
-
                   <tr *ngFor="let elemento of arregloNuevosEstudios; let indiceEstudios = index;">
                     <th scope="row">{{ elemento.SPRIDEN_ID }}</th>
                     <td>{{ elemento.DOCUMENTO }}</td>
@@ -291,7 +294,7 @@
 
       </div>
 
-      <div class="row overflow-auto pb-2">
+      <div class="row overflow-auto pb-4">
         <div class="col-sm">
 
 
@@ -316,7 +319,7 @@
 
 
                       <div class="row justify-content-center ">                
-                        <div class="col-sm overflow-auto tablaInformacion">
+                        <div class="col-sm overflow-auto tablaInformacionB">
             
                           <table class="table table-sm table-striped">
                             <thead>
@@ -447,7 +450,183 @@
                   <ng-template ngbTabContent>
                     <div class="ngTabContainer">
 
-                        Cambios Masivos
+                      <div class="row">
+
+                        <div class="col-sm-6">
+
+                          <div class="row">
+                            <div class="col-sm">
+                              <h5 class="text-center">Tipo Documento</h5>
+                            </div>
+                          </div>
+
+
+                          <div class="row justify-content-center ">                
+                            <div class="col-sm overflow-auto tablaCambios">
+                
+                              <table class="table table-sm table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Valor Recibido</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Cambio</th>
+                                  </tr>
+                                </thead>
+                                <tbody>        
+                                  <tr *ngFor="let elemento of arregloCambiosMasivos.tipoDocumento; let indiceCambiosTiposDocumentos = index;">
+                                    <td scope="row">{{ elemento.descripcion }}</td>
+                                    <td>{{ elemento.cantidad }}</td>
+                                    <td>
+                                      <div class="input-group input-group-sm">
+                                        <select class="form-control form-control-sm">
+                                          <option *ngFor="let elemento of datosTiposDocumentos; let indiceListaTiposDocumentos = index" value="{{elemento.id}}">{{elemento.descripcion}}</option>
+                                        </select>  
+                                        <div class="input-group-append">
+                                          <button type="button" class="btn btn-outline-primary"  (click)="ActivarModalHistoricos( modalhistoricosPersonal, 1 )"><i class="fa fa-exchange"></i></button>
+                                        </div>
+                                        </div>
+                                    </td>
+                                  </tr>
+                               </tbody>
+                              </table>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="col-sm-6">
+
+                          <div class="row">
+                            <div class="col-sm">
+                              <h5 class="text-center">Expedición Documento</h5>
+                            </div>
+                          </div>
+
+
+                          <div class="row justify-content-center ">                
+                            <div class="col-sm overflow-auto tablaCambios">
+                
+                              <table class="table table-sm table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Valor Recibido</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Cambio</th>
+                                  </tr>
+                                </thead>
+                                <tbody>        
+                                  <tr *ngFor="let elemento of arregloCambiosMasivos.expDocumento; let indiceCambiosMunicipios = index;">
+                                    <td scope="row">{{ elemento.descripcion }}</td>
+                                    <td>{{ elemento.cantidad }}</td>
+                                    <td>
+                                      <div class="input-group input-group-sm">
+                                        <select class="form-control form-control-sm">
+                                          <option *ngFor="let elemento of datosMunicipios; let indiceTListaMunicipios = index" value="{{elemento.id}}">{{elemento.descripcion}}</option>
+                                        </select>  
+                                        <div class="input-group-append">
+                                          <button type="button" class="btn btn-outline-primary"  (click)="ActivarModalHistoricos( modalhistoricosPersonal, 1 )"><i class="fa fa-thumbs-up"></i></button>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                               </tbody>
+                              </table>
+                            </div>
+                          </div>                          
+
+                        </div>
+
+                      </div>
+
+                      <div class="row">
+
+
+                        <div class="col-sm-6">
+
+                          <div class="row">
+                            <div class="col-sm">
+                              <h5 class="text-center">Genero</h5>
+                            </div>
+                          </div>
+
+
+                          <div class="row justify-content-center ">                
+                            <div class="col-sm overflow-auto tablaCambios">
+                
+                              <table class="table table-sm table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Valor Recibido</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Cambio</th>
+                                  </tr>
+                                </thead>
+                                <tbody>        
+                                  <tr *ngFor="let elemento of arregloCambiosMasivos.genero; let indiceCambiosGeneros = index;">
+                                    <td scope="row">{{ elemento.descripcion }}</td>
+                                    <td>{{ elemento.cantidad }}</td>
+                                    <td>
+                                      <div class="input-group input-group-sm">
+                                        <select class="form-control form-control-sm">
+                                          <option value="M">Masculino</option>
+                                          <option value="F">Femenino</option>
+                                        </select>  
+                                        <div class="input-group-append">
+                                          <button type="button" class="btn btn-outline-primary"  (click)="ActivarModalHistoricos( modalhistoricosPersonal, 1 )"><i class="fa fa-thumbs-up"></i></button>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                               </tbody>
+                              </table>
+                            </div>
+                          </div>                            
+
+                        </div>
+                        <div class="col-sm-6">
+
+                          <div class="row">
+                            <div class="col-sm">
+                              <h5 class="text-center">Programa</h5>
+                            </div>
+                          </div>
+
+
+                          <div class="row justify-content-center ">                
+                            <div class="col-sm overflow-auto tablaCambios">
+                
+                              <table class="table table-sm table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Valor Recibido</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Cambio</th>
+                                  </tr>
+                                </thead>
+                                <tbody>        
+                                  <tr *ngFor="let elemento of arregloCambiosMasivos.programa; let indiceCambiosProgramas = index;">
+                                    <td scope="row">{{ elemento.descripcion }}</td>
+                                    <td>{{ elemento.cantidad }}</td>
+                                    <td>
+                                      <div class="input-group input-group-sm">
+                                        <select class="form-control form-control-sm">
+                                          <option *ngFor="let elemento of datosProgramas; let indiceTListaProgramas = index" value="{{elemento.id}}">{{elemento.codigo}}</option>
+                                        </select>  
+                                        <div class="input-group-append">
+                                          <button type="button" class="btn btn-outline-primary"  (click)="ActivarModalHistoricos( modalhistoricosPersonal, 1 )"><i class="fa fa-thumbs-up"></i></button>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                               </tbody>
+                              </table>
+                            </div>
+                          </div>        
+
+                        </div>                                                                      
+                      
+                      </div>
+         
 
                     </div>
                   </ng-template>

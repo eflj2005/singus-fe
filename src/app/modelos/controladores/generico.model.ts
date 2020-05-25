@@ -132,7 +132,6 @@ export class GenericoModel {
     return this.controladoresForaneos[nombre] = controladorForanero;
   }
 
-
   public TieneForanea(nombre:string){
     return (nombre in this.controladoresForaneos);
   }
@@ -141,6 +140,26 @@ export class GenericoModel {
     this.controladoresForaneos[nombre].CargarDesdeDB( true, "S", caracteristicas ).subscribe(  (respuesta:RespuestaInterface) => {   }); // Carge de foranea
   }
 
+  public RegistroAsociadoForaneo(nombre : string){
+    var resultado:any = null;
+    if(this.posicionActual!= null){
+      this.controladoresForaneos[nombre].Encontrar("id", this.registros[this.posicionActual][nombre+"_id"]);
+      resultado = this.controladoresForaneos[nombre].actual;
+    }
+    return resultado;
+  }
+
+  // public RegistroAsociadoForaneos(nombre : string){
+  //   var resultados:any[] = [];
+
+  //   if(this.posicionActual!= null){
+  //     this.controladoresForaneos[nombre].Encontrar("id", this.registros[this.posicionActual][nombre+"_id"]);
+  //     resultado = this.controladoresForaneos[nombre].actual;
+      
+  //   }
+
+  //   return resultados;
+  // }
 
   //DESPLAZAMIENTO
 
@@ -214,7 +233,6 @@ export class GenericoModel {
     return this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
       map(
         (respuesta: RespuestaInterface) => {
-
           this.LimpiarTodo();
           if(!isNull(respuesta.mensaje)){
             respuesta.mensaje.forEach(

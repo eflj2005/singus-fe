@@ -10,11 +10,21 @@
 
 .bg-gray {background-color:#cccccc;}
 
-.tablaInformacion{
+.tablaInformacionA{
     max-height: 270px;
     min-height: 270px;
 }
 
-.tablaInformacion .conCambio{
+.tablaInformacionB{
+    max-height: 400px;
+    min-height: 400px;
+}
+
+.tablaCambios{
+    max-height: 180px;
+    min-height: 180px;
+}
+
+.tablaInformacionB .conCambio{
     background-color: #25d825;
 }

@@ -20,6 +20,7 @@ import { EstudiosController } from '@controladores/estudios.controller';
 import { EstudiosInterface } from '@interfaces/estudios.interface';
 import { JitCompilerFactory } from '@angular/platform-browser-dynamic';
 import { MunicipiosController } from '@controladores/municipios.controller';
+import { isNull } from 'util';
 
 
 
@@ -95,6 +96,8 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
   
   huboCambios : boolean = false ;
 
+  procesando: boolean = false;
+
   constructor(
     private servicioAmbiente : AmbienteService,
     private llamadoHttp : HttpClient,
@@ -164,24 +167,6 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
             
             this.datosDirecciones =  this.controladorDirecciones.todos;
 
-
-            caracteristicasConsultas = new EstructuraConsultas( "F", null , "personas_id" , "=" , String(this.personaId) );
-            caracteristicasConsultas.AgregarOrdenamiento( "grado_fecha" , "DESC" );
-      
-            this.controladorEstudios.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaE:RespuestaInterface) => {           // Carge de estudios
-              
-              this.controladorEstudios.CargarForanea("titulos");
-              this.controladorEstudios.CargarForanea("sedes");
-              this.controladorEstudios.ObtenerForanea("sedes").CargarForanea("instituciones");
-              this.controladorEstudios.CargarForanea("mecanismosgrados");
-      
-              this.datosEstudios = this.controladorEstudios.todos;
-      
-            });            
-
-
-
-
           });
   
 
@@ -191,10 +176,28 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
 
     });
 
+    caracteristicasConsultas = new EstructuraConsultas( "F", null , "personas_id" , "=" , String(this.personaId) );
+    caracteristicasConsultas.AgregarOrdenamiento( "grado_fecha" , "DESC" );
 
+    this.controladorEstudios.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaE:RespuestaInterface) => {           // Carge de estudios
+      
+      this.controladorEstudios.CargarForanea("titulos");
+      this.controladorEstudios.CargarForanea("sedes");
+      this.controladorEstudios.ObtenerForanea("sedes").CargarForanea("instituciones");
+      this.controladorEstudios.CargarForanea("mecanismosgrados");
+      this.controladorEstudios.CargarForanea("cohortes");
+
+      this.controladorEstudios.CargarForanea("ofertas");
+      this.controladorEstudios.ObtenerForanea("ofertas").CargarForanea("tiposestudios");
+      this.controladorEstudios.ObtenerForanea("ofertas").CargarForanea("instituciones");
+      this.controladorEstudios.ObtenerForanea("ofertas").CargarForanea("programas");
+
+      this.datosEstudios = this.controladorEstudios.todos;
+
+    });   
 
     this.cambiarGrupoDatos( 1 );
-
+    console.log(this.controladorEstudios);
   }
 
   ngOnInit() {
@@ -260,11 +263,41 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
       break;      
       case 5:
         this.tituloHistorico = "Estudios";
-        this.parametrosHistorico = { "lista" : {} , "id": idHistorico };              
+        this.parametrosHistorico = { "lista" : {} , "id": idHistorico, "instituciones_id": "", "programas_id": "", "tiposestudios_id": "" };              
         
-        let datostemp = this.FiltrarDatos( this.datosEstudios, "id", idHistorico );
-        if(datostemp.length > 0)  this.parametrosHistorico["lista"] = datostemp[0];
-        else                      this.parametrosHistorico["lista"] = {}  
+        // let datostemp = this.FiltrarDatos( this.datosEstudios, "id", idHistorico )[0];
+        let buscado = this.controladorEstudios.Encontrar("id",idHistorico);                                 //REVISAR MAS ADELANTE
+
+        if(buscado)  {
+          this.parametrosHistorico["lista"] = this.controladorEstudios.actual;
+          this.parametrosHistorico["instituciones_id"] = this.controladorEstudios.RegistroAsociadoForaneo('ofertas').instituciones_id;
+          this.parametrosHistorico["programas_id"] = this.controladorEstudios.RegistroAsociadoForaneo('ofertas').programas_id;
+          this.parametrosHistorico["tiposestudios_id"] = this.controladorEstudios.RegistroAsociadoForaneo('ofertas').tiposestudios_id;
+        }
+        else{
+          let registro: EstudiosInterface = {
+            id                    : null,
+            personas_id           : this.personaId,
+            cohortes_id           : null,
+            titulos_id            : null,
+            grado_fecha           : null,
+            mecanismosgrados_id   : null,
+            descripcionmecanismo  : null,
+            ofertas_id            : null,
+            sedes_id              : null,
+            registro_fecha        : null,
+            promedio              : null,
+            acta                  : null,
+            libro                 : null,
+            folio                 : null,
+            diploma               : null,
+            modo                  : null,
+            dbRef                 : null
+          }
+          this.parametrosHistorico.lista = registro;  
+        }
+
+        console.log(this.parametrosHistorico.lista);
         
       break;      
 
@@ -292,6 +325,72 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
   FiltrarDatos( arreglo : any , campo : string , valor : any ){
     let resultados = arreglo.filter( (elemento: { [x: string]: any; }) => elemento[campo] == valor );
     return resultados;
+  }
+
+  FiltrarDatosAvanzado(arregloTotal: any, arregloBase: any, CampoReferencia: string){
+    let posicion: number;
+    let encontrado:boolean;
+    let resutados: any[] = [];
+    
+    arregloBase.forEach((elementoBase: any) => {
+      posicion=0;
+      encontrado=false;
+      while( posicion < arregloTotal.length && !encontrado ){
+        if( elementoBase[CampoReferencia] == arregloTotal[posicion].id ){
+          resutados.push(arregloTotal[posicion]);
+          encontrado = true;
+        }
+        else{
+          posicion++;
+        }
+      }
+
+    });
+
+    return resutados;
+  }
+
+  Estudios_ObtenerListaInstituciones(){
+    return this.controladorEstudios.ObtenerForanea('ofertas').ObtenerForanea('instituciones').todos
+  }
+
+
+  Estudios_ObtenerListaPorgramas(){
+    let datosBase:any[];
+    let resultados: any[];
+    datosBase = this.FiltrarDatos( this.controladorEstudios.ObtenerForanea('ofertas').todos , 'instituciones_id' , this.parametrosHistorico.instituciones_id);   
+    resultados = this.FiltrarDatosAvanzado( this.controladorEstudios.ObtenerForanea('ofertas').ObtenerForanea('programas').todos, datosBase, 'programas_id' );
+    return resultados;
+  }
+
+  Estudios_ObtenerListaTiposEstudios(){
+    let datosBase:any[];
+    let resultados: any[];
+    datosBase = this.FiltrarDatos( this.controladorEstudios.ObtenerForanea('ofertas').todos , 'instituciones_id' , this.parametrosHistorico.instituciones_id);
+    datosBase = this.FiltrarDatos( datosBase , 'programas_id' , this.parametrosHistorico.programas_id);
+    resultados = this.FiltrarDatosAvanzado( this.controladorEstudios.ObtenerForanea('ofertas').ObtenerForanea('tiposestudios').todos, datosBase, 'tiposestudios_id' );
+    return resultados;
+  }
+
+  Estudios_ObtenerOferta(elemento: string){
+    if(elemento == "instituciones"){
+      this.parametrosHistorico.programas_id = "";
+      this.parametrosHistorico.tiposestudios_id = "";
+      this.parametrosHistorico["lista"].ofertas_id="";
+    }
+    else if(elemento == "programas"){
+      this.parametrosHistorico.tiposestudios_id = "";
+      this.parametrosHistorico["lista"].ofertas_id="";
+    }
+    else{
+      let datosBase:any[];
+      let resultado: any;
+      datosBase = this.FiltrarDatos( this.controladorEstudios.ObtenerForanea('ofertas').todos , 'instituciones_id' , this.parametrosHistorico.instituciones_id);
+      datosBase = this.FiltrarDatos( datosBase , 'programas_id' , this.parametrosHistorico.programas_id);
+      resultado = this.FiltrarDatos( datosBase , 'tiposestudios_id' , this.parametrosHistorico.tiposestudios_id)[0];
+    
+      this.parametrosHistorico["lista"].ofertas_id = resultado.id;
+    }
   }
 
   AgregarHistorico( ){
@@ -345,7 +444,13 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         this.controladorTelefonos.Agregar(nuevoRegistroTelefonoC);
         this.nuevoValorHistorico["valorA"] = "";
       break;      
-
+      case 5:
+        let nuevoRegistroEstudio: EstudiosInterface = this.parametrosHistorico["lista"];
+        nuevoRegistroEstudio.registro_fecha = this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd');
+        console.log(this.parametrosHistorico["lista"]);
+        this.controladorEstudios.Agregar(nuevoRegistroEstudio);
+        console.log(this.controladorEstudios);
+      break;  
     }
 
     this.huboCambios = true;
@@ -358,7 +463,8 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
       case 1: controladorActual = this.controladorCorreos;  break;
       case 2: controladorActual = this.controladorDirecciones;  break;
       case 3: 
-      case 4:controladorActual = this.controladorTelefonos;  break;
+      case 4: controladorActual = this.controladorTelefonos;  break;
+      case 5: controladorActual = this.controladorEstudios;  break;
     }
 
     // console.log(Object.assign({}, this.datosCorreos), "Antes");      
@@ -369,8 +475,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     
   }
 
-  ModificarPersona(){
-    var controlCambios = true;
+  ActualizarPersona(){
 
     if(this.huboCambios){
 
@@ -390,38 +495,42 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
               });
             }
             else{
-              controlCambios = false;
+              alert("Error al guardar correos");
               console.log(respuesta);
             }          
           }
         );
       }
 
-      if(controlCambios){
-        if( this.controladorTelefonos.Encontrar("modo", null, true) ){
-          this.controladorTelefonos.Guardar().subscribe( 
-            (respuesta:RespuestaInterface) => { 
-              if( respuesta.codigo != 200 ){
-                this.controladorTelefonos.todos.forEach(elemento => {
-                  if( elemento.registro_fecha == this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd') ){
-                    if( elemento.tipo == "F" ){
-                      this.datosPersona.telefonoFijo = elemento.numero;
-                    }
-                    else{
-                      this.datosPersona.telefonoCelular = elemento.numero;
-                    }
+      if( this.controladorTelefonos.Encontrar("modo", null, true) ){
+        this.controladorTelefonos.Guardar().subscribe( 
+          (respuesta:RespuestaInterface) => { 
+            if( respuesta.codigo == 200 ){
+              this.controladorTelefonos.todos.forEach(elemento => {
+                if( elemento.registro_fecha == this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd') ){
+                  if( elemento.tipo == "F" ){
+                    this.datosPersona.telefonoFijo = elemento.numero;
                   }
-                });
-              }          
-            }
-          );
-        }
+                  else{
+                    this.datosPersona.telefonoCelular = elemento.numero;
+                  }
+                }
+              });
+            }    
+            else{
+              alert("Error al guardar telefonos");
+              console.log(respuesta);
+            }                              
+          }
+        );
       }
+    
+
 
       if( this.controladorDirecciones.Encontrar("modo", null, true) ){
         this.controladorDirecciones.Guardar().subscribe( 
           (respuesta:RespuestaInterface) => { 
-            if( respuesta.codigo != 200 ){
+            if( respuesta.codigo == 200 ){
               this.controladorDirecciones.todos.forEach(elemento => {
                 let controladorMunicipios : MunicipiosController;
 
@@ -433,12 +542,34 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
                     this.datosPersona.municipioResidencia = controladorMunicipios.actual.descripcion;
                 }
               });
-            }          
+            }
+            else{
+              alert("Error al guardar direcciones");
+              console.log(respuesta);
+            }                     
           }
         );
       }
 
+
+
+      if( this.controladorEstudios.Encontrar("modo", null, true) ){
+        this.controladorEstudios.Guardar().subscribe( 
+          (respuesta:RespuestaInterface) => { 
+            if( respuesta.codigo == 200 ){
+              console.log(respuesta);
+            }    
+            else{
+              alert("Error al guardar estudios");
+              console.log(respuesta);
+            }                              
+          }
+        );
+      }
+  
+
     }
   }
-  
+
 }
+

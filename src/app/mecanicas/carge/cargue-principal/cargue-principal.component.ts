@@ -8,6 +8,12 @@ import { map } from 'rxjs/operators';
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { Observable } from 'rxjs';
 import { DatePipe } from '@angular/common';
+import { TiposdocumentosController } from '@controladores/tiposdocumentos.controller';
+import { TiposdocumentosInterface } from '@interfaces/tiposdocumentos.interface';
+import { MunicipiosController } from '@controladores/municipios.controller';
+import { MunicipiosInterface } from '@interfaces/municipios.interface';
+import { ProgramasController } from '@controladores/programas.controller';
+import { ProgramasInterface } from '@interfaces/programas.interface';
 
 @Component({
   selector: 'app-cargue-principal',
@@ -82,6 +88,13 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
     nuevosEstudios: false,
     conCambios: false
   }
+
+  arregloCambiosMasivos:any = {
+    tipoDocumento: [],
+    expDocumento: [],
+    genero: [],
+    programa: []
+  }
   
 
   arregloArchivo: any[] = [];
@@ -89,6 +102,16 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
   arregloNuevasPersonas: any[] = [];
   arregloNuevosEstudios: any[] = [];
   arregloCambios: any[] = [];
+
+  controladorTiposDocumentos: TiposdocumentosController;
+  controladorMunicipios: MunicipiosController;
+  controladorProgramas: ProgramasController;
+
+  datosTiposDocumentos:TiposdocumentosInterface[];
+  datosMunicipios:MunicipiosInterface[];
+  datosProgramas:ProgramasInterface[];
+
+
 
   constructor( 
     progreso: NgbProgressbarConfig,
@@ -104,6 +127,24 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
     progreso.height   = '20px';
 
     this.controlCargue.tipo = 1; //OJO ------------------------------------- AJUSTAR SEGUN MENU
+
+    this.controladorTiposDocumentos = new TiposdocumentosController( llamadoHttp , servicioAmbiente );
+    this.controladorMunicipios = new MunicipiosController( llamadoHttp , servicioAmbiente );
+    this.controladorProgramas = new ProgramasController( llamadoHttp , servicioAmbiente );
+
+    this.controladorTiposDocumentos.CargarDesdeDB( ).subscribe( (respuestaTD:RespuestaInterface) => {           // Carge de Tipos de Documentos 
+      this.datosTiposDocumentos =  this.controladorTiposDocumentos.todos;
+
+      this.controladorMunicipios.CargarDesdeDB( ).subscribe( (respuestaM:RespuestaInterface) => {           // Carge de Tipos de Documentos 
+        this.datosMunicipios =  this.controladorMunicipios.todos;
+
+        this.controladorProgramas.CargarDesdeDB( ).subscribe( (respuestaP:RespuestaInterface) => {           // Carge de Tipos de Documentos 
+          this.datosProgramas =  this.controladorProgramas.todos;
+        });        
+      });
+    });
+
+
 
     this.CambiarPaso(1);
   }
@@ -276,12 +317,12 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
 
             let posActual = 0;
             let encontrado = false;
-            while(posActual < this.arregloArchivo.length && !encontrado ){
-              if( registro == this.arregloArchivo[posActual].ref )  encontrado = true;
+            while(posActual < datosAnalizados.length && !encontrado ){
+              if( registro == datosAnalizados[posActual].ref )  encontrado = true;
               else                                                  posActual++;
             }
 
-            if(encontrado) this.arregloNuevasPersonas.push( this.arregloArchivo[posActual] );
+            if(encontrado) this.arregloNuevasPersonas.push( datosAnalizados[posActual] );
 
           });
 
@@ -289,27 +330,128 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
 
             let posActual = 0;
             let encontrado = false;
-            while(posActual < this.arregloArchivo.length && !encontrado ){
-              if( registro == this.arregloArchivo[posActual].ref )  encontrado = true;
-              else                                                  posActual++;
+            while(posActual < datosAnalizados.length && !encontrado ){
+              if( registro == datosAnalizados[posActual].ref )  encontrado = true;
+              else                                              posActual++;
             }
 
-            if(encontrado) this.arregloNuevosEstudios.push(  this.arregloArchivo[posActual]  );
+            if(encontrado) this.arregloNuevosEstudios.push(  datosAnalizados[posActual]  );
 
           });
 
+          this.arregloCambiosMasivos.tipoDocumento = [];
+          this.arregloCambiosMasivos.expDocumento = [];
+          this.arregloCambiosMasivos.genero = [];
+          this.arregloCambiosMasivos.programa = [];
+          
           respuesta.mensaje.personasCambios.forEach((registro: any, indice: any) => {    
 
             let posActual = 0;
             let encontrado = false;
-            while(posActual < this.arregloArchivo.length && !encontrado ){
-              if( registro.referencia == this.arregloArchivo[posActual].ref )  encontrado = true;
-              else                                                             posActual++;
+            while(posActual < datosAnalizados.length && !encontrado ){
+              if( registro.referencia == datosAnalizados[posActual].ref )  encontrado = true;
+              else                                                         posActual++;
+            }         
+
+            if(encontrado) {
+              let temporal  =datosAnalizados[posActual];
+              temporal.cambios = registro.cambios;
+
+              this.arregloCambios.push( temporal );
+
+              if( this.ValidarCampoEnObjeto('TIPO_DOCUMENTO',temporal.cambios) ){              
+                let posActual = 0;
+                let encontrado = false;
+                
+                while(posActual < this.datosTiposDocumentos.length && !encontrado ){
+                  if( temporal.TIPO_DOCUMENTO == this.datosTiposDocumentos[posActual].descripcion )  encontrado = true;
+                  else                                                                               posActual++;
+                }
+
+                if(!encontrado) {
+                  let posActual = 0;
+                  let encontrado = false;
+                  while(posActual < this.arregloCambiosMasivos.tipoDocumento.length && !encontrado ){
+                    if( temporal.TIPO_DOCUMENTO == this.arregloCambiosMasivos.tipoDocumento[posActual].descripcion )  encontrado = true;
+                    else                                                                                              posActual++;
+                  }
+                        
+                  if(encontrado) {
+                    this.arregloCambiosMasivos.tipoDocumento[posActual].cantidad++;
+                  }
+                  else{
+                    this.arregloCambiosMasivos.tipoDocumento.push( { descripcion: temporal.TIPO_DOCUMENTO , cantidad: 1 } );
+                  }                 
+                }
+              }
+              if( this.ValidarCampoEnObjeto('CIUDAD_EXP_DOC',temporal.cambios) ){
+                let posActual = 0;
+                let encontrado = false;
+                
+                while(posActual < this.datosMunicipios.length && !encontrado ){
+                  if( temporal.CIUDAD_EXP_DOC.toUpperCase() == this.datosMunicipios[posActual].descripcion )  encontrado = true;
+                  else                                                                          posActual++;
+                }
+
+                if(!encontrado) {
+                  let posActual = 0;
+                  let encontrado = false;
+                  while(posActual < this.arregloCambiosMasivos.expDocumento.length && !encontrado ){
+                    if( temporal.CIUDAD_EXP_DOC == this.arregloCambiosMasivos.expDocumento[posActual].descripcion )  encontrado = true;
+                    else                                                                                             posActual++;
+                  }
+                        
+                  if(encontrado) {
+                    this.arregloCambiosMasivos.expDocumento[posActual].cantidad++;
+                  }
+                  else{
+                    this.arregloCambiosMasivos.expDocumento.push( { descripcion: temporal.CIUDAD_EXP_DOC , cantidad: 1 } );
+                  }                     
+                }
+              }
+              if( this.ValidarCampoEnObjeto('GENERO',temporal.cambios) ){
+                if(temporal.GENERO != "M" && temporal.GENERO != "F") {
+                  let posActual = 0;
+                  let encontrado = false;
+                  while(posActual < this.arregloCambiosMasivos.genero.length && !encontrado ){
+                    if( temporal.GENERO == this.arregloCambiosMasivos.genero[posActual].descripcion )  encontrado = true;
+                    else                                                                               posActual++;
+                  }
+                        
+                  if(encontrado) {
+                    this.arregloCambiosMasivos.genero[posActual].cantidad++;
+                  }
+                  else{
+                    this.arregloCambiosMasivos.genero.push( { descripcion: temporal.GENERO , cantidad: 1 } );
+                  }         
+                }               
+              }
+              if( this.ValidarCampoEnObjeto('CARRERA',temporal.cambios) ){
+                let posActual = 0;
+                let encontrado = false;
+                
+                while(posActual < this.datosProgramas.length && !encontrado ){
+                  if( temporal.CARRERA == this.datosProgramas[posActual].codigo )  encontrado = true;
+                  else                                                             posActual++;
+                }
+
+                if(!encontrado) {
+                  let posActual = 0;
+                  let encontrado = false;
+                  while(posActual < this.arregloCambiosMasivos.programa.length && !encontrado ){
+                    if( temporal.CARRERA == this.arregloCambiosMasivos.programa[posActual].codigo )  encontrado = true;
+                    else                                                                             posActual++;
+                  }
+                        
+                  if(encontrado) {
+                    this.arregloCambiosMasivos.programa[posActual].cantidad++;
+                  }
+                  else{
+                    this.arregloCambiosMasivos.programa.push( { codigo: temporal.CARRERA , cantidad: 1 } );
+                  }                    
+                }              
+              }
             }
-
-            this.arregloArchivo[posActual].cambios = registro.cambios;
-
-            if(encontrado) this.arregloCambios.push( this.arregloArchivo[posActual] );
 
           });          
 
@@ -319,6 +461,8 @@ export class CarguePrincipalComponent implements OnInit, AfterViewInit  {
           console.log(this.arregloCambios);
 
           console.log(respuesta.mensaje.personasCambios);
+
+          console.log(this.arregloCambiosMasivos);
         }
         else{
           console.log(respuesta);
