@@ -21,6 +21,7 @@ import { EstudiosInterface } from '@interfaces/estudios.interface';
 import { JitCompilerFactory } from '@angular/platform-browser-dynamic';
 import { MunicipiosController } from '@controladores/municipios.controller';
 import { isNull } from 'util';
+import { FormGroup } from '@angular/forms';
 
 
 
@@ -93,7 +94,11 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
 
   correoModelo:string;
   numeroModelo:string;
-  
+  calificacionModelo:string;
+
+  notificacionActiva:boolean=false;
+  notificacionMensaje:string ="";
+
   huboCambios : boolean = false ;
 
   procesando: boolean = false;
@@ -110,6 +115,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
 
     this.correoModelo="^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$";
     this.numeroModelo="^[0-9]*$";
+    this.calificacionModelo = "^[0-5]+(,[0-9]+)?$";
 
     this.nuevoValorHistorico = {
       "valorA" : "",
@@ -201,6 +207,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
   }
 
   ngOnInit() {
+ 
 
   }
 
@@ -298,7 +305,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         }
 
         console.log(this.parametrosHistorico.lista);
-        
+        this.ValidarHistorico("estudios");
       break;      
 
     }
@@ -449,6 +456,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         nuevoRegistroEstudio.registro_fecha = this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd');
         console.log(this.parametrosHistorico["lista"]);
         this.controladorEstudios.Agregar(nuevoRegistroEstudio);
+
         console.log(this.controladorEstudios);
       break;  
     }
@@ -570,6 +578,51 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
 
     }
   }
+
+  ValidarHistorico(historico:string){
+
+    let regexpPromedio = new RegExp(this.calificacionModelo);
+
+    this.notificacionActiva = false;
+    switch(historico){
+      case "estudios":
+        if( this.parametrosHistorico.lista.ofertas_id == null || this.parametrosHistorico.lista.ofertas_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar una oferta";
+         }
+
+        if( this.parametrosHistorico.lista.sedes_id == null || this.parametrosHistorico.lista.sedes_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar una sede";
+         }
+
+         if( this.parametrosHistorico.lista.grado_fecha == null || this.parametrosHistorico.lista.grado_fecha == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe diligenciar una fecha";
+         }         
+
+         if( this.parametrosHistorico.lista.cohortes_id == null || this.parametrosHistorico.lista.cohortes_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar una cohorte";
+         }         
+
+
+         if( this.parametrosHistorico.lista.promedio != null && this.parametrosHistorico.lista.cohorte_id != "" ){
+           if(!regexpPromedio.test(this.parametrosHistorico.lista.promedio)){
+            this.notificacionActiva = true;
+            this.notificacionMensaje = "Debe ingresar una calificación valida";           
+           }
+         }
+
+        //  var regex = ^[0-9]+([,][0-9]+)?$
+        //  regex.test('2') // outputs true         
+
+    //     regexp = new RegExp('^[1-9]\d{0,2}$'),
+    // test = regexp.test(trigger);
+      break;
+    }
+  }
+
 
 }
 

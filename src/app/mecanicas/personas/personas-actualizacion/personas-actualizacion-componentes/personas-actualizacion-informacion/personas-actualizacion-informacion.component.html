@@ -184,7 +184,7 @@
                       <button  type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivarModalHistoricos( modalhistoricosEstudios, 5, elemento.id )"  placement="left" ngbTooltip="Visualizar"><i class="fa fa-eye"></i></button>
                     </ng-template>
                     <ng-template #elseBlock__EstudiosList>
-                      <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivarModalHistoricos( modalhistoricosEstudios, 5, elemento.id )"  placement="left" ngbTooltip="Clonar"><i class="fa fa-plus"></i></button>
+                      <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivarModalHistoricos( modalhistoricosEstudios, 5, elemento.id )"  placement="left" ngbTooltip="Modificar"><i class="fa fa-pencil-square-o"></i></button>
                       <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="EliminarHistorico( elemento.dbRef  )"  placement="left" ngbTooltip="Eliminar"><i class="fa fa-minus"></i></button>
 
                     </ng-template>                  
@@ -499,9 +499,7 @@
 
       <div class="row">
         <div class="col">
-          <form>
-
-            <input type="hidden" class="form-control" name="persona_id" [(ngModel)]="parametrosHistorico.lista.personas_id">
+          <form >
 
             <div class="form-row justify-content-between">
 
@@ -518,7 +516,7 @@
                 <div class="form-row justify-content-between">
                   <label for="registro_fecha" class="col-sm-5 col-form-label col-form-label-sm text-wrap">Fecha de Registro:</label>
                   <div class="col-sm">
-                    <input type="text" class="form-control form-control-sm" id="registro_fecha" name="registro_fecha" [(ngModel)]="parametrosHistorico.lista.registro_fecha" [readonly]="true">
+                    <input type="date" class="form-control form-control-sm" id="registro_fecha" name="registro_fecha" [(ngModel)]="parametrosHistorico.lista.registro_fecha" [readonly]="true">
                   </div>     
                 </div>                
               </div>
@@ -527,10 +525,17 @@
 <hr/>            
             <div class="form-row justify-content-between">
               <div class="form-group col-sm px-1 mb-1 conborde">
+
+                <div class="form-row justify-content-between">
+                  <div class="col-sm px-1 mb-1 text-center">
+                    <strong>Selección de Oferta</strong>
+                  </div>
+                </div>
+
                 <div class="form-row justify-content-between">
 
                   <div class="form-group col-sm-5 px-1 mb-1">
-                    <label for="instituciones_id" class="col-form-label col-form-label-sm">Institución:</label>
+                    <label for="instituciones_id" class="col-form-label col-form-label-sm text-center">Institución</label>
                     <select  class="form-control form-control-sm" id="instituciones_id" name="instituciones_id" [(ngModel)]="parametrosHistorico.instituciones_id" (change)="Estudios_ObtenerOferta('instituciones')" [disabled]="parametrosHistorico.lista.id != null">
                       <option value="" disabled>-- Seleccione Institución --</option>
                       <option *ngFor="let elementoIT of Estudios_ObtenerListaInstituciones(); let indiceIT= index" value="{{elementoIT.id}}">{{elementoIT.descripcion}}</option>              
@@ -538,7 +543,7 @@
                   </div>
 
                   <div class="form-group col-sm-4 px-1 mb-1">
-                    <label for="programas_id" class="col-form-label col-form-label-sm">Programa:</label>
+                    <label for="programas_id" class="col-form-label col-form-label-sm text-center">Programa</label>
                     <select  class="form-control form-control-sm" id="programas_id" name="programas_id" [(ngModel)]="parametrosHistorico.programas_id"  (change)="Estudios_ObtenerOferta('programas')" [disabled]="parametrosHistorico.lista.id != null">
                       <option value="" disabled> -- Seleccione Programa -- </option>
                       <option *ngFor="let elementoPG of Estudios_ObtenerListaPorgramas(); let indicePG= index" value="{{elementoPG.id}}">{{elementoPG.descripcion}}</option>
@@ -546,7 +551,7 @@
                   </div>
 
                   <div class="form-group col-sm-3 px-1 mb-1">
-                    <label for="tiposestudios_id" class="col-form-label col-form-label-sm">TIpo de Estudio:</label>
+                    <label for="tiposestudios_id" class="col-form-label col-form-label-sm tex-center">TIpo de Estudio</label>
                     <select  class="form-control form-control-sm" id="tiposestudios_id" name="tiposestudios_id" [(ngModel)]="parametrosHistorico.tiposestudios_id"  (change)="Estudios_ObtenerOferta(tiposestudios)" [disabled]="parametrosHistorico.lista.id != null">
                       <option value="" disabled> -- Seleccione Tipo Esudio -- </option>
                       <option *ngFor="let elementoTE of Estudios_ObtenerListaTiposEstudios(); let indiceTE= index" value="{{elementoTE.id}}">{{elementoTE.descripcion}}</option>
@@ -561,24 +566,24 @@
 
               <div class="form-group col-sm-2 px-1 mb-1">
                 <label for="ofertas_id" class=" col-form-label col-form-label-sm">Oferta:</label>
-                <input type="text" class="form-control form-control-sm" id="ofertas_id" name="ofertas_id" [(ngModel)]="parametrosHistorico.lista.ofertas_id" [readonly]="true">
+                <input type="text" class="form-control form-control-sm" id="ofertas_id" name="ofertas_id" [(ngModel)]="parametrosHistorico.lista.ofertas_id" [readonly]="true" (change)="ValidarHistorico('estudios')">
               </div>
 
               <div class="form-group col-sm-4 px-1 mb-1">
                 <label for="sedes_id" class=" col-form-label col-form-label-sm">Sede:</label>
-                <select  class="form-control form-control-sm" id="sedes_id" name="sedes_id" [(ngModel)]="parametrosHistorico.lista.sedes_id" [disabled]="parametrosHistorico.lista.id != null">                  
+                <select  class="form-control form-control-sm" id="sedes_id" name="sedes_id" [(ngModel)]="parametrosHistorico.lista.sedes_id" [disabled]="parametrosHistorico.lista.id != null" (change)="ValidarHistorico('estudios')">                  
                   <option *ngFor="let elementoSD of FiltrarDatos( controladorEstudios.ObtenerForanea('sedes').todos, 'instituciones_id' , parametrosHistorico.instituciones_id); let indiceSD= index" value="{{elementoSD.id}}">{{elementoSD.descripcion}}</option>              
                 </select>
               </div>
 
               <div class="form-group col-sm-3 px-1 mb-1">
                 <label for="grado_fecha" class=" col-form-label col-form-label-sm">F. Grado:</label>
-                <input type="text" class="form-control form-control-sm" id="grado_fecha" name="grado_fecha" [(ngModel)]="parametrosHistorico.lista.grado_fecha" [readonly]="parametrosHistorico.lista.id != null">
+                <input type="date" class="form-control form-control-sm" id="grado_fecha" name="grado_fecha" [(ngModel)]="parametrosHistorico.lista.grado_fecha" [readonly]="parametrosHistorico.lista.id != null" (change)="ValidarHistorico('estudios')">
               </div>
 
               <div class="form-group col-sm-3 px-1 mb-1">
                 <label for="cohortes_id" class=" col-form-label col-form-label-sm">Cohorte:</label>
-                <select  class="form-control form-control-sm" id="cohortes_id" name="cohortes_id" [(ngModel)]="parametrosHistorico.lista.cohortes_id" [disabled]="parametrosHistorico.lista.id != null">                  
+                <select  class="form-control form-control-sm" id="cohortes_id" name="cohortes_id" [(ngModel)]="parametrosHistorico.lista.cohortes_id" [disabled]="parametrosHistorico.lista.id != null" (change)="ValidarHistorico('estudios')">                  
                   <option *ngFor="let elementoCH of controladorEstudios.ObtenerForanea('cohortes').todos; let indiceCH= index" value="{{elementoCH.id}}">{{elementoCH.descripcion}}</option>              
                 </select>
               </div>       
@@ -626,7 +631,7 @@
                 <div class="form-row justify-content-between">
                   <label for="promedio" class="col-sm-5 col-form-label col-form-label-sm text-wrap">Promedio:</label>
                   <div class="col-sm">
-                    <input type="text" class="form-control form-control-sm" id="promedio" name="promedio" [(ngModel)]="parametrosHistorico.lista.promedio" [readonly]="parametrosHistorico.lista.id != null">
+                    <input type="text" class="form-control form-control-sm" id="promedio" name="promedio" [(ngModel)]="parametrosHistorico.lista.promedio" [readonly]="parametrosHistorico.lista.id != null" (change)="ValidarHistorico('estudios')">
                   </div>
                 </div>
 
@@ -662,6 +667,13 @@
 
             </div>
 
+            <div class="form-row justify-content-between">
+              <div class="col-sm px-1 mb-1">
+                  <ngb-alert class="py-1" *ngIf="notificacionActiva" type="custom" [dismissible]="false">{{ notificacionMensaje }}</ngb-alert>
+              </div>              
+            </div>
+
+
           </form>
         </div>
       </div>
@@ -669,8 +681,8 @@
       
     </div>
     <div class="modal-footer "> 
-      <button type="button" *ngIf="procesando == false && parametrosHistorico.lista.id == null" class="btn btn-primary" (click)="AgregarHistorico()">Agregar</button>
-      <button type="button" *ngIf="procesando == true && parametrosHistorico.lista.id == null" class="btn btn-primary"><i class="fa fa-spinner fa-spin"></i></button>
+      <button type="button" *ngIf="procesando == false && parametrosHistorico.lista.id == null && parametrosHistorico.lista.dbRef == null" class="btn btn-primary" (click)="AgregarHistorico();modal.dismiss('NO')" [disabled]="notificacionActiva">Agregar</button>
+      <button type="button" *ngIf="procesando == true && parametrosHistorico.lista.id == null && parametrosHistorico.lista.dbRef == null" class="btn btn-primary"><i class="fa fa-spinner fa-spin"></i></button>
 
       <button type="button" *ngIf="procesando == false" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">Atras</button> 
       <button type="button" *ngIf="procesando == true" ngbAutofocus  class="btn btn-outline-dark"><i class="fa fa-spinner fa-spin"></i></button>        
