@@ -8,6 +8,11 @@ import { filtroInterface } from '@interfaces/filtro.interface';
 import { RespuestaInterface } from '../interfaces/respuesta.interface';
 import { isNull } from 'util';
 
+interface RelacionesInterface {
+  controlador: number;
+  sentido: string;
+}
+
 export class GenericoModel {
   protected llamadoHttp :HttpClient;
   protected servicioAmbiente :AmbienteService;
@@ -17,7 +22,7 @@ export class GenericoModel {
   protected camposTabla:any[];
   protected camposFecha:string[];
 
-  protected controladoresForaneos:any[];
+  protected controladoresForaneos:any[];        //eliminar
 
   protected posicionActual:number;
   //protected cantidad:number = null;
@@ -124,9 +129,10 @@ export class GenericoModel {
     this.controladoresForaneos[controlador.nombreTabla] = controlador;
   }
 
-  public ObtenerForanea(nombre : string){
-    return this.controladoresForaneos[nombre];
+  public AgregarRelacion(controlador:any, sentido:string){
+    this.controladoresForaneos[controlador.nombreTabla] = controlador;
   }
+
 
   public ReemplazarForanea( nombre : string , controladorForanero : any ){
     return this.controladoresForaneos[nombre] = controladorForanero;
@@ -140,26 +146,18 @@ export class GenericoModel {
     this.controladoresForaneos[nombre].CargarDesdeDB( true, "S", caracteristicas ).subscribe(  (respuesta:RespuestaInterface) => {   }); // Carge de foranea
   }
 
-  public RegistroAsociadoForaneo(nombre : string){
-    var resultado:any = null;
-    if(this.posicionActual!= null){
-      this.controladoresForaneos[nombre].Encontrar("id", this.registros[this.posicionActual][nombre+"_id"]);
-      resultado = this.controladoresForaneos[nombre].actual;
+  public ObtenerForanea(nombreForaneo : string, registroAsociado :boolean = false, identificadorBase: number = null){
+
+    if(registroAsociado){
+      if(identificadorBase!=null){
+        this.Encontrar("id", identificadorBase);
+      }
+      this.controladoresForaneos[nombreForaneo].Encontrar("id", this.registros[this.posicionActual][nombreForaneo+"_id"]);
     }
-    return resultado;
+    
+    return this.controladoresForaneos[nombreForaneo];
   }
 
-  // public RegistroAsociadoForaneos(nombre : string){
-  //   var resultados:any[] = [];
-
-  //   if(this.posicionActual!= null){
-  //     this.controladoresForaneos[nombre].Encontrar("id", this.registros[this.posicionActual][nombre+"_id"]);
-  //     resultado = this.controladoresForaneos[nombre].actual;
-      
-  //   }
-
-  //   return resultados;
-  // }
 
   //DESPLAZAMIENTO
 

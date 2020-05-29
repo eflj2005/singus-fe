@@ -13,10 +13,6 @@ import { MecanismosgradosController } from './mecanismosgrados.controller';
 import { OfertasController } from './ofertas.controller';
 import { SedesController } from './sedes.controller';
 
-
-
-
-
 export class EstudiosController extends GenericoModel {
 
   registros: EstudiosInterface[]= [];

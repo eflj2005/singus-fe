@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { AmbienteService } from '@servicios/ambiente.service';
 
-import { EstudiosController } from './estudios.controller';
+import { ExperienciasController } from './experiencias.controller';
 
-describe('EstudiosController', () => {
+describe('ExperienciasController', () => {
   it('should create an instance', () => {
     let instanciaHttpClient :HttpClient;
     let InstanciaAmbienteService :AmbienteService;        
-    expect(new EstudiosController(instanciaHttpClient,InstanciaAmbienteService)).toBeTruthy();    
+    expect(new ExperienciasController(instanciaHttpClient,InstanciaAmbienteService)).toBeTruthy();    
+
   });
 });

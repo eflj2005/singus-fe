@@ -18,10 +18,9 @@ import { DireccionesInterface } from '@interfaces/direcciones.interface';
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { EstudiosController } from '@controladores/estudios.controller';
 import { EstudiosInterface } from '@interfaces/estudios.interface';
-import { JitCompilerFactory } from '@angular/platform-browser-dynamic';
 import { MunicipiosController } from '@controladores/municipios.controller';
-import { isNull } from 'util';
-import { FormGroup } from '@angular/forms';
+import { ExperienciasController } from '@controladores/experiencias.controller';
+import { ExperienciasInterface } from '@interfaces/experiencias.interface';
 
 
 
@@ -64,6 +63,8 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
 
   controladorEstudios: EstudiosController;
 
+  controladorExperiencias: ExperienciasController;
+
   datosPersona:PersonaCompletoInterface = {
     id: null,
     nacimiento_fecha: "",
@@ -88,6 +89,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
   datosDirecciones:DireccionesInterface[];
   
   datosEstudios:EstudiosInterface[];
+  datosExperiencias:ExperienciasInterface[];
 
   descripcionProyecto : any ="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología";
   descripcionPrograma : any ="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología";
@@ -115,7 +117,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
 
     this.correoModelo="^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$";
     this.numeroModelo="^[0-9]*$";
-    this.calificacionModelo = "^[0-5]+(,[0-9]+)?$";
+    this.calificacionModelo = "^[0-5]+(.[0-9]+)?$";
 
     this.nuevoValorHistorico = {
       "valorA" : "",
@@ -138,6 +140,8 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     this.controladorDirecciones= new DireccionesController( llamadoHttp , servicioAmbiente );
 
     this.controladorEstudios= new EstudiosController( llamadoHttp , servicioAmbiente );
+    
+    this.controladorExperiencias= new ExperienciasController( llamadoHttp , servicioAmbiente );
 
     caracteristicasConsultas = new EstructuraConsultas();
     caracteristicasConsultas.AgregarColumna( null , "( SELECT numero FROM telefonos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM telefonos WHERE personas_id = personas.id AND tipo = 'C' ) AND tipo = 'C' LIMIT 1 )" ,                                                           "telefonoCelular" );
@@ -185,7 +189,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     caracteristicasConsultas = new EstructuraConsultas( "F", null , "personas_id" , "=" , String(this.personaId) );
     caracteristicasConsultas.AgregarOrdenamiento( "grado_fecha" , "DESC" );
 
-    this.controladorEstudios.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaE:RespuestaInterface) => {           // Carge de estudios
+    this.controladorEstudios.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaES:RespuestaInterface) => {           // Carge de estudios
       
       this.controladorEstudios.CargarForanea("titulos");
       this.controladorEstudios.CargarForanea("sedes");
@@ -202,8 +206,23 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
 
     });   
 
+    caracteristicasConsultas = new EstructuraConsultas( "F", null , "personas_id" , "=" , String(this.personaId) );
+    caracteristicasConsultas.AgregarOrdenamiento( "vinculacion_fecha" , "DESC" );
+
+    this.controladorExperiencias.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaEX:RespuestaInterface) => {           // Carge de experiencias
+      
+      this.controladorExperiencias.ReemplazarForanea("estudios", this.controladorEstudios);     //Se recicla controlador de estudios
+      this.controladorExperiencias.CargarForanea("rangosingresos");
+      this.controladorExperiencias.CargarForanea("sectoreslaborales");
+      this.controladorExperiencias.CargarForanea("tiposcontratos");
+      this.controladorExperiencias.ReemplazarForanea( "municipios" , this.controladorPersonas.ObtenerForanea("municipios") );
+
+      this.datosExperiencias = this.controladorExperiencias.todos;
+    });   
+
+
     this.cambiarGrupoDatos( 1 );
-    console.log(this.controladorEstudios);
+
   }
 
   ngOnInit() {
@@ -230,7 +249,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         this.grupoDatos.posicion= 2;
       break;
       case 3:
-        this.grupoDatos.nombre = "Empleo";
+        this.grupoDatos.nombre = "Empleos";
         this.grupoDatos.posicion= 3;
       break;
       case 4:
@@ -251,6 +270,8 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
 
   ActivarModalHistoricos( modalRecibido : any , tipoHistoricoRecibido : number, idHistorico?: Number ){
     this.tipoHistorico = tipoHistoricoRecibido;
+    let buscado:boolean;
+
     switch (tipoHistoricoRecibido) {
       case 1:
         this.tituloHistorico = "Correos Personales";
@@ -273,13 +294,13 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         this.parametrosHistorico = { "lista" : {} , "id": idHistorico, "instituciones_id": "", "programas_id": "", "tiposestudios_id": "" };              
         
         // let datostemp = this.FiltrarDatos( this.datosEstudios, "id", idHistorico )[0];
-        let buscado = this.controladorEstudios.Encontrar("id",idHistorico);                                 //REVISAR MAS ADELANTE
+        buscado = this.controladorEstudios.Encontrar("id",idHistorico);                                 //REVISAR MAS ADELANTE
 
         if(buscado)  {
           this.parametrosHistorico["lista"] = this.controladorEstudios.actual;
-          this.parametrosHistorico["instituciones_id"] = this.controladorEstudios.RegistroAsociadoForaneo('ofertas').instituciones_id;
-          this.parametrosHistorico["programas_id"] = this.controladorEstudios.RegistroAsociadoForaneo('ofertas').programas_id;
-          this.parametrosHistorico["tiposestudios_id"] = this.controladorEstudios.RegistroAsociadoForaneo('ofertas').tiposestudios_id;
+          this.parametrosHistorico["instituciones_id"] = this.controladorEstudios.ObtenerForanea('ofertas',true).actual.instituciones_id;
+          this.parametrosHistorico["programas_id"] = this.controladorEstudios.ObtenerForanea('ofertas',true).actual.programas_id;
+          this.parametrosHistorico["tiposestudios_id"] = this.controladorEstudios.ObtenerForanea('ofertas',true).actual.tiposestudios_id;
         }
         else{
           let registro: EstudiosInterface = {
@@ -304,14 +325,47 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
           this.parametrosHistorico.lista = registro;  
         }
 
-        console.log(this.parametrosHistorico.lista);
         this.ValidarHistorico("estudios");
       break;      
+      case 6:
+        this.tituloHistorico = "Experiencia Laboral";
+        this.parametrosHistorico = { "lista" : {} , "id": idHistorico, "paises_id": "", "departamentos_id": "" };              
+        
+        buscado = this.controladorExperiencias.Encontrar("id",idHistorico);                                 //REVISAR MAS ADELANTE
 
+        if(buscado)  {
+          this.parametrosHistorico["lista"] = this.controladorExperiencias.actual;
+          this.parametrosHistorico["departamentos_id"] = this.controladorExperiencias.ObtenerForanea("municipios",true).actual.departamentos_id;
+          this.parametrosHistorico["paises_id"] = this.controladorExperiencias.ObtenerForanea("municipios",true).ObtenerForanea("departamentos",true).actual.paises_id;
+        }
+        else{
+          let registro: ExperienciasInterface = {
+            id                    : null,
+            personas_id           : this.personaId,
+            estudios_id           : null,
+            cargo                 : null,
+            empresa               : null,
+            sectoreslaborales_id  : null,
+            tiposcontratos_id     : null,
+            vinculacion_fecha     : null,
+            terminacion_fecha     : null,
+            rangosingresos_id     : null,
+            jefenombre            : null,
+            jefetelefono          : null,
+            municipios_id         : null,
+            registro_fecha        : null,
+            modo                  : null,
+            dbRef                 : null
+          }
+          this.parametrosHistorico.lista = registro;  
+        }
+
+        this.ValidarHistorico("experiencias");
+      break; 
     }
     let parametrosModal = null;
     if(tipoHistoricoRecibido <= 4)  parametrosModal = { centered : true,  backdropClass: 'light-blue-backdrop'  };
-    else                            parametrosModal = { size : 'lg'  ,  backdropClass: 'light-blue-backdrop'  }; 
+    else                            parametrosModal = { size : 'lg'  ,  backdropClass: 'light-blue-backdrop', backdrop: "static"  }; 
     const respuesta  = this.modal.open( modalRecibido, parametrosModal );
   }
 
@@ -398,6 +452,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     
       this.parametrosHistorico["lista"].ofertas_id = resultado.id;
     }
+    this.ValidarHistorico('estudios');
   }
 
   AgregarHistorico( ){
@@ -454,10 +509,8 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
       case 5:
         let nuevoRegistroEstudio: EstudiosInterface = this.parametrosHistorico["lista"];
         nuevoRegistroEstudio.registro_fecha = this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd');
-        console.log(this.parametrosHistorico["lista"]);
         this.controladorEstudios.Agregar(nuevoRegistroEstudio);
 
-        console.log(this.controladorEstudios);
       break;  
     }
 
@@ -606,23 +659,74 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
           this.notificacionMensaje = "Debe seleccionar una cohorte";
          }         
 
+         if( this.parametrosHistorico.lista.titulos_id == null || this.parametrosHistorico.lista.titulos_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar una titulo";
+         }           
 
-         if( this.parametrosHistorico.lista.promedio != null && this.parametrosHistorico.lista.cohorte_id != "" ){
-           if(!regexpPromedio.test(this.parametrosHistorico.lista.promedio)){
+         if( this.parametrosHistorico.lista.mecanismosgrados_id == null || this.parametrosHistorico.lista.mecanismosgrados_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar una mecanismo de grado";
+         }   
+
+         if( this.parametrosHistorico.lista.promedio != null && this.parametrosHistorico.lista.promedio != "" ){
+          let valor = Number(this.parametrosHistorico.lista.promedio);
+          if(isNaN(valor) || valor<0 || valor>5){
             this.notificacionActiva = true;
-            this.notificacionMensaje = "Debe ingresar una calificación valida";           
-           }
+            this.notificacionMensaje = "Debe ingresar un promedio valido";
+          }
          }
 
-        //  var regex = ^[0-9]+([,][0-9]+)?$
-        //  regex.test('2') // outputs true         
+      break;
+      case "experiencias":
+        if( this.parametrosHistorico.lista.empresa == null || this.parametrosHistorico.lista.empresa == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe diligenciar una empresa";
+         }
 
-    //     regexp = new RegExp('^[1-9]\d{0,2}$'),
-    // test = regexp.test(trigger);
+         if( this.parametrosHistorico.lista.sectoreslaborales_id == null || this.parametrosHistorico.lista.sectoreslaborales_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar una sector laboral";
+         }
+
+         if( this.parametrosHistorico.lista.municipios_id == null || this.parametrosHistorico.lista.municipios_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar una municipio";
+         }
+
+         if( this.parametrosHistorico.lista.tiposcontratos_id == null || this.parametrosHistorico.lista.tiposcontratos_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar una municipio";
+         }
+
+         if( this.parametrosHistorico.lista.rangosingresos_id == null || this.parametrosHistorico.lista.rangosingresos_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar una rango salarial";
+         }
+
+         if( this.parametrosHistorico.lista.rangosingresos_id == null || this.parametrosHistorico.lista.rangosingresos_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar una rango salarial";
+         }
+
+         if( this.parametrosHistorico.lista.cargo == null || this.parametrosHistorico.lista.cargo == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe diligenciar un cargo";
+         }
+
+         if( this.parametrosHistorico.lista.cargo == null || this.parametrosHistorico.lista.cargo == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe diligenciar un cargo";
+         }         
+
+         if( this.parametrosHistorico.lista.estudios_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar un estudio asociado";
+         }                 
       break;
     }
   }
 
-
 }
+
 
