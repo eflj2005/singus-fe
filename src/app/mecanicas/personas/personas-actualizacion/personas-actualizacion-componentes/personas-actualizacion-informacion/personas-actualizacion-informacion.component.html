@@ -672,10 +672,10 @@
 
               </div>
 
-              <div class="form-group col-sm-5 px-1 mb-1">
+              <div class="form-group col-sm-4 px-1 mb-1">
 
                 <div class="form-row justify-content-between">
-                  <label for="paises_id" class="col-sm-3 col-form-label col-form-label-sm text-wrap">País:</label>
+                  <label for="paises_id" class="col-sm-4 col-form-label col-form-label-sm text-wrap">País:</label>
                   <div class="col-sm">
                     <select  class="form-control form-control-sm" id="paises_id" name="paises_id" [(ngModel)]="parametrosHistorico.paises_id" [disabled]="parametrosHistorico.lista.id != null">
                       <option *ngFor="let elementoPS of controladorExperiencias.ObtenerForanea('municipios').ObtenerForanea('departamentos').ObtenerForanea('paises').todos; let indicePS= index" value="{{elementoPS.id}}">{{elementoPS.descripcion}}</option>              
@@ -685,7 +685,7 @@
 
 
                 <div class="form-row justify-content-between">
-                  <label for="departamentos_id" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Departamento:</label>
+                  <label for="departamentos_id" class="col-sm-4 col-form-label col-form-label-sm text-wrap">Departamento:</label>
                   <div class="col-sm">
                     <select  class="form-control form-control-sm" id="departamentos_id" name="departamentos_id" [(ngModel)]="parametrosHistorico.departamentos_id" [disabled]="parametrosHistorico.lista.id != null">
                       <option *ngFor="let elementoDP of FiltrarDatos( controladorExperiencias.ObtenerForanea('municipios').ObtenerForanea('departamentos').todos , 'paises_id' , parametrosHistorico.paises_id); let indiceDP= index" value="{{elementoDP.id}}">{{elementoDP.descripcion}}</option>
@@ -694,7 +694,7 @@
                 </div> 
 
                 <div class="form-row justify-content-between">
-                  <label for="municipios_id" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Municipio:</label>
+                  <label for="municipios_id" class="col-sm-4 col-form-label col-form-label-sm text-wrap">Municipio:</label>
                   <div class="col-sm">
                     <select  class="form-control form-control-sm" id="municipios_id" name="municipios_id" [(ngModel)]="parametrosHistorico.lista.municipios_id" [disabled]="parametrosHistorico.lista.id != null" (change)="ValidarHistorico('experiencias')">
                       <option *ngFor="let elementoMU of FiltrarDatos( controladorExperiencias.ObtenerForanea('municipios').todos , 'departamentos_id' , parametrosHistorico.departamentos_id); let indiceMU= index" value="{{elementoMU.id}}">{{elementoMU.descripcion}}</option>
@@ -710,7 +710,7 @@
 
             <div class="form-row justify-content-between">
 
-              <div class="form-group col-sm-8 px-1 mb-1">
+              <div class="form-group col-sm-7 px-1 mb-1">
 
                 <div class="form-row justify-content-between">
                   <label for="tiposcontratos_id" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Tipo de Contrato:</label>
@@ -757,7 +757,7 @@
 
             <div class="form-row justify-content-between">
 
-              <div class="form-group col-sm-12 px-1 mb-1">
+              <div class="form-group col-sm-7 px-1 mb-1">
 
                 <div class="form-row justify-content-between">
                   <label for="cargo" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Cargo:</label>
@@ -778,28 +778,23 @@
 
               </div>
 
-            </div>
+              <div class="form-group col-sm-4 px-1 mb-1">
 
-            <hr/>
-
-            <div class="form-row justify-content-between">
-
-              <div class="form-group col-sm-7 px-1 mb-1">
                 <div class="form-row justify-content-between">
-                  <label for="jefenombre" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Nombre Jefe:</label>
+                  <label for="jefenombre" class="col-sm-4 col-form-label col-form-label-sm text-wrap">Nombre Jefe:</label>
                   <div class="col-sm">
                     <input type="text" class="form-control form-control-sm" id="jefenombre" name="jefenombre" [(ngModel)]="parametrosHistorico.lista.jefenombre" [readonly]="parametrosHistorico.lista.id != null" (change)="ValidarHistorico('experiencias')">
                   </div>     
                 </div>
-              </div>
 
-              <div class="form-group col-sm-5 px-1 mb-1">
+
                 <div class="form-row justify-content-between">
                   <label for="jefetelefono" class="col-sm-4 col-form-label col-form-label-sm text-wrap">Telefono Jefe:</label>
                   <div class="col-sm">
                     <input type="text" class="form-control form-control-sm" id="jefetelefono" name="jefetelefono" [(ngModel)]="parametrosHistorico.lista.jefetelefono" [readonly]="parametrosHistorico.lista.id != null" (change)="ValidarHistorico('experiencias')">
                   </div>     
                 </div>                
+
               </div>
 
             </div>

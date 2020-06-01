@@ -510,8 +510,12 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         let nuevoRegistroEstudio: EstudiosInterface = this.parametrosHistorico["lista"];
         nuevoRegistroEstudio.registro_fecha = this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd');
         this.controladorEstudios.Agregar(nuevoRegistroEstudio);
-
       break;  
+      case 6:
+        let nuevoRegistroExperiencia: ExperienciasInterface = this.parametrosHistorico["lista"];
+        nuevoRegistroExperiencia.registro_fecha = this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd');
+        this.controladorExperiencias.Agregar(nuevoRegistroExperiencia);
+      break;        
     }
 
     this.huboCambios = true;
@@ -612,8 +616,6 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         );
       }
 
-
-
       if( this.controladorEstudios.Encontrar("modo", null, true) ){
         this.controladorEstudios.Guardar().subscribe( 
           (respuesta:RespuestaInterface) => { 
@@ -628,6 +630,19 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         );
       }
   
+      if( this.controladorExperiencias.Encontrar("modo", null, true) ){
+        this.controladorExperiencias.Guardar().subscribe( 
+          (respuesta:RespuestaInterface) => { 
+            if( respuesta.codigo == 200 ){
+              console.log(respuesta);
+            }    
+            else{
+              alert("Error al guardar experiencias");
+              console.log(respuesta);
+            }                              
+          }
+        );
+      }      
 
     }
   }
@@ -639,90 +654,91 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     this.notificacionActiva = false;
     switch(historico){
       case "estudios":
-        if( this.parametrosHistorico.lista.ofertas_id == null || this.parametrosHistorico.lista.ofertas_id == "" ){
-          this.notificacionActiva = true;
-          this.notificacionMensaje = "Debe seleccionar una oferta";
-         }
 
-        if( this.parametrosHistorico.lista.sedes_id == null || this.parametrosHistorico.lista.sedes_id == "" ){
-          this.notificacionActiva = true;
-          this.notificacionMensaje = "Debe seleccionar una sede";
-         }
-
-         if( this.parametrosHistorico.lista.grado_fecha == null || this.parametrosHistorico.lista.grado_fecha == "" ){
-          this.notificacionActiva = true;
-          this.notificacionMensaje = "Debe diligenciar una fecha";
-         }         
-
-         if( this.parametrosHistorico.lista.cohortes_id == null || this.parametrosHistorico.lista.cohortes_id == "" ){
-          this.notificacionActiva = true;
-          this.notificacionMensaje = "Debe seleccionar una cohorte";
-         }         
-
-         if( this.parametrosHistorico.lista.titulos_id == null || this.parametrosHistorico.lista.titulos_id == "" ){
-          this.notificacionActiva = true;
-          this.notificacionMensaje = "Debe seleccionar una titulo";
-         }           
-
-         if( this.parametrosHistorico.lista.mecanismosgrados_id == null || this.parametrosHistorico.lista.mecanismosgrados_id == "" ){
-          this.notificacionActiva = true;
-          this.notificacionMensaje = "Debe seleccionar una mecanismo de grado";
-         }   
-
-         if( this.parametrosHistorico.lista.promedio != null && this.parametrosHistorico.lista.promedio != "" ){
+        if( this.parametrosHistorico.lista.promedio != null && this.parametrosHistorico.lista.promedio != "" ){
           let valor = Number(this.parametrosHistorico.lista.promedio);
           if(isNaN(valor) || valor<0 || valor>5){
             this.notificacionActiva = true;
             this.notificacionMensaje = "Debe ingresar un promedio valido";
           }
-         }
+        }
+
+        if( this.parametrosHistorico.lista.mecanismosgrados_id == null || this.parametrosHistorico.lista.mecanismosgrados_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar una mecanismo de grado";
+        }   
+
+        if( this.parametrosHistorico.lista.titulos_id == null || this.parametrosHistorico.lista.titulos_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar una titulo";
+        }    
+
+        if( this.parametrosHistorico.lista.cohortes_id == null || this.parametrosHistorico.lista.cohortes_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar una cohorte";
+        }        
+
+        if( this.parametrosHistorico.lista.grado_fecha == null || this.parametrosHistorico.lista.grado_fecha == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe diligenciar una fecha";
+        }    
+
+        if( this.parametrosHistorico.lista.sedes_id == null || this.parametrosHistorico.lista.sedes_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar una sede";
+        }
+
+        if( this.parametrosHistorico.lista.ofertas_id == null || this.parametrosHistorico.lista.ofertas_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar una oferta";
+        }
 
       break;
       case "experiencias":
+
+        if( this.parametrosHistorico.lista.estudios_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar un estudio asociado";
+        }            
+
+        if( this.parametrosHistorico.lista.cargo == null || this.parametrosHistorico.lista.cargo == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe diligenciar un cargo";
+        }    
+
+        if( this.parametrosHistorico.lista.cargo == null || this.parametrosHistorico.lista.cargo == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe diligenciar un cargo";
+        }
+
+        if( this.parametrosHistorico.lista.rangosingresos_id == null || this.parametrosHistorico.lista.rangosingresos_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar una rango salarial";
+        }
+
+        if( this.parametrosHistorico.lista.rangosingresos_id == null || this.parametrosHistorico.lista.rangosingresos_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar una rango salarial";
+        }
+
+        if( this.parametrosHistorico.lista.tiposcontratos_id == null || this.parametrosHistorico.lista.tiposcontratos_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar un tipo de contratación";
+        }
+
+        if( this.parametrosHistorico.lista.municipios_id == null || this.parametrosHistorico.lista.municipios_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar un municipio";
+        }
+        if( this.parametrosHistorico.lista.sectoreslaborales_id == null || this.parametrosHistorico.lista.sectoreslaborales_id == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar una sector laboral";
+        }
+
         if( this.parametrosHistorico.lista.empresa == null || this.parametrosHistorico.lista.empresa == "" ){
           this.notificacionActiva = true;
           this.notificacionMensaje = "Debe diligenciar una empresa";
          }
-
-         if( this.parametrosHistorico.lista.sectoreslaborales_id == null || this.parametrosHistorico.lista.sectoreslaborales_id == "" ){
-          this.notificacionActiva = true;
-          this.notificacionMensaje = "Debe seleccionar una sector laboral";
-         }
-
-         if( this.parametrosHistorico.lista.municipios_id == null || this.parametrosHistorico.lista.municipios_id == "" ){
-          this.notificacionActiva = true;
-          this.notificacionMensaje = "Debe seleccionar una municipio";
-         }
-
-         if( this.parametrosHistorico.lista.tiposcontratos_id == null || this.parametrosHistorico.lista.tiposcontratos_id == "" ){
-          this.notificacionActiva = true;
-          this.notificacionMensaje = "Debe seleccionar una municipio";
-         }
-
-         if( this.parametrosHistorico.lista.rangosingresos_id == null || this.parametrosHistorico.lista.rangosingresos_id == "" ){
-          this.notificacionActiva = true;
-          this.notificacionMensaje = "Debe seleccionar una rango salarial";
-         }
-
-         if( this.parametrosHistorico.lista.rangosingresos_id == null || this.parametrosHistorico.lista.rangosingresos_id == "" ){
-          this.notificacionActiva = true;
-          this.notificacionMensaje = "Debe seleccionar una rango salarial";
-         }
-
-         if( this.parametrosHistorico.lista.cargo == null || this.parametrosHistorico.lista.cargo == "" ){
-          this.notificacionActiva = true;
-          this.notificacionMensaje = "Debe diligenciar un cargo";
-         }
-
-         if( this.parametrosHistorico.lista.cargo == null || this.parametrosHistorico.lista.cargo == "" ){
-          this.notificacionActiva = true;
-          this.notificacionMensaje = "Debe diligenciar un cargo";
-         }         
-
-         if( this.parametrosHistorico.lista.estudios_id == "" ){
-          this.notificacionActiva = true;
-          this.notificacionMensaje = "Debe seleccionar un estudio asociado";
-         }                 
       break;
     }
   }
