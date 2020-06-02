@@ -1,21 +1,20 @@
 import { Component, OnInit , PipeTransform} from '@angular/core';
 import {AmbienteService} from '@servicios/ambiente.service';
 import { FormControl } from '@angular/forms';
-import { NgbHighlight } from "@ng-bootstrap/ng-bootstrap";
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { AgendasInterface } from '@interfaces/agendas.interface';
+import { AgendasController } from '@controladores/agendas.controller';
+import { HttpClient } from '@angular/common/http';
+import { RespuestaInterface } from '@interfaces/respuesta.interface';
+import { EstructuraConsultas } from '@generales/estructura-consultas';
 
-interface Agenda {
-  IdAgenda:number;
-  Nombre:string; 
-  Programa:string;
-  FechaCreacion:string;
-  FechaFinal:string;
-  Responsable:string;
-  Cantidad: number;
-  Estado: string;
+interface ListaAgendas extends AgendasInterface{
+  nombreCoordinador: string;
+  nombreResponsable: string;
 }
+
 
 @Component({
   selector: 'app-personas-agendamiento-lista',
@@ -25,73 +24,62 @@ interface Agenda {
 })
 export class PersonasAgendamientoListaComponent implements OnInit {
 
-
-  AGENDAS: Agenda[] = [
-  {
-    IdAgenda:1,
-    Nombre:"Agenda Contaduria Publica",
-    Programa:"Contaduria",
-    FechaCreacion:"12-12-2019",
-    FechaFinal:"15-12-2019",
-    Responsable:"Edwin F. Londoño J.",
-    Cantidad: 6,
-    Estado: "50 %"
-  },
-  {
-    IdAgenda:2,
-    Nombre:"Agenda Contaduria Publica",
-    Programa:"Contaduria",
-    FechaCreacion:"12-12-2019",
-    FechaFinal:"15-12-2019",
-    Responsable:"Manuel L. Castaño P.",
-    Cantidad: 4,
-    Estado: "90 %"
-  },
-  {
-    IdAgenda:1,
-    Nombre:"Agenda Licenciatura",
-    Programa:"Licenciatura",
-    FechaCreacion:"12-12-2019",
-    FechaFinal:"15-12-2019",
-    Responsable:"Edwin F. Londoño J.",
-    Cantidad: 20,
-    Estado: "20 %"
-  },
-  {
-    IdAgenda:2,
-    Nombre:"Agenda Contabilidad",
-    Programa:"Contabilidad",
-    FechaCreacion:"12-12-2019",
-    FechaFinal:"15-12-2019",
-    Responsable:"Manuel L. Castaño P.",
-    Cantidad: 30,
-    Estado: "42 %"
-  }
-];
-
-  agendas$: Observable<Agenda[]>;
+  controladorAgendas: AgendasController;
+  registrosAgendas: ListaAgendas[];
+  registrosAgendas$: Observable<ListaAgendas[]>;
   filter = new FormControl('');
 
-  constructor(private AmbienteService : AmbienteService , private pipe: DecimalPipe) { 
 
-    this.agendas$ = this.filter.valueChanges.pipe(
-      startWith(''),
-      map(text => this.buscar(text, pipe))
-    )
+
+  constructor(private pipe: DecimalPipe, private llamadoHttp :HttpClient, private servicioAmbiente: AmbienteService) { 
+
+    this.registrosAgendas = [];
+    this.ConsultarAgendas();
+    this.AplicarFiltros();
+
   }
 
-  buscar(text: string , pipe: PipeTransform): Agenda[] {
-    return this.AGENDAS.filter(agenda => {
-      const term = text.toLowerCase();
-      return pipe.transform(agenda.IdAgenda).includes(term)
-          || agenda.Nombre.toLowerCase().includes(term)
-          || agenda.Programa.toLowerCase().includes(term)
-          || agenda.FechaCreacion.toLowerCase().includes(term)
-          || agenda.FechaFinal.toLowerCase().includes(term)
-          || agenda.Responsable.toLowerCase().includes(term)
-          || pipe.transform(agenda.Cantidad).includes(term)
-          || agenda.Estado.toLowerCase().includes(term);
+  ConsultarAgendas(){
+
+    let caracteristicas = new EstructuraConsultas();
+    caracteristicas.AgregarColumna( "agendas", "id" , null );
+    caracteristicas.AgregarColumna( "agendas", "coordinadores_id" , null );
+    caracteristicas.AgregarColumna( "agendas", "responsables_id" , null);
+    caracteristicas.AgregarColumna( "agendas", "inicial_fecha" , null );
+    caracteristicas.AgregarColumna( "agendas", "final_fecha" , null);
+    caracteristicas.AgregarColumna( null, "CONCAT( coordinadores.nombres , ' ' , coordinadores.apellidos )" , "nombreCoordinador" );
+    caracteristicas.AgregarColumna( null, "CONCAT( responsables.nombres , ' ' , responsables.apellidos )" , "nombreResponsable" );
+    caracteristicas.AgregarEnlace( "coordinadores" , "coordinadores" , "agendas" );
+    caracteristicas.AgregarEnlace( "responsables" , "responsables" , "agendas" );   
   
+
+    this.controladorAgendas = new AgendasController(this.llamadoHttp,this.servicioAmbiente);
+    this.controladorAgendas.CargarDesdeDB(true, "A" , caracteristicas).subscribe(
+      (respuesta: RespuestaInterface) =>{
+        switch(respuesta.codigo){
+          case 200:
+            this.registrosAgendas = this.controladorAgendas.todos;
+            console.log(this.registrosAgendas);
+            this.AplicarFiltros();
+            break;
+          default:
+            alert("Error: "+respuesta.mensaje);
+            break;
+        }
+      }
+    );
+
+  }
+
+  buscarAgendas(text: string , pipe: PipeTransform): ListaAgendas[] {
+    return this.registrosAgendas.filter(agenda => {
+      const term = text.toLowerCase();
+      return pipe.transform(agenda.id).includes(term)
+          || agenda.final_fecha.toLowerCase().includes(term)
+          || agenda.inicial_fecha.toLowerCase().includes(term)
+          || agenda.nombreCoordinador.toLowerCase().includes(term)
+          || agenda.nombreResponsable.toLowerCase().includes(term);
+
     });
   }
 
@@ -100,13 +88,21 @@ export class PersonasAgendamientoListaComponent implements OnInit {
   }
   
   verPersona(datos){
-    
-    this.AmbienteService.agendaModo.modo = datos.modo
+    this.servicioAmbiente.agendaModo.modo = datos.modo
   }
+
   EditarAgenda(datos){
-    this.AmbienteService.agendaModo.modo = datos.modo
+    this.servicioAmbiente.agendaModo.modo = datos.modo
   }
+  
   NuevaAgenda(datos){
-    this.AmbienteService.agendaModo.modo = datos.modo
+    this.servicioAmbiente.agendaModo.modo = datos.modo
+  }
+
+  AplicarFiltros(){
+    this.registrosAgendas$ = this.filter.valueChanges.pipe(
+      startWith(''),
+      map(text => this.buscarAgendas(text, this.pipe))
+    )
   }
 }
