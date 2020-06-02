@@ -17,31 +17,25 @@
     <table class="table table-striped">
         <thead class="thead">
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Programa</th>
-            <th scope="col">Fecha creación</th>
-            <th scope="col">Fecha finalización</th>
+            <th scope="col">Id Agenda</th>
+            <th scope="col">Coordinador</th>
             <th scope="col">Responsable</th>
-            <th scope="col">N° Graduados</th>
-            <th scope="col">Estado</th>
+            <th scope="col">Fecha inicial</th>
+            <th scope="col">Fecha Final</th>
             <th scope="col"></th> 
             <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let agenda of  agendas$ | async; index as i">
-          <td><ngb-highlight [result]="agenda.IdAgenda  | number" [term]="filter.value"></ngb-highlight></td>
-          <td><ngb-highlight [result]="agenda.Nombre" [term]="filter.value"></ngb-highlight></td>
-          <td><ngb-highlight [result]="agenda.Programa" [term]="filter.value"></ngb-highlight></td>
-          <td><ngb-highlight [result]="agenda.FechaCreacion" [term]="filter.value"></ngb-highlight></td>
-          <td><ngb-highlight [result]="agenda.FechaFinal" [term]="filter.value"></ngb-highlight></td>
-          <td><ngb-highlight [result]="agenda.Responsable" [term]="filter.value"></ngb-highlight></td>
-          <td><ngb-highlight [result]="agenda.Cantidad | number" [term]="filter.value"></ngb-highlight></td>
-          <td><ngb-highlight [result]="agenda.Estado" [term]="filter.value"></ngb-highlight></td>
-          <td><button  type="button" class="btn btn-outline-secondary " (click)="verPersona({id : agenda.IdAgenda, modo:4})"  placement="right" ngbTooltip="Seguir"><i class="fa fa-eye"></i></button></td>
+        <tr *ngFor="let agenda of  registrosAgendas$ | async; index as i">
+          <td><ngb-highlight [result]="agenda.id | number" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="agenda.nombreCoordinador " [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="agenda.nombreResponsable " [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="agenda.inicial_fecha" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="agenda.final_fecha" [term]="filter.value"></ngb-highlight></td>
+          <td><button  type="button" class="btn btn-outline-secondary " (click)="verPersona({id : agenda.id, modo:4})"  placement="right" ngbTooltip="Seguir"><i class="fa fa-eye"></i></button></td>
           <td>
-            <button class="btn btn-outline-secondary " (click)="verPersona({id : agenda.IdAgenda, modo:3})" placement="left" ngbTooltip="Editar"><i class="fa fa-pencil"></i></button>
+            <button class="btn btn-outline-secondary " (click)="verPersona({id : agenda.id, modo:3})" placement="left" ngbTooltip="Editar"><i class="fa fa-pencil"></i></button>
             </td>
         </tr>
         </tbody>
