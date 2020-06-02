@@ -30,7 +30,8 @@ export class GenericoModel {
   protected registros:any[];      //ESTE ATRIBUTO SE SOBRECARGA
   
   private consecutivoDbRefs:number;
-  protected listo:boolean;
+  protected listoCampos:boolean;
+  protected listoCargue:boolean;
 
   constructor( 
     instanciaHttpClient :HttpClient,
@@ -44,7 +45,8 @@ export class GenericoModel {
     this.controladoresForaneos = [];
     this.posicionActual = null;
     this.consecutivoDbRefs =1;
-    this.listo=false;
+    this.listoCampos=false;
+    this.listoCargue=false;
 
   }
 
@@ -62,8 +64,18 @@ export class GenericoModel {
     return  this.registros[this.posicionActual];
   }
 
-  public get estaListo():boolean{
-    return this.listo;
+  public estaListo(tipo:string):boolean{
+    let validador:boolean=false;
+    switch(tipo){
+      case "campos":
+        validador = this.listoCampos;
+      break;
+      case "cargue":
+        validador = this.listoCargue;
+      break;
+    }
+
+    return validador;
   }
 
   public get campos():string[]{
@@ -183,6 +195,8 @@ export class GenericoModel {
 
   protected DetectarCampos(conToken:boolean=true):Observable<any>{
 
+    this.listoCampos = false;
+
     let datosEnviados = new HttpParams()
       .set("accion","obtener_campos")
       .set("tabla",this.nombreTabla)
@@ -199,7 +213,7 @@ export class GenericoModel {
                 }
               );
               
-              this.listo=true;
+              this.listoCampos=true;
             break;
           }
 
@@ -212,6 +226,8 @@ export class GenericoModel {
 
   public CargarDesdeDB(  conToken:boolean=true , modoCargue:string="S", caracteristicas:any=null): Observable<any> {
   
+    this.listoCargue=false;
+
     let re1 = /\"/gi;
     let re2 = /{/gi;
     let re3 = /\}/gi;    
@@ -239,7 +255,8 @@ export class GenericoModel {
 
             if( respuesta.mensaje.length > 0 ) this.posicionActual=0;
           }
-
+          
+          this.listoCargue=true;
           return respuesta;
         }
       )

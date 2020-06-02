@@ -8,7 +8,7 @@
             
       <ngb-tabset>
      
-        <ngb-tab  *ngIf="controladorAreas.estaListo">
+        <ngb-tab  *ngIf="controladorAreas.estaListo('campos')">
           <ng-template ngbTabTitle>Areas</ng-template>
           <ng-template ngbTabContent>
             <div class="ngTabContainer">
@@ -18,7 +18,7 @@
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab  *ngIf="controladorTiposDocumentos.estaListo">
+        <ngb-tab  *ngIf="controladorTiposDocumentos.estaListo('campos')">
           <ng-template ngbTabTitle>Tipos de Documentos</ng-template>
           <ng-template ngbTabContent>
             <div class="ngTabContainer">
@@ -28,7 +28,7 @@
           </ng-template>
         </ngb-tab>        
 
-        <ngb-tab  *ngIf="controladorCohortes.estaListo">
+        <ngb-tab  *ngIf="controladorCohortes.estaListo('campos')">
           <ng-template ngbTabTitle>Cohortes</ng-template>
           <ng-template ngbTabContent>
             <div class="ngTabContainer">
@@ -38,7 +38,7 @@
           </ng-template>
         </ngb-tab>        
 
-        <ngb-tab  *ngIf="controladorProgramas.estaListo">
+        <ngb-tab  *ngIf="controladorProgramas.estaListo('campos')">
           <ng-template ngbTabTitle>Programas</ng-template>
           <ng-template ngbTabContent>
             <div class="ngTabContainer">
@@ -48,7 +48,7 @@
           </ng-template>
         </ngb-tab>        
 
-        <ngb-tab  *ngIf="controladorInstituciones.estaListo">
+        <ngb-tab  *ngIf="controladorInstituciones.estaListo('campos')">
           <ng-template ngbTabTitle>Instituciones</ng-template>
           <ng-template ngbTabContent>
             <div class="ngTabContainer">
@@ -58,7 +58,7 @@
           </ng-template>
         </ngb-tab>        
 
-        <ngb-tab  *ngIf="controladorSedes.estaListo">
+        <ngb-tab  *ngIf="controladorSedes.estaListo('campos')">
           <ng-template ngbTabTitle>Sedes</ng-template>
           <ng-template ngbTabContent>
             <div class="ngTabContainer">
@@ -68,7 +68,7 @@
           </ng-template>
         </ngb-tab>        
 
-        <ngb-tab  *ngIf="controladorTiposestudios.estaListo">
+        <ngb-tab  *ngIf="controladorTiposestudios.estaListo('campos')">
           <ng-template ngbTabTitle>Tipos de Estudios</ng-template>
           <ng-template ngbTabContent>
             <div class="ngTabContainer">
@@ -78,7 +78,7 @@
           </ng-template>
         </ngb-tab>        
 
-        <ngb-tab  *ngIf="controladorTitulos.estaListo">
+        <ngb-tab  *ngIf="controladorTitulos.estaListo('campos')">
           <ng-template ngbTabTitle>Titulos</ng-template>
           <ng-template ngbTabContent>
             <div class="ngTabContainer">
@@ -88,7 +88,7 @@
           </ng-template>
         </ngb-tab>        
 
-        <ngb-tab  *ngIf="controladorMecanismosgrados.estaListo">
+        <ngb-tab  *ngIf="controladorMecanismosgrados.estaListo('campos')">
           <ng-template ngbTabTitle>Mecanismos de Grado</ng-template>
           <ng-template ngbTabContent>
             <div class="ngTabContainer">
@@ -98,7 +98,7 @@
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab  *ngIf="controladorMunicipios.estaListo">
+        <ngb-tab  *ngIf="controladorMunicipios.estaListo('campos')">
           <ng-template ngbTabTitle>Municipios</ng-template>
           <ng-template ngbTabContent>
             <div class="ngTabContainer">
@@ -108,7 +108,7 @@
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab  *ngIf="controladorDepartamentos.estaListo">
+        <ngb-tab  *ngIf="controladorDepartamentos.estaListo('campos')">
           <ng-template ngbTabTitle>Departamentos</ng-template>
           <ng-template ngbTabContent>
             <div class="ngTabContainer">
@@ -118,7 +118,7 @@
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab  *ngIf="controladorPaises.estaListo">
+        <ngb-tab  *ngIf="controladorPaises.estaListo('campos')">
           <ng-template ngbTabTitle>Paises</ng-template>
           <ng-template ngbTabContent>
             <div class="ngTabContainer">
@@ -128,7 +128,7 @@
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab  *ngIf="controladorSectoreslaborales.estaListo">
+        <ngb-tab  *ngIf="controladorSectoreslaborales.estaListo('campos')">
           <ng-template ngbTabTitle>Sectores Laborales</ng-template>
           <ng-template ngbTabContent>
             <div class="ngTabContainer">
@@ -138,7 +138,7 @@
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab  *ngIf="controladorTiposcontratos.estaListo">
+        <ngb-tab  *ngIf="controladorTiposcontratos.estaListo('campos')">
           <ng-template ngbTabTitle>Tipos de Contratos</ng-template>
           <ng-template ngbTabContent>
             <div class="ngTabContainer">
@@ -148,7 +148,7 @@
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab  *ngIf="controladorRangosingresos.estaListo">
+        <ngb-tab  *ngIf="controladorRangosingresos.estaListo('campos')">
           <ng-template ngbTabTitle>Rangos Ingresos</ng-template>
           <ng-template ngbTabContent>
             <div class="ngTabContainer">
@@ -158,6 +158,15 @@
           </ng-template>
         </ngb-tab>
 
+        <ngb-tab  *ngIf="controladorSectoresasociaciones.estaListo('campos')">
+          <ng-template ngbTabTitle>Sectores Comun./Asoc.</ng-template>
+          <ng-template ngbTabContent>
+            <div class="ngTabContainer">
+              <h1>Lista de Sectores para Comunidades y/o Asociaciones</h1><hr>
+              <app-maestras-componentes-lista nombreTabla="sectoresasociaciones" [controlador]="controladorSectoresAsociaciones"></app-maestras-componentes-lista>
+            </div>
+          </ng-template>
+        </ngb-tab>
 
       </ngb-tabset>                     
     </div>            
