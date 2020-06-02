@@ -14,7 +14,6 @@ import {AmbienteService} from '@servicios/ambiente.service';
 export class DashboardMenuComponent {
   //opciones del menu con nombre y url
   menu:any;
-  usuario:any;
   tipoMenu: number=0;
   nuevoMenu:Array<Object> = [];
 
@@ -24,32 +23,71 @@ export class DashboardMenuComponent {
     agrupamiento:"",
   }
   
-  constructor(private rutas: Router, private ruta: ActivatedRoute, private autenticador: AutenticacionService,private servicioAmbiente : AmbienteService) {
+  constructor(
+    private rutas: Router, 
+    private ruta: ActivatedRoute, 
+    private autenticador: AutenticacionService,
+    private servicioAmbiente : AmbienteService
+  )
+  {
  
+    console.log ( this.autenticador.UsuarioActualValor  ) ;
 
 
+    switch( this.autenticador.UsuarioActualValor.rol ){
+      case "D":
 
-this.usuario = "Juan Bustos";
+        this.menu  = [ 
+          { opcion: 'Egresados'         , url: '/cargue'                    , icon: "fa-download"                , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
+          { opcion: 'Graduados'         , url: '/cambiar'                   , icon: "fa-cloud-download"          , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
+          { opcion: 'Micrositio'        , url: '/clientes'                  , icon: "fa-file"                    , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
+          { opcion: 'Empleabilidad'     , url: '/empleados'                 , icon: "fa-stack-overflow"          , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
+          { opcion: 'Emprendimiento'    , url: '/tiposDocumentos'           , icon: "fa-files-o"                 , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
+          { opcion: 'Personas'          , url: '/personas'                  , icon: "fa-pencil-square-o"         , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"     , orden: 2  },
+          { opcion: 'Agendamientos'     , url: '/agendamiento'              , icon: "fa-window-restore"          , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"     , orden: 2  },
+          { opcion: 'Eventos'           , url: '/eventos'                   , icon: "fa-users"                   , agrupamiento: "Actividades"       ,iconPrincipal:"fa-suitcase"           , orden: 3  },
+          { opcion: 'Comunicación'      , url: '/cargos'                    , icon: "fa-envelope"                , agrupamiento: "Actividades"       ,iconPrincipal:"fa-suitcase"           , orden: 3  },
+          { opcion: 'Alertas'           , url: '/alertas'                   , icon: "fa-exclamation-circle"      , agrupamiento: "Reportes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
+          { opcion: 'Predefinidos'      , url: '/predefinidos'              , icon: "fa-file-pdf-o"              , agrupamiento: "Reportes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
+          { opcion: 'Perzonalizados'    , url: '/estadosProcesos'           , icon: "fa-file-code-o"             , agrupamiento: "Reportes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
+          { opcion: 'Maestras'          , url: '/maestras'                  , icon: "fa-share-alt-square"        , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
+          { opcion: 'Usuario'           , url: '/usuarios/lista'            , icon: "fa-user-circle-o "          , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
+          { opcion: 'Cambiar Clave'     , url: '/usuarios/cambiarclave'     , icon: "fa-user-circle-o "          , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },    
+          { opcion: 'Auditoria'         , url: '/tiposProcesos'             , icon: "fa-bar-chart "              , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
+        ];
 
-  this.menu  = [ 
-    { opcion: 'Egresados'         , url: '/cargue'                     , icon: "fa-download"                , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
-    { opcion: 'Graduados'         , url: '/cambiar'                   , icon: "fa-cloud-download"          , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
-    { opcion: 'Micrositio'        , url: '/clientes'                  , icon: "fa-file"                    , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
-    { opcion: 'Empleabilidad'     , url: '/empleados'                 , icon: "fa-stack-overflow"          , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
-    { opcion: 'Emprendimiento'    , url: '/tiposDocumentos'           , icon: "fa-files-o"                 , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
-    { opcion: 'Personas'          , url: '/personas'                     , icon: "fa-pencil-square-o"         , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"     , orden: 2  },
-    { opcion: 'Agendamientos'     , url: '/agendamiento'              , icon: "fa-window-restore"          , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"     , orden: 2  },
-    { opcion: 'Eventos'           , url: '/eventos'                   , icon: "fa-users"                   , agrupamiento: "Actividades"       ,iconPrincipal:"fa-suitcase"           , orden: 3  },
-    { opcion: 'Comunicación'      , url: '/cargos'                    , icon: "fa-envelope"                , agrupamiento: "Actividades"       ,iconPrincipal:"fa-suitcase"           , orden: 3  },
-    { opcion: 'Alertas'           , url: '/alertas'            , icon: "fa-exclamation-circle"      , agrupamiento: "Reportes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
-    { opcion: 'Predefinidos'      , url: '/predefinidos'     , icon: "fa-file-pdf-o"              , agrupamiento: "Reportes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
-    { opcion: 'Perzonalizados'    , url: '/estadosProcesos'           , icon: "fa-file-code-o"             , agrupamiento: "Reportes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
-    { opcion: 'Maestras'          , url: '/maestras'                  , icon: "fa-share-alt-square"        , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
-    { opcion: 'Usuario'           , url: '/usuarios/lista'            , icon: "fa-user-circle-o "          , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
-    { opcion: 'Cambiar Clave'     , url: '/usuarios/cambiarclave'     , icon: "fa-user-circle-o "          , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },    
-    { opcion: 'Auditoria'         , url: '/tiposProcesos'             , icon: "fa-bar-chart "              , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
-  ];
+      break;
+      case "A":
 
+        this.menu  = [ 
+          { opcion: 'Personas'          , url: '/personas'                  , icon: "fa-pencil-square-o"         , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"     , orden: 2  },
+          { opcion: 'Alertas'           , url: '/alertas'                   , icon: "fa-exclamation-circle"      , agrupamiento: "Reportes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
+          { opcion: 'Maestras'          , url: '/maestras'                  , icon: "fa-share-alt-square"        , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
+          { opcion: 'Usuario'           , url: '/usuarios/lista'            , icon: "fa-user-circle-o "          , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
+          { opcion: 'Cambiar Clave'     , url: '/usuarios/cambiarclave'     , icon: "fa-user-circle-o "          , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },    
+        ];
+      
+      break;
+      case "C":
+
+
+        this.menu  = [ 
+          { opcion: 'Cambiar Clave'     , url: '/usuarios/cambiarclave'     , icon: "fa-user-circle-o "          , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },              
+        ];        
+
+      break;
+      case "O":
+
+
+        this.menu  = [ 
+          { opcion: 'Personas'          , url: '/personas'                  , icon: "fa-pencil-square-o"         , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"     , orden: 2  },
+          { opcion: 'Cambiar Clave'     , url: '/usuarios/cambiarclave'     , icon: "fa-user-circle-o "          , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },    
+        ];
+
+
+      break;
+    }
+  
   var menuActual : string;
     for (var unmenu of this.menu) {
       if(menuActual != unmenu.agrupamiento){

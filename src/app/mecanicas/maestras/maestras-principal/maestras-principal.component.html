@@ -148,12 +148,12 @@
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab  *ngIf="controladorRangossalariales.estaListo">
-          <ng-template ngbTabTitle>Rangos Salariales</ng-template>
+        <ngb-tab  *ngIf="controladorRangosingresos.estaListo">
+          <ng-template ngbTabTitle>Rangos Ingresos</ng-template>
           <ng-template ngbTabContent>
             <div class="ngTabContainer">
-              <h1>Lista de Rangos Salariales</h1><hr>
-              <app-maestras-componentes-lista nombreTabla="rangossalariales" [controlador]="controladorRangossalariales"></app-maestras-componentes-lista>
+              <h1>Lista de Rangos de Ingresos</h1><hr>
+              <app-maestras-componentes-lista nombreTabla="rangosingresos" [controlador]="controladorRangosingresos"></app-maestras-componentes-lista>
             </div>
           </ng-template>
         </ngb-tab>
@@ -163,27 +163,3 @@
     </div>            
   </div>
 </div>
-
-<!-- 
-TABLA               TAB   TS    Controlador   Interface
-areas               OK    OK    OK            OK
-tiposdocumentos     OK    OK    OK            OK
-
-cohortes            OK    OK    OK            OK
-
-programas           OK    OK    OK            OK
-instituciones       OK    OK    OK            OK
-sedes               OK    OK    OK            OK
-
-tiposestudios       OK    OK    OK            OK
-titulos             OK    OK    OK            OK
-mecanismosgrados    OK    OK    OK            OK
-
-municipios          OK    OK    OK            OK
-departamentos       OK    OK    OK            OK
-paises              OK    OK    OK            OK
-
-sectoreslaborales   OK    OK    OK            OK
-tiposcontratos      OK    OK    OK            OK
-rangossalariales    OK    OK    OK            OK
--->

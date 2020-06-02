@@ -10,7 +10,8 @@ table{
 
 body {
     font-family: 'lato';
-    overflow: auto;    
+    /* overflow: auto;     */
+    overflow-y: scroll;
 }
 
 /* Set a style for all buttons */

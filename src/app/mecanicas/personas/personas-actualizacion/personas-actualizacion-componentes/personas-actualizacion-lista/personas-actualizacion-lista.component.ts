@@ -46,8 +46,8 @@ export class PersonasActualizacionListaComponent implements OnInit {
     private llamadoHttp : HttpClient,
     private pipe: DecimalPipe,
     private enrutador: Router
-  ) {
-
+  )
+  {
     this.controladorPersonas = new PersonasController(llamadoHttp,servicioAmbiente);
 
     let caracteristicas = new EstructuraConsultas();
@@ -61,8 +61,9 @@ export class PersonasActualizacionListaComponent implements OnInit {
     
     caracteristicas.AgregarEnlace( "estudios" ,  "personas" ,  "estudios" );
     caracteristicas.AgregarEnlace( "cohortes" ,  "cohortes" ,  "estudios" );
+    caracteristicas.AgregarEnlace( "ofertas" ,  "ofertas" ,  "estudios" );
     caracteristicas.AgregarEnlace( "sedes" ,     "sedes" ,     "estudios" );
-    caracteristicas.AgregarEnlace( "programas" , "programas" , "estudios" );  
+    caracteristicas.AgregarEnlace( "programas" , "programas" , "ofertas" );  
 
     caracteristicas.AgregarFiltro( "personas" , "id" , "=", "3130" );
     caracteristicas.AgregarFiltro( "sedes" , "instituciones_id" , "=", "1" );
@@ -71,7 +72,7 @@ export class PersonasActualizacionListaComponent implements OnInit {
     caracteristicas.AgregarOrdenamiento( "sede" , "ASC" );
     caracteristicas.AgregarOrdenamiento( "apellidos" , "ASC" );    
 
-     this.controladorPersonas.CargarDesdeDB(true, "A", caracteristicas ).subscribe(
+    this.controladorPersonas.CargarDesdeDB(true, "A", caracteristicas ).subscribe(
       (respuesta: RespuestaInterface) =>{
         switch (respuesta.codigo){
           case 200:
@@ -90,8 +91,7 @@ export class PersonasActualizacionListaComponent implements OnInit {
         }
       } 
     );
-
-   }
+  }
 
   Buscar(text: string , pipe: PipeTransform): ListaPersonasInterface[] {
     return this.registros.filter(persona => {

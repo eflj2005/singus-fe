@@ -59,38 +59,46 @@ export class InicioRecuperarClaveComponent implements OnInit {
         
         switch (notificacion1.codigo){
           case 200:         //Guardado ok
-            this.datos = notificacion1.mensaje[0];
 
-            const respuesta2 = this.controladorUsuarios.GenerarCodigo(  this.datos.id   ).subscribe(     
-              (notificacion2:RespuestaInterface) => {
-                switch (notificacion2.codigo){
-                  case 200:         //login ok         
-                    
-                    correoAjustado = this.datos.correo;   //"sd***bj@asd.com";
-                    this.mensaje = "Se ha enviado un mensaje a '" + correoAjustado + "' con el codigo de confirmación.";    
-        
-                    const emergente=this.servicioEmergentes.open(contenidoNotificador, { centered: true });
+            if( notificacion1.mensaje != null ){
+              this.datos = notificacion1.mensaje[0];
 
-                    emergente.result.then(
-                      (result) => { /* Se recibe close */ }, 
-                      (reason) => { // Se recibe dismiss
-                        if(reason == 'CONTINUAR'){ //se recibe close             
-  
-                          this.procesando=false;
-                          this.datosAmbiente.inicioIdUsrTemp= this.datos.id ;            //OJO cambiar 2 por id recibido
-                          this.datosAmbiente.inicioPaso++;                                
+              const respuesta2 = this.controladorUsuarios.GenerarCodigo(  this.datos.id   ).subscribe(     
+                (notificacion2:RespuestaInterface) => {
+                  switch (notificacion2.codigo){
+                    case 200:         //login ok         
+                      
+                      correoAjustado = this.datos.correo;   //"sd***bj@asd.com";
+                      this.mensaje = "Se ha enviado un mensaje a '" + correoAjustado + "' con el codigo de confirmación.";    
+          
+                      const emergente=this.servicioEmergentes.open(contenidoNotificador, { centered: true });
+
+                      emergente.result.then(
+                        (result) => { /* Se recibe close */ }, 
+                        (reason) => { // Se recibe dismiss
+                          if(reason == 'CONTINUAR'){ //se recibe close             
+    
+                            this.procesando=false;
+                            this.datosAmbiente.inicioIdUsrTemp= this.datos.id ;            //OJO cambiar 2 por id recibido
+                            this.datosAmbiente.inicioPaso++;                                
+                          }
                         }
-                      }
-                    );
+                      );
 
-                  break;
-                  case 400:         //autenticación erronea / Usuario Bloqueado / Usuario Inactivo
-                    alert(notificacion2.asunto + ": " + notificacion2.mensaje);
-                    this.procesando=false; 
-                  break;
+                    break;
+                    case 400:         //autenticación erronea / Usuario Bloqueado / Usuario Inactivo
+                      alert(notificacion2.asunto + ": " + notificacion2.mensaje);
+                      this.procesando=false; 
+                    break;
+                  }
                 }
-              }
-            );
+              );
+            }
+            else{
+              alert("Proceso fallido, verificar e intentar de nuevo");
+              this.procesando=false;               
+            }
+
 
           break;
           case 400:         //autenticación erronea / Usuario Bloqueado / Usuario Inactivo

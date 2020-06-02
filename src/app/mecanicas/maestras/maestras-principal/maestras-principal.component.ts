@@ -24,7 +24,7 @@ import { PaisesController } from '@controladores/paises.controller';
 
 import { SectoreslaboralesController } from '@controladores/sectoreslaborales.controller';
 import { TiposcontratosController } from '@controladores/tiposcontratos.controller';
-import { RangossalarialesController } from '@controladores/rangossalariales.controller';
+import { RangosingresosController } from '@controladores/rangosingresos.controller';
 
 
 
@@ -56,7 +56,7 @@ export class MaestrasPrincipalComponent implements OnInit {
 
   controladorSectoreslaborales: SectoreslaboralesController;
   controladorTiposcontratos: TiposcontratosController;
-  controladorRangossalariales: RangossalarialesController;
+  controladorRangosingresos: RangosingresosController;
 
   constructor(
     private llamadoHttp: HttpClient,
@@ -82,7 +82,7 @@ export class MaestrasPrincipalComponent implements OnInit {
   
     this.controladorSectoreslaborales = new SectoreslaboralesController(llamadoHttp, servicioAmbiente);
     this.controladorTiposcontratos = new TiposcontratosController(llamadoHttp, servicioAmbiente); 
-    this.controladorRangossalariales = new RangossalarialesController(llamadoHttp, servicioAmbiente); 
+    this.controladorRangosingresos = new RangosingresosController(llamadoHttp, servicioAmbiente); 
   }
 
   ngOnInit() {

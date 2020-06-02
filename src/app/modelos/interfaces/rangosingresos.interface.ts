@@ -1,4 +1,4 @@
-export interface RangossalarialesInterface {
+export interface RangosingresosInterface {
   id: number;
   minimo: number;
   maximo: number;  

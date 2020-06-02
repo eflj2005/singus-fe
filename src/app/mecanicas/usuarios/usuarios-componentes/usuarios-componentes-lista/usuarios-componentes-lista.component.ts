@@ -47,7 +47,7 @@ export class UsuariosComponentesListaComponent implements OnInit {
       (respuesta: RespuestaInterface) =>{
         switch (respuesta.codigo){
           case 200:
-
+            this.controladorUsuarios.CargarForanea("areas");
             this.registros =this.controladorUsuarios.todos;
             this.AplicarFiltros();
 

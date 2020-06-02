@@ -55,3 +55,14 @@
  table .accion{
      width: 3rem;
  }
+
+ textarea{
+     min-width: 100%;
+ }
+
+ .conborde{
+     border: 0.1px;
+     border-style: solid;
+     border-color: lightgray;
+     border-radius: .50rem;
+ }

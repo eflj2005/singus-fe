@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { AmbienteService } from '@servicios/ambiente.service';
 
-import { RangossalarialesController } from './rangossalariales.controller';
+import { RangosingresosController } from './rangosingresos.controller';
 
-describe('Rangossalariales.Controller', () => {
+describe('RangosingresosController', () => {
   it('should create an instance', () => {
     let instanciaHttpClient :HttpClient;
     let InstanciaAmbienteService :AmbienteService;
-    expect(new RangossalarialesController(instanciaHttpClient,InstanciaAmbienteService)).toBeTruthy();    
+    expect(new RangosingresosController(instanciaHttpClient,InstanciaAmbienteService)).toBeTruthy();    
   });
 });

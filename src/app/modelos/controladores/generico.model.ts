@@ -8,6 +8,11 @@ import { filtroInterface } from '@interfaces/filtro.interface';
 import { RespuestaInterface } from '../interfaces/respuesta.interface';
 import { isNull } from 'util';
 
+interface RelacionesInterface {
+  controlador: number;
+  sentido: string;
+}
+
 export class GenericoModel {
   protected llamadoHttp :HttpClient;
   protected servicioAmbiente :AmbienteService;
@@ -17,7 +22,7 @@ export class GenericoModel {
   protected camposTabla:any[];
   protected camposFecha:string[];
 
-  protected controladoresForaneos:any[];
+  protected controladoresForaneos:any[];        //eliminar
 
   protected posicionActual:number;
   //protected cantidad:number = null;
@@ -124,14 +129,14 @@ export class GenericoModel {
     this.controladoresForaneos[controlador.nombreTabla] = controlador;
   }
 
-  public ObtenerForanea(nombre : string){
-    return this.controladoresForaneos[nombre];
+  public AgregarRelacion(controlador:any, sentido:string){
+    this.controladoresForaneos[controlador.nombreTabla] = controlador;
   }
+
 
   public ReemplazarForanea( nombre : string , controladorForanero : any ){
     return this.controladoresForaneos[nombre] = controladorForanero;
   }
-
 
   public TieneForanea(nombre:string){
     return (nombre in this.controladoresForaneos);
@@ -139,6 +144,18 @@ export class GenericoModel {
 
   public CargarForanea( nombre : string, caracteristicas:any=null){
     this.controladoresForaneos[nombre].CargarDesdeDB( true, "S", caracteristicas ).subscribe(  (respuesta:RespuestaInterface) => {   }); // Carge de foranea
+  }
+
+  public ObtenerForanea(nombreForaneo : string, registroAsociado :boolean = false, identificadorBase: number = null){
+
+    if(registroAsociado){
+      if(identificadorBase!=null){
+        this.Encontrar("id", identificadorBase);
+      }
+      this.controladoresForaneos[nombreForaneo].Encontrar("id", this.registros[this.posicionActual][nombreForaneo+"_id"]);
+    }
+    
+    return this.controladoresForaneos[nombreForaneo];
   }
 
 
@@ -214,7 +231,6 @@ export class GenericoModel {
     return this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
       map(
         (respuesta: RespuestaInterface) => {
-
           this.LimpiarTodo();
           if(!isNull(respuesta.mensaje)){
             respuesta.mensaje.forEach(
