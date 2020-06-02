@@ -129,11 +129,6 @@ export class GenericoModel {
     this.controladoresForaneos[controlador.nombreTabla] = controlador;
   }
 
-  public AgregarRelacion(controlador:any, sentido:string){
-    this.controladoresForaneos[controlador.nombreTabla] = controlador;
-  }
-
-
   public ReemplazarForanea( nombre : string , controladorForanero : any ){
     return this.controladoresForaneos[nombre] = controladorForanero;
   }
