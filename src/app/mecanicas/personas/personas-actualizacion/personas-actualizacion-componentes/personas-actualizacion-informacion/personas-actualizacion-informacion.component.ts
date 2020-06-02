@@ -253,7 +253,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         this.grupoDatos.posicion= 3;
       break;
       case 4:
-        this.grupoDatos.nombre = "Reconocimientos";
+        this.grupoDatos.nombre = "Logros Personales";
         this.grupoDatos.posicion= 4;
       break;
       case 5:

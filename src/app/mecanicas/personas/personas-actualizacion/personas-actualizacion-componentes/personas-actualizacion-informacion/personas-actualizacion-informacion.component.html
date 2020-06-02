@@ -255,13 +255,8 @@
                     <ng-template #elseBlock_ExperienciaList>
                       <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivarModalHistoricos( modalhistoricosExperiencias, 6, elemento.id )"  placement="left" ngbTooltip="Modificar"><i class="fa fa-pencil-square-o"></i></button>
                       <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="EliminarHistorico( elemento.dbRef  )"  placement="left" ngbTooltip="Eliminar"><i class="fa fa-minus"></i></button>
-
                     </ng-template>                  
-                      
-
                   </td>                  
-
-
                 </tr>
               </tbody>
             </table>
@@ -271,16 +266,121 @@
         </div>
 
         <div class="row">
-
           <div class="col">
             <hr>
             <button type="button" class="btn btn-outline-primary" (click)="ActivarModalHistoricos( modalhistoricosExperiencias, 6, '' )"><i class="fa fa-plus"></i>Agregar Experiencia</button>
-
           </div>
         </div>
 
-
       </div>
+
+      <!-- ************************************************* LOGROS PERSONALES LISTAS ************************************************* -->
+
+      <div  *ngIf="grupoDatos.posicion == 4">
+        <div class="row justify-content-between">
+          <div class="col-md-6">
+            <h5>Comunidades y Asociaciones</h5>
+          </div>
+          <div class="col-md-4">
+            <button type="button" class="btn btn-outline-primary py-0 px-1" (click)="ActivarModalHistoricos( modalhistoricosExperiencias, 6, '' )"><i class="fa fa-plus"></i>Agregar Comun./Asocia.</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Cobertura</th>
+                  <th scope="col">Sector</th>
+                  <th scope="col">Ingreso</th>
+                  <th scope="col">Acción</th>                  
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let elemento of datosExperiencias; let indiceEstudios = index;">
+                  <th scope="row">{{ elemento.id }}</th>
+                  <td>{{ elemento.nombre }}</td>
+                  <td>{{ elemento.cobertura }}</td>
+                  <td>{{ controladorExperiencias.ObtenerForanea('estudios',true,elemento.id).ObtenerForanea("titulos",true).actual.descripcion }}</td>                  
+                  <td>{{ elemento.ingreso_fecha  }}</td>
+                  <td>
+                    <div *ngIf=" elemento.id; then thenBlock_ExperienciaList else elseBlock_ExperienciaList "></div>
+                    <ng-template #thenBlock_ExperienciaList>
+                      <button  type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivarModalHistoricos( modalhistoricosExperiencias, 6, elemento.id )"  placement="left" ngbTooltip="Visualizar"><i class="fa fa-eye"></i></button>
+                    </ng-template>
+                    <ng-template #elseBlock_ExperienciaList>
+                      <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivarModalHistoricos( modalhistoricosExperiencias, 6, elemento.id )"  placement="left" ngbTooltip="Modificar"><i class="fa fa-pencil-square-o"></i></button>
+                      <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="EliminarHistorico( elemento.dbRef  )"  placement="left" ngbTooltip="Eliminar"><i class="fa fa-minus"></i></button>
+                    </ng-template>                  
+                  </td>                  
+                </tr>
+              </tbody>
+            </table>
+          
+          </div>        
+        </div>
+
+        <hr/>
+
+        <div class="row justify-content-between">
+          <div class="col-md-6">
+            <h5>Reconocimientos</h5>
+          </div>
+          <div class="col-md-4">
+            <button type="button" class="btn btn-outline-primary py-0 px-1" (click)="ActivarModalHistoricos( modalhistoricosExperiencias, 6, '' )"><i class="fa fa-plus"></i>Agregar Reconocimiento</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Motivo</th>
+                  <th scope="col">Institución</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Acción</th>                  
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let elemento of datosExperiencias; let indiceEstudios = index;">
+                  <th scope="row">{{ elemento.id }}</th>
+                  <td>{{ elemento.nombre }}</td>
+                  <td>{{ elemento.motivo }}</td>
+                  <td>{{ elemento.institucion }}</td>
+                  <td>{{ elemento.momento_fecha }}</td>
+                  <td>
+                    <div *ngIf=" elemento.id; then thenBlock_ExperienciaList else elseBlock_ExperienciaList "></div>
+                    <ng-template #thenBlock_ExperienciaList>
+                      <button  type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivarModalHistoricos( modalhistoricosExperiencias, 6, elemento.id )"  placement="left" ngbTooltip="Visualizar"><i class="fa fa-eye"></i></button>
+                    </ng-template>
+                    <ng-template #elseBlock_ExperienciaList>
+                      <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivarModalHistoricos( modalhistoricosExperiencias, 6, elemento.id )"  placement="left" ngbTooltip="Modificar"><i class="fa fa-pencil-square-o"></i></button>
+                      <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="EliminarHistorico( elemento.dbRef  )"  placement="left" ngbTooltip="Eliminar"><i class="fa fa-minus"></i></button>
+                    </ng-template>                  
+                  </td>                  
+                </tr>
+              </tbody>
+            </table>
+          
+          </div>        
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <hr>
+            <button type="button" class="btn btn-outline-primary" (click)="ActivarModalHistoricos( modalhistoricosExperiencias, 6, '' )"><i class="fa fa-plus"></i>Agregar Logro</button>
+          </div>
+        </div>
+      </div>
+
 
     </div>  
   </div>
@@ -291,8 +391,6 @@
     <button type="button" *ngIf="procesando == false" class="btn btn-primary" (click)="ActualizarPersona()">Actualizar</button>
     <button type="button" *ngIf="procesando == true" class="btn btn-primary"><i class="fa fa-spinner fa-spin"></i></button>
     
-
-    <!-- <button class="mibutton" *ngIf="procesando == true" ></button> -->
   </div>
 
 
@@ -410,7 +508,7 @@
 
 
 
-  <!-- ************************************************* MODALES PARA HISTORICOS DE ESTUDIOS ************************************************* -->
+  <!-- ************************************************* MODAL PARA HISTORICOS DE ESTUDIOS ************************************************* -->
 
   <ng-template #modalhistoricosEstudios let-modal>
 
@@ -606,16 +704,13 @@
     </div>
     <div class="modal-footer "> 
       <button type="button" *ngIf="procesando == false && parametrosHistorico.lista.id == null && parametrosHistorico.lista.dbRef == null" class="btn btn-primary" (click)="AgregarHistorico();modal.dismiss('NO')" [disabled]="notificacionActiva">Agregar</button>
-      <button type="button" *ngIf="procesando == true && parametrosHistorico.lista.id == null && parametrosHistorico.lista.dbRef == null" class="btn btn-primary"><i class="fa fa-spinner fa-spin"></i></button>
-
       <button type="button" *ngIf="procesando == false" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')" [disabled]="notificacionActiva && parametrosHistorico.lista.dbRef != null" >Atras</button> 
-      <button type="button" *ngIf="procesando == true" ngbAutofocus  class="btn btn-outline-dark"><i class="fa fa-spinner fa-spin"></i></button>        
     </div>
 
   </ng-template>
 
 
-  <!-- ************************************************* MODALES PARA HISTORICOS DE EXPERIENCIAS LABORALES ************************************************* -->
+  <!-- ************************************************* MODAL PARA HISTORICOS DE EXPERIENCIAS LABORALES ************************************************* -->
 
   <ng-template #modalhistoricosExperiencias let-modal>
 
@@ -815,10 +910,7 @@
     </div>
     <div class="modal-footer "> 
       <button type="button" *ngIf="procesando == false && parametrosHistorico.lista.id == null && parametrosHistorico.lista.dbRef == null" class="btn btn-primary" (click)="AgregarHistorico();modal.dismiss('NO')" [disabled]="notificacionActiva">Agregar</button>
-      <button type="button" *ngIf="procesando == true && parametrosHistorico.lista.id == null && parametrosHistorico.lista.dbRef == null" class="btn btn-primary"><i class="fa fa-spinner fa-spin"></i></button>
-
       <button type="button" *ngIf="procesando == false" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')" [disabled]="notificacionActiva && parametrosHistorico.lista.dbRef != null" >Atras</button> 
-      <button type="button" *ngIf="procesando == true" ngbAutofocus  class="btn btn-outline-dark"><i class="fa fa-spinner fa-spin"></i></button>        
     </div>
 
   </ng-template>
