@@ -3,7 +3,7 @@ export interface AsociacionesInterface {
   personas_id: number;
   nombre:string;
   cobertura:string;
-  sectoresaplicaciones_id:number;
+  sectoresasociaciones_id:number;
   ingreso_fecha:string;
   registro_fecha:string;
   modo?:string;

@@ -29,7 +29,7 @@ import { PersonasActualizacionDetalleComponent } from './personas-actualizacion-
     NgbDropdownModule,
     BrowserModule,
     NgbTooltipModule,
-    NgbAlertModule,    
+    NgbAlertModule
   ], exports: [
     PersonasActualizacionListaComponent,
     PersonasActualizacionInformacionComponent, 

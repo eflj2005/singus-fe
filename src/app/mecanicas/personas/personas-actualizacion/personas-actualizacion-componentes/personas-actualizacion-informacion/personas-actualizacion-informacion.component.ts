@@ -304,7 +304,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         this.grupoDatos.posicion= 4;
       break;
       case 5:
-        this.grupoDatos.nombre = "Datos historicos";
+        this.grupoDatos.nombre = "Otros Datos";
         this.grupoDatos.posicion= 5;
       break;      
     }
@@ -408,7 +408,59 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         }
 
         this.ValidarHistorico("experiencias");
-      break; 
+      break;
+      case 7:
+        this.tituloHistorico = "Comunidades y/o Asociaciones";
+        this.parametrosHistorico = { "lista" : {} };              
+        
+        buscado = this.controladorAsociaciones.Encontrar("id",idHistorico);                                 //REVISAR MAS ADELANTE
+
+        if(buscado)  {
+          this.parametrosHistorico["lista"] = this.controladorAsociaciones.actual;
+        }
+        else{
+          let registro: AsociacionesInterface = {
+            id                      : null,
+            personas_id             : this.personaId,
+            nombre                  : null,
+            cobertura               : null,
+            sectoresasociaciones_id : null,
+            ingreso_fecha           : null,
+            registro_fecha          : null,
+            modo                    : null,
+            dbRef                   : null
+          }
+          this.parametrosHistorico.lista = registro;  
+        }
+
+        this.ValidarHistorico("asociaciones");
+      break;
+      case 8:
+        this.tituloHistorico = "Reconocimientos";
+        this.parametrosHistorico = { "lista" : {} };              
+        
+        buscado = this.controladorReconocimientos.Encontrar("id",idHistorico);                                 //REVISAR MAS ADELANTE
+
+        if(buscado)  {
+          this.parametrosHistorico["lista"] = this.controladorReconocimientos.actual;
+        }
+        else{
+          let registro: ReconocimientosInterface = {
+            id              : null,
+            personas_id     : this.personaId,
+            nombre          : null,
+            motivo          : null,
+            institucion     : null,
+            momento_fecha   : null,
+            registro_fecha  : null,
+            modo            : null,
+            dbRef           : null
+          }
+          this.parametrosHistorico.lista = registro;  
+        }
+
+        this.ValidarHistorico("reconocimientos");
+      break;           
     }
     let parametrosModal = null;
     if(tipoHistoricoRecibido <= 4)  parametrosModal = { centered : true,  backdropClass: 'light-blue-backdrop'  };
@@ -502,7 +554,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     this.ValidarHistorico('estudios');
   }
 
-  AgregarHistorico( ){
+  AgregarHistorico(){
 
     switch (this.tipoHistorico) {
 
@@ -562,14 +614,29 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         let nuevoRegistroExperiencia: ExperienciasInterface = this.parametrosHistorico["lista"];
         nuevoRegistroExperiencia.registro_fecha = this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd');
         this.controladorExperiencias.Agregar(nuevoRegistroExperiencia);
-      break;        
+      break;
+      case 7:
+        let nuevoRegistroAsociaciones: AsociacionesInterface = this.parametrosHistorico["lista"];
+        nuevoRegistroAsociaciones.registro_fecha = this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd');
+        this.controladorAsociaciones.Agregar(nuevoRegistroAsociaciones);
+      break;
+      case 8:
+        let nuevoRegistroReconocimientos: ReconocimientosInterface = this.parametrosHistorico["lista"];
+        nuevoRegistroReconocimientos.registro_fecha = this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd');
+        this.controladorReconocimientos.Agregar(nuevoRegistroReconocimientos);
+      break;       
     }
 
     this.huboCambios = true;
 
   }
 
-  EliminarHistorico( referencia : string ){
+  EliminarHistorico( referencia : string , tipoRecibido:number=null){
+
+    if(tipoRecibido!=null){
+      this.tipoHistorico = tipoRecibido;
+    }
+
     let controladorActual:any;
     switch (this.tipoHistorico) {
       case 1: controladorActual = this.controladorCorreos;  break;
@@ -577,6 +644,9 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
       case 3: 
       case 4: controladorActual = this.controladorTelefonos;  break;
       case 5: controladorActual = this.controladorEstudios;  break;
+      case 5: controladorActual = this.controladorExperiencias;  break;
+      case 7: controladorActual = this.controladorAsociaciones;  break;
+      case 8: controladorActual = this.controladorReconocimientos;  break;   
     }
 
     // console.log(Object.assign({}, this.datosCorreos), "Antes");      
@@ -691,6 +761,34 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         );
       }      
 
+      if( this.controladorAsociaciones.Encontrar("modo", null, true) ){
+        this.controladorAsociaciones.Guardar().subscribe( 
+          (respuesta:RespuestaInterface) => { 
+            if( respuesta.codigo == 200 ){
+              console.log(respuesta);
+            }    
+            else{
+              alert("Error al guardar asociaciones");
+              console.log(respuesta);
+            }                              
+          }
+        );
+      }  
+
+      if( this.controladorReconocimientos.Encontrar("modo", null, true) ){
+        this.controladorReconocimientos.Guardar().subscribe( 
+          (respuesta:RespuestaInterface) => { 
+            if( respuesta.codigo == 200 ){
+              console.log(respuesta);
+            }    
+            else{
+              alert("Error al guardar reconocimientos");
+              console.log(respuesta);
+            }                              
+          }
+        );
+      }
+
     }
   }
 
@@ -787,6 +885,48 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
           this.notificacionMensaje = "Debe diligenciar una empresa";
          }
       break;
+      case "asociaciones":
+        if( this.parametrosHistorico.lista.sectoresasociaciones_id == null || this.parametrosHistorico.lista.sectoresasociaciones_id == ""){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar un sector de la comunidad/asociación";
+        }
+
+        if( this.parametrosHistorico.lista.cobertura == null || this.parametrosHistorico.lista.cobertura == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar una cobertura de la comunidada/asociación";
+        }
+
+        if( this.parametrosHistorico.lista.ingreso_fecha == null || this.parametrosHistorico.lista.ingreso_fecha == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar una fecha de ingreso a la comunidada/asociación";
+        }
+
+        if( this.parametrosHistorico.lista.nombre == null || this.parametrosHistorico.lista.nombre == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe diligenciar un nombre de la comunidada/asociación";
+        }  
+      break;
+      case "reconocimientos":
+        if( this.parametrosHistorico.lista.institucion == null || this.parametrosHistorico.lista.institucion == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe diligenciar un nombre de institución";
+        }
+
+        if( this.parametrosHistorico.lista.motivo == null || this.parametrosHistorico.lista.motivo == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe diligenciar un motivo";
+        } 
+
+        if( this.parametrosHistorico.lista.momento_fecha == null || this.parametrosHistorico.lista.momento_fecha == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe seleccionar la fecha del reconocimiento";
+        }
+
+        if( this.parametrosHistorico.lista.nombre == null || this.parametrosHistorico.lista.nombre == "" ){
+          this.notificacionActiva = true;
+          this.notificacionMensaje = "Debe diligenciar el nombre del reconocimiento";
+        }
+      break;  
     }
   }
 
