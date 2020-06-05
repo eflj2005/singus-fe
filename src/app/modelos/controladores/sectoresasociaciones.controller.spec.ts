@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { AmbienteService } from '@servicios/ambiente.service';
 
-import { SectoresaplicacionesController } from './sectoresaplicaciones.controller';
+import { SectoresasociacionesController } from './sectoresasociaciones.controller';
 
-describe('SectoresaplicacionesController', () => {
+describe('SectoresasociacionesController', () => {
   it('should create an instance', () => {
     let instanciaHttpClient :HttpClient;
     let InstanciaAmbienteService :AmbienteService;    
-    expect(new SectoresaplicacionesController(instanciaHttpClient,InstanciaAmbienteService)).toBeTruthy();
+    expect(new SectoresasociacionesController(instanciaHttpClient,InstanciaAmbienteService)).toBeTruthy();
   });
 });

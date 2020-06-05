@@ -1,4 +1,4 @@
-export interface SectoresaplicacionesInterface {
+export interface SectoresasociacionesInterface {
   id: number;
   descripcion: string;
   modo?:string;

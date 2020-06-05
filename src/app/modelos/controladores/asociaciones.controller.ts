@@ -4,7 +4,7 @@ import { GenericoModel } from './generico.model';
 
 import { AsociacionesInterface } from '@interfaces/asociaciones.interface';
 import { PersonasController } from './personas.controller';
-import { SectoresaplicacionesController } from './sectoresaplicaciones.controller';
+import { SectoresasociacionesController } from './sectoresasociaciones.controller';
 
 
 export class AsociacionesController extends GenericoModel{
@@ -23,7 +23,7 @@ export class AsociacionesController extends GenericoModel{
     this.DetectarCampos().subscribe();
 
     this.AgregarForanea( new PersonasController(instanciaHttpClient,InstanciaAmbienteService) );
-    this.AgregarForanea( new SectoresaplicacionesController(instanciaHttpClient,InstanciaAmbienteService) );
+    this.AgregarForanea( new SectoresasociacionesController(instanciaHttpClient,InstanciaAmbienteService) );
 
   }
 

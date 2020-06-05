@@ -1,3 +1,9 @@
+<div class="blackout" *ngIf="!  EstoyListo()">
+  <div class="spinner spinner-grow text-primary" role="status">
+  </div>
+</div>
+
+
 <div class="container column">
    
   <h1 align='center'>Editar Persona</h1>
@@ -302,12 +308,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let elemento of datosExperiencias; let indiceEstudios = index;">
+                <tr *ngFor="let elemento of datosAsociaciones; let indiceEstudios = index;">
                   <th scope="row">{{ elemento.id }}</th>
                   <td>{{ elemento.nombre }}</td>
                   <td>{{ elemento.cobertura }}</td>
-                  <td>{{ controladorExperiencias.ObtenerForanea('estudios',true,elemento.id).ObtenerForanea("titulos",true).actual.descripcion }}</td>                  
-                  <td>{{ elemento.ingreso_fecha  }}</td>
+                  <td>{{ controladorAsociaciones.ObtenerForanea('secotoresasociaciones',true,elemento.id).actual.descripcion }}</td>                  
+                  <td>{{ elemento.ingreso_fecha }}</td>
                   <td>
                     <div *ngIf=" elemento.id; then thenBlock_ExperienciaList else elseBlock_ExperienciaList "></div>
                     <ng-template #thenBlock_ExperienciaList>
@@ -351,7 +357,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let elemento of datosExperiencias; let indiceEstudios = index;">
+                <tr *ngFor="let elemento of datosReconocimientos; let indiceEstudios = index;">
                   <th scope="row">{{ elemento.id }}</th>
                   <td>{{ elemento.nombre }}</td>
                   <td>{{ elemento.motivo }}</td>

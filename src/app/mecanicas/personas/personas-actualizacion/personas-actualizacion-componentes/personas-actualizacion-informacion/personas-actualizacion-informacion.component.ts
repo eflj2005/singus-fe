@@ -21,6 +21,10 @@ import { EstudiosInterface } from '@interfaces/estudios.interface';
 import { MunicipiosController } from '@controladores/municipios.controller';
 import { ExperienciasController } from '@controladores/experiencias.controller';
 import { ExperienciasInterface } from '@interfaces/experiencias.interface';
+import { AsociacionesController } from '@controladores/asociaciones.controller';
+import { ReconocimientosController } from '@controladores/reconocimientos.controller';
+import { AsociacionesInterface } from '@interfaces/asociaciones.interface';
+import { ReconocimientosInterface } from '@interfaces/reconocimientos.interface';
 
 
 
@@ -65,6 +69,10 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
 
   controladorExperiencias: ExperienciasController;
 
+  controladorAsociaciones: AsociacionesController;
+
+  controladorReconocimientos: ReconocimientosController;
+
   datosPersona:PersonaCompletoInterface = {
     id: null,
     nacimiento_fecha: "",
@@ -87,9 +95,10 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
   datosTelefonos:TelefonosInterface[];
   datosCorreos:CorreosInterface[];
   datosDirecciones:DireccionesInterface[];
-  
   datosEstudios:EstudiosInterface[];
   datosExperiencias:ExperienciasInterface[];
+  datosAsociaciones:AsociacionesInterface[];
+  datosReconocimientos:ReconocimientosInterface[]
 
   descripcionProyecto : any ="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología";
   descripcionPrograma : any ="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología";
@@ -138,10 +147,10 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     this.controladorCorreos = new CorreosController( llamadoHttp , servicioAmbiente );
     this.controladorTelefonos = new TelefonosController( llamadoHttp , servicioAmbiente );
     this.controladorDirecciones= new DireccionesController( llamadoHttp , servicioAmbiente );
-
-    this.controladorEstudios= new EstudiosController( llamadoHttp , servicioAmbiente );
-    
+    this.controladorEstudios= new EstudiosController( llamadoHttp , servicioAmbiente );   
     this.controladorExperiencias= new ExperienciasController( llamadoHttp , servicioAmbiente );
+    this.controladorAsociaciones= new AsociacionesController( llamadoHttp , servicioAmbiente );
+    this.controladorReconocimientos= new ReconocimientosController( llamadoHttp , servicioAmbiente );
 
     caracteristicasConsultas = new EstructuraConsultas();
     caracteristicasConsultas.AgregarColumna( null , "( SELECT numero FROM telefonos WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM telefonos WHERE personas_id = personas.id AND tipo = 'C' ) AND tipo = 'C' LIMIT 1 )" ,                                                           "telefonoCelular" );
@@ -151,75 +160,81 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     caracteristicasConsultas.AgregarColumna( null , "( SELECT direccion FROM direcciones WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM direcciones WHERE personas_id = personas.id ) LIMIT 1 )" ,                                                                                  "direccionResidencia" );   
     caracteristicasConsultas.AgregarColumna( null , "( SELECT municipios.descripcion FROM  direcciones INNER JOIN municipios ON municipios.id = direcciones.municipios_id WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM direcciones WHERE personas_id = personas.id ) LIMIT 1)" ,  "municipioResidencia" );   
     caracteristicasConsultas.AgregarFiltro( "personas" , "id" , "=", String(this.personaId) );
-
     this.controladorPersonas.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaP:RespuestaInterface) => {                // Carge de datos basicos
-      
       this.datosPersona = this.controladorPersonas.actual;                                                                                                            
       this.controladorPersonas.CargarForanea("tiposdocumentos");           // Carge de foranea de personas -> tipos documentos
       this.controladorPersonas.CargarForanea("municipios", new EstructuraConsultas( "O",  "descripcion"  , "ASC") );                                                               // Carge de foranea de municipios -> personas
       this.controladorPersonas.ObtenerForanea("municipios").CargarForanea("departamentos", new EstructuraConsultas( "O",  "descripcion"  , "ASC") );                               // Carge de foranea de Departamentos -> municipios -> personas
       this.controladorPersonas.ObtenerForanea("municipios").ObtenerForanea("departamentos").CargarForanea("paises", new EstructuraConsultas( "O",  "descripcion"  , "ASC") );      // Carge de foranea de paises ->dDepartamentos -> municipios -> personas
       
+
       caracteristicasConsultas = new EstructuraConsultas( "F", null , "personas_id" , "=" , String(this.personaId) );
       caracteristicasConsultas.AgregarOrdenamiento( "registro_fecha" , "DESC" );
-     
+
       this.controladorCorreos.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaC:RespuestaInterface) => {           // Carge de correos
-     
-        this.datosCorreos =  this.controladorCorreos.todos;
+        this.datosCorreos =  this.controladorCorreos.todos;  
+      });
 
-        this.controladorTelefonos.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaT:RespuestaInterface) => {       // Carge de telefonos
+      this.controladorTelefonos.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaT:RespuestaInterface) => {       // Carge de telefonos
+        this.datosTelefonos =  this.controladorTelefonos.todos;
+      });      
 
-          this.datosTelefonos =  this.controladorTelefonos.todos;
+      this.controladorDirecciones.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaT:RespuestaInterface) => {       // Carge de direcciones
+        this.controladorDirecciones.ReemplazarForanea( "municipios" , this.controladorPersonas.ObtenerForanea("municipios") );      
+        this.datosDirecciones =  this.controladorDirecciones.todos;
+      });
 
-          this.controladorDirecciones.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaT:RespuestaInterface) => {       // Carge de direcciones
 
-            this.controladorDirecciones.ReemplazarForanea( "municipios" , this.controladorPersonas.ObtenerForanea("municipios") );
-            
-            this.datosDirecciones =  this.controladorDirecciones.todos;
-
-          });
+      caracteristicasConsultas = new EstructuraConsultas( "F", null , "personas_id" , "=" , String(this.personaId) );
+      caracteristicasConsultas.AgregarOrdenamiento( "grado_fecha" , "DESC" );
+      this.controladorEstudios.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaES:RespuestaInterface) => {           // Carge de estudios
+        this.controladorEstudios.CargarForanea("titulos");
+        this.controladorEstudios.CargarForanea("sedes");
+        this.controladorEstudios.ObtenerForanea("sedes").CargarForanea("instituciones");
+        this.controladorEstudios.CargarForanea("mecanismosgrados");
+        this.controladorEstudios.CargarForanea("cohortes");
   
-
-        });
+        this.controladorEstudios.CargarForanea("ofertas");
+        this.controladorEstudios.ObtenerForanea("ofertas").CargarForanea("tiposestudios");
+        this.controladorEstudios.ObtenerForanea("ofertas").ReemplazarForanea("instituciones",this.controladorEstudios.ObtenerForanea("sedes").ObtenerForanea("instituciones"));
+        this.controladorEstudios.ObtenerForanea("ofertas").CargarForanea("programas");
   
+        this.datosEstudios = this.controladorEstudios.todos;
+
+        caracteristicasConsultas = new EstructuraConsultas( "F", null , "personas_id" , "=" , String(this.personaId) );
+        caracteristicasConsultas.AgregarOrdenamiento( "vinculacion_fecha" , "DESC" );
+        this.controladorExperiencias.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaEX:RespuestaInterface) => {           // Carge de experiencias    
+          this.controladorExperiencias.ReemplazarForanea("estudios", this.controladorEstudios);     //Se recicla controlador de estudios
+          this.controladorExperiencias.CargarForanea("rangosingresos");
+          this.controladorExperiencias.CargarForanea("sectoreslaborales");
+          this.controladorExperiencias.CargarForanea("tiposcontratos");
+          this.controladorExperiencias.ReemplazarForanea( "municipios" , this.controladorPersonas.ObtenerForanea("municipios") );
+    
+          this.datosExperiencias = this.controladorExperiencias.todos;
+        });           
+
+
+
+      });   
+   
+      caracteristicasConsultas = new EstructuraConsultas( "F", null , "personas_id" , "=" , String(this.personaId) );
+      caracteristicasConsultas.AgregarOrdenamiento( "ingreso_fecha" , "DESC" );
+      this.controladorAsociaciones.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaAS:RespuestaInterface) => {           // Carge de experiencias    
+        this.controladorAsociaciones.CargarForanea("sectoresasociaciones");
+  
+        this.datosAsociaciones = this.controladorAsociaciones.todos;
+      });
+  
+      caracteristicasConsultas = new EstructuraConsultas( "F", null , "personas_id" , "=" , String(this.personaId) );
+      caracteristicasConsultas.AgregarOrdenamiento( "momento_fecha" , "DESC" );
+      this.controladorReconocimientos.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaAS:RespuestaInterface) => {           // Carge de experiencias    
+  
+        this.datosReconocimientos = this.controladorReconocimientos.todos;
       });
 
     });
 
-    caracteristicasConsultas = new EstructuraConsultas( "F", null , "personas_id" , "=" , String(this.personaId) );
-    caracteristicasConsultas.AgregarOrdenamiento( "grado_fecha" , "DESC" );
-
-    this.controladorEstudios.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaES:RespuestaInterface) => {           // Carge de estudios
-      
-      this.controladorEstudios.CargarForanea("titulos");
-      this.controladorEstudios.CargarForanea("sedes");
-      this.controladorEstudios.ObtenerForanea("sedes").CargarForanea("instituciones");
-      this.controladorEstudios.CargarForanea("mecanismosgrados");
-      this.controladorEstudios.CargarForanea("cohortes");
-
-      this.controladorEstudios.CargarForanea("ofertas");
-      this.controladorEstudios.ObtenerForanea("ofertas").CargarForanea("tiposestudios");
-      this.controladorEstudios.ObtenerForanea("ofertas").CargarForanea("instituciones");
-      this.controladorEstudios.ObtenerForanea("ofertas").CargarForanea("programas");
-
-      this.datosEstudios = this.controladorEstudios.todos;
-
-    });   
-
-    caracteristicasConsultas = new EstructuraConsultas( "F", null , "personas_id" , "=" , String(this.personaId) );
-    caracteristicasConsultas.AgregarOrdenamiento( "vinculacion_fecha" , "DESC" );
-
-    this.controladorExperiencias.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaEX:RespuestaInterface) => {           // Carge de experiencias
-      
-      this.controladorExperiencias.ReemplazarForanea("estudios", this.controladorEstudios);     //Se recicla controlador de estudios
-      this.controladorExperiencias.CargarForanea("rangosingresos");
-      this.controladorExperiencias.CargarForanea("sectoreslaborales");
-      this.controladorExperiencias.CargarForanea("tiposcontratos");
-      this.controladorExperiencias.ReemplazarForanea( "municipios" , this.controladorPersonas.ObtenerForanea("municipios") );
-
-      this.datosExperiencias = this.controladorExperiencias.todos;
-    });   
-
+ 
 
     this.cambiarGrupoDatos( 1 );
 
@@ -230,6 +245,38 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
 
   }
 
+  EstoyListo(){
+    let validador:boolean = false;
+
+    validador = (
+      this.controladorPersonas.estaListo("cargue")                                                                                         &&
+      this.controladorPersonas.ObtenerForanea("tiposdocumentos").estaListo("cargue")                                                       &&
+      this.controladorPersonas.ObtenerForanea("municipios").estaListo("cargue")                                                            &&
+      this.controladorPersonas.ObtenerForanea("municipios").ObtenerForanea("departamentos").estaListo("cargue")                            &&
+      this.controladorPersonas.ObtenerForanea("municipios").ObtenerForanea("departamentos").ObtenerForanea("paises").estaListo("cargue")   &&
+      this.controladorCorreos.estaListo("cargue")                                                                                          &&
+      this.controladorTelefonos.estaListo("cargue")                                                                                        &&
+      this.controladorDirecciones.estaListo("cargue")                                                                                      &&
+      this.controladorEstudios.estaListo("cargue")                                                                                         &&
+      this.controladorEstudios.ObtenerForanea("titulos").estaListo("cargue")                                                               &&
+      this.controladorEstudios.ObtenerForanea("sedes").estaListo("cargue")                                                                 &&
+      this.controladorEstudios.ObtenerForanea("sedes").ObtenerForanea("instituciones").estaListo("cargue")                                 &&
+      this.controladorEstudios.ObtenerForanea("mecanismosgrados").estaListo("cargue")                                                      &&
+      this.controladorEstudios.ObtenerForanea("cohortes").estaListo("cargue")                                                              &&
+      this.controladorEstudios.ObtenerForanea("ofertas").estaListo("cargue")                                                               &&
+      this.controladorEstudios.ObtenerForanea("ofertas").ObtenerForanea("tiposestudios").estaListo("cargue")                               &&
+      this.controladorEstudios.ObtenerForanea("ofertas").ObtenerForanea("programas").estaListo("cargue")                                   &&
+      this.controladorExperiencias.estaListo("cargue")                                                                                     &&
+      this.controladorExperiencias.ObtenerForanea("rangosingresos").estaListo("cargue")                                                    &&
+      this.controladorExperiencias.ObtenerForanea("sectoreslaborales").estaListo("cargue")                                                 &&
+      this.controladorExperiencias.ObtenerForanea("tiposcontratos").estaListo("cargue")                                                    &&
+      this.controladorAsociaciones.estaListo("cargue")                                                                                     &&
+      this.controladorAsociaciones.ObtenerForanea("sectoresasociaciones").estaListo("cargue")                                              &&
+      this.controladorReconocimientos.estaListo("cargue") 
+    );
+
+    return validador;
+  }
 
 
   Regresar(){
