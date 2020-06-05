@@ -83,13 +83,18 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     tiposdocoumentos_id: null,
     documento: null,
     municipios_id: null,
-    actualizacion_fecha: "",
     correoPersonal : "",
     correoInstitucional : "",
     telefonoCelular: null,
     telefonoFijo: null,
     direccionResidencia: "",
     municipioResidencia: "",
+    registro_fecha: null,
+    actualizacion_fecha: null,
+    desempleado: false,
+    permitecontactar: false,
+    encuestaole: false,
+    habeasdata: false
   };
 
   datosTelefonos:TelefonosInterface[];
@@ -161,7 +166,8 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     caracteristicasConsultas.AgregarColumna( null , "( SELECT municipios.descripcion FROM  direcciones INNER JOIN municipios ON municipios.id = direcciones.municipios_id WHERE personas_id = personas.id AND registro_fecha = ( SELECT MAX( registro_fecha ) FROM direcciones WHERE personas_id = personas.id ) LIMIT 1)" ,  "municipioResidencia" );   
     caracteristicasConsultas.AgregarFiltro( "personas" , "id" , "=", String(this.personaId) );
     this.controladorPersonas.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaP:RespuestaInterface) => {                // Carge de datos basicos
-      this.datosPersona = this.controladorPersonas.actual;                                                                                                            
+      this.datosPersona = this.controladorPersonas.actual;  
+      
       this.controladorPersonas.CargarForanea("tiposdocumentos");           // Carge de foranea de personas -> tipos documentos
       this.controladorPersonas.CargarForanea("municipios", new EstructuraConsultas( "O",  "descripcion"  , "ASC") );                                                               // Carge de foranea de municipios -> personas
       this.controladorPersonas.ObtenerForanea("municipios").CargarForanea("departamentos", new EstructuraConsultas( "O",  "descripcion"  , "ASC") );                               // Carge de foranea de Departamentos -> municipios -> personas
