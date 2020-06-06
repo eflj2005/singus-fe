@@ -10,7 +10,7 @@ export interface PersonasInterface {
   municipios_id:number;
   actualizacion_fecha:string;
   registro_fecha:string;
-  desempleado:boolean;
+  desempleado:string;
   permitecontactar:string;
   encuestaole:string;
   habeasdata:string;

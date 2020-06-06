@@ -27,6 +27,8 @@ import { AsociacionesInterface } from '@interfaces/asociaciones.interface';
 import { ReconocimientosInterface } from '@interfaces/reconocimientos.interface';
 
 
+import * as moment from 'moment';
+import { IfStmt } from '@angular/compiler';
 
 interface Trabajo {
   name: string;
@@ -91,10 +93,10 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     municipioResidencia: "",
     registro_fecha: null,
     actualizacion_fecha: null,
-    desempleado: false,
-    permitecontactar: false,
-    encuestaole: false,
-    habeasdata: false
+    desempleado: "N",
+    permitecontactar: "N",
+    encuestaole: "N",
+    habeasdata: "N"
   };
 
   datosTelefonos:TelefonosInterface[];
@@ -282,6 +284,59 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     );
 
     return validador;
+  }
+
+  DiferenciaFechas2( fechaInicial:string, fechaFinal:string, intervalo:string ){
+    let fechaI = moment(fechaInicial);
+    let fechaF = moment(fechaFinal);
+    let resultado:number;
+    let texto:string ="";
+
+
+    switch(intervalo){
+      case "dias":
+        resultado = fechaF.diff(fechaI, 'days');
+        texto = "d";
+      break;
+      case "meses":
+        resultado = fechaF.diff(fechaI, 'months');
+        texto = "m";          
+      break;
+      case "años":
+        resultado = fechaF.diff(fechaI, 'years');
+        texto = "a";          
+      break;      
+    }
+    
+    if(  isNaN(resultado )){
+      resultado = 0;
+    }
+
+    return resultado + texto;
+  }
+
+  DiferenciaFechas1( fechaInicial:string, fechaFinal:string ){
+    let fechaI = moment(fechaInicial);
+    let fechaF = moment(fechaFinal);
+    let resultadoD:number;
+    let resultadoM:number;
+    let resultadoA:number;
+    let resultado:string;
+    let texto:string ="";
+
+
+    resultadoD = fechaF.diff(fechaI, 'days');
+    if(  isNaN(resultadoD) )  resultadoD = 0;
+
+    resultadoM = fechaF.diff(fechaI, 'months');
+    if(  isNaN(resultadoM) )  resultadoM = 0;
+
+    resultadoA = fechaF.diff(fechaI, 'years');
+    if(  isNaN(resultadoA) )  resultadoA = 0;
+    
+
+
+    return resultado;
   }
 
 
@@ -634,7 +689,12 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     }
 
     this.huboCambios = true;
+  }
 
+  ModificarPersona(){
+    this.huboCambios = true
+    this.datosPersona.actualizacion_fecha = this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd');
+    this.controladorPersonas.Modificar(this.datosPersona);
   }
 
   EliminarHistorico( referencia : string , tipoRecibido:number=null){
@@ -666,6 +726,17 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
   ActualizarPersona(){
 
     if(this.huboCambios){
+      this.controladorPersonas.Guardar().subscribe( 
+        (respuesta:RespuestaInterface) => { 
+          if( respuesta.codigo == 200 ){
+            console.log(respuesta);
+          }    
+          else{
+            alert("Error al guardar personas");
+            console.log(respuesta);
+          }                              
+        }
+      );
 
       if( this.controladorCorreos.Encontrar("modo", null, true) ){
         this.controladorCorreos.Guardar().subscribe( 
