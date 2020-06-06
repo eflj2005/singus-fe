@@ -1,6 +1,98 @@
 
-<div class="containerAgenda">
-    <div class="form-group row" >
+<div class="container column">
+    <div class="form-group row justify-content-center">
+            <h1 > Creación de agendas </h1>
+    </div>
+    <div clas="container ">
+        <div class="row" id="agenda">
+            <div class="col-md-2 ">
+                <div class="row">
+                    <div class="col">
+                        <label >Fecha de Inicio :</label>
+                        <input type="date" class="form-control ">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label >Fecha de Finalización :</label>
+                        <input type="date" class="form-control ">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" >
+                        <label>Coordinador:</label>
+                        <select class="form-control" >
+                            <option value="0" disabled >--Seleccione Responsable--</option>
+                            <option value="{{responsablebase.Id}}" *ngFor="let responsablebase of Responsables">{{responsablebase.Descripcion}}</option>
+                            <option >Edwin F. Londoño J.</option>
+                            <option >Manuel L. Castaño P.</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label>Responsable:</label>
+                        <select class="form-control" >
+                            <option value="0" disabled >--Seleccione Responsable--</option>
+                            <option value="{{responsablebase.Id}}" *ngFor="let responsablebase of Responsables">{{responsablebase.Descripcion}}</option>
+                            <option >Edwin F. Londoño J.</option>
+                            <option >Manuel L. Castaño P.</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-outline-primary " ><i class="fa fa-plus"></i>Agregar personas</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10 ">
+                <div class="row">
+                    <div  class="col" >
+                        <div class="row">
+                            <div class="col">
+                                <form >
+                                    <div class="form-group form-inline form ">
+                                        <div class="row col-md-10 form2"><i class="fa fa-search search "></i><p>Buscar: </p><input class="form-control" type="text" [formControl]="filter"/></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <table class="table table-striped">
+                                    <thead class="thead">
+                                    <tr>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Id Uniminuto</th>
+                                        <th scope="col">Programa</th>
+                                        <th scope="col">Cohorte</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div  class="row button">
+        <div class="col">
+            <button class="btn btn-primary" >Guardar</button>
+        </div>
+        <div class= col>
+            <button class="btn btn-outline-dark buttonGeneral"  (click)="Cancelar()" >Cancelar</button>
+        </div>
+    </div>
+
+    <!-- Top -->
+    <!-- <div class="form-group row" >
         <div class="col-md-4">
             <label >Nombre de la agenda :</label>
             <input type="text" class="form-control " [(ngModel)]="Nombre">
@@ -23,9 +115,9 @@
             <input type="date" class="form-control " [(ngModel)]="FechaFinal">
         </div>
 
-    </div>
-
-    <div class="row" >
+    </div> -->
+    <!-- listas -->
+    <!-- <div class="row" >
         <div class="col-md-6 cuadro">
             <h3  align='center'>Seleccionados</h3>
 
@@ -114,11 +206,13 @@
                         <button class="btn btn-primary" (click)="agregarPersonas()" title="Añadir"><i class="fa fa-user-plus"  ></i></button>
             </div>  
         </div>
-    </div>
-    <div  class="row button">
+    </div> -->
+
+    <!-- Botones atras y guardar -->
+    <!-- <div  class="row button">
 
         <button class="btn btn-primary" >Guardar</button>
         <button class="btn btn-outline-dark buttonGeneral"  (click)="Cancelar()" >Cancelar</button>
         
-    </div>
+    </div> -->
 </div>
