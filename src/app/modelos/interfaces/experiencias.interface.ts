@@ -13,6 +13,7 @@ export interface ExperienciasInterface {
   jefetelefono          : string;
   municipios_id         : number;
   registro_fecha        : string;
+  actualizacion_fecha        : string;
   modo?                 : string;
   dbRef?                : string;  
 }

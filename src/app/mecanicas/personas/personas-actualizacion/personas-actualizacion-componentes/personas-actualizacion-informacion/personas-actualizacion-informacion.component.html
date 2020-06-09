@@ -185,18 +185,11 @@
               <tbody>
                 <tr *ngFor="let elemento of datosEstudios; let indiceEstudios = index;">
                   <th scope="row">{{ elemento.id }}</th>
-                  <td>{{ controladorEstudios.ObtenerForanea("titulos").Encontrar('id',elemento.titulos_id) ? controladorEstudios.ObtenerForanea("titulos").actual.descripcion : '&nbsp;' }}</td>
-                  <td>
-                    {{ 
-                      controladorEstudios.ObtenerForanea("sedes").Encontrar('id',elemento.sedes_id) 
-                        ? controladorEstudios.ObtenerForanea("sedes").ObtenerForanea("instituciones").Encontrar('id',controladorEstudios.ObtenerForanea("sedes").actual.instituciones_id) 
-                          ? controladorEstudios.ObtenerForanea("sedes").ObtenerForanea("instituciones").actual.descripcion
-                          : '&nbsp;'
-                        : '&nbsp;' 
-                    }}
+                  <td>{{ controladorEstudios.ObtenerForanea("titulos",true,elemento.id).actual.descripcion }}</td>                  
+                  <td>{{ controladorEstudios.ObtenerForanea("sedes",true,elemento.id).ObtenerForanea("instituciones",true).actual.descripcion }}
                   </td>
                   <td> {{ elemento.grado_fecha }}</td>
-                  <td> {{ controladorEstudios.ObtenerForanea("mecanismosgrados").Encontrar('id',elemento.mecanismosgrados_id) ? controladorEstudios.ObtenerForanea("mecanismosgrados").actual.descripcion : '&nbsp;' }}</td>
+                  <td> {{ controladorEstudios.ObtenerForanea("mecanismosgrados",true,elemento.id).actual.descripcion }} </td>
                   <td> {{ elemento.registro_fecha }}</td>
                   <td>
                     <div *ngIf=" elemento.id; then thenBlock_EstudiosList else elseBlock_EstudiosList "></div>
@@ -206,13 +199,8 @@
                     <ng-template #elseBlock_EstudiosList>
                       <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivarModalHistoricos( modalHistoricosEstudios, 5, elemento.id )"  placement="left" ngbTooltip="Modificar"><i class="fa fa-pencil-square-o"></i></button>
                       <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="EliminarHistorico( elemento.dbRef  )"  placement="left" ngbTooltip="Eliminar"><i class="fa fa-minus"></i></button>
-
                     </ng-template>                  
-                      
-
                   </td>                  
-
-
                 </tr>
               </tbody>
             </table>
@@ -278,15 +266,17 @@
                       DiferenciaFechas2(elemento.vinculacion_fecha,elemento.terminacion_fecha,'dias')
                     }}
                   </td>
-                  <td>{{ controladorExperiencias.ObtenerForanea('estudios',true,elemento.id).ObtenerForanea("titulos",true).actual.descripcion }}</td>
+                  <td>
+                    <!-- {{ controladorExperiencias.ObtenerForanea('estudios',true,elemento.id).ObtenerForanea("titulos",true).actual.descripcion }} -->
+                  </td>
                   <td>{{ ( controladorExperiencias.ObtenerForanea('rangosingresos',true).actual.minimo | currency:'':'$':'2.0' ) + '-' + ( controladorExperiencias.ObtenerForanea('rangosingresos',true).actual.maximo | currency:'':'$':'2.0' ) }}</td>                  
                   <td>
                     <div *ngIf=" elemento.id; then thenBlock_ExperienciaList else elseBlock_ExperienciaList "></div>
                     <ng-template #thenBlock_ExperienciaList>
-                      <button  type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivarModalHistoricos( modalHistoricosExperiencias, 6, elemento.id )"  placement="left" ngbTooltip="Visualizar"><i class="fa fa-eye"></i></button>
+                      <button  type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivarModalHistoricos( modalHistoricosExperiencias, 6, elemento.id )"  placement="left" ngbTooltip="Visualizar"><i class="fa fa-pencil-square-o"></i></button>
                     </ng-template>
                     <ng-template #elseBlock_ExperienciaList>
-                      <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivarModalHistoricos( modalHistoricosExperiencias, 6, elemento.id )"  placement="left" ngbTooltip="Modificar"><i class="fa fa-pencil-square-o"></i></button>
+                      <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivarModalHistoricos( modalHistoricosExperiencias, 6, elemento.dbRef )"  placement="left" ngbTooltip="Modificar"><i class="fa fa-pencil-square-o"></i></button>
                       <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="EliminarHistorico( elemento.dbRef  )"  placement="left" ngbTooltip="Eliminar"><i class="fa fa-minus"></i></button>
                     </ng-template>                  
                   </td>                  
@@ -818,11 +808,22 @@
               </div>
 
               <div class="form-group col-sm-5 px-1 mb-1">
-                <div class="form-row justify-content-between">
-                  <label for="registro_fecha" class="col-sm-5 col-form-label col-form-label-sm text-wrap">Fecha de Registro:</label>
-                  <div class="col-sm">
-                    <input type="date" class="form-control form-control-sm" id="registro_fecha" name="registro_fecha" [(ngModel)]="parametrosHistorico.lista.registro_fecha" [readonly]="true">
-                  </div>     
+                <div class="form-row">
+                  <div class="col-sm-12">
+                    <div class="form-row justify-content-between">
+                      <label for="registro_fecha" class="col-sm-5 col-form-label col-form-label-sm text-wrap">Fecha Registro:</label>
+                      <div class="col-sm-7">
+                        <input type="date" class="form-control form-control-sm" id="registro_fecha" name="registro_fecha" [(ngModel)]="parametrosHistorico.lista.registro_fecha" [readonly]="true">
+                      </div>
+                    </div>
+                    <div class="form-row justify-content-between">
+                      <label for="actualizacion_fecha" class="col-sm-5 col-form-label col-form-label-sm text-wrap">Fecha Actualización:</label>
+                      <div class="col-sm-7">
+                        <input type="date" class="form-control form-control-sm" id="actualizacion_fecha" name="actualizacion_fecha" [(ngModel)]="parametrosHistorico.lista.actualizacion_fecha" [readonly]="true">
+                      </div>                      
+                    </div>
+                  </div>
+
                 </div>                
               </div>
 
@@ -837,14 +838,14 @@
                 <div class="form-row justify-content-between">
                   <label for="empresa" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Empresa:</label>
                   <div class="col-sm">
-                    <input type="text" class="form-control form-control-sm" id="empresa" name="empresa" [(ngModel)]="parametrosHistorico.lista.empresa" [readonly]="parametrosHistorico.lista.id != null" (change)="ValidarHistorico('experiencias')">
+                    <input type="text" class="form-control form-control-sm" id="empresa" name="empresa" [(ngModel)]="parametrosHistorico.lista.empresa" (change)="ValidarHistorico('experiencias')">
                   </div>     
                 </div>
 
                 <div class="form-row justify-content-between">
                   <label for="sectoreslaborales_id" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Sector Laboral:</label>
                   <div class="col-sm">
-                    <select  class="form-control form-control-sm" id="sectoreslaborales_id" name="sectoreslaborales_id" [(ngModel)]="parametrosHistorico.lista.sectoreslaborales_id" [disabled]="parametrosHistorico.lista.id != null" (change)="ValidarHistorico('experiencias')">
+                    <select  class="form-control form-control-sm" id="sectoreslaborales_id" name="sectoreslaborales_id" [(ngModel)]="parametrosHistorico.lista.sectoreslaborales_id" (change)="ValidarHistorico('experiencias')">
                       <option *ngFor="let elementoSL of controladorExperiencias.ObtenerForanea('sectoreslaborales').todos; let indiceSL= index" value="{{elementoSL.id}}">{{elementoSL.descripcion}}</option>              
                     </select>
                   </div>     
@@ -857,7 +858,7 @@
                 <div class="form-row justify-content-between">
                   <label for="paises_id" class="col-sm-4 col-form-label col-form-label-sm text-wrap">País:</label>
                   <div class="col-sm">
-                    <select  class="form-control form-control-sm" id="paises_id" name="paises_id" [(ngModel)]="parametrosHistorico.paises_id" [disabled]="parametrosHistorico.lista.id != null">
+                    <select  class="form-control form-control-sm" id="paises_id" name="paises_id" [(ngModel)]="parametrosHistorico.paises_id">
                       <option *ngFor="let elementoPS of controladorExperiencias.ObtenerForanea('municipios').ObtenerForanea('departamentos').ObtenerForanea('paises').todos; let indicePS= index" value="{{elementoPS.id}}">{{elementoPS.descripcion}}</option>              
                     </select>
                   </div>     
@@ -867,7 +868,7 @@
                 <div class="form-row justify-content-between">
                   <label for="departamentos_id" class="col-sm-4 col-form-label col-form-label-sm text-wrap">Departamento:</label>
                   <div class="col-sm">
-                    <select  class="form-control form-control-sm" id="departamentos_id" name="departamentos_id" [(ngModel)]="parametrosHistorico.departamentos_id" [disabled]="parametrosHistorico.lista.id != null">
+                    <select  class="form-control form-control-sm" id="departamentos_id" name="departamentos_id" [(ngModel)]="parametrosHistorico.departamentos_id" >
                       <option *ngFor="let elementoDP of FiltrarDatos( controladorExperiencias.ObtenerForanea('municipios').ObtenerForanea('departamentos').todos , 'paises_id' , parametrosHistorico.paises_id); let indiceDP= index" value="{{elementoDP.id}}">{{elementoDP.descripcion}}</option>
                     </select>
                   </div>     
@@ -876,7 +877,7 @@
                 <div class="form-row justify-content-between">
                   <label for="municipios_id" class="col-sm-4 col-form-label col-form-label-sm text-wrap">Municipio:</label>
                   <div class="col-sm">
-                    <select  class="form-control form-control-sm" id="municipios_id" name="municipios_id" [(ngModel)]="parametrosHistorico.lista.municipios_id" [disabled]="parametrosHistorico.lista.id != null" (change)="ValidarHistorico('experiencias')">
+                    <select  class="form-control form-control-sm" id="municipios_id" name="municipios_id" [(ngModel)]="parametrosHistorico.lista.municipios_id" (change)="ValidarHistorico('experiencias')">
                       <option *ngFor="let elementoMU of FiltrarDatos( controladorExperiencias.ObtenerForanea('municipios').todos , 'departamentos_id' , parametrosHistorico.departamentos_id); let indiceMU= index" value="{{elementoMU.id}}">{{elementoMU.descripcion}}</option>
                     </select>
                   </div>     
@@ -895,7 +896,7 @@
                 <div class="form-row justify-content-between">
                   <label for="tiposcontratos_id" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Tipo de Contrato:</label>
                   <div class="col-sm">
-                    <select  class="form-control form-control-sm" id="tiposcontratos_id" name="tiposcontratos_id" [(ngModel)]="parametrosHistorico.lista.tiposcontratos_id" [disabled]="parametrosHistorico.lista.id != null" (change)="ValidarHistorico('experiencias')">
+                    <select  class="form-control form-control-sm" id="tiposcontratos_id" name="tiposcontratos_id" [(ngModel)]="parametrosHistorico.lista.tiposcontratos_id" (change)="ValidarHistorico('experiencias')">
                       <option *ngFor="let elementoTC of controladorExperiencias.ObtenerForanea('tiposcontratos').todos; let indiceTC= index" value="{{elementoTC.id}}">{{elementoTC.descripcion}}</option>              
                     </select>
                   </div>     
@@ -904,7 +905,7 @@
                 <div class="form-row justify-content-between">
                   <label for="rangosingresos_id" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Rango Salarial:</label>
                   <div class="col-sm">
-                    <select  class="form-control form-control-sm" id="rangosingresos_id" name="rangosingresos_id" [(ngModel)]="parametrosHistorico.lista.rangosingresos_id" [disabled]="parametrosHistorico.lista.id != null" (change)="ValidarHistorico('experiencias')">
+                    <select  class="form-control form-control-sm" id="rangosingresos_id" name="rangosingresos_id" [(ngModel)]="parametrosHistorico.lista.rangosingresos_id" (change)="ValidarHistorico('experiencias')">
                       <option *ngFor="let elementoRI of controladorExperiencias.ObtenerForanea('rangosingresos').todos; let indiceRI= index" value="{{elementoRI.id}}">{{ (elementoRI.minimo | currency:'':'$':'2.0') + '-' + (elementoRI.maximo | currency:'':'$':'2.0') }}</option>              
                     </select>
                   </div>     
@@ -917,7 +918,7 @@
                 <div class="form-row justify-content-between">
                   <label for="vinculacion_fecha" class="col-sm-4 col-form-label col-form-label-sm text-wrap">Vinculación:</label>
                   <div class="col-sm">
-                    <input type="date" class="form-control form-control-sm" id="vinculacion_fecha" name="vinculacion_fecha" [(ngModel)]="parametrosHistorico.lista.vinculacion_fecha" [readonly]="parametrosHistorico.lista.id != null" (change)="ValidarHistorico('experiencias')">
+                    <input type="date" class="form-control form-control-sm" id="vinculacion_fecha" name="vinculacion_fecha" [(ngModel)]="parametrosHistorico.lista.vinculacion_fecha" (change)="ValidarHistorico('experiencias')">
                   </div>     
                 </div>  
 
@@ -925,7 +926,7 @@
                 <div class="form-row justify-content-between">
                   <label for="terminacion_fecha" class="col-sm-4 col-form-label col-form-label-sm text-wrap">Terminación:</label>
                   <div class="col-sm">
-                    <input type="date" class="form-control form-control-sm" id="terminacion_fecha" name="terminacion_fecha" [(ngModel)]="parametrosHistorico.lista.terminacion_fecha" [readonly]="parametrosHistorico.lista.id != null" (change)="ValidarHistorico('experiencias')">
+                    <input type="date" class="form-control form-control-sm" id="terminacion_fecha" name="terminacion_fecha" [(ngModel)]="parametrosHistorico.lista.terminacion_fecha" (change)="ValidarHistorico('experiencias')">
                   </div>     
                 </div>            
 
@@ -942,14 +943,14 @@
                 <div class="form-row justify-content-between">
                   <label for="cargo" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Cargo:</label>
                   <div class="col-sm">
-                    <input type="text" class="form-control form-control-sm" id="cargo" name="cargo" [(ngModel)]="parametrosHistorico.lista.cargo" [readonly]="parametrosHistorico.lista.id != null" (change)="ValidarHistorico('experiencias')">
+                    <input type="text" class="form-control form-control-sm" id="cargo" name="cargo" [(ngModel)]="parametrosHistorico.lista.cargo" (change)="ValidarHistorico('experiencias')">
                   </div>     
                 </div>              
 
                 <div class="form-row justify-content-between">
                   <label for="estudios_id" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Estudio Asociado:</label>
                   <div class="col-sm">
-                    <select  class="form-control form-control-sm" id="estudios_id" name="estudios_id" [(ngModel)]="parametrosHistorico.lista.estudios_id" [disabled]="parametrosHistorico.lista.id != null" (change)="ValidarHistorico('experiencias')">
+                    <select  class="form-control form-control-sm" id="estudios_id" name="estudios_id" [(ngModel)]="parametrosHistorico.lista.estudios_id" (change)="ValidarHistorico('experiencias')">
                       <option value="null">Ninguno</option>
                       <option *ngFor="let elementoTL of controladorExperiencias.ObtenerForanea('estudios').todos; let indiceTL= index" value="{{elementoTL.id}}">{{ controladorExperiencias.ObtenerForanea('estudios').ObtenerForanea('titulos',true,elementoTL.id).actual.descripcion }}</option>              
                     </select>
@@ -963,7 +964,7 @@
                 <div class="form-row justify-content-between">
                   <label for="jefenombre" class="col-sm-4 col-form-label col-form-label-sm text-wrap">Nombre Jefe:</label>
                   <div class="col-sm">
-                    <input type="text" class="form-control form-control-sm" id="jefenombre" name="jefenombre" [(ngModel)]="parametrosHistorico.lista.jefenombre" [readonly]="parametrosHistorico.lista.id != null" (change)="ValidarHistorico('experiencias')">
+                    <input type="text" class="form-control form-control-sm" id="jefenombre" name="jefenombre" [(ngModel)]="parametrosHistorico.lista.jefenombre" (change)="ValidarHistorico('experiencias')">
                   </div>     
                 </div>
 
@@ -971,7 +972,7 @@
                 <div class="form-row justify-content-between">
                   <label for="jefetelefono" class="col-sm-4 col-form-label col-form-label-sm text-wrap">Telefono Jefe:</label>
                   <div class="col-sm">
-                    <input type="text" class="form-control form-control-sm" id="jefetelefono" name="jefetelefono" [(ngModel)]="parametrosHistorico.lista.jefetelefono" [readonly]="parametrosHistorico.lista.id != null" (change)="ValidarHistorico('experiencias')">
+                    <input type="text" class="form-control form-control-sm" id="jefetelefono" name="jefetelefono" [(ngModel)]="parametrosHistorico.lista.jefetelefono" (change)="ValidarHistorico('experiencias')">
                   </div>     
                 </div>                
 
@@ -995,6 +996,7 @@
     </div>
     <div class="modal-footer "> 
       <button type="button" *ngIf="procesando == false && parametrosHistorico.lista.id == null && parametrosHistorico.lista.dbRef == null" class="btn btn-primary" (click)="AgregarHistorico();modal.dismiss('NO')" [disabled]="notificacionActiva">Agregar</button>
+      <button type="button" *ngIf="procesando == false && parametrosHistorico.lista.id != null" class="btn btn-primary" (click)="ActualizarHistorico();modal.dismiss('NO')" [disabled]="notificacionActiva">Modificar</button>      
       <button type="button" *ngIf="procesando == false" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')" [disabled]="notificacionActiva && parametrosHistorico.lista.dbRef != null" >Atras</button> 
     </div>
 
