@@ -470,6 +470,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
             jefetelefono          : null,
             municipios_id         : null,
             registro_fecha        : null,
+            actualizacion_fecha   : null,
             modo                  : null,
             dbRef                 : null
           }
