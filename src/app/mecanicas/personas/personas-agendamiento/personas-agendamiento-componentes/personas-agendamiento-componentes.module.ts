@@ -23,15 +23,17 @@ import { PersonasAgendamientoVerComponent } from './personas-agendamiento-ver/pe
     PersonasAgendamientoVerComponent
   ],
   imports: [
+    CommonModule,
     FormsModule,
     NgbAlertModule,
-    CommonModule,
-    GeneralesModule,
     ReactiveFormsModule,
+    GeneralesModule,
     NgbTypeaheadModule,
-    BrowserModule,
     NgbDropdownModule,
-    NgbTooltipModule 
+    BrowserModule,
+    NgbTooltipModule,
+    NgbAlertModule
+
   ],exports :[
     PersonasAgendamientoListaComponent,
     PersonasAgendamientoCrearComponent,

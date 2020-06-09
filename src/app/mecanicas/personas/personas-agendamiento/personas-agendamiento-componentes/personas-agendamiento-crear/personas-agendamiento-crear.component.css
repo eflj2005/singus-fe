@@ -77,9 +77,31 @@
     direction: rtl;
   }
 
-  #agenda{
-    overflow: auto;
-    max-height: 25rem;
-    background-color: rgb(255,255,255); /* Fallback color */
-    background-color: rgba(0,0,0,0.04); /* Black w/ opacity */
-  }
+.buscar{
+  margin-top: 0.7rem;
+}
+
+.agendaSpace{
+  overflow: auto;
+  max-height: 25rem;
+  min-height: 25rem;
+  background-color: rgb(255,255,255); /* Fallback color */
+  background-color: rgba(0,0,0,0.04); /* Black w/ opacity */
+}
+
+.menospadding{
+  padding: 0;
+}
+
+.marginTable{
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.btn.btn-outline-dark{
+  margin: 2rem;
+}
+
+.nover{
+  display: none;
+}

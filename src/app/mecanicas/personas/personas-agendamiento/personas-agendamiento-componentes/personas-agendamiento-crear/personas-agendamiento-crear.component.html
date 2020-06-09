@@ -1,65 +1,54 @@
-
 <div class="container column">
     <div class="form-group row justify-content-center">
             <h1 > Creación de agendas </h1>
     </div>
-    <div clas="container ">
-        <div class="row" id="agenda">
-            <div class="col-md-2 ">
-                <div class="row">
-                    <div class="col">
-                        <label >Fecha de Inicio :</label>
-                        <input type="date" class="form-control ">
-                    </div>
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Fecha de Inicio :</span>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <label >Fecha de Finalización :</label>
-                        <input type="date" class="form-control ">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col" >
-                        <label>Coordinador:</label>
-                        <select class="form-control" >
-                            <option value="0" disabled >--Seleccione Responsable--</option>
-                            <option value="{{responsablebase.Id}}" *ngFor="let responsablebase of Responsables">{{responsablebase.Descripcion}}</option>
-                            <option >Edwin F. Londoño J.</option>
-                            <option >Manuel L. Castaño P.</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <label>Responsable:</label>
-                        <select class="form-control" >
-                            <option value="0" disabled >--Seleccione Responsable--</option>
-                            <option value="{{responsablebase.Id}}" *ngFor="let responsablebase of Responsables">{{responsablebase.Descripcion}}</option>
-                            <option >Edwin F. Londoño J.</option>
-                            <option >Manuel L. Castaño P.</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <button type="button" class="btn btn-outline-primary " ><i class="fa fa-plus"></i>Agregar personas</button>
-                    </div>
-                </div>
+                <input type="date" class="form-control" aria-describedby="basic-addon1">
             </div>
-            <div class="col-md-10 ">
-                <div class="row">
-                    <div  class="col" >
+        </div>
+        <div class="col-4">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Fecha de Finalización :</span>
+                </div>
+                <input type="date" class="form-control" aria-describedby="basic-addon1">
+            </div>
+        </div>
+    </div>
+    <div clas="container ">
+        <div class="row">
+            <div class="col-md-9 agendaSpace ">
+                <div class="row ">
+                    <div  class="col " >
                         <div class="row">
-                            <div class="col">
+                            <div class="col menospadding">
                                 <form >
                                     <div class="form-group form-inline form ">
-                                        <div class="row col-md-10 form2"><i class="fa fa-search search "></i><p>Buscar: </p><input class="form-control" type="text" [formControl]="filter"/></div>
+                                        <div class="col-md-1">
+                                            <div class="row justify-content-center">
+                                                <i class="fa fa-search search "></i> 
+                                                <p class="buscar">Buscar:</p> 
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input class="form-control" type="text" [formControl]="filterAgendados"/>
+                                        </div>  
+                                        <div class="col offset-md-5">
+                                            <button type="button" class="btn btn-outline-primary " (click)="ActivarModal(modalAgendados ,  1)"><i class="fa fa-plus"></i>Agregar personas</button>
+                                        </div>       
                                     </div>
                                 </form>
+                                
                             </div>
+                            
                         </div>
                         <div class="row">
-                            <div class="col">
+                            <div class="col menospadding">
                                 <table class="table table-striped">
                                     <thead class="thead">
                                     <tr>
@@ -75,144 +64,137 @@
                                 </table>
                             </div>
                         </div>
-    
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 ">
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <label class="input-group-text" for="inputGroupSelect01" >Rol</label>
+                            </div>
+                            <select class="custom-select" id="inputGroupSelect01"  [(ngModel)]="rol" >
+                              <option value="A">Administrador</option>
+                              <option value="C">Coordinador</option>
+                              <option value="O">Operador</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group">
+                            <input disabled type="text" class="form-control" placeholder="Responsable">
+                            <div class="input-group-append">            
+                              <button type="button" class="btn btn-outline-primary" (click)="ActivarModal(modalResponsables , 2)" [disabled]="rol == null"><i class="fa fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col marginTable">
+                        <table class="table table-striped">
+                            <thead class="thead">
+                            <tr>
+                                <th scope="col">Seleccionado</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ responsable }}</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col">
+                        <button class="btn btn-outline-info buttonGeneral" >limpiar</button>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary buttonGeneral" >Guardar</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <div  class="row button">
-        <div class="col">
-            <button class="btn btn-primary" >Guardar</button>
-        </div>
         <div class= col>
             <button class="btn btn-outline-dark buttonGeneral"  (click)="Cancelar()" >Cancelar</button>
         </div>
     </div>
-
-    <!-- Top -->
-    <!-- <div class="form-group row" >
-        <div class="col-md-4">
-            <label >Nombre de la agenda :</label>
-            <input type="text" class="form-control " [(ngModel)]="Nombre">
-        </div>
-            <div class="col-md-4">
-                <label>Responsable:</label>
-                <select class="form-control" [(ngModel)]="responsable">
-                    <option value="0" disabled >--Seleccione Responsable--</option>
-                    <option value="{{responsablebase.Id}}" *ngFor="let responsablebase of Responsables">{{responsablebase.Descripcion}}</option>
-                    <option >Edwin F. Londoño J.</option>
-                    <option >Manuel L. Castaño P.</option>
-                </select>
-        </div>
-        <div class="col-md-2">
-                <label >Fecha de Inicio :</label>
-                <input type="date" class="form-control " [(ngModel)]="FechaInicio">
-        </div> 
-        <div class="col-md-2">
-            <label >Fecha de Finalización :</label>
-            <input type="date" class="form-control " [(ngModel)]="FechaFinal">
-        </div>
-
-    </div> -->
-    <!-- listas -->
-    <!-- <div class="row" >
-        <div class="col-md-6 cuadro">
-            <h3  align='center'>Seleccionados</h3>
-
-            <form >
-                <div class="form-group form-inline form ">
-                    <div class="row col-md-10 form2"><i class="fa fa-search search "></i><p>Buscar: </p><input class="form-control" type="text" [formControl]="filter"/></div>
-                </div>
-            </form>
-
-            <table class="table table-striped">
-                <thead  class="thead">     
-                    <tr class="colums">
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Programa</th>
-                        <th scope="col">Cedula</th>
-                        <th scope="col">ID</th>
-                        <th scope="col">Fecha Actualizacion</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let persona of   PersonasSeleccionadas$ | async; index as i">
-                    <td><ngb-highlight [result]="persona.Id | number" [term]="filter2.value"></ngb-highlight></td>
-                    <td><ngb-highlight [result]="persona.Nombre" [term]="filter2.value"></ngb-highlight></td>
-                    <td><ngb-highlight [result]="persona.Programa" [term]="filter2.value"></ngb-highlight></td>
-                    <td><ngb-highlight [result]="persona.Cedula | number" [term]="filter2.value"></ngb-highlight></td>
-                    <td><ngb-highlight [result]="persona.IdPerona  | number" [term]="filter2.value"></ngb-highlight></td>
-                    <td><ngb-highlight [result]="persona.FechaActualizacion" [term]="filter2.value"></ngb-highlight></td>
-                    <td>    
-                        <label class="contenedor">
-                            <input type="checkbox" [(ngModel)]="persona.Seleccionado" >
-                            <span class="checkmark"></span>
-                        </label>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-          
-
-           <div class="row" >
-                    <button class="btn btn-outline-dark" (click)="quitarPersonas()" title="Quitar"><i class="fa fa-user-times"></i></button>
-            </div>        
-        </div>
-
-        <div class="col-md-6 cuadro">
-            <h3  align='center'>Por Seleccionar</h3>
-
-            <form >
-                <div class="form-group form-inline form ">
-                    <div class="row col-md-10 form2"><i class="fa fa-search search "></i><p>Buscar: </p><input class="form-control" type="text" [formControl]="filter2"/></div>
-                </div>
-            </form>
-
-            <table class="table table-striped">
-                <thead  class="thead">     
-                    <tr class="colums">
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Programa</th>
-                        <th scope="col">Cedula</th>
-                        <th scope="col">ID</th>
-                        <th scope="col">Fecha Actualizacion</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let persona of  personas$ | async; index as i">
-                    <td><ngb-highlight [result]="persona.Id | number" [term]="filter2.value"></ngb-highlight></td>
-                    <td><ngb-highlight [result]="persona.Nombre" [term]="filter2.value"></ngb-highlight></td>
-                    <td><ngb-highlight [result]="persona.Programa" [term]="filter2.value"></ngb-highlight></td>
-                    <td><ngb-highlight [result]="persona.Cedula | number" [term]="filter2.value"></ngb-highlight></td>
-                    <td><ngb-highlight [result]="persona.IdPerona  | number" [term]="filter2.value"></ngb-highlight></td>
-                    <td><ngb-highlight [result]="persona.FechaActualizacion" [term]="filter2.value"></ngb-highlight></td>
-                    <td>    
-                        <label class="contenedor">
-                            <input type="checkbox" [(ngModel)]="persona.Seleccionado" >
-                            <span class="checkmark"></span>
-                        </label>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-          
-            <div class="row" >
-                        <button class="btn btn-primary" (click)="agregarPersonas()" title="Añadir"><i class="fa fa-user-plus"  ></i></button>
-            </div>  
-        </div>
-    </div> -->
-
-    <!-- Botones atras y guardar -->
-    <!-- <div  class="row button">
-
-        <button class="btn btn-primary" >Guardar</button>
-        <button class="btn btn-outline-dark buttonGeneral"  (click)="Cancelar()" >Cancelar</button>
-        
-    </div> -->
 </div>
+
+<!-- Modal para responsables -->
+
+<ng-template #modalResponsables let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Responsables</h4>
+ 
+    </div>
+    <div class="modal-body">
+            <div class="row">
+                <div class="col">
+                    <form >
+                        <div class="form-group form-inline form ">
+                            <div class="col-md-1">
+                                <div class="row justify-content-center">
+                                    <p class="buscar">Buscar:</p> 
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <input class="form-control" type="text" [formControl]="filterResponsables"/>
+                            </div>      
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <table class="table table-striped">
+                        <thead class="thead">
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Documento</th>
+                                <th scope="col">Nombres y apellidos</th>
+                                <th scope="col">Seleccionar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let persona of  responsables$ | async; index as i">
+                            <td><ngb-highlight [result]="persona.id | number" [term]="filterResponsables.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="persona.documento | number" [term]="filterResponsables.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="persona.nombres  + ' ' + persona.apellidos  " [term]="filterResponsables.value"></ngb-highlight></td>
+                            <td >
+                                <div class="custom-control custom-checkbox">
+                                  <input type="checkbox" class="custom-control-input" id="customCheck_nuevasPersonas" >
+                                  <label class="custom-control-label " for="customCheck_nuevasPersonas"  (click)="seleccionResponsable( persona.id , persona.nombres  + ' ' + persona.apellidos)"></label>
+                                </div>
+                            </td>
+                            </tr>
+                        </tbody>
+                    </table>     
+                </div>
+            </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Aceptar</button>
+    </div>
+  </ng-template>
+
+<!-- Modal para personas -->
+  <ng-template #modalAgendados let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Agendados</h4>
+    </div>
+    <div class="modal-body">
+      <p>One fine body&hellip;</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
+
+

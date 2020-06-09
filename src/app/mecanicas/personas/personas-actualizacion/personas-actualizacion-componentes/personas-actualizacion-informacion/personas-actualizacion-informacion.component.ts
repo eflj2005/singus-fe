@@ -281,6 +281,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
       this.controladorAsociaciones.estaListo("cargue")                                                                                     &&
       this.controladorAsociaciones.ObtenerForanea("sectoresasociaciones").estaListo("cargue")                                              &&
       this.controladorReconocimientos.estaListo("cargue") 
+      
     );
 
     return validador;
