@@ -401,9 +401,8 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
       case 5:
         this.tituloHistorico = "Estudios";
         this.parametrosHistorico = { "lista" : {} , "id": idHistorico, "instituciones_id": "", "programas_id": "", "tiposestudios_id": "" };              
-        
-        // let datostemp = this.FiltrarDatos( this.datosEstudios, "id", idHistorico )[0];
-        buscado = this.controladorEstudios.Encontrar("id",idHistorico);                                 //REVISAR MAS ADELANTE
+
+        buscado = this.controladorEstudios.Encontrar("id",idHistorico);                                 
 
         if(buscado)  {
           this.parametrosHistorico["lista"] = this.controladorEstudios.actual;
@@ -440,14 +439,22 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         this.tituloHistorico = "Experiencia Laboral";
         this.parametrosHistorico = { "lista" : {} , "id": idHistorico, "paises_id": "", "departamentos_id": "" };              
         
-        buscado = this.controladorExperiencias.Encontrar("id",idHistorico);                                 //REVISAR MAS ADELANTE
-
+        buscado = this.controladorExperiencias.Encontrar("id",idHistorico);                                 
         if(buscado)  {
-          this.parametrosHistorico["lista"] = this.controladorExperiencias.actual;
+          this.parametrosHistorico["lista"] = Object.assign({}, this.controladorExperiencias.actual);
           this.parametrosHistorico["departamentos_id"] = this.controladorExperiencias.ObtenerForanea("municipios",true).actual.departamentos_id;
           this.parametrosHistorico["paises_id"] = this.controladorExperiencias.ObtenerForanea("municipios",true).ObtenerForanea("departamentos",true).actual.paises_id;
         }
         else{
+          buscado = this.controladorExperiencias.Encontrar("dbRef",idHistorico);
+          if(buscado)  {
+            this.parametrosHistorico["lista"] =  this.controladorExperiencias.actual;
+            this.parametrosHistorico["departamentos_id"] = this.controladorExperiencias.ObtenerForanea("municipios",true).actual.departamentos_id;
+            this.parametrosHistorico["paises_id"] = this.controladorExperiencias.ObtenerForanea("municipios",true).ObtenerForanea("departamentos",true).actual.paises_id;
+          }
+        }
+
+        if(!buscado){
           let registro: ExperienciasInterface = {
             id                    : null,
             personas_id           : this.personaId,
@@ -674,7 +681,7 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
       break;  
       case 6:
         let nuevoRegistroExperiencia: ExperienciasInterface = this.parametrosHistorico["lista"];
-        nuevoRegistroExperiencia.registro_fecha = this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd');
+        nuevoRegistroExperiencia.actualizacion_fecha = nuevoRegistroExperiencia.registro_fecha = this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd');
         this.controladorExperiencias.Agregar(nuevoRegistroExperiencia);
       break;
       case 7:
@@ -689,6 +696,18 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
       break;       
     }
 
+    this.huboCambios = true;
+  }
+
+  ActualizarHistorico(){
+    switch (this.tipoHistorico) {
+      case 6:
+        let RegistroExperiencia: ExperienciasInterface = this.parametrosHistorico["lista"];
+        this.controladorExperiencias.Encontrar("id",RegistroExperiencia.id);
+        RegistroExperiencia.actualizacion_fecha = this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd');
+        this.controladorExperiencias.Modificar(RegistroExperiencia);
+      break;        
+    }
     this.huboCambios = true;
   }
 
