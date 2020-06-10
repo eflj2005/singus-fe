@@ -185,11 +185,11 @@
               <tbody>
                 <tr *ngFor="let elemento of datosEstudios; let indiceEstudios = index;">
                   <th scope="row">{{ elemento.id }}</th>
-                  <td>{{ controladorEstudios.ObtenerForanea("titulos",true,elemento.id).actual.descripcion }}</td>                  
+                  <td>{{ controladorEstudios.ObtenerForanea("titulos",true,elemento.titulos_id,true).actual.descripcion }}</td>                  
                   <td>{{ controladorEstudios.ObtenerForanea("sedes",true,elemento.id).ObtenerForanea("instituciones",true).actual.descripcion }}
                   </td>
                   <td> {{ elemento.grado_fecha }}</td>
-                  <td> {{ controladorEstudios.ObtenerForanea("mecanismosgrados",true,elemento.id).actual.descripcion }} </td>
+                  <td> {{ controladorEstudios.ObtenerForanea("mecanismosgrados",true,elemento.mecanismosgrados_id,true).actual.descripcion }} </td>
                   <td> {{ elemento.registro_fecha }}</td>
                   <td>
                     <div *ngIf=" elemento.id; then thenBlock_EstudiosList else elseBlock_EstudiosList "></div>
@@ -254,7 +254,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let elemento of datosExperiencias; let indiceEstudios = index;">
+                <tr *ngFor="let elemento of datosExperiencias; let indiceExperiencias = index;">
                   <th scope="row">{{ elemento.id }}</th>
                   <td>{{ elemento.cargo }}</td>
                   <td>{{ elemento.empresa }}</td>
@@ -267,9 +267,9 @@
                     }}
                   </td>
                   <td>
-                    <!-- {{ controladorExperiencias.ObtenerForanea('estudios',true,elemento.id).ObtenerForanea("titulos",true).actual.descripcion }} -->
+                    {{ elemento.estudios_id==null?'Ninguno':controladorExperiencias.ObtenerForanea('estudios',true,elemento.estudios_id,true).ObtenerForanea("titulos",true).actual.descripcion }}
                   </td>
-                  <td>{{ ( controladorExperiencias.ObtenerForanea('rangosingresos',true).actual.minimo | currency:'':'$':'2.0' ) + '-' + ( controladorExperiencias.ObtenerForanea('rangosingresos',true).actual.maximo | currency:'':'$':'2.0' ) }}</td>                  
+                  <td>{{ ( controladorExperiencias.ObtenerForanea('rangosingresos',true,elemento.rangosingresos_id,true).actual.minimo | currency:'':'$':'2.0' ) + '-' + ( controladorExperiencias.ObtenerForanea('rangosingresos',true,elemento.rangosingresos_id,true).actual.maximo | currency:'':'$':'2.0' ) }}</td>                  
                   <td>
                     <div *ngIf=" elemento.id; then thenBlock_ExperienciaList else elseBlock_ExperienciaList "></div>
                     <ng-template #thenBlock_ExperienciaList>
@@ -317,11 +317,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let elemento of datosAsociaciones; let indiceEstudios = index;">
+                <tr *ngFor="let elemento of datosAsociaciones; let indiceAsociaciones = index;">
                   <th scope="row">{{ elemento.id }}</th>
                   <td>{{ elemento.nombre }}</td>
                   <td>{{ elemento.cobertura }}</td>
-                  <td>{{ controladorAsociaciones.ObtenerForanea('sectoresasociaciones',true,elemento.id).actual.descripcion }}</td>                  
+                  <td>{{ controladorAsociaciones.ObtenerForanea('sectoresasociaciones',true,elemento.sectoresasociaciones_id,true).actual.descripcion }}</td>                  
                   <td>{{ elemento.ingreso_fecha }}</td>
                   <td>
                     <div *ngIf=" elemento.id; then thenBlock_ComunidadList else elseBlock_ComunidadList"></div>
@@ -366,7 +366,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let elemento of datosReconocimientos; let indiceEstudios = index;">
+                <tr *ngFor="let elemento of datosReconocimientos; let indiceReconocimientos = index;">
                   <th scope="row">{{ elemento.id }}</th>
                   <td>{{ elemento.nombre }}</td>
                   <td>{{ elemento.motivo }}</td>
@@ -952,7 +952,9 @@
                   <div class="col-sm">
                     <select  class="form-control form-control-sm" id="estudios_id" name="estudios_id" [(ngModel)]="parametrosHistorico.lista.estudios_id" (change)="ValidarHistorico('experiencias')">
                       <option value="null">Ninguno</option>
-                      <option *ngFor="let elementoTL of controladorExperiencias.ObtenerForanea('estudios').todos; let indiceTL= index" value="{{elementoTL.id}}">{{ controladorExperiencias.ObtenerForanea('estudios').ObtenerForanea('titulos',true,elementoTL.id).actual.descripcion }}</option>              
+                      <option *ngFor="let elementoTL of controladorExperiencias.ObtenerForanea('estudios').todos; let indiceTL= index" value="{{elementoTL.id}}">
+                        {{ controladorExperiencias.ObtenerForanea('estudios').ObtenerForanea('titulos',true,elementoTL.id).actual.descripcion }}
+                      </option>              
                     </select>
                   </div>     
                 </div>
