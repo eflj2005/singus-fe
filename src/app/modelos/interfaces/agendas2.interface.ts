@@ -1,4 +1,4 @@
-export interface AgendasInterface {
+export interface Agendas2Interface {
     id: number;
     coordinadores_id: number;
     responsables_id: number;

@@ -444,10 +444,10 @@
             <div class="d-flex justify-content-center"><label class="mb-1">Encuesta OLE:</label></div>
             <div class="btn-group btn-group-toggle d-flex justify-content-center" data-toggle="buttons">
               <label [class]="'btn ' + (datosPersona.encuestaole=='S'?'btn-primary active':'btn-outline-dark')">
-                <input type="radio" name="encuestaole" id="encuestaole_1" value="S" autocomplete="off" [(ngModel)]="datosPersona.encuestaole" (change)="ModificarPersona()"> Si
+                <input type="radio" name="encuestaole" id="encuestaole_1" value="S" autocomplete="off" [(ngModel)]="datosPersona.encuestaole" (change)="ModificarPersona()" [disabled]="true"> Si
               </label>
               <label [class]="'btn ' + (datosPersona.encuestaole=='N'?'btn-primary active':'btn-outline-dark')">
-                <input type="radio" name="encuestaole" id="encuestaole_2" value="N" autocomplete="off" [(ngModel)]="datosPersona.encuestaole" (change)="ModificarPersona()"> No
+                <input type="radio" name="encuestaole" id="encuestaole_2" value="N" autocomplete="off" [(ngModel)]="datosPersona.encuestaole" (change)="ModificarPersona()" [disabled]="true"> No
               </label>
             </div>               
           </div>        

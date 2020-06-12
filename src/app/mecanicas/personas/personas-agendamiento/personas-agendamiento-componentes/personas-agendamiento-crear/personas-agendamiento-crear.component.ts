@@ -14,8 +14,8 @@ import { ResponsablesInterface } from "@interfaces/responsables.interface";
 import { ResponsablesController } from "@controladores/responsables.controller";
 import { PersonasInterface } from "@interfaces/personas.interface";
 import { PersonasController } from "@controladores/personas.controller";
-import { AgendasInterface } from "@interfaces/agendas.interface";
-import { AgendasController } from "@controladores/agendas.controller";
+import { Agendas2Interface } from "@interfaces/agendas2.interface";
+import { AgendasController } from "@controladores/agendas2.controller";
 
 interface  responsables extends ResponsablesInterface {
 
@@ -50,7 +50,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
   
   
   registrosResponsables: ResponsablesInterface[];
-  registrosAgendas:  AgendasInterface[];
+  registrosAgendas:  Agendas2Interface[];
   registrosPersonas:  PersonasInterface[];
 
   responsable : responsable;  
