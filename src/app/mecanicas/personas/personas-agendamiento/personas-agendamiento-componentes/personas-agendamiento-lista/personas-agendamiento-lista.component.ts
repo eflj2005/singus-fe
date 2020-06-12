@@ -5,7 +5,7 @@ import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { Agendas2Interface } from '@interfaces/agendas2.interface';
-import { AgendasController } from '@controladores/agendas2.controller';
+import { Agendas2Controller } from '@controladores/agendas2.controller';
 import { HttpClient } from '@angular/common/http';
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { EstructuraConsultas } from '@generales/estructura-consultas';
@@ -24,7 +24,7 @@ interface ListaAgendas extends Agendas2Interface{
 })
 export class PersonasAgendamientoListaComponent implements OnInit {
 
-  controladorAgendas: AgendasController;
+  controladorAgendas: Agendas2Controller;
   registrosAgendas: ListaAgendas[];
   registrosAgendas$: Observable<ListaAgendas[]>;
   filter = new FormControl('');
@@ -53,7 +53,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
     caracteristicas.AgregarEnlace( "responsables" , "responsables" , "agendas" );   
   
 
-    this.controladorAgendas = new AgendasController(this.llamadoHttp,this.servicioAmbiente);
+    this.controladorAgendas = new Agendas2Controller(this.llamadoHttp,this.servicioAmbiente);
     this.controladorAgendas.CargarDesdeDB(true, "A" , caracteristicas).subscribe(
       (respuesta: RespuestaInterface) =>{
         switch(respuesta.codigo){
