@@ -15,7 +15,7 @@ import { ResponsablesController } from "@controladores/responsables.controller";
 import { PersonasInterface } from "@interfaces/personas.interface";
 import { PersonasController } from "@controladores/personas.controller";
 import { Agendas2Interface } from "@interfaces/agendas2.interface";
-import { AgendasController } from "@controladores/agendas2.controller";
+import { Agendas2Controller } from "@controladores/agendas2.controller";
 
 interface  responsables extends ResponsablesInterface {
 
@@ -45,7 +45,7 @@ interface PersonaTemporarl {
 export class PersonasAgendamientoCrearComponent implements OnInit {
 
   controladorResponsables: ResponsablesController;
-  controladorAgendas: AgendasController;
+  controladorAgendas: Agendas2Controller;
   controladorPersonas: PersonasController;
   
   
