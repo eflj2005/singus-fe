@@ -39,7 +39,7 @@
                                             <input class="form-control" type="text" [formControl]="filterAgendados"/>
                                         </div>  
                                         <div class="col offset-md-5">
-                                            <button type="button" class="btn btn-outline-primary " (click)="ActivarModal(modalAgendados ,  1)"><i class="fa fa-plus"></i>Agregar personas</button>
+                                            <button type="button" class="btn btn-outline-primary " (click)="ActivarModal(modalAgendados ,  2)"><i class="fa fa-plus"></i>Agregar personas</button>
                                         </div>       
                                     </div>
                                 </form>
@@ -56,7 +56,21 @@
                                         <th scope="col">Id Uniminuto</th>
                                         <th scope="col">Programa</th>
                                         <th scope="col">Cohorte</th>
-                                        <th scope="col"></th>
+                                        <th scope="col">
+                                            <!-- <ng-container *ngIf="seleccionarTodos.nuevasPersonas; then btn_nuevasPersonas_check_on; else btn_nuevasPersonas_check_off"></ng-container>
+
+                                            <ng-template #btn_nuevasPersonas_check_off>
+                                              <button class="btn btn-sm" placement="left" ngbTooltip="Sel. Todos" (click)="SeleccionarTodos('nuevasPersonas')">
+                                                <i class="fa fa-circle-o"></i>
+                                              </button>
+                                            </ng-template>                      
+                      
+                                            <ng-template #btn_nuevasPersonas_check_on>
+                                              <button class="btn btn-sm" placement="left" ngbTooltip="Sel. Ninguno" (click)="SeleccionarTodos('nuevasPersonas')">
+                                                <i class="fa fa-check-circle-o"></i>
+                                              </button>
+                                            </ng-template>   -->
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -102,7 +116,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{{ responsable }}</td>
+                                    <td>{{ responsableSelecionado.nombres }}</td>
                                 </tr>
                                 
                             </tbody>
@@ -111,18 +125,19 @@
                 </div>
                 <div class="row ">
                     <div class="col">
-                        <button class="btn btn-outline-info buttonGeneral" >limpiar</button>
-                    </div>
-                    <div class="col">
-                        <button class="btn btn-primary buttonGeneral" >Guardar</button>
+                        <button class="btn btn-outline-info btn-lg btn-block buttonGeneral" >limpiar</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div  class="row button">
+    <div  class="row button justify-content-end">
         <div class= col>
+            <button class="btn btn-primary buttonGeneral" >Guardar</button>
             <button class="btn btn-outline-dark buttonGeneral"  (click)="Cancelar()" >Cancelar</button>
+        </div>
+        <div class="col">
+
         </div>
     </div>
 </div>
@@ -170,7 +185,7 @@
                             <td >
                                 <div class="custom-control custom-checkbox">
                                   <input type="checkbox" class="custom-control-input" id="customCheck_nuevasPersonas" >
-                                  <label class="custom-control-label " for="customCheck_nuevasPersonas"  (click)="seleccionResponsable( persona.id , persona.nombres  + ' ' + persona.apellidos)"></label>
+                                  <label class="custom-control-label " for="customCheck_nuevasPersonas"  (click)="SeleccionResponsable( persona.id , persona.nombres  + ' ' + persona.apellidos)"></label>
                                 </div>
                             </td>
                             </tr>
@@ -187,10 +202,121 @@
 <!-- Modal para personas -->
   <ng-template #modalAgendados let-modal>
     <div class="modal-header">
-      <h4 class="modal-title">Agendados</h4>
+      <h3 class="modal-title">Agendados</h3>
     </div>
     <div class="modal-body">
-      <p>One fine body&hellip;</p>
+            <div class="row justify-content-center">
+                <h4>Filtros</h4>
+            </div>
+            <div class="row">
+                <div class="col" >
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="inputGroupSelect01">Sede</label>
+                        </div>
+                                <select class="custom-select" id="inputGroupSelect01" [(ngModel)]="sedeid" (click)="AgregarFiltro( false  ,'sede')">
+                                    <option selected disabled>-Seleccione sede-</option>  
+                                    <option value="-1" >Todos</option>
+                                    <option *ngFor="let sede of  controladorSedes.todos " value="{{sede.id}}" >{{sede.descripcion}}</option>
+                                </select>
+                      </div>
+                </div>
+                <div class="col" >
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="inputGroupSelect02">Cohorte</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect02">
+                          <option selected disabled>-Seleccione cohorte-</option>  
+                          <option value=""> </option>
+                          <option *ngFor="let cohorte of  controladorCohortes.todos " [ngValue]="cohorte.id"> {{cohorte.descripcion}}</option>
+                        </select>
+                      </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" >
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect03">Programa</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect03" [(ngModel)]="programaid" (click)="AgregarFiltro( false  ,'programa')">
+                        <option selected disabled>-Seleccione programa-</option>  
+                        <option value="">Todos</option>
+                        <option *ngFor="let programa of  controladorProgramas.todos " value="{{programa.id}}"  >{{programa.descripcion}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <h4>Personas encontradas</h4>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <form >
+                        <div class="form-group form-inline form ">
+                            <div class="col-md-1">
+                                <div class="row justify-content-center">
+                                    <p class="buscar">Buscar:</p> 
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <input class="form-control" type="text" [formControl]="filterAgendados"/>
+                            </div>      
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <table class="table table-striped">
+                        <thead class="thead">
+                            <tr>
+                                <th scope="col">Id Uniminuto</th>
+                                <th scope="col">Documento</th>
+                                <th scope="col">Nombres y apellidos</th>
+                                <th scope="col">Programa</th>
+                                <th scope="col">Cohorte</th>
+                                <th scope="col">Sede</th>
+                                <th scope="col">
+                                    <!-- <ng-container *ngIf="seleccionarTodos.nuevasPersonas; then btn_nuevasPersonas_check_on; else btn_nuevasPersonas_check_off"></ng-container>
+
+                                    <ng-template #btn_nuevasPersonas_check_off>
+                                      <button class="btn btn-sm" placement="left" ngbTooltip="Sel. Todos" (click)="SeleccionarTodos('nuevasPersonas')">
+                                        <i class="fa fa-circle-o"></i>
+                                      </button>
+                                    </ng-template>                      
+              
+                                    <ng-template #btn_nuevasPersonas_check_on>
+                                      <button class="btn btn-sm" placement="left" ngbTooltip="Sel. Ninguno" (click)="SeleccionarTodos('nuevasPersonas')">
+                                        <i class="fa fa-check-circle-o"></i>
+                                      </button>
+                                    </ng-template>   -->
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let persona of  agendados$ | async; index as i">
+                            <td><ngb-highlight [result]="persona.iduniminuto | number" [term]="filterAgendados.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="persona.documento | number" [term]="filterAgendados.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="persona.nombreCompleto " [term]="filterAgendados.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="persona.programa " [term]="filterAgendados.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="persona.cohorte " [term]="filterAgendados.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="persona.sede " [term]="filterAgendados.value"></ngb-highlight></td>
+                            <td >
+                                <div class="custom-control custom-checkbox">
+                                  <input type="checkbox" class="custom-control-input" id="customCheck_nuevasPersonas" >
+                                  <label class="custom-control-label " for="customCheck_nuevasPersonas"  (click)="SeleccionResponsable( persona.id , persona.nombres  + ' ' + persona.apellidos)"></label>
+                                </div>
+                            </td>
+                            </tr>
+                        </tbody>
+                    </table>     
+                </div>
+            </div>
+
+
+
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
