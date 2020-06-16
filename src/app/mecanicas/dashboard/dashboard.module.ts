@@ -16,6 +16,7 @@ import { ReportesAlertasPrincipalComponent } from "@mecanicas/reportes/reportes-
 import { ReportesPredefinidosPrincipalComponent } from "@mecanicas/reportes/reportes-predefinidos/reportes-predefinidos-principal/reportes-predefinidos-principal.component";
 import { ReportesPersonalizadoPrincipalComponent } from "@mecanicas/reportes/reportes-personalizado/reportes-personalizado-principal/reportes-personalizado-principal.component";
 import { AuditoriaPrincipalComponent } from "@mecanicas/auditoria/auditoria-principal/auditoria-principal.component";
+import { PersonasSubagendamientoPrincipalComponent } from '@mecanicas/personas/personas-subagendamiento/personas-subagendamiento-principal/personas-subagendamiento-principal.component';
 // import { ReportesModule } from "@mecanicas/reportes/reportes.module";
 //Rutas para redirecciones por url
 const rutas: Routes =[
@@ -24,7 +25,8 @@ const rutas: Routes =[
       { path:'estadisticas', component:DashboardEstadisticasComponent},
       { path:'personas', component:PersonasActualizacionPrincipalComponent},
       { path:'agendamiento', component: PersonasAgendamientoPrincipalComponent },
-      {  path:'cargue', component: CarguePrincipalComponent},
+      { path:'subagendamiento', component: PersonasSubagendamientoPrincipalComponent },
+      { path:'cargue', component: CarguePrincipalComponent},
       { path: 'eventos',  component: EventosPrincipalComponent },
       { path:'maestras', component: MaestrasPrincipalComponent },
       { path: 'predefinidos', component: ReportesPredefinidosPrincipalComponent },
