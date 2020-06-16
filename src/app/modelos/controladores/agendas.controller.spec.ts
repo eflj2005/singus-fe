@@ -1,12 +1,12 @@
-import { Agendas2Controller } from './agendas2.controller';
+import { AgendasController } from './agendas.controller';
 
 import { HttpClient } from '@angular/common/http';
 import { AmbienteService } from '@servicios/ambiente.service';
 
-describe('Agendas2Controller', () => {
+describe('AgendasController', () => {
   it('should create an instance', () => {
     let instanciaHttpClient :HttpClient;
     let InstanciaAmbienteService :AmbienteService;
-    expect(new Agendas2Controller(instanciaHttpClient,InstanciaAmbienteService)).toBeTruthy();
+    expect(new AgendasController(instanciaHttpClient,InstanciaAmbienteService)).toBeTruthy();
   });
 });

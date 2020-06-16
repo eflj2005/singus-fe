@@ -17,8 +17,8 @@ import { PersonasController } from "@controladores/personas.controller";
 import { CohortesController } from "@controladores/cohortes.controller";
 import { ProgramasController } from "@controladores/programas.controller";
 import { SedesController } from "@controladores/sedes.controller";
-import { Agendas2Interface } from "@interfaces/agendas2.interface";
-import { Agendas2Controller } from "@controladores/agendas2.controller";
+import { AgendasController } from "@controladores/agendas.controller";
+import { AgendasInterface } from '@interfaces/agendas.interface';
 
 interface  responsables extends ResponsablesInterface {
 
@@ -49,7 +49,7 @@ interface ListaPersonasInterface extends PersonasInterface {
 export class PersonasAgendamientoCrearComponent implements OnInit {
 
   controladorResponsables: ResponsablesController;
-  controladorAgendas: Agendas2Controller;
+  controladorAgendas: AgendasController;
   controladorPersonas: PersonasController;
   controladorSedes : SedesController;
   controladorCohortes : CohortesController;
@@ -57,7 +57,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
   
   
   registrosResponsables: ResponsablesInterface[];
-  registrosAgendas:  Agendas2Interface[];
+  registrosAgendas:  AgendasInterface[];
   registrosPersonas:  ListaPersonasInterface[];
 
   sedeid: number = null ;

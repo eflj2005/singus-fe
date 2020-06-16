@@ -4,13 +4,13 @@ import { HttpClient } from '@angular/common/http';
 import { GenericoModel } from '@controladores/generico.model';
 import { AmbienteService } from '@servicios/ambiente.service';
 
-import{Agendas2Interface} from '@interfaces/agendas2.interface'
+import{AgendasInterface} from '@interfaces/agendas.interface'
 import { CoordinadoresController } from '@controladores/coordinadores.controller';
 import { ResponsablesController } from '@controladores/responsables.controller';
 
-export class Agendas2Controller extends GenericoModel {
+export class AgendasController extends GenericoModel {
  
-    registros: Agendas2Interface[]= [];
+    registros: AgendasInterface[]= [];
     
     constructor( 
         private instanciaHttpClient :HttpClient,
@@ -19,7 +19,7 @@ export class Agendas2Controller extends GenericoModel {
         super(instanciaHttpClient,InstanciaAmbienteService);
     
         this.nombreTabla = "agendas";
-        this.fechasDefinidas = ["inicial_fecha","final_fecha"];
+        this.fechasDefinidas = [];
     
         this.DetectarCampos().subscribe();
 

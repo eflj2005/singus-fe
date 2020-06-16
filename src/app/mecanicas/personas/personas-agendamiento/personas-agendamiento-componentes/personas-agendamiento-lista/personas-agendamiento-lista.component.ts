@@ -4,13 +4,13 @@ import { FormControl } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { Agendas2Interface } from '@interfaces/agendas2.interface';
-import { Agendas2Controller } from '@controladores/agendas2.controller';
+import { AgendasInterface } from '@interfaces/agendas.interface';
+import { AgendasController } from '@controladores/agendas.controller';
 import { HttpClient } from '@angular/common/http';
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { EstructuraConsultas } from '@generales/estructura-consultas';
 
-interface ListaAgendas extends Agendas2Interface{
+interface ListaAgendas extends AgendasInterface{
   nombreCoordinador: string;
   nombreResponsable: string;
 }
@@ -24,7 +24,7 @@ interface ListaAgendas extends Agendas2Interface{
 })
 export class PersonasAgendamientoListaComponent implements OnInit {
 
-  controladorAgendas: Agendas2Controller;
+  controladorAgendas: AgendasController;
   registrosAgendas: ListaAgendas[];
   registrosAgendas$: Observable<ListaAgendas[]>;
   filter = new FormControl('');
@@ -53,7 +53,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
     caracteristicas.AgregarEnlace( "responsables" , "responsables" , "agendas" );   
   
 
-    this.controladorAgendas = new Agendas2Controller(this.llamadoHttp,this.servicioAmbiente);
+    this.controladorAgendas = new AgendasController(this.llamadoHttp,this.servicioAmbiente);
     this.controladorAgendas.CargarDesdeDB(true, "A" , caracteristicas).subscribe(
       (respuesta: RespuestaInterface) =>{
         switch(respuesta.codigo){
@@ -75,8 +75,8 @@ export class PersonasAgendamientoListaComponent implements OnInit {
     return this.registrosAgendas.filter(agenda => {
       const term = text.toLowerCase();
       return pipe.transform(agenda.id).includes(term)
-          || agenda.final_fecha.toLowerCase().includes(term)
-          || agenda.inicial_fecha.toLowerCase().includes(term)
+          || agenda.cierre_fecha.toLowerCase().includes(term)
+          || agenda.apertura_fecha.toLowerCase().includes(term)
           || agenda.nombreCoordinador.toLowerCase().includes(term)
           || agenda.nombreResponsable.toLowerCase().includes(term);
 
