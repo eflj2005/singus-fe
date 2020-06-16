@@ -4,13 +4,13 @@ import { FormControl } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { AgendasInterface } from '@interfaces/agendas.interface';
-import { AgendasController } from '@controladores/agendas.controller';
+import { Agendas2Interface } from '@interfaces/agendas2.interface';
+import { AgendasController } from '@controladores/agendas2.controller';
 import { HttpClient } from '@angular/common/http';
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { EstructuraConsultas } from '@generales/estructura-consultas';
 
-interface ListaAgendas extends AgendasInterface{
+interface ListaAgendas extends Agendas2Interface{
   nombreCoordinador: string;
   nombreResponsable: string;
 }

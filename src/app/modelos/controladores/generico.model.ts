@@ -149,17 +149,25 @@ export class GenericoModel {
     return (nombre in this.controladoresForaneos);
   }
 
-  public CargarForanea( nombre : string, caracteristicas:any=null){
-    this.controladoresForaneos[nombre].CargarDesdeDB( true, "S", caracteristicas ).subscribe(  (respuesta:RespuestaInterface) => {   }); // Carge de foranea
+  public CargarForanea( nombre : string, caracteristicas:any=null ){
+    this.controladoresForaneos[nombre].CargarDesdeDB( true , "S", caracteristicas ).subscribe(  (respuesta:RespuestaInterface) => {  }); // Carge de foranea
   }
 
-  public ObtenerForanea(nombreForaneo : string, registroAsociado :boolean = false, identificadorBase: number = null){
+  public ObtenerForanea(nombreForaneo : string, registroAsociado :boolean = false, identificador: number = null, esIdentificadorForaneo = false){
 
     if(registroAsociado){
-      if(identificadorBase!=null){
-        this.Encontrar("id", identificadorBase);
+      if(identificador==null){
+        this.controladoresForaneos[nombreForaneo].Encontrar("id", this.registros[this.posicionActual][nombreForaneo+"_id"]);
       }
-      this.controladoresForaneos[nombreForaneo].Encontrar("id", this.registros[this.posicionActual][nombreForaneo+"_id"]);
+      else{
+        if(esIdentificadorForaneo){
+          this.controladoresForaneos[nombreForaneo].Encontrar("id", identificador);
+        }
+        else{
+          this.Encontrar("id", identificador);
+          this.controladoresForaneos[nombreForaneo].Encontrar("id", this.registros[this.posicionActual][nombreForaneo+"_id"])
+        }
+      }
     }
     
     return this.controladoresForaneos[nombreForaneo];

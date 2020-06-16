@@ -4,13 +4,13 @@ import { HttpClient } from '@angular/common/http';
 import { GenericoModel } from '@controladores/generico.model';
 import { AmbienteService } from '@servicios/ambiente.service';
 
-import{AgendasInterface} from '@interfaces/agendas.interface'
+import{Agendas2Interface} from '@interfaces/agendas2.interface'
 import { CoordinadoresController } from '@controladores/coordinadores.controller';
 import { ResponsablesController } from '@controladores/responsables.controller';
 
-export class AgendasController extends GenericoModel {
+export class Agendas2Controller extends GenericoModel {
  
-    registros: AgendasInterface[]= [];
+    registros: Agendas2Interface[]= [];
     
     constructor( 
         private instanciaHttpClient :HttpClient,

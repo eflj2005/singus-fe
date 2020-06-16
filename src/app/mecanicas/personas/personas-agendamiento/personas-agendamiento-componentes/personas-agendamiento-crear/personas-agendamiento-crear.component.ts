@@ -14,11 +14,11 @@ import { ResponsablesInterface } from "@interfaces/responsables.interface";
 import { ResponsablesController } from "@controladores/responsables.controller";
 import { PersonasInterface } from "@interfaces/personas.interface";
 import { PersonasController } from "@controladores/personas.controller";
-import { AgendasInterface } from "@interfaces/agendas.interface";
-import { AgendasController } from "@controladores/agendas.controller";
 import { CohortesController } from "@controladores/cohortes.controller";
 import { ProgramasController } from "@controladores/programas.controller";
 import { SedesController } from "@controladores/sedes.controller";
+import { Agendas2Interface } from "@interfaces/agendas2.interface";
+import { Agendas2Controller } from "@controladores/agendas2.controller";
 
 interface  responsables extends ResponsablesInterface {
 
@@ -49,7 +49,7 @@ interface ListaPersonasInterface extends PersonasInterface {
 export class PersonasAgendamientoCrearComponent implements OnInit {
 
   controladorResponsables: ResponsablesController;
-  controladorAgendas: AgendasController;
+  controladorAgendas: Agendas2Controller;
   controladorPersonas: PersonasController;
   controladorSedes : SedesController;
   controladorCohortes : CohortesController;
@@ -57,12 +57,13 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
   
   
   registrosResponsables: ResponsablesInterface[];
-  registrosAgendas:  AgendasInterface[];
+  registrosAgendas:  Agendas2Interface[];
   registrosPersonas:  ListaPersonasInterface[];
 
   sedeid: number = null ;
   cohorteid:number = null ;
   programaid: number = null ;
+
 
   responsableSelecionado : ResponsableSeleccionado  = {'id': null, 'nombres': ''};
   filtros: Array<string>; 

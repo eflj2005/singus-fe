@@ -107,9 +107,6 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
   datosAsociaciones:AsociacionesInterface[];
   datosReconocimientos:ReconocimientosInterface[]
 
-  descripcionProyecto : any ="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología";
-  descripcionPrograma : any ="BICIBAGUÉ: Iniciativa que busca incentivar la práctica del tursimo en bicicleta, el desarrollo social y la tecnología";
-
   correoModelo:string;
   numeroModelo:string;
   calificacionModelo:string;
@@ -211,8 +208,10 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
 
         caracteristicasConsultas = new EstructuraConsultas( "F", null , "personas_id" , "=" , String(this.personaId) );
         caracteristicasConsultas.AgregarOrdenamiento( "vinculacion_fecha" , "DESC" );
-        this.controladorExperiencias.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaEX:RespuestaInterface) => {           // Carge de experiencias    
-          this.controladorExperiencias.ReemplazarForanea("estudios", this.controladorEstudios);     //Se recicla controlador de estudios
+        this.controladorExperiencias.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaEX:RespuestaInterface) => {           // Carge de experiencias   
+          
+          this.controladorExperiencias.ReemplazarForanea( "estudios" , this.controladorEstudios );
+
           this.controladorExperiencias.CargarForanea("rangosingresos");
           this.controladorExperiencias.CargarForanea("sectoreslaborales");
           this.controladorExperiencias.CargarForanea("tiposcontratos");
@@ -220,8 +219,6 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     
           this.datosExperiencias = this.controladorExperiencias.todos;
         });           
-
-
 
       });   
    
@@ -403,14 +400,24 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         this.parametrosHistorico = { "lista" : {} , "id": idHistorico, "instituciones_id": "", "programas_id": "", "tiposestudios_id": "" };              
 
         buscado = this.controladorEstudios.Encontrar("id",idHistorico);                                 
-
+                            
         if(buscado)  {
-          this.parametrosHistorico["lista"] = this.controladorEstudios.actual;
+          this.parametrosHistorico["lista"] = Object.assign({}, this.controladorEstudios.actual);
           this.parametrosHistorico["instituciones_id"] = this.controladorEstudios.ObtenerForanea('ofertas',true).actual.instituciones_id;
           this.parametrosHistorico["programas_id"] = this.controladorEstudios.ObtenerForanea('ofertas',true).actual.programas_id;
           this.parametrosHistorico["tiposestudios_id"] = this.controladorEstudios.ObtenerForanea('ofertas',true).actual.tiposestudios_id;
         }
         else{
+          buscado = this.controladorExperiencias.Encontrar("dbRef",idHistorico);
+          if(buscado)  {
+            this.parametrosHistorico["lista"] =  this.controladorEstudios.actual;
+            this.parametrosHistorico["instituciones_id"] = this.controladorEstudios.ObtenerForanea('ofertas',true).actual.instituciones_id;
+            this.parametrosHistorico["programas_id"] = this.controladorEstudios.ObtenerForanea('ofertas',true).actual.programas_id;
+            this.parametrosHistorico["tiposestudios_id"] = this.controladorEstudios.ObtenerForanea('ofertas',true).actual.tiposestudios_id;
+          }
+        }
+
+        if(!buscado){
           let registro: EstudiosInterface = {
             id                    : null,
             personas_id           : this.personaId,
@@ -486,9 +493,16 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         buscado = this.controladorAsociaciones.Encontrar("id",idHistorico);                                 //REVISAR MAS ADELANTE
 
         if(buscado)  {
-          this.parametrosHistorico["lista"] = this.controladorAsociaciones.actual;
+          this.parametrosHistorico["lista"] = Object.assign({}, this.controladorAsociaciones.actual);
         }
         else{
+          buscado = this.controladorAsociaciones.Encontrar("dbRef",idHistorico);
+          if(buscado)  {
+            this.parametrosHistorico["lista"] =  this.controladorAsociaciones.actual;
+          }
+        }
+
+        if(!buscado){
           let registro: AsociacionesInterface = {
             id                      : null,
             personas_id             : this.personaId,
@@ -512,9 +526,16 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         buscado = this.controladorReconocimientos.Encontrar("id",idHistorico);                                 //REVISAR MAS ADELANTE
 
         if(buscado)  {
-          this.parametrosHistorico["lista"] = this.controladorReconocimientos.actual;
+          this.parametrosHistorico["lista"] = Object.assign({}, this.controladorReconocimientos.actual);
         }
         else{
+          buscado = this.controladorReconocimientos.Encontrar("dbRef",idHistorico);
+          if(buscado)  {
+            this.parametrosHistorico["lista"] =  this.controladorReconocimientos.actual;
+          }
+        }
+
+        if(!buscado){
           let registro: ReconocimientosInterface = {
             id              : null,
             personas_id     : this.personaId,
