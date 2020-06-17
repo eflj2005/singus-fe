@@ -94,7 +94,6 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     registro_fecha: null,
     actualizacion_fecha: null,
     desempleado: "N",
-    permitecontactar: "N",
     encuestaole: "N",
     habeasdata: "N"
   };

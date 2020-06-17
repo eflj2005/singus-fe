@@ -65,7 +65,7 @@ export class PersonasActualizacionListaComponent implements OnInit {
     caracteristicas.AgregarEnlace( "sedes" ,     "sedes" ,     "estudios" );
     caracteristicas.AgregarEnlace( "programas" , "programas" , "ofertas" );  
 
-    caracteristicas.AgregarFiltro( "personas" , "id" , "=", "3130" );
+    // caracteristicas.AgregarFiltro( "personas" , "id" , "=", "3130" );
     caracteristicas.AgregarFiltro( "sedes" , "instituciones_id" , "=", "1" );
     
     caracteristicas.AgregarOrdenamiento( "cohorte" , "DESC" );
