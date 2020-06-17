@@ -417,18 +417,6 @@
         <div class="form-group row mb-2 justify-content-around">
 
           <div class="col-md-3 px-1">
-            <div class="d-flex justify-content-center"><label class="mb-1">Permite Contactar:</label></div>
-            <div class="btn-group btn-group-toggle d-flex justify-content-center" data-toggle="buttons">
-              <label [class]="'btn ' + (datosPersona.permitecontactar=='S'?'btn-primary active':'btn-outline-dark')">
-                <input type="radio" name="permitecontactar" id="permitecontactar_1" value="S" autocomplete="off" [(ngModel)]="datosPersona.permitecontactar" (change)="ModificarPersona()"> Si
-              </label>
-              <label [class]="'btn ' + (datosPersona.permitecontactar=='N'?'btn-primary active':'btn-outline-dark')">
-                <input type="radio" name="permitecontactar" id="permitecontactar_2" value="N" autocomplete="off" [(ngModel)]="datosPersona.permitecontactar" (change)="ModificarPersona()"> No
-              </label>
-            </div>               
-          </div>
-
-          <div class="col-md-3 px-1">
             <div class="d-flex justify-content-center"><label class="mb-1">Habeas Data:</label></div>
             <div class="btn-group btn-group-toggle d-flex justify-content-center" data-toggle="buttons">
               <label [class]="'btn ' + (datosPersona.habeasdata=='S'?'btn-primary active':'btn-outline-dark')">

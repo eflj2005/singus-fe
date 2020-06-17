@@ -757,7 +757,6 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
       case 8: controladorActual = this.controladorReconocimientos;  break;   
     }
 
-    // console.log(Object.assign({}, this.datosCorreos), "Antes");      
     let encontrado: boolean = controladorActual.Encontrar( "dbRef", referencia );
     if( encontrado ){
       controladorActual.Eliminar();
@@ -771,11 +770,10 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
       this.controladorPersonas.Guardar().subscribe( 
         (respuesta:RespuestaInterface) => { 
           if( respuesta.codigo == 200 ){
-            console.log(respuesta);
+
           }    
           else{
-            alert("Error al guardar personas");
-            console.log(respuesta);
+            alert("Error al guardar información general");
           }                              
         }
       );
@@ -797,7 +795,6 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
             }
             else{
               alert("Error al guardar correos");
-              console.log(respuesta);
             }          
           }
         );
@@ -820,7 +817,6 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
             }    
             else{
               alert("Error al guardar telefonos");
-              console.log(respuesta);
             }                              
           }
         );
@@ -846,7 +842,6 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
             }
             else{
               alert("Error al guardar direcciones");
-              console.log(respuesta);
             }                     
           }
         );
@@ -856,11 +851,9 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         this.controladorEstudios.Guardar().subscribe( 
           (respuesta:RespuestaInterface) => { 
             if( respuesta.codigo == 200 ){
-              console.log(respuesta);
             }    
             else{
               alert("Error al guardar estudios");
-              console.log(respuesta);
             }                              
           }
         );
@@ -870,11 +863,10 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         this.controladorExperiencias.Guardar().subscribe( 
           (respuesta:RespuestaInterface) => { 
             if( respuesta.codigo == 200 ){
-              console.log(respuesta);
+
             }    
             else{
               alert("Error al guardar experiencias");
-              console.log(respuesta);
             }                              
           }
         );
@@ -884,11 +876,11 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         this.controladorAsociaciones.Guardar().subscribe( 
           (respuesta:RespuestaInterface) => { 
             if( respuesta.codigo == 200 ){
-              console.log(respuesta);
+
             }    
             else{
               alert("Error al guardar asociaciones");
-              console.log(respuesta);
+
             }                              
           }
         );
@@ -898,11 +890,11 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
         this.controladorReconocimientos.Guardar().subscribe( 
           (respuesta:RespuestaInterface) => { 
             if( respuesta.codigo == 200 ){
-              console.log(respuesta);
+
             }    
             else{
               alert("Error al guardar reconocimientos");
-              console.log(respuesta);
+
             }                              
           }
         );
