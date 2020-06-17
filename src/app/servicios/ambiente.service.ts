@@ -37,7 +37,7 @@ export class AmbienteService {
     this.urlRecursos["PRO"]="http://35.224.163.198/singus-be/";
   
 
-    this.urlMode = "PRO";
+    this.urlMode = "DEV";
 
     this.inicioModo = 0;
     this.inicioPaso = 0;
