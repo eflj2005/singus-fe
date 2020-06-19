@@ -3,12 +3,13 @@ import { FormControl } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
 import { Observable, from } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import {AmbienteService} from '@servicios/ambiente.service';
+import {  AmbienteService} from '@servicios/ambiente.service';
 import { PersonasInterface } from '@interfaces/personas.interface';
 import { PersonasController } from '@controladores/personas.controller';
 import { HttpClient } from '@angular/common/http';
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { EstructuraConsultas } from '@generales/estructura-consultas';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 // import { extendMoment } from 'moment-range';
 
@@ -27,6 +28,7 @@ interface ListaPersonas extends PersonasInterface{
 }
 
 
+
 @Component({
   selector: 'app-reportes-alertas-principal',
   templateUrl: './reportes-alertas-principal.component.html',
@@ -35,16 +37,18 @@ interface ListaPersonas extends PersonasInterface{
 })
 export class ReportesAlertasPrincipalComponent implements OnInit {
 
+ 
   personas$: Observable<ListaPersonas[]>;
   registros: ListaPersonas[];
   filter = new FormControl('');
   filter2 = new FormControl('');
   personas2$: Observable<ListaPersonas[]>;
   today: Date ;  
+  tipoModal :number;
 
   controladorPersonas: PersonasController;
 
-  constructor(private pipe: DecimalPipe, private llamadoHttp : HttpClient,   private servicioAmbiente : AmbienteService,) { 
+  constructor(private modal: NgbModal ,private pipe: DecimalPipe, private llamadoHttp : HttpClient,   private servicioAmbiente : AmbienteService,) { 
     
     this.controladorPersonas = new PersonasController(llamadoHttp,servicioAmbiente);
     this.registros=[];
@@ -173,5 +177,11 @@ export class ReportesAlertasPrincipalComponent implements OnInit {
         numero = "0"+numero;
       }
       return numero;
+    }
+
+    VerColores(modal , tipo){
+      this.tipoModal = tipo;
+      let respuesta :any;
+      respuesta  = this.modal.open( modal, { size : 'lg'  ,  backdropClass: 'light-blue-backdrop' } );
     }
 }
