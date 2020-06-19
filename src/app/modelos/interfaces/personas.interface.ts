@@ -11,7 +11,6 @@ export interface PersonasInterface {
   actualizacion_fecha:string;
   registro_fecha:string;
   desempleado:string;
-  permitecontactar:string;
   encuestaole:string;
   habeasdata:string;
   modo?:string;
