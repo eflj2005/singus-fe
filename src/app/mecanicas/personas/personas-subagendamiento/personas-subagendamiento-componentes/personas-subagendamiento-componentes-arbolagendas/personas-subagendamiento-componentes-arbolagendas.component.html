@@ -1,1 +1,39 @@
-<p>personas-subagendamiento-componentes-arbolagendas works!</p>
+<div class="row">
+  <div class="col-md-12">
+    <div class="list-group">
+      <div class="row" *ngFor="let agenda of agendas;let indiceAgendas = index">
+
+        <ng-template #popContent>
+          <div class="popover-class">
+            <div class="row"><div class="col-md-4 px-1">Id:</div>         <div class="col-md px-1 popover-content">{{ agenda.id }}</div></div>
+            <div class="row"><div class="col-md-4 px-1">Creador:</div>    <div class="col-md px-1">{{ agenda.creador }}</div></div>
+            <div class="row"><div class="col-md-4 px-1">Apertura:</div>   <div class="col-md px-1">{{ agenda.apertura_fecha }}</div></div>
+            <div class="row"><div class="col-md-4 px-1">Cierre:</div>     <div class="col-md px-1">{{ agenda.cierre_fecha }}</div></div>
+            <div class="row"><div class="col-md-4 px-1">Días Rest:</div>  <div class="col-md px-1">#</div></div>
+            <div class="row"><div class="col-md-4 px-1">Asignados:</div>  <div class="col-md px-1">{{ agenda.asignados }}</div></div>
+            <div class="row"><div class="col-md-4 px-1">Completos:</div>  <div class="col-md px-1">#</div></div>
+            <div class="row"><div class="col-md-4 px-1">Estado:</div>     <div class="col-md px-1"># %</div></div>       
+          </div>
+        </ng-template>
+
+        <div *ngIf="agenda.nivel >= 1" class="col-md-1 p-1 text-center">
+          &nbsp;
+        </div>
+        <div  *ngIf="agenda.nivel == 2" class="col-md-1 p-1 text-center">
+          &nbsp;
+        </div>
+
+        <div class="col-md pl-1 pr-2">
+          <button type="button" class="list-group-item list-group-item-action p-1" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" popoverTitle="Detalle de Agendamiento" placement="right">
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="fa fa-tag"> {{ agenda.id }}</span>
+              <span>FA. {{ agenda.apertura_fecha }} <br/>FC. {{ agenda.cierre_fecha }}</span>
+              <span>{{ agenda.asignados }} <span class="fa fa-users"></span></span>
+              <span class="badge badge-primary badge-pill">{{ agenda.asignados }}</span>  
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+   </div>
+</div>

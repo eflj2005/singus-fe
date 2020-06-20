@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PersonasSubagendamientoComponentesArbolagendasComponent } from './personas-subagendamiento-componentes-arbolagendas/personas-subagendamiento-componentes-arbolagendas.component';
 
 
@@ -7,7 +8,8 @@ import { PersonasSubagendamientoComponentesArbolagendasComponent } from './perso
 @NgModule({
   declarations: [PersonasSubagendamientoComponentesArbolagendasComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    NgbModule
   ],
   exports:  [PersonasSubagendamientoComponentesArbolagendasComponent]
 })
