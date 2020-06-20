@@ -4,8 +4,11 @@ import { ReportesAlertasPrincipalComponent } from './reportes-alertas-principal/
 import { NgbTabsetModule } from "@ng-bootstrap/ng-bootstrap";
 import { FormsModule,  ReactiveFormsModule } from '@angular/forms';
 import {  NgbTypeaheadModule } from "@ng-bootstrap/ng-bootstrap";
+import {  NgbAlertModule } from "@ng-bootstrap/ng-bootstrap";
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
+import {  NgbDropdownModule } from "@ng-bootstrap/ng-bootstrap";
+
 
 @NgModule({
   declarations: [ReportesAlertasPrincipalComponent],
@@ -16,7 +19,11 @@ import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
     ReactiveFormsModule,
     NgbTypeaheadModule,
     BrowserModule,
-    NgbTooltipModule
+    NgbTooltipModule,
+    NgbAlertModule,
+    NgbDropdownModule
+  
+
   ]
 })
 export class ReportesAlertasModule { }
