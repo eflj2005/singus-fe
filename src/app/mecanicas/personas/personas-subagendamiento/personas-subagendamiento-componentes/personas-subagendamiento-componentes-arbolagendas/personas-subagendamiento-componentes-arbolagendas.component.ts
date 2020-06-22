@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AgendasInterface } from '@interfaces/agendas.interface'
 
 
@@ -129,6 +129,10 @@ export class PersonasSubagendamientoComponentesArbolagendasComponent implements 
 
   @Input() agendas:AgendasCompletoInterface[];
 
+  @Input() seleccionada: number = 0;
+  @Output() seleccionadaChangue: EventEmitter<number> = new EventEmitter<number>();
+
+  
   arbolAgendas: ArbolDeAgendas = null;
 
   constructor() {
@@ -155,16 +159,14 @@ export class PersonasSubagendamientoComponentesArbolagendasComponent implements 
     
   }
 
-  ngOnInit() {
-    
-    console.log(this.agendas, "Lista");
-
+  ngOnInit() {   
     this.arbolAgendas = new ArbolDeAgendas(this.agendas);
-
     this.agendas = this.arbolAgendas.ObtenerLista();
-    console.log(this.agendas, "ListaNueva");
+    
   }
 
-
-
+  Seleccionado( idRecibido : number){
+    this.seleccionada = idRecibido;
+    this.seleccionadaChangue.emit( this.seleccionada );    
+  }
 }

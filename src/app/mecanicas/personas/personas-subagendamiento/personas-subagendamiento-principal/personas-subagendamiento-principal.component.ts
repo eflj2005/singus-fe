@@ -36,11 +36,13 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
       this.listaAgendas.push( { id: 7, agendas_id: 3, apertura_fecha: "2020-06-01", cierre_fecha: "2020-06-30", nivel: 2, asignados: 3, creador: "Fabio Torres Cuarto" } );
       this.listaAgendas.push( { id: 8, agendas_id: 3, apertura_fecha: "2020-06-01", cierre_fecha: "2020-06-30", nivel: 2, asignados: 2, creador: "Fabio Torres Cuarto" } );
 
-
-
   }
 
+  agendaSeleccionada:number;
+
   ngOnInit() {
+    this.agendaSeleccionada = 2;
+    console.log(this.agendaSeleccionada);
   }
 
 }

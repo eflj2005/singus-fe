@@ -1,3 +1,9 @@
 .popover-class div{ 
   font-size: 90%;
 }
+.popover-label{ 
+  width: 35%;
+}
+.popover-title{ 
+  width: 210px;
+}
