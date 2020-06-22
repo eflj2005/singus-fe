@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AmbienteService} from '@servicios/ambiente.service'
 import { AgendasInterface } from '@interfaces/agendas.interface';
+import { AutenticacionService } from '@servicios/autenticacion.service';
 
 interface AgendasCompletoInterface extends AgendasInterface  {
   creador: string;
@@ -17,7 +18,12 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
 
   listaAgendas: AgendasCompletoInterface[] = [];
 
-  constructor(private datosAmbiente: AmbienteService) { 
+  agendaSeleccionada:number;
+
+  constructor(
+    private datosAmbiente: AmbienteService,
+    private autenticador: AutenticacionService
+  ) { 
     // this.listaAgendas.push( { id: 1, agendas_id: null, apertura_fecha: "2020-06-01", cierre_fecha: "2020-06-30", nivel: 0, asignados: 10, creador: "Pepito Flores" } );      //10
     //   this.listaAgendas.push( { id: 2, agendas_id: 1, apertura_fecha: "2020-06-01", cierre_fecha: "2020-06-30", nivel: 1, asignados: 5, creador: "Perencejto Rivas" } );    //5
     //     this.listaAgendas.push( { id: 4, agendas_id: 2, apertura_fecha: "2020-06-01", cierre_fecha: "2020-06-30", nivel: 2, asignados: 2, creador: "Sultanita Rojas" } );     //2
@@ -38,9 +44,11 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
 
   }
 
-  agendaSeleccionada:number;
+
 
   ngOnInit() {
+    // this.autenticador.UsuarioActualValor
+
     this.agendaSeleccionada = 2;
     console.log(this.agendaSeleccionada);
   }

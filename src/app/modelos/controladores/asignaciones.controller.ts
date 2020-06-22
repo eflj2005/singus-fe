@@ -1,16 +1,15 @@
-
 import { HttpClient } from '@angular/common/http';
 
 import { GenericoModel } from '@controladores/generico.model';
 import { AmbienteService } from '@servicios/ambiente.service';
 
-import { AgendasInterface } from '@interfaces/agendas.interface'
-import { CoordinadoresController } from '@controladores/coordinadores.controller';
-import { ResponsablesController } from '@controladores/responsables.controller';
+import { AsignacionesInterface } from '@interfaces/asignaciones.interface';
+import { AgendasController } from './agendas.controller';
+import { UsuariosController } from './usuarios.controller';
 
-export class AgendasController extends GenericoModel {
+export class AsignacionesController extends GenericoModel {
  
-    registros: AgendasInterface[]= [];
+    registros: AsignacionesInterface[]= [];
     
     constructor( 
         private instanciaHttpClient :HttpClient,
@@ -18,12 +17,14 @@ export class AgendasController extends GenericoModel {
       ) {
         super(instanciaHttpClient,InstanciaAmbienteService);
     
-        this.nombreTabla = "agendas";
+        this.nombreTabla = "asignaciones";
         this.fechasDefinidas = [];
     
         this.DetectarCampos().subscribe();
 
         this.AgregarForanea( new AgendasController(instanciaHttpClient,InstanciaAmbienteService)  );
+        this.AgregarForanea( new UsuariosController(instanciaHttpClient,InstanciaAmbienteService)  );
+
 
       }
 }
