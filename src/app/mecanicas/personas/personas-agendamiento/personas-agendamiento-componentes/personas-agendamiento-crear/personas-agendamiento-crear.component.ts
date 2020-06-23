@@ -311,11 +311,11 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     let validador:boolean = false;
 
     validador = (
-      this.controladorPersonas.estaListo("cargue")   &&
-      this.controladorCohortes.estaListo("cargue")   &&
-      this.controladorProgramas.estaListo("cargue")  &&
-      this.controladorSedes.estaListo("cargue")      &&
-      this.controladorResponsables.estaListo("cargue")
+      this.controladorPersonas.EstaListo("cargue")   &&
+      this.controladorCohortes.EstaListo("cargue")   &&
+      this.controladorProgramas.EstaListo("cargue")  &&
+      this.controladorSedes.EstaListo("cargue")      &&
+      this.controladorResponsables.EstaListo("cargue")
     );
 
     return validador;

@@ -253,30 +253,30 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
     let validador:boolean = false;
 
     validador = (
-      this.controladorPersonas.estaListo("cargue")                                                                                         &&
-      this.controladorPersonas.ObtenerForanea("tiposdocumentos").estaListo("cargue")                                                       &&
-      this.controladorPersonas.ObtenerForanea("municipios").estaListo("cargue")                                                            &&
-      this.controladorPersonas.ObtenerForanea("municipios").ObtenerForanea("departamentos").estaListo("cargue")                            &&
-      this.controladorPersonas.ObtenerForanea("municipios").ObtenerForanea("departamentos").ObtenerForanea("paises").estaListo("cargue")   &&
-      this.controladorCorreos.estaListo("cargue")                                                                                          &&
-      this.controladorTelefonos.estaListo("cargue")                                                                                        &&
-      this.controladorDirecciones.estaListo("cargue")                                                                                      &&
-      this.controladorEstudios.estaListo("cargue")                                                                                         &&
-      this.controladorEstudios.ObtenerForanea("titulos").estaListo("cargue")                                                               &&
-      this.controladorEstudios.ObtenerForanea("sedes").estaListo("cargue")                                                                 &&
-      this.controladorEstudios.ObtenerForanea("sedes").ObtenerForanea("instituciones").estaListo("cargue")                                 &&
-      this.controladorEstudios.ObtenerForanea("mecanismosgrados").estaListo("cargue")                                                      &&
-      this.controladorEstudios.ObtenerForanea("cohortes").estaListo("cargue")                                                              &&
-      this.controladorEstudios.ObtenerForanea("ofertas").estaListo("cargue")                                                               &&
-      this.controladorEstudios.ObtenerForanea("ofertas").ObtenerForanea("tiposestudios").estaListo("cargue")                               &&
-      this.controladorEstudios.ObtenerForanea("ofertas").ObtenerForanea("programas").estaListo("cargue")                                   &&
-      this.controladorExperiencias.estaListo("cargue")                                                                                     &&
-      this.controladorExperiencias.ObtenerForanea("rangosingresos").estaListo("cargue")                                                    &&
-      this.controladorExperiencias.ObtenerForanea("sectoreslaborales").estaListo("cargue")                                                 &&
-      this.controladorExperiencias.ObtenerForanea("tiposcontratos").estaListo("cargue")                                                    &&
-      this.controladorAsociaciones.estaListo("cargue")                                                                                     &&
-      this.controladorAsociaciones.ObtenerForanea("sectoresasociaciones").estaListo("cargue")                                              &&
-      this.controladorReconocimientos.estaListo("cargue") 
+      this.controladorPersonas.EstaListo("cargue")                                                                                         &&
+      this.controladorPersonas.ObtenerForanea("tiposdocumentos").EstaListo("cargue")                                                       &&
+      this.controladorPersonas.ObtenerForanea("municipios").EstaListo("cargue")                                                            &&
+      this.controladorPersonas.ObtenerForanea("municipios").ObtenerForanea("departamentos").EstaListo("cargue")                            &&
+      this.controladorPersonas.ObtenerForanea("municipios").ObtenerForanea("departamentos").ObtenerForanea("paises").EstaListo("cargue")   &&
+      this.controladorCorreos.EstaListo("cargue")                                                                                          &&
+      this.controladorTelefonos.EstaListo("cargue")                                                                                        &&
+      this.controladorDirecciones.EstaListo("cargue")                                                                                      &&
+      this.controladorEstudios.EstaListo("cargue")                                                                                         &&
+      this.controladorEstudios.ObtenerForanea("titulos").EstaListo("cargue")                                                               &&
+      this.controladorEstudios.ObtenerForanea("sedes").EstaListo("cargue")                                                                 &&
+      this.controladorEstudios.ObtenerForanea("sedes").ObtenerForanea("instituciones").EstaListo("cargue")                                 &&
+      this.controladorEstudios.ObtenerForanea("mecanismosgrados").EstaListo("cargue")                                                      &&
+      this.controladorEstudios.ObtenerForanea("cohortes").EstaListo("cargue")                                                              &&
+      this.controladorEstudios.ObtenerForanea("ofertas").EstaListo("cargue")                                                               &&
+      this.controladorEstudios.ObtenerForanea("ofertas").ObtenerForanea("tiposestudios").EstaListo("cargue")                               &&
+      this.controladorEstudios.ObtenerForanea("ofertas").ObtenerForanea("programas").EstaListo("cargue")                                   &&
+      this.controladorExperiencias.EstaListo("cargue")                                                                                     &&
+      this.controladorExperiencias.ObtenerForanea("rangosingresos").EstaListo("cargue")                                                    &&
+      this.controladorExperiencias.ObtenerForanea("sectoreslaborales").EstaListo("cargue")                                                 &&
+      this.controladorExperiencias.ObtenerForanea("tiposcontratos").EstaListo("cargue")                                                    &&
+      this.controladorAsociaciones.EstaListo("cargue")                                                                                     &&
+      this.controladorAsociaciones.ObtenerForanea("sectoresasociaciones").EstaListo("cargue")                                              &&
+      this.controladorReconocimientos.EstaListo("cargue") 
       
     );
 
