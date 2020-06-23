@@ -13,7 +13,7 @@ interface AgendasArbolInterface extends AgendasCompletoInterface  {
 }
 
 class ArbolDeAgendas{
-  private raiz:AgendasArbolInterface[] = [];
+  public raiz:AgendasArbolInterface[] = [];
   private nivelRaiz:number=null;
 
   constructor( agendasRecibidas: AgendasCompletoInterface[] ){
@@ -29,6 +29,9 @@ class ArbolDeAgendas{
       elemento.selecionado= false;
       if(elemento.nivel < this.nivelRaiz ) this.nivelRaiz = elemento.nivel;
     }); 
+
+    // console.log(agendas,"agendas");
+    // console.log(this.nivelRaiz,"nivel");
 
     // Crear rices de arbol con las agendas de nivel superior y marca las identificadas
     agendas.forEach( (elemento,indice) => { 
@@ -160,7 +163,9 @@ export class PersonasSubagendamientoComponentesArbolagendasComponent implements 
   }
 
   ngOnInit() {   
+    // console.log(this.agendas,"agendasRec");    
     this.arbolAgendas = new ArbolDeAgendas(this.agendas);
+
     this.agendas = this.arbolAgendas.ObtenerLista();
     
   }

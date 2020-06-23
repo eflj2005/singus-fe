@@ -12,7 +12,9 @@
   <div class="col-md-3">
     <div class="row justify-content-start">
       <div class="col-md-11 contenedor">
-        <app-personas-subagendamiento-componentes-arbolagendas [agendas]='listaAgendas' [seleccionada]="agendaSeleccionada" (seleccionadaChangue)="agendaSeleccionada=$event">
+        <!-- <app-personas-subagendamiento-componentes-arbolagendas [agendas]='listaAgendas' [seleccionada]="agendaSeleccionada" (seleccionadaChangue)="agendaSeleccionada=$event">
+        </app-personas-subagendamiento-componentes-arbolagendas> -->
+        <app-personas-subagendamiento-componentes-arbolagendas [agendas]='controladorAgendas.todos' [seleccionada]="agendaSeleccionada" (seleccionadaChangue)="agendaSeleccionada=$event">
         </app-personas-subagendamiento-componentes-arbolagendas>
       </div>
     </div>

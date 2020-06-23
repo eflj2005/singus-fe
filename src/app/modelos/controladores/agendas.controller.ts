@@ -23,7 +23,9 @@ export class AgendasController extends GenericoModel {
     
         this.DetectarCampos().subscribe();
 
-        this.AgregarForanea( new AgendasController(instanciaHttpClient,InstanciaAmbienteService)  );
+        //OJO Por relaciones anidadas solo se puede aplicar en donde se va a utilizar de lo contrario se genera
+        //asignaciónes de foraneas en ciclo infinito
+        //this.AgregarForanea( new AgendasController(instanciaHttpClient,InstanciaAmbienteService)  );
 
       }
 }
