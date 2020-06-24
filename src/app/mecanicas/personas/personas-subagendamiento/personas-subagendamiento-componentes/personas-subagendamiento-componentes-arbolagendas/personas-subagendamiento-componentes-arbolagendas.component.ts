@@ -163,11 +163,8 @@ export class PersonasSubagendamientoComponentesArbolagendasComponent implements 
   }
 
   ngOnInit() {   
-    // console.log(this.agendas,"agendasRec");    
     this.arbolAgendas = new ArbolDeAgendas(this.agendas);
-
-    this.agendas = this.arbolAgendas.ObtenerLista();
-    
+    this.agendas = this.arbolAgendas.ObtenerLista();   
   }
 
   Seleccionado( idRecibido : number){

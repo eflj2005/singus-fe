@@ -256,15 +256,11 @@ export class GenericoModel {
       map(
         (respuesta: RespuestaInterface) => {
 
-
           this.LimpiarTodo();
           if(!isNull(respuesta.mensaje)){
-
             this.ProcesarRegistros(respuesta.mensaje, this);
-
           }
           
-          this.listoCargue=true;
           return respuesta;
         }
       )
@@ -326,9 +322,6 @@ export class GenericoModel {
     else{
       let regExp = /\-/gi;
 
-      console.log(registrosRecibidos,"recibido");
-      console.log(controladorActual.nombreTabla,"tabla");
-
       registrosRecibidos.forEach(
         (registro:any) => {
           registro.dbRef=null;
@@ -349,9 +342,9 @@ export class GenericoModel {
           controladorActual.registros.push(registro);
         }
       );
-      console.log(controladorActual.todos);
+
       if( registrosRecibidos.length > 0 ) controladorActual.posicionActual=0;
-  
+      controladorActual.listoCargue=true;
     }
   }
 
@@ -391,7 +384,7 @@ export class GenericoModel {
       datos : aProcesar      
     };
 
-    console.log(parametros);
+
     return this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php", parametros).pipe(
       map(
         (respuesta: RespuestaInterface) => {

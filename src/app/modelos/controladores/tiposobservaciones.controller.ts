@@ -1,22 +1,23 @@
 import { HttpClient } from '@angular/common/http';
+
 import { GenericoModel } from '@controladores/generico.model';
 import { AmbienteService } from '@servicios/ambiente.service';
-import { CoordinadoresInterface } from '@interfaces/coordinadores.interface';
+import { TiposobservacionesInterface } from '@interfaces/tiposobservaciones.interface';
 
+export class TiposobservacionesController extends GenericoModel{
+  registros: TiposobservacionesInterface[]= [];
 
-export class CoordinadoresController extends GenericoModel {
-    
-  registros: CoordinadoresInterface[]= [];
   constructor( 
     private instanciaHttpClient :HttpClient,
-    private InstanciaAmbienteService :AmbienteService    
+    private InstanciaAmbienteService :AmbienteService 
   ) {
     super(instanciaHttpClient,InstanciaAmbienteService);
 
-    this.nombreTabla = "coordinadores";
+    this.nombreTabla = "tiposobservaciones";
     this.fechasDefinidas = [];
 
     this.DetectarCampos().subscribe();
-  }
+
+  }  
 
 }

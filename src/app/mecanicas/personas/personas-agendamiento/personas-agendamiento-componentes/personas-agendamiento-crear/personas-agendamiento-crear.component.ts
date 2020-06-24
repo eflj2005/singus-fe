@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { ResponsablesInterface } from "@interfaces/responsables.interface";
-import { ResponsablesController } from "@controladores/responsables.controller";
+// import { ResponsablesController } from "@controladores/responsables.controller";        //REVISAR - ELIMINACION DE CONTROLADOR
 import { PersonasInterface } from "@interfaces/personas.interface";
 import { PersonasController } from "@controladores/personas.controller";
 import { CohortesController } from "@controladores/cohortes.controller";
@@ -48,7 +48,7 @@ interface ListaPersonasInterface extends PersonasInterface {
 })
 export class PersonasAgendamientoCrearComponent implements OnInit {
 
-  controladorResponsables: ResponsablesController;
+  // controladorResponsables: ResponsablesController;      //REVISAR - ELIMINACION DE CONTROLADOR
   controladorAgendas: AgendasController;
   controladorPersonas: PersonasController;
   controladorSedes : SedesController;
@@ -201,9 +201,9 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
   }
 
   SeleccionResponsable(id : number ){
-    this.controladorResponsables.Encontrar('id', id);
-    this.responsableSelecionado.id = this.controladorResponsables.actual.id;
-    this.responsableSelecionado.nombres = this.controladorResponsables.actual.nombres + ' ' + this.controladorResponsables.actual.apellidos; 
+    // this.controladorResponsables.Encontrar('id', id);                                                                                              //REVISAR - ELIMINACION DE CONTROLADOR
+    // this.responsableSelecionado.id = this.controladorResponsables.actual.id;                                                                       //REVISAR - ELIMINACION DE CONTROLADOR
+    // this.responsableSelecionado.nombres = this.controladorResponsables.actual.nombres + ' ' + this.controladorResponsables.actual.apellidos;       //REVISAR - ELIMINACION DE CONTROLADOR
 
   }
 
@@ -216,20 +216,22 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     caracteristicas.AgregarColumna( "responsables", "apellidos" , null );
     caracteristicas.AgregarColumna( "responsables", "rol" , null );
 
-    this.controladorResponsables = new ResponsablesController(this.llamadoHttp,this.servicioAmbiente);
-    this.controladorResponsables.CargarDesdeDB(true, "S" , caracteristicas).subscribe(
-      (respuesta: RespuestaInterface) =>{
-        switch(respuesta.codigo){
-          case 200:
-            this.registrosResponsables = this.controladorResponsables.todos ;
-            this.AplicarFiltros(1);
-            break;
-          default:
-            alert("Error: "+respuesta.mensaje);
-            break;
-        }
-      }
-    );
+    // this.controladorResponsables = new ResponsablesController(this.llamadoHttp,this.servicioAmbiente);        //REVISAR - ELIMINACION DE CONTROLADOR
+    
+    // //REVISAR - ELIMINACION DE CONTROLADOR
+    // this.controladorResponsables.CargarDesdeDB(true, "S" , caracteristicas).subscribe(
+    //   (respuesta: RespuestaInterface) =>{
+    //     switch(respuesta.codigo){
+    //       case 200:
+    //         this.registrosResponsables = this.controladorResponsables.todos ;
+    //         this.AplicarFiltros(1);
+    //         break;
+    //       default:
+    //         alert("Error: "+respuesta.mensaje);
+    //         break;
+    //     }
+    //   }
+    // );
   }
 
   ConsultaPersonas(){
@@ -314,8 +316,8 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
       this.controladorPersonas.EstaListo("cargue")   &&
       this.controladorCohortes.EstaListo("cargue")   &&
       this.controladorProgramas.EstaListo("cargue")  &&
-      this.controladorSedes.EstaListo("cargue")      &&
-      this.controladorResponsables.EstaListo("cargue")
+      this.controladorSedes.EstaListo("cargue")      //&&               //REVISAR - ELIMINACION DE CONTROLADOR
+      // this.controladorResponsables.EstaListo("cargue")               //REVISAR - ELIMINACION DE CONTROLADOR
     );
 
     return validador;

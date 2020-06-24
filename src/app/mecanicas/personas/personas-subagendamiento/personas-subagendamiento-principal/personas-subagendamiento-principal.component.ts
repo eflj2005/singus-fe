@@ -30,6 +30,7 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
   controladorAsignaciones: AsignacionesController;
   controladorAgendas: AgendasController;
   controladorAgendasForaneo: AgendasController;
+
   
 
   constructor(
@@ -69,17 +70,17 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
       // caracteristicasConsultas = new EstructuraConsultas();
       // caracteristicasConsultas.AgregarFiltro( "asignaciones" , "usuarios_id" , "=", String(this.usuarioId) );
       // this.controladorAsignaciones.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaAS:RespuestaInterface) => {           // Carge de Asignaciones
-      //   // console.log(this.controladorAsignaciones.todos,"AsignacionesContro");
+      //   console.log(this.controladorAsignaciones.todos,"AsignacionesContro");
       // });
 
       caracteristicasConsultas = new EstructuraConsultas();
-      // caracteristicasConsultas.AgregarColumna( null , "0", "asignados" ); //OJO HACER SUBCONSULTA
-      // caracteristicasConsultas.AgregarColumna( null , "'Perencejito'", "creador" ); //OJO HACER SUBCONSULTA
+      caracteristicasConsultas.AgregarColumna( null , "(SELECT COUNT(*) FROM agendamientos WHERE agendamientos.agendas_id = agendas.id)", "asignados" ); //OJO HACER SUBCONSULTA
+      caracteristicasConsultas.AgregarColumna( null , "(SELECT CONCAT(usuarios.nombres,' ',usuarios.apellidos) FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'C')", "creador" ); //OJO HACER SUBCONSULTA
       caracteristicasConsultas.AgregarEnlace( "asignaciones" ,  "agendas" ,  "asignaciones" );  //OJO PERMITIR ALIAS
       caracteristicasConsultas.AgregarFiltro( "asignaciones" , "usuarios_id" , "=", String(this.usuarioId) );
       caracteristicasConsultas.AgregarOrdenamiento( "agendas.id" , "ASC" );
       this.controladorAgendas.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAG:RespuestaInterface) => {           // Carge de Agendas
-        // console.log(this.controladorAgendas.todos,"AgendasContro");
+        // console.log(this.controladorAgendas.todos,"AgendasCargado");
 
         // //OJO ajustar para permitir condicion con subconsulta y DISTINC
         // this.controladorAgendasForaneo.CargarDesdeDB( true, "S" ).subscribe( (respuestaAGF:RespuestaInterface) => {           // Carge de Asignaciones
