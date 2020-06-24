@@ -12,6 +12,9 @@ import { PersonasSubagendamientoComponentesListaagendamientoComponent } from './
     CommonModule,
     NgbModule
   ],
-  exports:  [PersonasSubagendamientoComponentesArbolagendasComponent]
+  exports:  [
+    PersonasSubagendamientoComponentesArbolagendasComponent,
+    PersonasSubagendamientoComponentesListaagendamientoComponent
+  ]
 })
 export class PersonasSubagendamientoComponentesModule { }

@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { EstructuraConsultas } from '@generales/estructura-consultas';
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { AgendasController } from '@controladores/agendas.controller';
+import { AgendamientosInterface } from '@interfaces/agendamientos.interface';
+import { AgendamientosController } from '@controladores/agendamientos.controller';
 
 
 interface AgendasCompletoInterface extends AgendasInterface  {
@@ -30,6 +32,7 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
   controladorAsignaciones: AsignacionesController;
   controladorAgendas: AgendasController;
   controladorAgendasForaneo: AgendasController;
+  controladorAgendamientos: AgendamientosController;
 
   
 
@@ -65,6 +68,7 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
       this.controladorAsignaciones = new AsignacionesController(llamadoHttp , servicioAmbiente);
       this.controladorAgendas = new AgendasController(llamadoHttp , servicioAmbiente);
       this.controladorAgendasForaneo = new AgendasController(llamadoHttp , servicioAmbiente);
+      this.controladorAgendamientos = new AgendamientosController(llamadoHttp , servicioAmbiente);
 
 
       // caracteristicasConsultas = new EstructuraConsultas();
@@ -90,6 +94,13 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
         // });
 
       });
+
+      // caracteristicasConsultas = new EstructuraConsultas();
+      // caracteristicasConsultas.AgregarFiltro( "asignaciones" , "usuarios_id" , "=", String(this.usuarioId) );
+      this.controladorAgendamientos.CargarDesdeDB( true, "S" ).subscribe( (respuestaAG:RespuestaInterface) => {           // Carge de Agendas
+        console.log(this.controladorAgendamientos.todos,"agendamientos");
+
+      }); 
 
 
 
