@@ -22,10 +22,10 @@
     </div>
   </div>
   <div class="col-md-9 contenedor">
-    <p>Agenda Seleccionada: {{ agendaSeleccionada }}</p>
     <app-personas-subagendamiento-componentes-listaagendamiento
     *ngIf="controladorAgendamientos.EstaListo('cargue')==true"
-     [agendamientos]="FiltrarDatos( controladorAgendamientos.todos , 'agendas_id' , agendaSeleccionada)"
+     [agendamientos]="FiltrarDatos( datosAgendamientos , 'agendas_id' , agendaSeleccionada)"
+     [agenda]="agendaSeleccionada"
     ></app-personas-subagendamiento-componentes-listaagendamiento>
   </div>
 

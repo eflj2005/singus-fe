@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AmbienteService} from '@servicios/ambiente.service'
+import { AmbienteService } from '@servicios/ambiente.service'
 import { AgendasInterface } from '@interfaces/agendas.interface';
 import { AutenticacionService } from '@servicios/autenticacion.service';
 import { AsignacionesController } from '@controladores/asignaciones.controller';
@@ -14,8 +14,15 @@ import { AgendamientosController } from '@controladores/agendamientos.controller
 interface AgendasCompletoInterface extends AgendasInterface  {
   creador: string;
   asignados: number;
+  uniminutoId: number;
+  fechaRegistro: string;
+  fechaActualizacion: string;
 }
 
+interface AgendamientosCompleto extends AgendamientosInterface{
+  nombreCompleto: string;
+  seguimientosId: number;
+}
 
 @Component({
   selector: 'app-personas-subagendamiento-principal',
@@ -34,7 +41,7 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
   controladorAgendasForaneo: AgendasController;
   controladorAgendamientos: AgendamientosController;
 
-  
+  datosAgendamientos: AgendasCompletoInterface[] = [];
 
   constructor(
     private servicioAmbiente : AmbienteService,
@@ -98,12 +105,23 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
       });
 
       caracteristicasConsultas = new EstructuraConsultas();
+      caracteristicasConsultas.AgregarColumna(null,"CONCAT(personas.nombres, ' ', personas.apellidos)","nombreCompleto");
+      caracteristicasConsultas.AgregarColumna("seguimientos","id","seguimientosId");
+      caracteristicasConsultas.AgregarColumna("personas","iduniminuto","uniminutoId");
+      caracteristicasConsultas.AgregarColumna("personas","registro_fecha","fechaRegistro");
+      caracteristicasConsultas.AgregarColumna("personas","actualizacion_fecha","fechaActualizacion")
+
+      caracteristicasConsultas.AgregarEnlace("seguimientos","seguimientos","agendamientos");
+      caracteristicasConsultas.AgregarEnlace("personas","personas","seguimientos");
+
       caracteristicasConsultas.AgregarEnlace("agendas","agendas","agendamientos");
       caracteristicasConsultas.AgregarEnlace("asignaciones","agendas","asignaciones");
+
       caracteristicasConsultas.AgregarFiltro( "asignaciones" , "usuarios_id" , "=", String(this.usuarioId) );
       this.controladorAgendamientos.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAG:RespuestaInterface) => {           // Carge de Agendas
-        // console.log(this.controladorAgendamientos.todos,"agendamientos");
-
+        
+        this.datosAgendamientos = this.controladorAgendamientos.todos;
+        console.log(this.datosAgendamientos,"agendamientos");
       }); 
 
 

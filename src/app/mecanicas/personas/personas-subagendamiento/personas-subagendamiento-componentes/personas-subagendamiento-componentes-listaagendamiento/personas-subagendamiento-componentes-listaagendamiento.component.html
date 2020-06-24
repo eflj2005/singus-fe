@@ -1,3 +1,37 @@
-<div *ngFor="let elemento of agendamientos; let indiceAgendamientos = index">
-  AgendamientoID: {{ elemento.id }} - SeguimientoID: {{ elemento.seguimientos_id}}
+<div class="row">
+  <div class="col-md-12">    
+    <h5>Seguimientos de Agenda No. {{ agenda }}</h5>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">        
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col"># Seg.</th>
+          <th scope="col">UniminutoId</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Registro</th>
+          <th scope="col">Actualización</th>
+          <th scope="col">Seguimientos</th>
+          <th scope="col" class="col-actions">Acción</th>                  
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let elemento of agendamientos; let indiceAgendamientos = index">
+          <th scope="row">{{ elemento.seguimientosId }}</th>
+          <td>{{ elemento.uniminutoId }}</td>
+          <td>{{ elemento.nombreCompleto }}</td>
+          <td>{{ elemento.fechaRegistro }}</td>
+          <td>{{ elemento.fechaActualizacion }}</td>
+          <td>&nbsp;</td>
+          <td>
+            <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivarModalHistoricos( modalHistoricosEstudios, 5, elemento.id )"  placement="left" ngbTooltip="Actualización"><i class="fa fa-pencil-square-o"></i></button>
+            <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="EliminarHistorico( elemento.dbRef  )"  placement="left" ngbTooltip="Seguimiento"><i class="fa fa-address-card-o"></i></button>
+          </td>                  
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
 </div>

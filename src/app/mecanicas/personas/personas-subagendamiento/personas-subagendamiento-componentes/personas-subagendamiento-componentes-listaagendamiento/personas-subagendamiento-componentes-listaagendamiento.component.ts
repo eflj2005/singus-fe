@@ -9,6 +9,7 @@ import { AgendamientosInterface } from '@interfaces/agendamientos.interface';
 export class PersonasSubagendamientoComponentesListaagendamientoComponent implements OnInit {
 
   @Input() agendamientos:AgendamientosInterface[];
+  @Input() agenda:number;
   
   constructor() { }
 

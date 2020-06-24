@@ -260,6 +260,9 @@ export class GenericoModel {
             if(!isNull(respuesta.mensaje)){
               this.ProcesarRegistros(respuesta.mensaje, this);
             }
+            else{
+              this.listoCargue=true;
+            }
           }
           else{
             console.log(respuesta,"Controlador: "+this.nombreTabla)

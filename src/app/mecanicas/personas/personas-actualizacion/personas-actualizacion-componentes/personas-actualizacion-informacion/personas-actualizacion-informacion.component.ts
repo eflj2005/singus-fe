@@ -277,7 +277,6 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
       this.controladorAsociaciones.EstaListo("cargue")                                                                                     &&
       this.controladorAsociaciones.ObtenerForanea("sectoresasociaciones").EstaListo("cargue")                                              &&
       this.controladorReconocimientos.EstaListo("cargue") 
-      
     );
 
     return validador;
