@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
+import { AgendamientosInterface } from '@interfaces/agendamientos.interface';
 
 @Component({
   selector: 'app-personas-subagendamiento-componentes-listaagendamiento',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PersonasSubagendamientoComponentesListaagendamientoComponent implements OnInit {
 
+  @Input() agendamientos:AgendamientosInterface[];
+  
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

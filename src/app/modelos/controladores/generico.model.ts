@@ -255,12 +255,15 @@ export class GenericoModel {
     const llamado = this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
       map(
         (respuesta: RespuestaInterface) => {
-
-          this.LimpiarTodo();
-          if(!isNull(respuesta.mensaje)){
-            this.ProcesarRegistros(respuesta.mensaje, this);
+          if(respuesta.codigo == 200){
+            this.LimpiarTodo();
+            if(!isNull(respuesta.mensaje)){
+              this.ProcesarRegistros(respuesta.mensaje, this);
+            }
           }
-          
+          else{
+            console.log(respuesta,"Controlador: "+this.nombreTabla)
+          }
           return respuesta;
         }
       )

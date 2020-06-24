@@ -44,6 +44,8 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
   ) { 
 
     let caracteristicasConsultas:EstructuraConsultas;
+
+    this.agendaSeleccionada = 0;
     
     // this.listaAgendas.push( { id: 1, agendas_id: null, apertura_fecha: "2020-06-01", cierre_fecha: "2020-06-30", nivel: 0, asignados: 10, creador: "Pepito Flores" } );      //10
     //   this.listaAgendas.push( { id: 2, agendas_id: 1, apertura_fecha: "2020-06-01", cierre_fecha: "2020-06-30", nivel: 1, asignados: 5, creador: "Perencejto Rivas" } );    //5
@@ -95,10 +97,12 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
 
       });
 
-      // caracteristicasConsultas = new EstructuraConsultas();
-      // caracteristicasConsultas.AgregarFiltro( "asignaciones" , "usuarios_id" , "=", String(this.usuarioId) );
-      this.controladorAgendamientos.CargarDesdeDB( true, "S" ).subscribe( (respuestaAG:RespuestaInterface) => {           // Carge de Agendas
-        console.log(this.controladorAgendamientos.todos,"agendamientos");
+      caracteristicasConsultas = new EstructuraConsultas();
+      caracteristicasConsultas.AgregarEnlace("agendas","agendas","agendamientos");
+      caracteristicasConsultas.AgregarEnlace("asignaciones","agendas","asignaciones");
+      caracteristicasConsultas.AgregarFiltro( "asignaciones" , "usuarios_id" , "=", String(this.usuarioId) );
+      this.controladorAgendamientos.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAG:RespuestaInterface) => {           // Carge de Agendas
+        // console.log(this.controladorAgendamientos.todos,"agendamientos");
 
       }); 
 
@@ -110,6 +114,15 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+
+
+
+  
+  FiltrarDatos( arreglo : any , campo : string , valor : any ){
+    let resultados = arreglo.filter( (elemento: { [x: string]: any; }) => elemento[campo] == valor );
+    return resultados;
   }
 
 }

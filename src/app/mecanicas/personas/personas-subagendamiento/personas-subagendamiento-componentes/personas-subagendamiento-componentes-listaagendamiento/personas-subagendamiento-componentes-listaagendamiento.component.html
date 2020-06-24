@@ -1,1 +1,3 @@
-<p>personas-subagendamiento-componentes-listaagendamiento works!</p>
+<div *ngFor="let elemento of agendamientos; let indiceAgendamientos = index">
+  AgendamientoID: {{ elemento.id }} - SeguimientoID: {{ elemento.seguimientos_id}}
+</div>
