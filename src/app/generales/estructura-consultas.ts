@@ -162,9 +162,9 @@ export class EstructuraConsultas {
     this.enlaces.push( { tablaE: tablaEnlace , tablaPk: tablaConPK , tablaFk: tablaConFK } );
   }
 
-  public AgregarFiltro( nombreTabla:string, campoFiltrado:string, condicionAplicada:string, valorBuscado:string ){
+  public AgregarFiltro( nombreTabla:string, campoFiltrado:string, condicionAplicada:string, valorBuscado:string , operadorLogico:string="AND"){
     if( isNull( this.filtros ) ) this.filtros = [];    
-    this.filtros.push( { tabla: nombreTabla , campo: campoFiltrado , condicion: condicionAplicada, valor: valorBuscado } );
+    this.filtros.push( { tabla: nombreTabla , campo: campoFiltrado , condicion: condicionAplicada, valor: valorBuscado, operadorLogico: operadorLogico } );
   }
 
   public AgregarOrdenamiento( nombreColumna:string, sentido:string ){

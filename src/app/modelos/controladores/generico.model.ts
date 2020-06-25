@@ -6,11 +6,15 @@ import { map, isEmpty } from 'rxjs/operators';
 import { AmbienteService } from '@servicios/ambiente.service';
 import { filtroInterface } from '@interfaces/filtro.interface';
 import { RespuestaInterface } from '../interfaces/respuesta.interface';
-import { isNull } from 'util';
+import { isNull, isUndefined } from 'util';
 
 interface RelacionesInterface {
   controlador: number;
   sentido: string;
+}
+
+interface ArrayOfObjects {
+  [index: number]: object;
 }
 
 export class GenericoModel {
@@ -19,7 +23,7 @@ export class GenericoModel {
 
   public nombreTabla:string;
 
-  protected camposTabla:any[];
+  protected camposTabla:ArrayOfObjects[];
   protected camposFecha:string[];
 
   protected controladoresForaneos:any[];        //eliminar
@@ -64,7 +68,13 @@ export class GenericoModel {
     return  this.registros[this.posicionActual];
   }
 
-  public estaListo(tipo:string):boolean{
+  public get campos():ArrayOfObjects[]{
+    return this.camposTabla;
+  }
+
+  //ADMINISTRACION BASICA
+
+  public EstaListo(tipo:string):boolean{
     let validador:boolean=false;
     switch(tipo){
       case "campos":
@@ -78,12 +88,6 @@ export class GenericoModel {
     return validador;
   }
 
-  public get campos():string[]{
-    return this.camposTabla;
-  }
-
-  //ADMINISTRACION BASICA
-  
   public get todos():any[]{
     return  this.registros;
   }
@@ -215,6 +219,7 @@ export class GenericoModel {
         (respuesta: RespuestaInterface) => {
           switch(respuesta.codigo){
             case 200:
+              this.camposTabla = [];
               respuesta.mensaje.forEach(
                 (campo:any) => {
                   this.camposTabla.push( campo );
@@ -246,29 +251,28 @@ export class GenericoModel {
       .set("conSeguridad", String(conToken) )      
       .set("modo", modoCargue )                       //S = simple => consulta directa, A = avanzada => consulta con inner join
       .set("caracteristicas", JSON.stringify(caracteristicas));  
-      
-    return this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
+    
+    const llamado = this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
       map(
         (respuesta: RespuestaInterface) => {
-          this.LimpiarTodo();
-          if(!isNull(respuesta.mensaje)){
-            respuesta.mensaje.forEach(
-              (elemento:any) => {
-                elemento.dbRef=null;
-                elemento.modo=null;
-                elemento = this.ProcesarFechas(elemento,"GET");
-                this.registros.push(elemento);
-              }
-            );
-
-            if( respuesta.mensaje.length > 0 ) this.posicionActual=0;
+          if(respuesta.codigo == 200){
+            this.LimpiarTodo();
+            if(!isNull(respuesta.mensaje)){
+              this.ProcesarRegistros(respuesta.mensaje, this);
+            }
+            else{
+              this.listoCargue=true;
+            }
           }
-          
-          this.listoCargue=true;
+          else{
+            console.log(respuesta,"Controlador: "+this.nombreTabla)
+          }
           return respuesta;
         }
       )
     );
+
+    return llamado;
 
   }
 
@@ -317,27 +321,47 @@ export class GenericoModel {
   //   return objeto;
   // }
 
+  private ProcesarRegistros( registrosRecibidos:any[], controladorActual:any ){
+    if(controladorActual.listoCampos == false){
+      window.setTimeout(controladorActual.ProcesarRegistros, 100, registrosRecibidos,controladorActual); /* this checks the flag every 100 milliseconds*/
+    }
+    else{
+      let regExp = /\-/gi;
 
+      registrosRecibidos.forEach(
+        (registro:any) => {
+          registro.dbRef=null;
+          registro.modo=null;
+          for (var campo in registro) {
+            if( campo.search("_fecha") != -1 ){
+              if( !isNull(registro[campo]) && (registro[campo] != "") )   registro[campo] = (registro[campo]).substr(0,4) + "-" + (registro[campo]).substr(5,2) + "-" + (registro[campo]).substr(8,2);
+              else                                                        registro[campo] = "";
+            }
+            else{
+              let datosCampo = controladorActual.campos.find((elemento: { nombre: string; }) => elemento.nombre == campo); 
+              if(!isUndefined(datosCampo)){
+                let tipoDato = datosCampo.tipo;
+                if( tipoDato == "int" || tipoDato == "bigint" || tipoDato == "decimal"){  registro[campo] = +registro[campo]; }   
+              }
+            }
+          }
+          controladorActual.registros.push(registro);
+        }
+      );
 
-  protected ProcesarFechas(objeto:any, sentido:string){      
-    
+      if( registrosRecibidos.length > 0 ) controladorActual.posicionActual=0;
+      controladorActual.listoCargue=true;
+    }
+  }
+
+  private ProcesarFechasEnviadas(objeto:any){      
     let regExp = /\-/gi;
-
     for (var campo in objeto) {
       if( campo.search("_fecha") != -1 ){
-
-        if(sentido=="SET"){
-          if( isNull(objeto[campo]) || (objeto[campo] == "") )    objeto[campo] = "NULL";
-          else                                                    objeto[campo] = objeto[campo].replace(regExp, "");
-        } 
-        if(sentido=="GET"){
-          if( !isNull(objeto[campo]) && (objeto[campo] != "") )   objeto[campo] = (objeto[campo]).substr(0,4) + "-" + (objeto[campo]).substr(5,2) + "-" + (objeto[campo]).substr(8,2);
-          else                                                    objeto[campo] = "";
-        }
-
+        if( isNull(objeto[campo]) || (objeto[campo] == "") )    objeto[campo] = "NULL";
+        else                                                    objeto[campo] = objeto[campo].replace(regExp, "");
       }
     }
-
     return objeto;
   }
 
@@ -354,7 +378,7 @@ export class GenericoModel {
 
     this.registros.forEach(registro => {
       if(registro.modo != null) {
-        temporal = this.ProcesarFechas(Object.assign({}, registro),"SET");
+        temporal = this.ProcesarFechasEnviadas(Object.assign({}, registro));
         aProcesar.push(temporal);        
       }
     });
@@ -366,7 +390,7 @@ export class GenericoModel {
       datos : aProcesar      
     };
 
-    console.log(parametros);
+
     return this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php", parametros).pipe(
       map(
         (respuesta: RespuestaInterface) => {

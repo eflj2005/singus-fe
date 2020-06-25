@@ -129,7 +129,7 @@
             <div class="input-group input-group-sm">
               <input disabled type="number"   class="form-control form-control-sm" [(ngModel)]="datosPersona.telefonoFijo">
               <div class="input-group-append">              
-                <button type="button" class="btn btn-outline-primary" (click)="ActivarModalHistoricos( modalhistoricosPersonal, 3 )"><i class="fa fa-plus"></i></button>
+                <button type="button" class="btn btn-outline-primary" (click)="ActivarModalHistoricos( modalHistoricosPersonal, 3 )"><i class="fa fa-plus"></i></button>
               </div>
             </div>
           </div>
@@ -269,7 +269,7 @@
                   <td>
                     {{ elemento.estudios_id==null?'Ninguno':controladorExperiencias.ObtenerForanea('estudios',true,elemento.estudios_id,true).ObtenerForanea("titulos",true).actual.descripcion }}
                   </td>
-                  <td>{{ ( controladorExperiencias.ObtenerForanea('rangosingresos',true,elemento.rangosingresos_id,true).actual.minimo | currency:'':'$':'2.0' ) + '-' + ( controladorExperiencias.ObtenerForanea('rangosingresos',true,elemento.rangosingresos_id,true).actual.maximo | currency:'':'$':'2.0' ) }}</td>                  
+                  <td>{{ controladorExperiencias.ObtenerForanea('rangosingresos',true,elemento.rangosingresos_id,true).actual.minimo + ' a ' +  controladorExperiencias.ObtenerForanea('rangosingresos',true,elemento.rangosingresos_id,true).actual.maximo + ' SMLV' }}</td>                  
                   <td>
                     <div *ngIf=" elemento.id; then thenBlock_ExperienciaList else elseBlock_ExperienciaList "></div>
                     <ng-template #thenBlock_ExperienciaList>
@@ -894,7 +894,7 @@
                   <label for="rangosingresos_id" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Rango Salarial:</label>
                   <div class="col-sm">
                     <select  class="form-control form-control-sm" id="rangosingresos_id" name="rangosingresos_id" [(ngModel)]="parametrosHistorico.lista.rangosingresos_id" (change)="ValidarHistorico('experiencias')">
-                      <option *ngFor="let elementoRI of controladorExperiencias.ObtenerForanea('rangosingresos').todos; let indiceRI= index" value="{{elementoRI.id}}">{{ (elementoRI.minimo | currency:'':'$':'2.0') + '-' + (elementoRI.maximo | currency:'':'$':'2.0') }}</option>              
+                      <option *ngFor="let elementoRI of controladorExperiencias.ObtenerForanea('rangosingresos').todos; let indiceRI= index" value="{{elementoRI.id}}">{{ elementoRI.minimo + ' SMLV a ' + elementoRI.maximo + ' SMLV' }}</option>              
                     </select>
                   </div>     
                 </div>       

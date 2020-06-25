@@ -1,1 +1,46 @@
-<p>personas-subagendamiento-componentes-arbolagendas works!</p>
+<div class="row">
+  <div class="col-md-12">
+    <div class="list-group">
+      <div class="row" *ngFor="let agenda of agendas;let indiceAgendas = index">
+
+        <ng-template #popTitle>
+          <div class="popover-class popover-title">Detalles</div>
+        </ng-template>
+        <ng-template #popContent>
+          <div class="popover-class">
+            <div class="d-flex flex-row"> <div class="popover-label">Id:</div>         <div class="">{{ agenda.id }}</div>             </div>
+            <div class="d-flex flex-row"> <div class="popover-label">Creador:</div>    <div class="">{{ agenda.creador }}</div>        </div>
+            <div class="d-flex flex-row"> <div class="popover-label">Apertura:</div>   <div class="">{{ agenda.apertura_fecha }}</div> </div>
+            <div class="d-flex flex-row"> <div class="popover-label">Cierre:</div>     <div class="">{{ agenda.cierre_fecha }}</div>   </div>
+            <div class="d-flex flex-row"> <div class="popover-label">Días Rest:</div>  <div class="">#</div>                           </div>
+            <div class="d-flex flex-row"> <div class="popover-label">Asignados:</div>  <div class="">{{ agenda.asignados }}</div>      </div>
+            <div class="d-flex flex-row"> <div class="popover-label">Completos:</div>  <div class="">#</div>                           </div>
+            <div class="d-flex flex-row"> <div class="popover-label">Estado:</div>     <div class=""># %</div>                         </div>
+          </div>
+        </ng-template>
+
+        <div *ngIf="agenda.nivel >= 1" class="col-md-1 p-1 text-center">
+          &nbsp;
+        </div>
+        <div  *ngIf="agenda.nivel == 2" class="col-md-1 p-1 text-center">
+          &nbsp;
+        </div>
+
+        <div class="col-md pl-1 pr-2">
+          <button type="button" class="list-group-item list-group-item-action p-1" [ngbPopover]="popContent" [popoverTitle]="popTitle" triggers="mouseenter:mouseleave" (click)="Seleccionado(agenda.id)" placement="right">
+            <div class="d-flex justify-content-between align-items-center">
+              <span>
+                <div class="d-flex flex-column">
+                  <span class="fa fa-calendar-o"> {{agenda.apertura_fecha }}</span>
+                  <span class="fa fa-calendar-times-o"> {{agenda.cierre_fecha}}</span> 
+                </div>
+              </span>
+              <span>{{ agenda.asignados }} <span class="fa fa-users"></span></span>
+              <span class="badge badge-primary badge-pill">{{ agenda.asignados }}</span>  
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+   </div>
+</div>
