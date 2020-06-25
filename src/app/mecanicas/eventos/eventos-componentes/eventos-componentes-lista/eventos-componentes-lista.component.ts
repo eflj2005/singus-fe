@@ -17,7 +17,7 @@ import { AsistenciasInterface } from '@interfaces/asistencias.interface';
 
 
 interface Asistencia extends PersonasInterface {
-  nombreCompleto:string;
+  nombreCompleto: string;
   Seleccionado: Boolean;
   Asistencia: Number;
   personas_id: Number;

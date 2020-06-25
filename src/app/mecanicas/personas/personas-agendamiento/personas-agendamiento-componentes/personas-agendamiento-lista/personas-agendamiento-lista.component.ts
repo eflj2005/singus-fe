@@ -11,8 +11,7 @@ import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { EstructuraConsultas } from '@generales/estructura-consultas';
 
 interface ListaAgendas extends AgendasInterface{
-  nombreCoordinador: string;
-  nombreResponsable: string;
+  nombreCompletoUsuario : string;
 }
 
 
@@ -43,18 +42,18 @@ export class PersonasAgendamientoListaComponent implements OnInit {
 
     let caracteristicas = new EstructuraConsultas();
     caracteristicas.AgregarColumna( "agendas", "id" , null );
-    caracteristicas.AgregarColumna( "agendas", "coordinadores_id" , null );
-    caracteristicas.AgregarColumna( "agendas", "responsables_id" , null);
-    caracteristicas.AgregarColumna( "agendas", "inicial_fecha" , null );
+    caracteristicas.AgregarColumna( "agendas", "apertura_fecha" , null );
+    caracteristicas.AgregarColumna( "agendas", "cierre_fecha" , null);
+    caracteristicas.AgregarColumna( "asignaciones", "tipo" , null );
     caracteristicas.AgregarColumna( "agendas", "final_fecha" , null);
-    caracteristicas.AgregarColumna( null, "CONCAT( coordinadores.nombres , ' ' , coordinadores.apellidos )" , "nombreCoordinador" );
-    caracteristicas.AgregarColumna( null, "CONCAT( responsables.nombres , ' ' , responsables.apellidos )" , "nombreResponsable" );
-    caracteristicas.AgregarEnlace( "coordinadores" , "coordinadores" , "agendas" );
-    caracteristicas.AgregarEnlace( "responsables" , "responsables" , "agendas" );   
-  
+    caracteristicas.AgregarColumna( null," CONCAT(usuarios.nombres , ' ' , usuarios.apellidos) ", "nombreCoordinador" );
+    caracteristicas.AgregarEnlace( "asignaciones" , "agendas" , "asignaciones" );
+    caracteristicas.AgregarEnlace( "usuarios" , "usuarios" , "asignaciones" );  
+    caracteristicas.AgregarFiltro( "agendas" , "nivel" , "=", "0" ); 
 
     this.controladorAgendas = new AgendasController(this.llamadoHttp,this.servicioAmbiente);
     this.controladorAgendas.CargarDesdeDB(true, "A" , caracteristicas).subscribe(
+      
       (respuesta: RespuestaInterface) =>{
         switch(respuesta.codigo){
           case 200:
@@ -76,9 +75,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
       const term = text.toLowerCase();
       return pipe.transform(agenda.id).includes(term)
           || agenda.cierre_fecha.toLowerCase().includes(term)
-          || agenda.apertura_fecha.toLowerCase().includes(term)
-          || agenda.nombreCoordinador.toLowerCase().includes(term)
-          || agenda.nombreResponsable.toLowerCase().includes(term);
+          || agenda.apertura_fecha.toLowerCase().includes(term);
 
     });
   }

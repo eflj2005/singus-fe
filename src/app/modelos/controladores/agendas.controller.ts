@@ -23,9 +23,6 @@ export class AgendasController extends GenericoModel {
     
         this.DetectarCampos().subscribe();
 
-        this.AgregarForanea( new ResponsablesController(instanciaHttpClient,InstanciaAmbienteService)  );
-        this.AgregarForanea( new CoordinadoresController(instanciaHttpClient,InstanciaAmbienteService)  );
-
 
       }
 }
