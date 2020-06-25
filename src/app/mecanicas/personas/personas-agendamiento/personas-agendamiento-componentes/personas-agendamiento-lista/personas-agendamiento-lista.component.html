@@ -31,8 +31,8 @@
           <td><ngb-highlight [result]="agenda.id | number" [term]="filter.value"></ngb-highlight></td>
           <td><ngb-highlight [result]="agenda.nombreCoordinador " [term]="filter.value"></ngb-highlight></td>
           <td><ngb-highlight [result]="agenda.nombreResponsable " [term]="filter.value"></ngb-highlight></td>
-          <td><ngb-highlight [result]="agenda.inicial_fecha" [term]="filter.value"></ngb-highlight></td>
-          <td><ngb-highlight [result]="agenda.final_fecha" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="agenda.apertura_fecha" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="agenda.cierre_fecha" [term]="filter.value"></ngb-highlight></td>
           <td><button  type="button" class="btn btn-outline-secondary " (click)="verPersona({id : agenda.id, modo:4})"  placement="right" ngbTooltip="Seguir"><i class="fa fa-eye"></i></button></td>
           <td>
             <button class="btn btn-outline-secondary " (click)="verPersona({id : agenda.id, modo:3})" placement="left" ngbTooltip="Editar"><i class="fa fa-pencil"></i></button>
@@ -40,62 +40,5 @@
         </tr>
         </tbody>
       </table>
-
-      <!-- <table class="table table-striped"> -->
-        <!-- titulo de las columnas -->
-        <!-- <thead>
-            <tr>
-                <th>&nbsp;</th>
-                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectAgendas.Nombre" ></th>
-                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectAgendas.Programa" ></th>
-                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectAgendas.FechaCreacion" ></th>
-                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectAgendas.FechaFinal" ></th>
-                <th scope="col"><input class="form-control" [(ngModel)]="searchObjectAgendas.Responsable" ></th>
-                <th scope="col"><img src="../../../../../../assets/imagenes/filtro.png" alt="" id="filtro"></th>
-                <th scope="col"></th>   
-            </tr>
-          <tr class="colums">
-            <th scope="col">#</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Programa</th>
-            <th scope="col">Fecha Creacion</th>
-            <th scope="col">Fecha Finalizacion</th>
-            <th scope="col">Responsable</th>
-            <th scope="col">#Graduados</th>
-            <th scope="col">Estado</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            
-          </tr>
-        </thead> -->
-  
-        <!-- informacion de la tabla o listado de empleados -->
-        <!-- <tbody>
-            <tr>
-          <tr *ngFor="let agenda of Agendas | arrayFilter : 
-              { 
-                Nombre:                   searchObjectAgendas.Nombre,  
-                Programa:                 searchObjectAgendas.Programa,
-                FechaCreacion:            searchObjectAgendas.FechaCreacion,
-                FechaFinal:               searchObjectAgendas.FechaFinal,
-                Responsable:              searchObjectAgendas.Responsable
-               
-              };
-              let indice=index"
-          >
-            <th scope="row">{{agenda.IdAgenda}}</th>
-            <td>{{agenda.Nombre}}</td>
-            <td>{{agenda.Programa}}</td>
-            <td>{{agenda.FechaCreacion}}</td>
-            <td>{{agenda.FechaFinal}}</td>
-            <td>{{agenda.Responsable}}</td>
-            <td>{{agenda.Cantidad}}</td>
-            <td>{{agenda.Estado}}</td>
-            <td><button  type="button" class="btn btn-light" (click)="verPersona({id : agenda.IdAgenda, modo:4})"  title="ver"><i class="fa fa-eye"></i></button></td>
-            <td><button class="btn btn-outline-warning" (click)="verPersona({id : agenda.IdAgenda, modo:3})"  title="editar"><i class="fa fa-pencil"></i></button></td>
-      </tr>
-        </tbody>
-  
-      </table> -->
     </div>
 </div>
