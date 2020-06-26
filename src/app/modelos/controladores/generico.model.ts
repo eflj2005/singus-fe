@@ -252,9 +252,9 @@ export class GenericoModel {
       .set("modo", modoCargue )                       //S = simple => consulta directa, A = avanzada => consulta con inner join
       .set("caracteristicas", JSON.stringify(caracteristicas));  
     
-    if(this.nombreTabla=="agendas"){
-      console.log(datosEnviados);
-    }
+    // if(this.nombreTabla=="agendas"){
+    //   console.log(datosEnviados);
+    // }
 
     const llamado = this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
       map(

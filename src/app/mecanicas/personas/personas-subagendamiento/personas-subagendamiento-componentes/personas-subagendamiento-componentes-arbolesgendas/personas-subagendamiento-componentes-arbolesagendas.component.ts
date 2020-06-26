@@ -6,6 +6,7 @@ import { AgendasInterface } from '@interfaces/agendas.interface'
 interface AgendasCompletoInterface extends AgendasInterface  {
   creador: string;
   asignados: number;
+  esRaiz?: boolean
   selecionado?:boolean;
 }
 
@@ -22,59 +23,6 @@ class ArbolDeAgendas{
     this.raiz = nodoActual;
     agendaInicial.selecionado=true;
   }
-
-  // constructor( agendasRecibidas: AgendasCompletoInterface[] ){
-  //   let agendas: AgendasCompletoInterface[] = []; 
-  //   agendasRecibidas.forEach(val => agendas.push(Object.assign({}, val)));
-
-  //   let conteoMarcas: number = 0;
-
-
-  //   // Agrega el atributo "selecionado" e identifica el nivel minimo
-  //   agendas.forEach( (elemento,indice) => { 
-  //     elemento.selecionado= false;
-  //   }); 
-
-  //   // console.log(agendas,"agendas");
-  //   // console.log(this.nivelRaiz,"nivel");
-
-  //   // Crear raices de arbol con las agendas de nivel superior y marca las identificadas
-  //   agendas.forEach( (elemento,indice) => { 
-  //     if(elemento.nivel == 0 ){
-  //        this.UbicarNodo( elemento ); 
-  //        elemento.selecionado=true;
-  //     }
-  //     else{
-  //       let encontrado: boolean = false;
-  //       let posicion: number = 0;
-  //       while( posicion < agendas.length && !encontrado){
-  //         if(agendas[posicion].id == elemento.agendas_id) encontrado = true;
-  //         else                                            posicion++;
-  //       }
-
-  //       if(!encontrado){
-  //         this.UbicarNodo( elemento ); 
-  //         elemento.selecionado=true;
-  //       }
-  //     }
-
-  //   }); 
-
-  //   //Construir arbol
-  //   while( conteoMarcas < agendas.length ){
-  //     conteoMarcas = 0;
-  //     agendas.forEach( (elemento,indice) => { 
-  //       if( elemento.selecionado == true ){
-  //         conteoMarcas++;
-  //       }
-  //       else{
-  //         if( this.UbicarNodo( this.ToNodo(elemento) ) ){
-  //           elemento.selecionado = true;
-  //         }
-  //       }
-  //     });
-  //   }    
-  // }
 
   private ToNodo( objetoRecibido: AgendasCompletoInterface) : AgendasNodoInterface {
     let respuesta:AgendasNodoInterface = {
@@ -103,29 +51,26 @@ class ArbolDeAgendas{
     return respuesta;
   }
 
-  // UbicarNodo( elemento: AgendasCompletoInterface,  ramaBusqueda: AgendasArbolInterface[] = this.raiz ) : boolean {
-  //   let ubicado:boolean = false;
-  //   let posicion:number = 0;
+  UbicarNodo( elemento: AgendasCompletoInterface,  nodoActual: AgendasNodoInterface = this.raiz ) : boolean {
+    let ubicado:boolean = false;
+   
 
-  //   if( elemento.nivel == this.nivelRaiz ){
-  //     ramaBusqueda.push( this.ToNodo(elemento) );
-  //     ubicado=true;
-  //   }
-  //   else{
-  //     while( posicion < ramaBusqueda.length && !ubicado ){
-  //       if( ramaBusqueda[posicion].subagendas.length > 0 ){
-  //         ubicado = this.UbicarNodo(elemento, ramaBusqueda[posicion].subagendas );
-  //       }
-  //       if( ramaBusqueda[posicion].id == elemento.agendas_id ){
-  //         ramaBusqueda[posicion].subagendas.push( this.ToNodo(elemento) );
-  //         ubicado=true;
-  //       }
-  //       posicion++;
-  //     }   
-  //   }
+    if( elemento.agendas_id == nodoActual.id ){
+      nodoActual.subagendas.push( this.ToNodo(elemento) );
+      ubicado=true;
+    }
+    else{
+      if( nodoActual.subagendas.length > 0 ){
+        let posicion:number = 0;
+        while( posicion < nodoActual.subagendas.length  && !ubicado){
+          ubicado = this.UbicarNodo(elemento, nodoActual.subagendas[posicion]);
+          if ( !ubicado ) posicion++;
+        }
+      }
+    }
 
-  //   return ubicado;
-  // }
+    return ubicado;
+  }
 
   ObtenerLista( nodoActual:AgendasNodoInterface = this.raiz, listaResultado:AgendasCompletoInterface[]=[] ):AgendasCompletoInterface[]{
 
@@ -133,16 +78,12 @@ class ArbolDeAgendas{
       listaResultado.push( this.ToRegistro( nodoActual ) );
     }
 
+    if( nodoActual.subagendas.length > 0 ){
+      nodoActual.subagendas.forEach( (elemento,indice) => { 
+        this.ObtenerLista(elemento,listaResultado);
+      }); 
+    }
 
-
-    
-  //   while( posicion < ramaBusqueda.length ){
-  //     listaResultado.push( this.ToRegistro( ramaBusqueda[posicion] ) );
-  //     if( ramaBusqueda[posicion].subagendas.length > 0 ){
-  //       this.ObtenerLista( ramaBusqueda[posicion].subagendas, listaResultado );
-  //     }
-  //     posicion++;
-  //   }
     return listaResultado;
   }
 
@@ -165,7 +106,8 @@ export class PersonasSubagendamientoComponentesArbolesagendasComponent implement
 
   ngOnInit() {
     this.GenerarListaArboles(this.agendas);
-    // this.agendas = this.ObtenerListaAgendas();   
+    this.agendas = this.ObtenerListaAgendas();
+    console.log(this.agendas);
   }
 
   GenerarListaArboles(agendasRecibidas: AgendasCompletoInterface[]){
@@ -173,11 +115,13 @@ export class PersonasSubagendamientoComponentesArbolesagendasComponent implement
     agendasRecibidas.forEach(val => agendas.push(Object.assign({}, val)));
 
     let conteoMarcas: number = 0;
+
     // Agrega el atributo "selecionado" y lo inicializa
     agendas.forEach( (elemento,indice) => { 
       elemento.selecionado= false;
     }); 
 
+    // Crear la lista de arboles con las agendas de nivel superior y marca las identificadas
     agendas.forEach( (elemento,indice) => { 
       if(elemento.nivel == 0 ){
         this.listaArbolesAgendas.push(new ArbolDeAgendas( elemento ));
@@ -196,7 +140,35 @@ export class PersonasSubagendamientoComponentesArbolesagendasComponent implement
          elemento.selecionado=true;
        }
      }    
-    }); 
+    });
+
+
+    // Construir arbol
+    while( conteoMarcas < agendas.length ){
+      conteoMarcas = 0;
+      agendas.forEach( (elemento,indice) => { 
+        if( elemento.selecionado == true ){
+          conteoMarcas++;
+        }
+        else{
+
+          let posicionArbol: number = 0;
+          let nodoUbicado: boolean = false;
+
+          while( posicionArbol < this.listaArbolesAgendas.length && !nodoUbicado ){
+            if( this.listaArbolesAgendas[posicionArbol].UbicarNodo( elemento ) ){
+              elemento.selecionado = true;
+              nodoUbicado = true;
+            }
+            else{
+              posicionArbol++;
+            }
+          }
+
+        }
+      });
+    } 
+
     console.log(agendas);
     console.log(this.listaArbolesAgendas);
   }
@@ -205,17 +177,10 @@ export class PersonasSubagendamientoComponentesArbolesagendasComponent implement
     let agendasResultado: AgendasCompletoInterface[]=[];
 
     this.listaArbolesAgendas.forEach( (elementoArbol,indiceArbol) => { 
-      
-
       elementoArbol.ObtenerLista().forEach( (elementoAgenda,indiceAgenda) => { 
-      
-
-
-
-      
+        if(indiceAgenda == 0) elementoAgenda.esRaiz = true;
+        agendasResultado.push(elementoAgenda);
       });
-
-      
     });
 
     return agendasResultado;
