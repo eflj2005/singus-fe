@@ -138,6 +138,8 @@ export class EstructuraConsultas {
   private enlaces: any = null;
   private filtros: any = null;
   private ordenamientos: any = null;
+  private especiales: {[k: string]: any} = { "distinct" : false };
+
 
   constructor( tipo?:string, valor1?:string, valor2?:string, valor3?:string, valor4?:string ) {
     if( tipo ){
@@ -170,6 +172,10 @@ export class EstructuraConsultas {
   public AgregarOrdenamiento( nombreColumna:string, sentido:string ){
     if( isNull( this.ordenamientos ) ) this.ordenamientos = [];        
     this.ordenamientos.push( { columna: nombreColumna , orden: sentido } );
+  }
+
+  public ActivarDiferentes(){   
+    this.especiales.distinct = true;
   }
 
 }

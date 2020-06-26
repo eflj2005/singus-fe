@@ -79,6 +79,7 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
       // });
 
       caracteristicasConsultas = new EstructuraConsultas();
+      caracteristicasConsultas.ActivarDiferentes();
       caracteristicasConsultas.AgregarColumna( null , "(SELECT COUNT(*) FROM agendamientos WHERE agendamientos.agendas_id = agendas.id)", "asignados" ); //OJO HACER SUBCONSULTA
       caracteristicasConsultas.AgregarColumna( null , "(SELECT CONCAT(usuarios.nombres,' ',usuarios.apellidos) FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'C')", "creador" ); //OJO HACER SUBCONSULTA
       caracteristicasConsultas.AgregarEnlace( "asignaciones" ,  "agendas" ,  "asignaciones" );  //OJO PERMITIR ALIAS
