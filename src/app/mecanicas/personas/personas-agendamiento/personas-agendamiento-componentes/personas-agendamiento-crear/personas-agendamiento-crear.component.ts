@@ -19,6 +19,7 @@ import { ProgramasController } from "@controladores/programas.controller";
 import { SedesController } from "@controladores/sedes.controller";
 import { AgendasController } from "@controladores/agendas.controller";
 import { AgendasInterface } from '@interfaces/agendas.interface';
+import { ComunicacionesModule } from '@mecanicas/comunicaciones/comunicaciones.module';
 
 interface  responsables extends ResponsablesInterface {
 
@@ -60,9 +61,9 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
   registrosAgendas:  AgendasInterface[];
   registrosPersonas:  ListaPersonasInterface[];
 
-  sedeid: number = null ;
-  cohorteid:number = null ;
-  programaid: number = null ;
+  sedeid: number = -1 ;
+  cohorteid:number = -1 ;
+  programaid: number = -1 ;
 
 
   responsableSelecionado : ResponsableSeleccionado  = {'id': null, 'nombres': ''};
@@ -114,9 +115,9 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
 
   BuscarAgendados(text: string , pipe: PipeTransform ): ListaPersonasInterface[] {
     let registrosAgendadosTemp: ListaPersonasInterface[];
-    if( this.sedeid == null ){
-      registrosAgendadosTemp = this.registrosPersonas;
-    }else {
+    // if( this.sedeid == null ){
+    //   registrosAgendadosTemp = this.registrosPersonas;
+    // }else {
     //  let condicion: any;
     //   for (let i = 0; i < this.filtros.length; i++) {
     
@@ -146,9 +147,30 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     
        
     //   }
-     registrosAgendadosTemp=  this.registrosPersonas.filter(agendado => agendado.sede ==  this.controladorSedes.actual.descripcion && agendado.programa == this.controladorProgramas.actual.descripcion);
-     console.log(registrosAgendadosTemp);
+    if (this.cohorteid == -1 && this.programaid == -1 && this.sedeid == -1){
+      registrosAgendadosTemp = this.registrosPersonas;
+    }else if(this.cohorteid != -1 && this.programaid != -1 && this.sedeid != -1) {
+      registrosAgendadosTemp=  this.registrosPersonas.filter(agendado => agendado.sede ==  this.controladorSedes.actual.descripcion && agendado.programa == this.controladorProgramas.actual.descripcion && agendado.cohorte == this.controladorCohortes.actual.descripcion);
+    }else{
+      if (this.sedeid != -1 && this.programaid == -1 && this.cohorteid == -1) {
+        registrosAgendadosTemp=  this.registrosPersonas.filter(agendado => agendado.sede ==  this.controladorSedes.actual.descripcion);
+      } else if (this.cohorteid != -1 && this.programaid == -1 && this.sedeid == -1) {
+        registrosAgendadosTemp=  this.registrosPersonas.filter(agendado => agendado.cohorte == this.controladorCohortes.actual.descripcion);
+      } else if(this.programaid != -1 && this.cohorteid == -1 && this.sedeid == -1) {
+        registrosAgendadosTemp=  this.registrosPersonas.filter(agendado => agendado.programa == this.controladorProgramas.actual.descripcion);
+      } else{
+        if (this.sedeid != -1 && this.cohorteid != -1 ) {
+          registrosAgendadosTemp=  this.registrosPersonas.filter(agendado => agendado.sede ==  this.controladorSedes.actual.descripcion && agendado.cohorte == this.controladorCohortes.actual.descripcion);
+        } else if (this.sedeid != -1 && this.programaid != -1 ) {
+          registrosAgendadosTemp=  this.registrosPersonas.filter(agendado =>  agendado.sede ==  this.controladorSedes.actual.descripcion && agendado.programa == this.controladorProgramas.actual.descripcion);
+        } else if(this.programaid != -1 && this.cohorteid != -1 ) {
+          registrosAgendadosTemp=  this.registrosPersonas.filter(agendado => agendado.programa == this.controladorProgramas.actual.descripcion && agendado.cohorte == this.controladorCohortes.actual.descripcion);
+        }
+      } 
+        
+      
     }
+ 
     return registrosAgendadosTemp.filter(agendado => {
       const term = text.toLowerCase();
       return pipe.transform(agendado.iduniminuto).includes(term)
@@ -256,6 +278,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
         switch (respuesta.codigo){
           case 200:
             this.registrosPersonas = this.controladorPersonas.todos;
+
             this.AplicarFiltros(2);
           break;
           default:
@@ -323,44 +346,27 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     return validador;
   }
 
-  AgregarFiltro(todos: boolean , filtroNombre :string ){
-    console.log("aqui");
-    console.log(this.sedeid);
-    console.log(filtroNombre);
-    console.log(this.filtros);
-
-    let indexFiltro = this.filtros.includes(filtroNombre);
-     if (indexFiltro == false){
+  AgregarFiltro( filtroNombre :string ){
        switch (filtroNombre) {
          case 'programa':
-           this.controladorProgramas.Encontrar('id', this.programaid);
+           if (this.programaid != -1) {
+            this.controladorProgramas.Encontrar('id', this.programaid);
+           }
            break;
          case 'sede':
-             this.controladorSedes.Encontrar('id', this.sedeid);
+            if (this.sedeid != -1) {
+              this.controladorSedes.Encontrar('id',  this.sedeid);
+            }
            break;
          case 'cohorte':
-             this.controladorCohortes.Encontrar('id', this.cohorteid);
+            if(this.cohorteid != -1){
+              this.controladorCohortes.Encontrar('id', this.cohorteid);
+              console.log(this.controladorCohortes.actual.descripcion);
+            }
            break;
          default:
            break;
        }
-       this.filtros.push( filtroNombre );
-       console.log(this.filtros);
-     }else {
-       switch (filtroNombre) {
-         case 'programa':
-           this.controladorProgramas.Encontrar('id', this.programaid);
-           break;
-         case 'sede':
-             this.controladorSedes.Encontrar('id',  this.sedeid);
-           break;
-         case 'cohorte':
-             this.controladorCohortes.Encontrar('id', this.cohorteid);
-           break;
-         default:
-           break;
-       }
-     }
      this.AplicarFiltros(2);
   }
 

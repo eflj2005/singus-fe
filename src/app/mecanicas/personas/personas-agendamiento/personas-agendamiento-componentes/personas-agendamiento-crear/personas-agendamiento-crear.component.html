@@ -214,7 +214,7 @@
                         <div class="input-group-prepend">
                           <label class="input-group-text" for="inputGroupSelect01">Sede</label>
                         </div>
-                                <select class="custom-select" id="inputGroupSelect01" [(ngModel)]="sedeid" (click)="AgregarFiltro( false  ,'sede')">
+                                <select class="custom-select" id="inputGroupSelect01" [(ngModel)]="sedeid" (click)="AgregarFiltro('sede')">
                                     <option selected disabled>-Seleccione sede-</option>  
                                     <option value="-1" >Todos</option>
                                     <option *ngFor="let sede of  controladorSedes.todos " value="{{sede.id}}" >{{sede.descripcion}}</option>
@@ -226,10 +226,10 @@
                         <div class="input-group-prepend">
                           <label class="input-group-text" for="inputGroupSelect02">Cohorte</label>
                         </div>
-                        <select class="custom-select" id="inputGroupSelect02">
+                        <select class="custom-select" id="inputGroupSelect02" [(ngModel)]="cohorteid" (click)="AgregarFiltro('cohorte')">
                           <option selected disabled>-Seleccione cohorte-</option>  
-                          <option value=""> </option>
-                          <option *ngFor="let cohorte of  controladorCohortes.todos " [ngValue]="cohorte.id"> {{cohorte.descripcion}}</option>
+                          <option value="-1" >Todos</option>
+                          <option *ngFor="let cohorte of  controladorCohortes.todos " value="{{cohorte.id}}"> {{cohorte.descripcion}}</option>
                         </select>
                       </div>
                 </div>
@@ -240,9 +240,9 @@
                         <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect03">Programa</label>
                         </div>
-                        <select class="custom-select" id="inputGroupSelect03" [(ngModel)]="programaid" (click)="AgregarFiltro( false  ,'programa')">
+                        <select class="custom-select" id="inputGroupSelect03" [(ngModel)]="programaid" (click)="AgregarFiltro('programa')">
                         <option selected disabled>-Seleccione programa-</option>  
-                        <option value="">Todos</option>
+                        <option value="-1">Todos</option>
                         <option *ngFor="let programa of  controladorProgramas.todos " value="{{programa.id}}"  >{{programa.descripcion}}</option>
                         </select>
                     </div>
