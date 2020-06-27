@@ -9,6 +9,7 @@ import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { AgendasController } from '@controladores/agendas.controller';
 import { AgendamientosInterface } from '@interfaces/agendamientos.interface';
 import { AgendamientosController } from '@controladores/agendamientos.controller';
+import { isNumber } from 'util';
 
 interface DatosIntercambioInterface{
   [index: string]: any;
@@ -84,9 +85,9 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
 
       caracteristicasConsultas = new EstructuraConsultas();
       caracteristicasConsultas.ActivarDiferentes();
-      caracteristicasConsultas.AgregarColumna( null , "(SELECT usuarios_id FROM asignaciones WHERE agendas_id = agendas.id AND tipo = 'C' )", "creador_id" ); 
-      caracteristicasConsultas.AgregarColumna( null , "(SELECT usuarios_id FROM asignaciones WHERE agendas_id = agendas.id AND tipo = 'R' )", "responsable_id" );       
-      caracteristicasConsultas.AgregarColumna( null , "(SELECT COUNT(*) FROM agendamientos WHERE agendamientos.agendas_id = agendas.id)", "asignados" ); 
+      caracteristicasConsultas.AgregarColumna( null , "(SELECT usuarios_id FROM asignaciones WHERE agendas_id = agendas.id AND tipo = 'C' )", "creador_id", true); 
+      caracteristicasConsultas.AgregarColumna( null , "(SELECT usuarios_id FROM asignaciones WHERE agendas_id = agendas.id AND tipo = 'R' )", "responsable_id", true );       
+      caracteristicasConsultas.AgregarColumna( null , "(SELECT COUNT(*) FROM agendamientos WHERE agendamientos.agendas_id = agendas.id)", "asignados", true ); 
       caracteristicasConsultas.AgregarColumna( null , "(SELECT CONCAT(usuarios.nombres,' ',usuarios.apellidos) FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'C')", "creador" );
       caracteristicasConsultas.AgregarEnlace( "asignaciones" ,  "agendas" ,  "asignaciones" );
       caracteristicasConsultas.AgregarFiltro( "", "asignaciones" , "usuarios_id" , "=", String(this.usuarioId) );
@@ -119,6 +120,7 @@ console.log(this.controladorAgendas.todos);
       this.controladorAgendamientos.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAG:RespuestaInterface) => {           // Carge de Agenda
 
       }); 
+
 
 
   }
