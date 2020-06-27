@@ -84,16 +84,12 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
 
       caracteristicasConsultas = new EstructuraConsultas();
       caracteristicasConsultas.ActivarDiferentes();
-      caracteristicasConsultas.AgregarColumna( null , "(SELECT COUNT(*) FROM agendamientos WHERE agendamientos.agendas_id = agendas.id)", "asignados" ); //OJO HACER SUBCONSULTA
+      caracteristicasConsultas.AgregarColumna( null , "(SELECT usuarios_id FROM asignaciones WHERE agendas_id = agendas.id AND tipo = 'C' )", "creador_id" ); 
+      caracteristicasConsultas.AgregarColumna( null , "(SELECT usuarios_id FROM asignaciones WHERE agendas_id = agendas.id AND tipo = 'R' )", "responsable_id" );       
+      caracteristicasConsultas.AgregarColumna( null , "(SELECT COUNT(*) FROM agendamientos WHERE agendamientos.agendas_id = agendas.id)", "asignados" ); 
       caracteristicasConsultas.AgregarColumna( null , "(SELECT CONCAT(usuarios.nombres,' ',usuarios.apellidos) FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'C')", "creador" );
-      caracteristicasConsultas.AgregarColumna( "creadores" , "usuarios_id" , "creador_id" );
-      caracteristicasConsultas.AgregarColumna( "responsables" , "usuarios_id" , "responsable_id" );
-      caracteristicasConsultas.AgregarEnlace( "asignaciones" ,  "agendas" ,  "asignaciones" , "creadores" );
-      caracteristicasConsultas.AgregarEnlace( "asignaciones" ,  "agendas" ,  "asignaciones" , "responsables" );
-      caracteristicasConsultas.AgregarFiltro( "", "creadores" , "usuarios_id" , "=", String(this.usuarioId) );
-      caracteristicasConsultas.AgregarFiltro( "AND", "creadores" , "tipo" , "=", "C" );
-      caracteristicasConsultas.AgregarFiltro( "OR", "responsables" , "usuarios_id" , "=", String(this.usuarioId));
-      caracteristicasConsultas.AgregarFiltro( "AND", "responsables" , "tipo" , "=", "R");
+      caracteristicasConsultas.AgregarEnlace( "asignaciones" ,  "agendas" ,  "asignaciones" );
+      caracteristicasConsultas.AgregarFiltro( "", "asignaciones" , "usuarios_id" , "=", String(this.usuarioId) );
       caracteristicasConsultas.AgregarOrdenamiento( "agendas.id" , "ASC" );
       this.controladorAgendas.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAG:RespuestaInterface) => {           // Carge de Agendas
 console.log(this.controladorAgendas.todos);

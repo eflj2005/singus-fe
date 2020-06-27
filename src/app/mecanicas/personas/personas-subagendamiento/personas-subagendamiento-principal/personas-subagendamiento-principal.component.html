@@ -23,9 +23,10 @@
   </div>
   <div class="col-md-9 contenedor">
     <app-personas-subagendamiento-componentes-listaagendamiento
-    *ngIf="controladorAgendamientos.EstaListo('cargue')==true"
-     [agendamientos]="FiltrarDatos( controladorAgendamientos.todos , 'agendas_id' , datosAgendaSeleccionada.id)"
-     [datosAgenda]="datosAgendaSeleccionada"
+      *ngIf="controladorAgendamientos.EstaListo('cargue')==true"
+      [controladorAgendas]="controladorAgendas"
+      [agendamientos]="FiltrarDatos( controladorAgendamientos.todos , 'agendas_id' , datosAgendaSeleccionada.id)"
+      [datosAgenda]="datosAgendaSeleccionada"
     ></app-personas-subagendamiento-componentes-listaagendamiento>
   </div>
 
