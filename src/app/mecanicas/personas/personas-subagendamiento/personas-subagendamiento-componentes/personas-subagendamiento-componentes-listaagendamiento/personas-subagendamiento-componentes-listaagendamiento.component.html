@@ -1,8 +1,14 @@
-<div class="row">
-  <div class="col-md-12">    
-    <h5>Seguimientos de Agenda No. {{ agenda }}</h5>
+<div class="row justify-content-between">
+  <div class="col-md-4">
+    <h5>Seguimientos de Agenda No. {{ datosAgenda.id }}</h5>
+  </div>
+  <div class="col-md-6">
+    <button *ngIf="(datosAgenda.id != 0) && (datosAgenda.creador_id == usuario_id)" type="button" class="btn btn-outline-primary py-0 px-1 float-right" (click)="EliminarAgenda( datosAgenda.id )"><i class="fa fa-trash-o"></i> Descartar</button>
+    <button *ngIf="(datosAgenda.id != 0) && (datosAgenda.creador_id == usuario_id)" type="button" class="btn btn-outline-primary py-0 px-1 mx-1 float-right" (click)="ActivarModalHistoricos( modalHistoricosEstudios, 5, '' )"><i class="fa fa-pencil-square-o"></i> Modificar</button>
+    <button *ngIf="(datosAgenda.id != 0)" type="button" class="btn btn-outline-primary py-0 px-1 float-right" (click)="ActivarModalHistoricos( modalHistoricosEstudios, 5, '' )"><i class="fa fa-sitemap"></i> Subagendar</button>
   </div>
 </div>
+
 <div class="row">
   <div class="col-md-12">        
     <table class="table">
@@ -11,8 +17,8 @@
           <th scope="col"># Seg.</th>
           <th scope="col">UniminutoId</th>
           <th scope="col">Nombre</th>
-          <th scope="col">Registro</th>
-          <th scope="col">Actualización</th>
+          <th scope="col">Creación</th>
+          <th scope="col">Ultimo Cambio</th>
           <th scope="col">Seguimientos</th>
           <th scope="col" class="col-actions">Acción</th>                  
         </tr>

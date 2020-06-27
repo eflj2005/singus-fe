@@ -338,10 +338,18 @@ export class GenericoModel {
               else                                                        registro[campo] = "";
             }
             else{
-              let datosCampo = controladorActual.campos.find((elemento: { nombre: string; }) => elemento.nombre == campo); 
-              if(!isUndefined(datosCampo)){
-                let tipoDato = datosCampo.tipo;
-                if( tipoDato == "int" || tipoDato == "bigint" || tipoDato == "decimal"){  registro[campo] = +registro[campo]; }   
+              if(registro[campo]!=null){
+                let datosCampo = controladorActual.campos.find((elemento: { nombre: string; }) => elemento.nombre == campo); 
+                if(!isUndefined(datosCampo)){
+                  let tipoDato = datosCampo.tipo;               
+                  if( tipoDato == "int" || tipoDato == "bigint" || tipoDato == "decimal"){  registro[campo] = +registro[campo]; }
+                }
+                else{
+                  let nuevoValor:any = Number(registro[campo]);
+                  if( !isNaN(nuevoValor) ){
+                    registro[campo] = nuevoValor;
+                  }
+                }
               }
             }
           }

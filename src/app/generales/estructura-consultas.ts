@@ -111,7 +111,7 @@
     caracteristicas.AgregarEnlace( "sedes" ,     "sedes" ,     "estudios" );
     caracteristicas.AgregarEnlace( "programas" , "programas" , "estudios" );  
     
-    caracteristicas.AgregarFiltro( "sedes" , "instituciones_id" , "=", "1" );
+    caracteristicas.AgregarFiltro( "", "sedes" , "instituciones_id" , "=", "1" );
     
     caracteristicas.AgregarOrdenamiento( "cohorte" , "DESC" );
     caracteristicas.AgregarOrdenamiento( "sede" , "ASC" );
@@ -138,6 +138,8 @@ export class EstructuraConsultas {
   private enlaces: any = null;
   private filtros: any = null;
   private ordenamientos: any = null;
+  private especiales: {[k: string]: any} = { "distinct" : false };
+
 
   constructor( tipo?:string, valor1?:string, valor2?:string, valor3?:string, valor4?:string ) {
     if( tipo ){
@@ -157,19 +159,23 @@ export class EstructuraConsultas {
     this.columnas.push( { tabla: nombreTabla , columna: nombreColumna , alias: aliasColumna } );
   }
 
-  public AgregarEnlace( tablaEnlace:string, tablaConPK:string, tablaConFK:string ){
+  public AgregarEnlace( tablaEnlace:string, tablaConPK:string, tablaConFK:string, tablaAlias:string = "" ){
     if( isNull( this.enlaces ) ) this.enlaces = [];
-    this.enlaces.push( { tablaE: tablaEnlace , tablaPk: tablaConPK , tablaFk: tablaConFK } );
+    this.enlaces.push( { tablaE: tablaEnlace , tablaPk: tablaConPK , tablaFk: tablaConFK, tablaAlss: tablaAlias } );
   }
 
-  public AgregarFiltro( nombreTabla:string, campoFiltrado:string, condicionAplicada:string, valorBuscado:string , operadorLogico:string="AND"){
+  public AgregarFiltro( operadorLogico:string="", nombreTabla:string, campoFiltrado:string, condicionAplicada:string, valorBuscado:string){
     if( isNull( this.filtros ) ) this.filtros = [];    
-    this.filtros.push( { tabla: nombreTabla , campo: campoFiltrado , condicion: condicionAplicada, valor: valorBuscado, operadorLogico: operadorLogico } );
+    this.filtros.push( { operadorLogico: operadorLogico , tabla: nombreTabla , campo: campoFiltrado , condicion: condicionAplicada, valor: valorBuscado} );
   }
 
   public AgregarOrdenamiento( nombreColumna:string, sentido:string ){
     if( isNull( this.ordenamientos ) ) this.ordenamientos = [];        
     this.ordenamientos.push( { columna: nombreColumna , orden: sentido } );
+  }
+
+  public ActivarDiferentes(){   
+    this.especiales.distinct = true;
   }
 
 }
