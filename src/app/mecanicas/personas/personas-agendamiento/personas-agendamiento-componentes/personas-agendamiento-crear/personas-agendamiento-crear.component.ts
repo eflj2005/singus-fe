@@ -19,19 +19,14 @@ import { ProgramasController } from "@controladores/programas.controller";
 import { SedesController } from "@controladores/sedes.controller";
 import { AgendasController } from "@controladores/agendas.controller";
 import { AgendasInterface } from '@interfaces/agendas.interface';
-import { ComunicacionesModule } from '@mecanicas/comunicaciones/comunicaciones.module';
+import { UsuariosController } from '@controladores/usuarios.controller';
+import { UsuarioInterface } from '@interfaces/usuario.interface';
+import { typeWithParameters } from '@angular/compiler/src/render3/util';
 
-interface  responsables extends ResponsablesInterface {
 
-} 
 interface  ResponsableSeleccionado  {
   id :number,
   nombres :  string
-}
-
-interface filtroAgendados{
-  nombreFiltro : string
-
 }
 
 interface ListaPersonasInterface extends PersonasInterface {
@@ -50,14 +45,14 @@ interface ListaPersonasInterface extends PersonasInterface {
 export class PersonasAgendamientoCrearComponent implements OnInit {
 
   // controladorResponsables: ResponsablesController;      //REVISAR - ELIMINACION DE CONTROLADOR
+  controladorUsuarios: UsuariosController;
   controladorAgendas: AgendasController;
   controladorPersonas: PersonasController;
   controladorSedes : SedesController;
   controladorCohortes : CohortesController;
   controladorProgramas : ProgramasController;
   
-  
-  registrosResponsables: ResponsablesInterface[];
+  registroUsuarios: UsuarioInterface[];
   registrosAgendas:  AgendasInterface[];
   registrosPersonas:  ListaPersonasInterface[];
 
@@ -69,7 +64,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
   responsableSelecionado : ResponsableSeleccionado  = {'id': null, 'nombres': ''};
   filtros: Array<string>; 
   rol : string;
-  responsables$: Observable<ResponsablesInterface[]>;
+  responsables$: Observable<UsuarioInterface[]>;
   agendados$: Observable<ListaPersonasInterface[]>;
   filterResponsables = new FormControl('');
   filterAgendados=  new FormControl('');
@@ -81,7 +76,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
   }
 
   constructor(private servicioAmbiente: AmbienteService , private pipe: DecimalPipe, private modal: NgbModal, private llamadoHttp :HttpClient ) {
-    this.ConsultaRresponsables();
+    this.ConsultaResponsables();
     this.CargarControladores();
     this.ConsultaPersonas();
     this.filtros = [];
@@ -99,8 +94,8 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
   }
 
   
-  BuscarResponsable(text: string , pipe: PipeTransform ): ResponsablesInterface[] {
-      let registrosResponsablesTemp =  this.registrosResponsables.filter(responsable => responsable.rol == this.rol );
+  BuscarResponsable(text: string , pipe: PipeTransform ): UsuarioInterface[] {
+      let registrosResponsablesTemp =  this.registroUsuarios.filter(responsable => responsable.rol == this.rol );
       console.log(registrosResponsablesTemp)
       return registrosResponsablesTemp.filter(responsable => {
         const term = text.toLowerCase();
@@ -115,38 +110,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
 
   BuscarAgendados(text: string , pipe: PipeTransform ): ListaPersonasInterface[] {
     let registrosAgendadosTemp: ListaPersonasInterface[];
-    // if( this.sedeid == null ){
-    //   registrosAgendadosTemp = this.registrosPersonas;
-    // }else {
-    //  let condicion: any;
-    //   for (let i = 0; i < this.filtros.length; i++) {
-    
-    //    switch (i) {
-    //      case 0:
-    //        if (this.filtros[i] == 'programa'){
-    //          condicion  =  "agendado.programa ==" + this.controladorProgramas.actual.descripcion ;
-    //        }else if (this.filtros[i] == 'cohorte') {
-    //          condicion  =  "agendado.cohorte ==" + this.controladorCohortes.actual.descripcion ;
-    //        } else {
-            
-    //          condicion  =  "agendado.sede == " + " '"+this.controladorSedes.actual.descripcion+"'"  ;
-    //          console.log(condicion);
-    //        }
-    //        break;
-      
-    //      default:
-    //        if (this.filtros[i] == 'programa'){
-    //        condicion = condicion  + ",agendado.programa ==" + this.controladorProgramas.actual.descripcion ;
-    //        }else if (this.filtros[i] == 'cohorte') {
-    //          condicion = condicion  + ",agendado.cohorte ==" + this.controladorCohortes.actual.descripcion ;
-    //        } else {
-    //          condicion = condicion  + ",agendado.sede ==" + " '"+this.controladorSedes.actual.descripcion+"'" ;
-    //        }
-    //        break;
-    //    }
-    
-       
-    //   }
+  
     if (this.cohorteid == -1 && this.programaid == -1 && this.sedeid == -1){
       registrosAgendadosTemp = this.registrosPersonas;
     }else if(this.cohorteid != -1 && this.programaid != -1 && this.sedeid != -1) {
@@ -167,10 +131,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
           registrosAgendadosTemp=  this.registrosPersonas.filter(agendado => agendado.programa == this.controladorProgramas.actual.descripcion && agendado.cohorte == this.controladorCohortes.actual.descripcion);
         }
       } 
-        
-      
     }
- 
     return registrosAgendadosTemp.filter(agendado => {
       const term = text.toLowerCase();
       return pipe.transform(agendado.iduniminuto).includes(term)
@@ -223,37 +184,27 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
   }
 
   SeleccionResponsable(id : number ){
-    // this.controladorResponsables.Encontrar('id', id);                                                                                              //REVISAR - ELIMINACION DE CONTROLADOR
-    // this.responsableSelecionado.id = this.controladorResponsables.actual.id;                                                                       //REVISAR - ELIMINACION DE CONTROLADOR
-    // this.responsableSelecionado.nombres = this.controladorResponsables.actual.nombres + ' ' + this.controladorResponsables.actual.apellidos;       //REVISAR - ELIMINACION DE CONTROLADOR
-
+     this.controladorUsuarios.Encontrar('id', id);                                                                                 
+     this.responsableSelecionado.id = this.controladorUsuarios.actual.id;                                                                       
+     this.responsableSelecionado.nombres = this.controladorUsuarios.actual.nombres + ' ' + this.controladorUsuarios.actual.apellidos;     
   }
 
-  ConsultaRresponsables(){
+  ConsultaResponsables(){
 
-    let caracteristicas = new EstructuraConsultas();
-    caracteristicas.AgregarColumna( "responsables", "id" , null );
-    caracteristicas.AgregarColumna( "responsables", "documento" , null );
-    caracteristicas.AgregarColumna( "responsables", "nombres" , null);
-    caracteristicas.AgregarColumna( "responsables", "apellidos" , null );
-    caracteristicas.AgregarColumna( "responsables", "rol" , null );
-
-    // this.controladorResponsables = new ResponsablesController(this.llamadoHttp,this.servicioAmbiente);        //REVISAR - ELIMINACION DE CONTROLADOR
-    
-    // //REVISAR - ELIMINACION DE CONTROLADOR
-    // this.controladorResponsables.CargarDesdeDB(true, "S" , caracteristicas).subscribe(
-    //   (respuesta: RespuestaInterface) =>{
-    //     switch(respuesta.codigo){
-    //       case 200:
-    //         this.registrosResponsables = this.controladorResponsables.todos ;
-    //         this.AplicarFiltros(1);
-    //         break;
-    //       default:
-    //         alert("Error: "+respuesta.mensaje);
-    //         break;
-    //     }
-    //   }
-    // );
+      this.controladorUsuarios = new UsuariosController(this.llamadoHttp, this.servicioAmbiente);
+      this.controladorUsuarios.CargarDesdeDB(true, "S").subscribe(
+       (respuesta: RespuestaInterface) =>{
+         switch(respuesta.codigo){
+           case 200:
+             this.registroUsuarios = this.controladorUsuarios.todos ;
+             this.AplicarFiltros(1);
+             break;
+           default:
+             alert("Error: "+respuesta.mensaje);
+             break;
+         }
+       }
+     );
   }
 
   ConsultaPersonas(){
@@ -361,7 +312,6 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
          case 'cohorte':
             if(this.cohorteid != -1){
               this.controladorCohortes.Encontrar('id', this.cohorteid);
-              console.log(this.controladorCohortes.actual.descripcion);
             }
            break;
          default:
