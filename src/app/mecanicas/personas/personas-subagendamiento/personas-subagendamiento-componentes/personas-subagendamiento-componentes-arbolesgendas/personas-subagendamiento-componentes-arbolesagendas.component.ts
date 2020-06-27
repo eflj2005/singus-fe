@@ -194,6 +194,7 @@ export class PersonasSubagendamientoComponentesArbolesagendasComponent implement
   Seleccionado( indiceAgendaRecibido : number){
     this.seleccionada.id = this.agendas[indiceAgendaRecibido].id;
     this.seleccionada.creador_id = this.agendas[indiceAgendaRecibido].creador_id;
+    this.seleccionada.nivel = this.agendas[indiceAgendaRecibido].nivel;
     this.seleccionadaChangue.emit( this.seleccionada );    
   }
 }
