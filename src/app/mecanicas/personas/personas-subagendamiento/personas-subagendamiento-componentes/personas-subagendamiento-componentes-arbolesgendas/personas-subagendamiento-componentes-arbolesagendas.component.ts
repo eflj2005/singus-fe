@@ -2,9 +2,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AgendasInterface } from '@interfaces/agendas.interface'
 
 
+interface DatosIntercambioInterface{
+  [index: string]: any;
+}
 
 interface AgendasCompletoInterface extends AgendasInterface  {
   creador: string;
+  creador_id: number;
   asignados: number;
   esRaiz?: boolean
   selecionado?:boolean;
@@ -33,6 +37,7 @@ class ArbolDeAgendas{
       asignados:      objetoRecibido.asignados,
       creador:        objetoRecibido.creador,
       nivel:          objetoRecibido.nivel,
+      creador_id:     objetoRecibido.creador_id,
       subagendas: []
     };
     return respuesta;
@@ -47,6 +52,7 @@ class ArbolDeAgendas{
       asignados:      objetoRecibido.asignados,
       creador:        objetoRecibido.creador,
       nivel:          objetoRecibido.nivel,
+      creador_id:     objetoRecibido.creador_id
     };
     return respuesta;
   }
@@ -97,8 +103,8 @@ class ArbolDeAgendas{
 export class PersonasSubagendamientoComponentesArbolesagendasComponent implements OnInit {
 
   @Input() agendas:AgendasCompletoInterface[]=[];
-  @Input() seleccionada: number = 0;
-  @Output() seleccionadaChangue: EventEmitter<number> = new EventEmitter<number>();
+  @Input() seleccionada: DatosIntercambioInterface;
+  @Output() seleccionadaChangue: EventEmitter<DatosIntercambioInterface> = new EventEmitter<DatosIntercambioInterface>();
 
   listaArbolesAgendas: ArbolDeAgendas[] = [];
 
@@ -107,13 +113,14 @@ export class PersonasSubagendamientoComponentesArbolesagendasComponent implement
   ngOnInit() {
     this.GenerarListaArboles(this.agendas);
     this.agendas = this.ObtenerListaAgendas();
-    console.log(this.agendas);
   }
 
   GenerarListaArboles(agendasRecibidas: AgendasCompletoInterface[]){
+
     let agendas: AgendasCompletoInterface[] = []; 
     agendasRecibidas.forEach(val => agendas.push(Object.assign({}, val)));
 
+ 
     let conteoMarcas: number = 0;
 
     // Agrega el atributo "selecionado" y lo inicializa
@@ -169,8 +176,6 @@ export class PersonasSubagendamientoComponentesArbolesagendasComponent implement
       });
     } 
 
-    console.log(agendas);
-    console.log(this.listaArbolesAgendas);
   }
 
   ObtenerListaAgendas(){
@@ -186,8 +191,9 @@ export class PersonasSubagendamientoComponentesArbolesagendasComponent implement
     return agendasResultado;
   }
 
-  Seleccionado( idRecibido : number){
-    this.seleccionada = idRecibido;
+  Seleccionado( indiceAgendaRecibido : number){
+    this.seleccionada.id = this.agendas[indiceAgendaRecibido].id;
+    this.seleccionada.creador_id = this.agendas[indiceAgendaRecibido].creador_id;
     this.seleccionadaChangue.emit( this.seleccionada );    
   }
 }

@@ -10,9 +10,13 @@ import { AgendasController } from '@controladores/agendas.controller';
 import { AgendamientosInterface } from '@interfaces/agendamientos.interface';
 import { AgendamientosController } from '@controladores/agendamientos.controller';
 
+interface DatosIntercambioInterface{
+  [index: string]: any;
+}
 
 interface AgendasCompletoInterface extends AgendasInterface  {
   creador: string;
+  creador_id: number;
   asignados: number;
   uniminutoId: number;
   fechaRegistro: string;
@@ -34,8 +38,8 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
   listaAgendas: AgendasCompletoInterface[] = [];
   usuarioId:number;
 
-  agendaSeleccionada:number;
-  
+  datosAgendaSeleccionada:  DatosIntercambioInterface;
+
   controladorAsignaciones: AsignacionesController;
   controladorAgendas: AgendasController;
   controladorAgendasForaneo: AgendasController;
@@ -52,7 +56,7 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
 
     let caracteristicasConsultas:EstructuraConsultas;
 
-    this.agendaSeleccionada = 0;
+    this.datosAgendaSeleccionada =  { id: 0, nivel: null, creadorId: 0 };
     
     // this.listaAgendas.push( { id: 1, agendas_id: null, apertura_fecha: "2020-06-01", cierre_fecha: "2020-06-30", nivel: 0, asignados: 10, creador: "Pepito Flores" } );      //10
     //   this.listaAgendas.push( { id: 2, agendas_id: 1, apertura_fecha: "2020-06-01", cierre_fecha: "2020-06-30", nivel: 1, asignados: 5, creador: "Perencejto Rivas" } );    //5
@@ -73,7 +77,7 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
 
 
       // caracteristicasConsultas = new EstructuraConsultas();
-      // caracteristicasConsultas.AgregarFiltro( "asignaciones" , "usuarios_id" , "=", String(this.usuarioId) );
+      // caracteristicasConsultas.AgregarFiltro( "", "asignaciones" , "usuarios_id" , "=", String(this.usuarioId) );
       // this.controladorAsignaciones.CargarDesdeDB( true, "S", caracteristicasConsultas ).subscribe( (respuestaAS:RespuestaInterface) => {           // Carge de Asignaciones
       //   console.log(this.controladorAsignaciones.todos,"AsignacionesContro");
       // });
@@ -81,13 +85,18 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
       caracteristicasConsultas = new EstructuraConsultas();
       caracteristicasConsultas.ActivarDiferentes();
       caracteristicasConsultas.AgregarColumna( null , "(SELECT COUNT(*) FROM agendamientos WHERE agendamientos.agendas_id = agendas.id)", "asignados" ); //OJO HACER SUBCONSULTA
-      caracteristicasConsultas.AgregarColumna( null , "(SELECT CONCAT(usuarios.nombres,' ',usuarios.apellidos) FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'C')", "creador" ); //OJO HACER SUBCONSULTA
-      caracteristicasConsultas.AgregarEnlace( "asignaciones" ,  "agendas" ,  "asignaciones" );  //OJO PERMITIR ALIAS
-      caracteristicasConsultas.AgregarFiltro( "asignaciones" , "usuarios_id" , "=", String(this.usuarioId) );
+      caracteristicasConsultas.AgregarColumna( null , "(SELECT CONCAT(usuarios.nombres,' ',usuarios.apellidos) FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'C')", "creador" );
+      caracteristicasConsultas.AgregarColumna( "creadores" , "usuarios_id" , "creador_id" );
+      caracteristicasConsultas.AgregarColumna( "responsables" , "usuarios_id" , "responsable_id" );
+      caracteristicasConsultas.AgregarEnlace( "asignaciones" ,  "agendas" ,  "asignaciones" , "creadores" );
+      caracteristicasConsultas.AgregarEnlace( "asignaciones" ,  "agendas" ,  "asignaciones" , "responsables" );
+      caracteristicasConsultas.AgregarFiltro( "", "creadores" , "usuarios_id" , "=", String(this.usuarioId) );
+      caracteristicasConsultas.AgregarFiltro( "AND", "creadores" , "tipo" , "=", "C" );
+      caracteristicasConsultas.AgregarFiltro( "OR", "responsables" , "usuarios_id" , "=", String(this.usuarioId));
+      caracteristicasConsultas.AgregarFiltro( "AND", "responsables" , "tipo" , "=", "R");
       caracteristicasConsultas.AgregarOrdenamiento( "agendas.id" , "ASC" );
       this.controladorAgendas.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAG:RespuestaInterface) => {           // Carge de Agendas
-        // console.log(this.controladorAgendas.todos,"AgendasCargado");
-
+console.log(this.controladorAgendas.todos);
         // //OJO ajustar para permitir condicion con subconsulta y DISTINC
         // this.controladorAgendasForaneo.CargarDesdeDB( true, "S" ).subscribe( (respuestaAGF:RespuestaInterface) => {           // Carge de Asignaciones
         //   // console.log(this.controladorAgendasForaneo.todos, "A foraneaContro");
@@ -99,7 +108,6 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
 
       caracteristicasConsultas = new EstructuraConsultas();
       caracteristicasConsultas.AgregarColumna(null,"CONCAT(personas.nombres, ' ', personas.apellidos)","nombreCompleto");
-      caracteristicasConsultas.AgregarColumna("seguimientos","id","seguimientosId");
       caracteristicasConsultas.AgregarColumna("personas","iduniminuto","uniminutoId");
       caracteristicasConsultas.AgregarColumna("personas","registro_fecha","fechaRegistro");
       caracteristicasConsultas.AgregarColumna("personas","actualizacion_fecha","fechaActualizacion")
@@ -110,13 +118,11 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
       caracteristicasConsultas.AgregarEnlace("agendas","agendas","agendamientos");
       caracteristicasConsultas.AgregarEnlace("asignaciones","agendas","asignaciones");
 
-      caracteristicasConsultas.AgregarFiltro( "asignaciones" , "usuarios_id" , "=", String(this.usuarioId) );
-      this.controladorAgendamientos.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAG:RespuestaInterface) => {           // Carge de Agendas
-        
-        this.datosAgendamientos = this.controladorAgendamientos.todos;
-        console.log(this.datosAgendamientos,"agendamientos");
-      }); 
+      caracteristicasConsultas.AgregarFiltro( "", "asignaciones" , "usuarios_id" , "=", String(this.usuarioId) );
+      caracteristicasConsultas.AgregarFiltro( "AND", "asignaciones" , "tipo" , "=", "R" );
+      this.controladorAgendamientos.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAG:RespuestaInterface) => {           // Carge de Agenda
 
+      }); 
 
 
   }

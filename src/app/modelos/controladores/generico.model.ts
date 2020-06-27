@@ -252,9 +252,9 @@ export class GenericoModel {
       .set("modo", modoCargue )                       //S = simple => consulta directa, A = avanzada => consulta con inner join
       .set("caracteristicas", JSON.stringify(caracteristicas));  
     
-    // if(this.nombreTabla=="agendas"){
-    //   console.log(datosEnviados);
-    // }
+    if(this.nombreTabla=="agendas"){
+      console.log(datosEnviados);
+    }
 
     const llamado = this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
       map(
@@ -342,10 +342,18 @@ export class GenericoModel {
               else                                                        registro[campo] = "";
             }
             else{
-              let datosCampo = controladorActual.campos.find((elemento: { nombre: string; }) => elemento.nombre == campo); 
-              if(!isUndefined(datosCampo)){
-                let tipoDato = datosCampo.tipo;
-                if( tipoDato == "int" || tipoDato == "bigint" || tipoDato == "decimal"){  registro[campo] = +registro[campo]; }   
+              if(registro[campo]!=null){
+                let datosCampo = controladorActual.campos.find((elemento: { nombre: string; }) => elemento.nombre == campo); 
+                if(!isUndefined(datosCampo)){
+                  let tipoDato = datosCampo.tipo;               
+                  if( tipoDato == "int" || tipoDato == "bigint" || tipoDato == "decimal"){  registro[campo] = +registro[campo]; }
+                }
+                else{
+                  let nuevoValor:any = Number(registro[campo]);
+                  if( !isNaN(nuevoValor) ){
+                    registro[campo] = nuevoValor;
+                  }
+                }
               }
             }
           }

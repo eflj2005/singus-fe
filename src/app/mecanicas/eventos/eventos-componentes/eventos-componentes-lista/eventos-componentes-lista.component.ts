@@ -136,7 +136,7 @@ export class EventosComponentesListaComponent implements OnInit {
     caracteristicas.AgregarColumna( null, "CONCAT( personas.nombres , ' ' , personas.apellidos )" , "nombreCompleto" );
     caracteristicas.AgregarEnlace( "eventos" , "eventos" , "asistencias" );
     caracteristicas.AgregarEnlace( "personas" , "personas" , "asistencias" );   
-    caracteristicas.AgregarFiltro( "asistencias" , "eventos_id" , "=", idEvento );
+    caracteristicas.AgregarFiltro( "", "asistencias" , "eventos_id" , "=", idEvento );
 
     this.controladorAsistencias.CargarDesdeDB(true, "A" , caracteristicas).subscribe(
       (respuesta: RespuestaInterface) =>{

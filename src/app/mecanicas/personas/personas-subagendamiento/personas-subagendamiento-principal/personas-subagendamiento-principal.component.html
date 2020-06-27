@@ -15,8 +15,8 @@
         <app-personas-subagendamiento-componentes-arbolesagendas 
           *ngIf="controladorAgendas.EstaListo('cargue')==true" 
           [agendas]='controladorAgendas.todos' 
-          [seleccionada]="agendaSeleccionada" 
-          (seleccionadaChangue)="agendaSeleccionada=$event"
+          [seleccionada]="datosAgendaSeleccionada" 
+          (seleccionadaChangue)="datosAgendaSeleccionada=$event"
         ></app-personas-subagendamiento-componentes-arbolesagendas>
       </div>
     </div>
@@ -24,8 +24,8 @@
   <div class="col-md-9 contenedor">
     <app-personas-subagendamiento-componentes-listaagendamiento
     *ngIf="controladorAgendamientos.EstaListo('cargue')==true"
-     [agendamientos]="FiltrarDatos( datosAgendamientos , 'agendas_id' , agendaSeleccionada)"
-     [agenda]="agendaSeleccionada"
+     [agendamientos]="FiltrarDatos( controladorAgendamientos.todos , 'agendas_id' , datosAgendaSeleccionada.id)"
+     [datosAgenda]="datosAgendaSeleccionada"
     ></app-personas-subagendamiento-componentes-listaagendamiento>
   </div>
 

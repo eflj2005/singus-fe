@@ -52,7 +52,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
     caracteristicas.AgregarColumna( null," CONCAT(usuarios.nombres , ' ' , usuarios.apellidos) ", "nombreCompletoUsuario" );
     caracteristicas.AgregarEnlace( "asignaciones" , "agendas" , "asignaciones" );
     caracteristicas.AgregarEnlace( "usuarios" , "usuarios" , "asignaciones" );  
-    caracteristicas.AgregarFiltro( "agendas" , "nivel" , "=", "0" ); 
+    caracteristicas.AgregarFiltro( "","agendas" , "nivel" , "=", "0" ); 
 
     this.controladorAgendas = new AgendasController(this.llamadoHttp,this.servicioAmbiente);
     this.controladorAgendas.CargarDesdeDB(true, "A" , caracteristicas).subscribe(

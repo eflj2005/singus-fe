@@ -104,7 +104,7 @@ export class EventosComponentesCrearComponent implements OnInit {
 
     let evento  = id.toString();
     let caracteristicas = new  EstructuraConsultas();
-    caracteristicas.AgregarFiltro("eventos","id","=", evento );
+    caracteristicas.AgregarFiltro("","eventos","id","=", evento );
 
     this.controladorEventos.CargarDesdeDB(true, "S" , caracteristicas).subscribe(
       (respuesta: RespuestaInterface) =>{
