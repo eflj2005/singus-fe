@@ -96,11 +96,11 @@ class ArbolDeAgendas{
 }
 
 @Component({
-  selector: 'app-personas-subagendamiento-componentes-arbolesagendas',
-  templateUrl: './personas-subagendamiento-componentes-arbolesagendas.component.html',
-  styleUrls: ['./personas-subagendamiento-componentes-arbolesagendas.component.css']
+  selector: 'app-personas-subagendamiento-componentes-arboles',
+  templateUrl: './personas-subagendamiento-componentes-arboles.component.html',
+  styleUrls: ['./personas-subagendamiento-componentes-arboles.component.css']
 })
-export class PersonasSubagendamientoComponentesArbolesagendasComponent implements OnInit {
+export class PersonasSubagendamientoComponentesArbolesComponent implements OnInit {
 
   @Input() agendas:AgendasCompletoInterface[]=[];
   @Input() seleccionada: DatosIntercambioInterface;

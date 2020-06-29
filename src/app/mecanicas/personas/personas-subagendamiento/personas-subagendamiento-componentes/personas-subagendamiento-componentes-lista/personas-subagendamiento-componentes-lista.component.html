@@ -4,8 +4,8 @@
   </div>
   <div class="col-md-6">
     <button *ngIf="(datosAgenda.id != 0) && (datosAgenda.creador_id == usuario_id)" type="button" class="btn btn-outline-primary py-0 px-1 float-right" (click)="EliminarAgenda( datosAgenda.id )"><i class="fa fa-trash-o"></i> Descartar</button>
-    <button *ngIf="(datosAgenda.id != 0) && (datosAgenda.creador_id == usuario_id)" type="button" class="btn btn-outline-primary py-0 px-1 mx-1 float-right" (click)="ActivarModalHistoricos( modalHistoricosEstudios, 5, '' )"><i class="fa fa-pencil-square-o"></i> Modificar</button>
-    <button *ngIf="(datosAgenda.id != 0) && (datosAgenda.nivel < 2)" type="button" class="btn btn-outline-primary py-0 px-1 float-right" (click)="ActivarModalHistoricos( modalHistoricosEstudios, 5, '' )"><i class="fa fa-sitemap"></i> Subagendar</button>
+    <button *ngIf="(datosAgenda.id != 0) && (datosAgenda.creador_id == usuario_id)" type="button" class="btn btn-outline-primary py-0 px-1 mx-1 float-right"><i class="fa fa-pencil-square-o"></i> Modificar</button>
+    <button *ngIf="(datosAgenda.id != 0) && (datosAgenda.nivel < 2)" type="button" class="btn btn-outline-primary py-0 px-1 float-right" ><i class="fa fa-sitemap"></i> Subagendar</button>
   </div>
 </div>
 

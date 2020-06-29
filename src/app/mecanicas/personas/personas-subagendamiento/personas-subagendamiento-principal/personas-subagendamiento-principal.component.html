@@ -12,22 +12,22 @@
   <div class="col-md-3">
     <div class="row justify-content-start">
       <div class="col-md-11 contenedor">
-        <app-personas-subagendamiento-componentes-arbolesagendas 
+        <app-personas-subagendamiento-componentes-arboles 
           *ngIf="controladorAgendas.EstaListo('cargue')==true" 
           [agendas]='controladorAgendas.todos' 
           [seleccionada]="datosAgendaSeleccionada" 
           (seleccionadaChangue)="datosAgendaSeleccionada=$event"
-        ></app-personas-subagendamiento-componentes-arbolesagendas>
+        ></app-personas-subagendamiento-componentes-arboles>
       </div>
     </div>
   </div>
   <div class="col-md-9 contenedor">
-    <app-personas-subagendamiento-componentes-listaagendamiento
+    <app-personas-subagendamiento-componentes-lista
       *ngIf="controladorAgendamientos.EstaListo('cargue')==true"
       [controladorAgendas]="controladorAgendas"
       [agendamientos]="FiltrarDatos( controladorAgendamientos.todos , 'agendas_id' , datosAgendaSeleccionada.id)"
       [datosAgenda]="datosAgendaSeleccionada"
-    ></app-personas-subagendamiento-componentes-listaagendamiento>
+    ></app-personas-subagendamiento-componentes-lista>
   </div>
 
 </div>
