@@ -31,9 +31,10 @@ interface  ResponsableSeleccionado  {
 
 interface ListaPersonasInterface extends PersonasInterface {
   nombreCompleto:string;
-  cohorte:string;
+  cohorte:number;
   sede:string;
   programa:string;
+  seleccionado: any ;
 }
 
 @Component({
@@ -54,7 +55,9 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
   
   registroUsuarios: UsuarioInterface[];
   registrosAgendas:  AgendasInterface[];
-  registrosPersonas:  ListaPersonasInterface[];
+  registrosPersonas:  ListaPersonasInterface[] = [];
+  registrosPersonasTemp: ListaPersonasInterface[];
+  registrosAgendados: ListaPersonasInterface[];
 
   sedeid: number = -1 ;
   cohorteid:number = -1 ;
@@ -65,13 +68,15 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
   filtros: Array<string>; 
   rol : string;
   responsables$: Observable<UsuarioInterface[]>;
+  personas$: Observable<ListaPersonasInterface[]>;
   agendados$: Observable<ListaPersonasInterface[]>;
   filterResponsables = new FormControl('');
+  filterPersonas=  new FormControl('');
   filterAgendados=  new FormControl('');
 
   seleccionarTodos: any = {
     nuevasPersonas: false,
-    nuevosEstudios: false,
+    nuevosAgendados: false,
     conCambios: false
   }
 
@@ -79,7 +84,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     this.ConsultaResponsables();
     this.CargarControladores();
     this.ConsultaPersonas();
-    this.filtros = [];
+    this.registrosAgendados = [];
     // this.dateFormatormat(this.now, "dddd, mmmm dS, yyyy");
     // this.FechaInicio= formatDate(new Date(), 'yyyy-MM-dd', 'en')
     
@@ -107,37 +112,50 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
       });
 
     }
+    BuscarAgendados2(text: string , pipe: PipeTransform ):  ListaPersonasInterface[] {
 
-  BuscarAgendados(text: string , pipe: PipeTransform ): ListaPersonasInterface[] {
-    let registrosAgendadosTemp: ListaPersonasInterface[];
+      return this.registrosAgendados.filter(agendado => {
+        const term = text.toLowerCase();
+        return pipe.transform(agendado.iduniminuto).includes(term)
+        || pipe.transform(agendado.documento).includes(term)
+        || agendado.nombreCompleto.toLowerCase().includes(term)
+        || pipe.transform(agendado.cohorte).includes(term)
+        || agendado.sede.toLowerCase().includes(term)
+        || agendado.programa.toLowerCase().includes(term);
+
+      });
+
+    }
+
+  BuscarPersonas(text: string , pipe: PipeTransform ): ListaPersonasInterface[] {
   
     if (this.cohorteid == -1 && this.programaid == -1 && this.sedeid == -1){
-      registrosAgendadosTemp = this.registrosPersonas;
+      this.registrosPersonasTemp = this.registrosPersonas;
     }else if(this.cohorteid != -1 && this.programaid != -1 && this.sedeid != -1) {
-      registrosAgendadosTemp=  this.registrosPersonas.filter(agendado => agendado.sede ==  this.controladorSedes.actual.descripcion && agendado.programa == this.controladorProgramas.actual.descripcion && agendado.cohorte == this.controladorCohortes.actual.descripcion);
+      this.registrosPersonasTemp =  this.registrosPersonas.filter(agendado => agendado.sede ==  this.controladorSedes.actual.descripcion && agendado.programa == this.controladorProgramas.actual.descripcion && agendado.cohorte == this.controladorCohortes.actual.descripcion);
     }else{
       if (this.sedeid != -1 && this.programaid == -1 && this.cohorteid == -1) {
-        registrosAgendadosTemp=  this.registrosPersonas.filter(agendado => agendado.sede ==  this.controladorSedes.actual.descripcion);
+        this.registrosPersonasTemp =  this.registrosPersonas.filter(agendado => agendado.sede ==  this.controladorSedes.actual.descripcion);
       } else if (this.cohorteid != -1 && this.programaid == -1 && this.sedeid == -1) {
-        registrosAgendadosTemp=  this.registrosPersonas.filter(agendado => agendado.cohorte == this.controladorCohortes.actual.descripcion);
+        this.registrosPersonasTemp =  this.registrosPersonas.filter(agendado => agendado.cohorte == this.controladorCohortes.actual.descripcion);
       } else if(this.programaid != -1 && this.cohorteid == -1 && this.sedeid == -1) {
-        registrosAgendadosTemp=  this.registrosPersonas.filter(agendado => agendado.programa == this.controladorProgramas.actual.descripcion);
+        this.registrosPersonasTemp =  this.registrosPersonas.filter(agendado => agendado.programa == this.controladorProgramas.actual.descripcion);
       } else{
         if (this.sedeid != -1 && this.cohorteid != -1 ) {
-          registrosAgendadosTemp=  this.registrosPersonas.filter(agendado => agendado.sede ==  this.controladorSedes.actual.descripcion && agendado.cohorte == this.controladorCohortes.actual.descripcion);
+          this.registrosPersonasTemp =  this.registrosPersonas.filter(agendado => agendado.sede ==  this.controladorSedes.actual.descripcion && agendado.cohorte == this.controladorCohortes.actual.descripcion);
         } else if (this.sedeid != -1 && this.programaid != -1 ) {
-          registrosAgendadosTemp=  this.registrosPersonas.filter(agendado =>  agendado.sede ==  this.controladorSedes.actual.descripcion && agendado.programa == this.controladorProgramas.actual.descripcion);
+          this.registrosPersonasTemp =  this.registrosPersonas.filter(agendado =>  agendado.sede ==  this.controladorSedes.actual.descripcion && agendado.programa == this.controladorProgramas.actual.descripcion);
         } else if(this.programaid != -1 && this.cohorteid != -1 ) {
-          registrosAgendadosTemp=  this.registrosPersonas.filter(agendado => agendado.programa == this.controladorProgramas.actual.descripcion && agendado.cohorte == this.controladorCohortes.actual.descripcion);
+          this.registrosPersonasTemp =  this.registrosPersonas.filter(agendado => agendado.programa == this.controladorProgramas.actual.descripcion && agendado.cohorte == this.controladorCohortes.actual.descripcion);
         }
       } 
     }
-    return registrosAgendadosTemp.filter(agendado => {
+    return this.registrosPersonasTemp.filter(agendado => {
       const term = text.toLowerCase();
       return pipe.transform(agendado.iduniminuto).includes(term)
           || pipe.transform(agendado.documento).includes(term)
           || agendado.nombreCompleto.toLowerCase().includes(term)
-          || agendado.cohorte.toLowerCase().includes(term)
+          || pipe.transform(agendado.cohorte).includes(term)
           || agendado.sede.toLowerCase().includes(term)
           || agendado.programa.toLowerCase().includes(term);
     });
@@ -154,9 +172,15 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
         )
         break;
       case 2:
+        this.personas$ = this.filterPersonas.valueChanges.pipe(
+          startWith(''),
+          map(text => this.BuscarPersonas(text, this.pipe))
+        )
+        break;
+      case 3:
         this.agendados$ = this.filterAgendados.valueChanges.pipe(
           startWith(''),
-          map(text => this.BuscarAgendados(text, this.pipe))
+          map(text => this.BuscarAgendados2(text, this.pipe))
         )
         break;
       default:
@@ -173,6 +197,9 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
         respuesta  = this.modal.open( modalRecibido, { size : 'lg'  ,  backdropClass: 'light-blue-backdrop', backdrop: "static"  } );
         break;
       case 2:
+        this.programaid = -1;
+        this.cohorteid = -1;
+        this.sedeid = -1;
        respuesta  = this.modal.open( modalRecibido, { size : 'lg'  ,  backdropClass: 'light-blue-backdrop', backdrop: "static", scrollable: true  } );
         
         break;
@@ -228,8 +255,9 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
       (respuesta: RespuestaInterface) =>{
         switch (respuesta.codigo){
           case 200:
-            this.registrosPersonas = this.controladorPersonas.todos;
-
+            this.controladorPersonas.todos.forEach(val => this.registrosPersonas.push(Object.assign({},val)));
+            this.registrosPersonas.forEach(persona => persona.seleccionado = false);
+            console.log(this.registrosPersonas);
             this.AplicarFiltros(2);
           break;
           default:
@@ -318,6 +346,64 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
            break;
        }
      this.AplicarFiltros(2);
+  }
+
+  SeleccionarTodos(control : string){
+    switch(control){
+      case 'nuevasPersonas':
+        if(this.seleccionarTodos.nuevasPersonas){
+          for (var posicion in this.registrosPersonasTemp) {  
+           this.registrosPersonasTemp[posicion].seleccionado = false;
+          }  
+          this.seleccionarTodos.nuevasPersonas = false;
+        }
+        else{
+          for (var posicion in this.registrosPersonasTemp) {
+            this.registrosPersonasTemp[posicion].seleccionado = true;
+          }  
+          this.seleccionarTodos.nuevasPersonas = true;
+        }
+      break;
+      // case 'nuevosAgendados':
+      //   if(this.seleccionarTodos.nuevosAgendados){
+      //     for (var posicion in this.arregloNuevosEstudios) {  
+      //       this.arregloNuevosEstudios[posicion].seleccionado = false;
+      //     }  
+      //     this.seleccionarTodos.nuevosEstudios = false;
+      //   }
+      //   else{
+      //     for (var posicion in this.arregloNuevosEstudios) {  
+      //       this.arregloNuevosEstudios[posicion].seleccionado = true;
+      //     }  
+      //     this.seleccionarTodos.nuevosEstudios = true;
+      //   }
+      // break;      
+    }
+  }
+
+  EliminarTodos(){
+
+  }
+
+  AgregarPersonas(){
+    console.log('La Agregacion')
+    console.log(this.registrosAgendados.length)
+    if (this.registrosAgendados.length == 0) {
+      for (let i = 0; i < this.registrosPersonasTemp.length; i++) {
+        this.registrosAgendados.push(this.registrosPersonasTemp[i]);
+      }
+    } else {
+      let contador: number = 0;
+      for (let contador = 0; contador < this.registrosAgendados.length; contador++) {
+        // for (let i = 0; i < array.length; i++) {
+          
+        // }
+        // this.registrosAgendados.push(this.registrosPersonasTemp[i]);
+      }
+    }
+
+    this.AplicarFiltros(3)
+    console.log(this.registrosAgendados);
   }
 
 }
