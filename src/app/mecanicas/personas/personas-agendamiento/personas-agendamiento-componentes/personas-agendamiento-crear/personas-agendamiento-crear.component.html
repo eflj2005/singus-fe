@@ -322,7 +322,7 @@
                             <td><ngb-highlight [result]="persona.sede " [term]="filterPersonas.value"></ngb-highlight></td>
                             <td >
                                 <div class="custom-control custom-checkbox">
-                                  <input type="checkbox" class="custom-control-input" id="customCheck_nuevoSeguimiento" [(ngModel)]="persona.seleccionado">
+                                  <input type="checkbox" class="custom-control-input" [id]="'customCheck_nuevoSeguimiento'+persona.id" [(ngModel)]="persona.seleccionado">
                                   <label class="custom-control-label " for="customCheck_nuevoSeguimiento" ></label>
                                 </div>
                             </td>
