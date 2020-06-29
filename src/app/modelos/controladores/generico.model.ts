@@ -7,6 +7,7 @@ import { AmbienteService } from '@servicios/ambiente.service';
 import { filtroInterface } from '@interfaces/filtro.interface';
 import { RespuestaInterface } from '../interfaces/respuesta.interface';
 import { isNull, isUndefined } from 'util';
+import { EstructuraConsultas } from '@generales/estructura-consultas';
 
 interface RelacionesInterface {
   controlador: number;
@@ -237,13 +238,15 @@ export class GenericoModel {
 
   }
 
-  public CargarDesdeDB(  conToken:boolean=true , modoCargue:string="S", caracteristicas:any=null): Observable<any> {
+  public CargarDesdeDB(  conToken:boolean=true , modoCargue:string="S", caracteristicas:any = null): Observable<any> {
   
     this.listoCargue=false;
 
     let re1 = /\"/gi;
     let re2 = /{/gi;
     let re3 = /\}/gi;    
+
+    let columnasSolicitadas:any = !isNull(caracteristicas) ? caracteristicas.columnas : null;
     
     let datosEnviados = new HttpParams()
       .set("accion","obtener_registros")
@@ -258,7 +261,7 @@ export class GenericoModel {
           if(respuesta.codigo == 200){
             this.LimpiarTodo();
             if(!isNull(respuesta.mensaje)){
-              this.ProcesarRegistros(respuesta.mensaje, this);
+              this.ProcesarRegistros(respuesta.mensaje, this, columnasSolicitadas );
             }
             else{
               this.listoCargue=true;
@@ -321,9 +324,9 @@ export class GenericoModel {
   //   return objeto;
   // }
 
-  private ProcesarRegistros( registrosRecibidos:any[], controladorActual:any ){
+  private ProcesarRegistros( registrosRecibidos:any[], controladorActual:any, columnasSolicitadas:any ){
     if(controladorActual.listoCampos == false){
-      window.setTimeout(controladorActual.ProcesarRegistros, 100, registrosRecibidos,controladorActual); /* this checks the flag every 100 milliseconds*/
+      window.setTimeout(controladorActual.ProcesarRegistros, 100, registrosRecibidos,controladorActual,columnasSolicitadas); /* this checks the flag every 100 milliseconds*/
     }
     else{
       let regExp = /\-/gi;
@@ -333,22 +336,29 @@ export class GenericoModel {
           registro.dbRef=null;
           registro.modo=null;
           for (var campo in registro) {
-            if( campo.search("_fecha") != -1 ){
-              if( !isNull(registro[campo]) && (registro[campo] != "") )   registro[campo] = (registro[campo]).substr(0,4) + "-" + (registro[campo]).substr(5,2) + "-" + (registro[campo]).substr(8,2);
-              else                                                        registro[campo] = "";
-            }
-            else{
-              if(registro[campo]!=null){
+            if(registro[campo]!=null){
+              if( campo.search("_fecha") != -1 ){
+                if( !isNull(registro[campo]) && (registro[campo] != "") )   registro[campo] = (registro[campo]).substr(0,4) + "-" + (registro[campo]).substr(5,2) + "-" + (registro[campo]).substr(8,2);
+                else                                                        registro[campo] = "";
+              }
+              else{ 
                 let datosCampo = controladorActual.campos.find((elemento: { nombre: string; }) => elemento.nombre == campo); 
                 if(!isUndefined(datosCampo)){
                   let tipoDato = datosCampo.tipo;               
-                  if( tipoDato == "int" || tipoDato == "bigint" || tipoDato == "decimal"){  registro[campo] = +registro[campo]; }
+                  if( tipoDato == "int" || tipoDato == "bigint" || tipoDato == "decimal"){  registro[campo] = Number( registro[campo] ); }
                 }
-                else{
-                  let nuevoValor:any = Number(registro[campo]);
-                  if( !isNaN(nuevoValor) ){
-                    registro[campo] = nuevoValor;
-                  }
+                else{ 
+                  if(!isNull(columnasSolicitadas)){
+                    let columna = columnasSolicitadas.find((elemento: { alias: string; }) => elemento.alias == campo ); 
+                    if(!isUndefined(columna)){
+                      if(columna.esNumerico){
+                        let nuevoValor:any = Number(registro[campo]);
+                        if( !isNaN(nuevoValor) ){
+                          registro[campo] = nuevoValor;
+                        }
+                      }
+                    }
+                  }  
                 }
               }
             }

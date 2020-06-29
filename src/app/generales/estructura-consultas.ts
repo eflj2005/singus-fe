@@ -154,9 +154,9 @@ export class EstructuraConsultas {
     }
   }
 
-  public AgregarColumna( nombreTabla:string, nombreColumna:string, aliasColumna:string ){
+  public AgregarColumna( nombreTabla:string, nombreColumna:string, aliasColumna:string, esNumerico:boolean = false ){
     if( isNull( this.columnas ) ) this.columnas = [];
-    this.columnas.push( { tabla: nombreTabla , columna: nombreColumna , alias: aliasColumna } );
+    this.columnas.push( { tabla: nombreTabla , columna: nombreColumna , alias: aliasColumna, esNumerico: esNumerico } );
   }
 
   public AgregarEnlace( tablaEnlace:string, tablaConPK:string, tablaConFK:string, tablaAlias:string = "" ){

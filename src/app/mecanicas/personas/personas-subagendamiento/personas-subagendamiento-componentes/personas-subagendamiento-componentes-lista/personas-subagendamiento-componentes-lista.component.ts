@@ -10,11 +10,11 @@ interface DatosIntercambioInterface{
 }
 
 @Component({
-  selector: 'app-personas-subagendamiento-componentes-listaagendamiento',
-  templateUrl: './personas-subagendamiento-componentes-listaagendamiento.component.html',
-  styleUrls: ['./personas-subagendamiento-componentes-listaagendamiento.component.css']
+  selector: 'app-personas-subagendamiento-componentes-lista',
+  templateUrl: './personas-subagendamiento-componentes-lista.component.html',
+  styleUrls: ['./personas-subagendamiento-componentes-lista.component.css']
 })
-export class PersonasSubagendamientoComponentesListaagendamientoComponent implements OnInit {
+export class PersonasSubagendamientoComponentesListaComponent implements OnInit {
 
   @Input() controladorAgendas:AgendasController;
   @Input() agendamientos:AgendamientosInterface[];
@@ -38,7 +38,8 @@ export class PersonasSubagendamientoComponentesListaagendamientoComponent implem
   EliminarAgenda( agenda_id: number ){
     if(this.agendamientos.length != 0 ){
       alert("La agenda a descartar debe estar vacia");
-    }{
+    }
+    else{
       this.controladorAgendas.Encontrar("id",agenda_id );
       console.log(this.controladorAgendas.actual);
     }
