@@ -6,17 +6,17 @@
         <div class="col-4">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon1">Fecha de Inicio :</span>
+                  <span class="input-group-text" id="basic-addon1">Fecha de Inicio : </span>
                 </div>
-                <input type="date" class="form-control" aria-describedby="basic-addon1">
+                <input type="date" class="form-control" aria-describedby="basic-addon1" [(ngModel)]="apertura_fecha">
             </div>
         </div>
         <div class="col-4">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon1">Fecha de Finalización :</span>
+                  <span class="input-group-text" id="basic-addon1">Fecha de Finalización : </span>
                 </div>
-                <input type="date" class="form-control" aria-describedby="basic-addon1">
+                <input type="date" class="form-control" aria-describedby="basic-addon1" [(ngModel)]="cierre_fecha">
             </div>
         </div>
     </div>
@@ -150,7 +150,7 @@
     </div>
     <div  class="row button justify-content-end">
         <div class= col>
-            <button class="btn btn-primary buttonGeneral" >Guardar</button>
+            <button class="btn btn-primary buttonGeneral" (click)="CrearAgenda()" >Guardar</button>
             <button class="btn btn-outline-dark buttonGeneral"  (click)="Cancelar()" >Cancelar</button>
         </div>
         <div class="col">

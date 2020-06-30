@@ -8,6 +8,7 @@ import { startWith, map } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EstructuraConsultas } from '@generales/estructura-consultas';
 import { HttpClient } from '@angular/common/http';
+import { AutenticacionService } from '@servicios/autenticacion.service';
 
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { ResponsablesInterface } from "@interfaces/responsables.interface";
@@ -21,6 +22,9 @@ import { AgendasController } from "@controladores/agendas.controller";
 import { AgendasInterface } from '@interfaces/agendas.interface';
 import { UsuariosController } from '@controladores/usuarios.controller';
 import { UsuarioInterface } from '@interfaces/usuario.interface';
+import { AsignacionesController } from '@controladores/asignaciones.controller';
+import { SeguimientosController } from "@controladores/seguimientos.controller";
+import { AgendamientosController } from "@controladores/agendamientos.controller";
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 
 
@@ -44,28 +48,34 @@ interface ListaPersonasInterface extends PersonasInterface {
   providers: [DecimalPipe]
 })
 export class PersonasAgendamientoCrearComponent implements OnInit {
-
-  // controladorResponsables: ResponsablesController;      //REVISAR - ELIMINACION DE CONTROLADOR
+// -------------- Controladores y interfaces ---------------
   controladorUsuarios: UsuariosController;
   controladorAgendas: AgendasController;
   controladorPersonas: PersonasController;
   controladorSedes : SedesController;
   controladorCohortes : CohortesController;
   controladorProgramas : ProgramasController;
+  controladorSeguimientos: SeguimientosController;
+  controladorAgendamientos: AgendamientosController;
+  controladorAsignaciones : AsignacionesController;
   
   registroUsuarios: UsuarioInterface[];
   registrosAgendas:  AgendasInterface[];
   registrosPersonas:  ListaPersonasInterface[] = [];
   registrosPersonasTemp: ListaPersonasInterface[];
   registrosAgendados: ListaPersonasInterface[];
-
+// ------------------ Filtros -------------------------------
   sedeid: number = -1 ;
   cohorteid:number = -1 ;
   programaid: number = -1 ;
 
+// ------------------ Datos para la agenda -----------------------------
 
+  apertura_fecha: Date ;
+  cierre_fecha: Date;
   responsableSelecionado : ResponsableSeleccionado  = {'id': null, 'nombres': ''};
-  filtros: Array<string>; 
+  creador : number;
+// ------------------------- Observables y demas -------------------------
   rol : string;
   responsables$: Observable<UsuarioInterface[]>;
   personas$: Observable<ListaPersonasInterface[]>;
@@ -80,10 +90,13 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     conCambios: false
   }
 
-  constructor(private servicioAmbiente: AmbienteService , private pipe: DecimalPipe, private modal: NgbModal, private llamadoHttp :HttpClient ) {
+  constructor(private autenticador: AutenticacionService, private servicioAmbiente: AmbienteService , private pipe: DecimalPipe, private modal: NgbModal, private llamadoHttp :HttpClient ) {
+    this.creador = this.autenticador.UsuarioActualValor.id;
     this.ConsultaResponsables();
     this.CargarControladores();
     this.ConsultaPersonas();
+    this.controladorAgendas = new AgendasController(this.llamadoHttp, this.servicioAmbiente);
+    this.controladorSeguimientos = new SeguimientosController(this.llamadoHttp, this.servicioAmbiente);
     this.registrosAgendados = [];
     // this.dateFormatormat(this.now, "dddd, mmmm dS, yyyy");
     // this.FechaInicio= formatDate(new Date(), 'yyyy-MM-dd', 'en')
@@ -255,8 +268,10 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
       (respuesta: RespuestaInterface) =>{
         switch (respuesta.codigo){
           case 200:
-            this.controladorPersonas.todos.forEach(val => this.registrosPersonas.push(Object.assign({},val)));
-            this.registrosPersonas.forEach(persona => persona.seleccionado = false);
+
+            this.registrosPersonas = this.controladorPersonas.todos;
+            // this.controladorPersonas.todos.forEach(val => this.registrosPersonas.push(Object.assign({},val)));
+            // this.registrosPersonas.forEach(persona => persona.seleccionado = false);
             console.log(this.registrosPersonas);
             this.AplicarFiltros(2);
           break;
@@ -404,6 +419,29 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
 
     this.AplicarFiltros(3)
     console.log(this.registrosAgendados);
+  }
+
+  CrearAgenda(){
+   let nuevaAgenda: AgendasInterface = {'id': null , 'agendas_id': null, 'apertura_fecha': String(this.apertura_fecha) , 'cierre_fecha': String(this.cierre_fecha), 'nivel': 0};
+   this.controladorAgendas.Agregar(nuevaAgenda);
+    console.log(this.controladorAgendas.todos);
+   this.controladorAgendas.Guardar().subscribe( 
+    (respuestaAgendas:RespuestaInterface) => { 
+      if( respuestaAgendas.codigo == 200 ){
+        console.log(respuestaAgendas.mensaje.dbRefs[0].id);
+        for (let i = 0; i < this.registrosAgendados.length ; i++) {
+          // let nuevoSeguimiento : 
+          
+        }
+
+      }    
+      else{
+        alert("Error al guardar Agendas");
+      }                              
+    }
+  );
+
+
   }
 
 }
