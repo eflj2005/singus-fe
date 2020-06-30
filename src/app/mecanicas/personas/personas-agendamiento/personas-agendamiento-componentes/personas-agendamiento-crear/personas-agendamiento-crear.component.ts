@@ -25,6 +25,9 @@ import { UsuarioInterface } from '@interfaces/usuario.interface';
 import { AsignacionesController } from '@controladores/asignaciones.controller';
 import { SeguimientosController } from "@controladores/seguimientos.controller";
 import { AgendamientosController } from "@controladores/agendamientos.controller";
+import { SeguimientosInterface } from "@interfaces/seguimientos.interface";
+import { AgendamientosInterface } from "@interfaces/agendamientos.interface";
+import { AsignacionesInterface } from "@interfaces/asignaciones.interface";
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 
 
@@ -70,7 +73,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
   programaid: number = -1 ;
 
 // ------------------ Datos para la agenda -----------------------------
-
+  resgistro_fecha: string;
   apertura_fecha: Date ;
   cierre_fecha: Date;
   responsableSelecionado : ResponsableSeleccionado  = {'id': null, 'nombres': ''};
@@ -92,9 +95,12 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
 
   constructor(private autenticador: AutenticacionService, private servicioAmbiente: AmbienteService , private pipe: DecimalPipe, private modal: NgbModal, private llamadoHttp :HttpClient ) {
     this.creador = this.autenticador.UsuarioActualValor.id;
+    this.resgistro_fecha = formatDate(new Date(), 'yyyy-MM-dd', 'en')
     this.ConsultaResponsables();
     this.CargarControladores();
     this.ConsultaPersonas();
+    this.controladorAsignaciones = new AsignacionesController(this.llamadoHttp, this.servicioAmbiente);
+    this.controladorAgendamientos = new AgendamientosController(this.llamadoHttp, this.servicioAmbiente);
     this.controladorAgendas = new AgendasController(this.llamadoHttp, this.servicioAmbiente);
     this.controladorSeguimientos = new SeguimientosController(this.llamadoHttp, this.servicioAmbiente);
     this.registrosAgendados = [];
@@ -422,17 +428,53 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
   }
 
   CrearAgenda(){
-   let nuevaAgenda: AgendasInterface = {'id': null , 'agendas_id': null, 'apertura_fecha': String(this.apertura_fecha) , 'cierre_fecha': String(this.cierre_fecha), 'nivel': 0};
+   let nuevaAgenda: any = {'id': null , 'agendas_id': null, 'apertura_fecha': String(this.apertura_fecha) , 'cierre_fecha': String(this.cierre_fecha), 'nivel': "0"}; // Por problema con 0 y json esta en any pero debe cambiar a la interfaz de agendas
    this.controladorAgendas.Agregar(nuevaAgenda);
-    console.log(this.controladorAgendas.todos);
    this.controladorAgendas.Guardar().subscribe( 
     (respuestaAgendas:RespuestaInterface) => { 
       if( respuestaAgendas.codigo == 200 ){
         console.log(respuestaAgendas.mensaje.dbRefs[0].id);
         for (let i = 0; i < this.registrosAgendados.length ; i++) {
-          // let nuevoSeguimiento : 
-          
+           let nuevoSeguimiento : SeguimientosInterface = {'id': null, 'actualizacion_fecha': null, 'observacion': null, 'tiposobservaciones_id' : null , 'personas_id': this.registrosAgendados[i].id};
+           this.controladorSeguimientos.Agregar(nuevoSeguimiento);
         }
+        console.log(this.controladorSeguimientos.todos);
+        this.controladorSeguimientos.Guardar().subscribe(
+          (respuestaSeguimientos : RespuestaInterface) => {
+            if ( respuestaSeguimientos.codigo == 200) {
+              console.log(respuestaSeguimientos.mensaje.dbRefs);
+              for (let i = 0; i < respuestaSeguimientos.mensaje.dbRefs.length; i++) {
+                let nuevoAgendamiento : AgendamientosInterface = {'id': null, 'agendas_id': respuestaAgendas.mensaje.dbRefs[0].id ,'seguimientos_id' : respuestaSeguimientos.mensaje.dbRefs[i].id }
+                this.controladorAgendamientos.Agregar(nuevoAgendamiento);
+              }
+              this.controladorAgendamientos.Guardar().subscribe(
+                (respuestaAgendamientos : RespuestaInterface) => {
+                  if (respuestaAgendamientos.codigo == 200) {
+                    console.log(respuestaAgendamientos.mensaje.dbRefs);
+                    let asignacionResponsable : AsignacionesInterface = {'id': null, 'agendas_id': respuestaAgendas.mensaje.dbRefs[0].id, 'registro_fecha': this.resgistro_fecha, 'usuarios_id': this.responsableSelecionado.id ,'tipo': "R" };
+                    this.controladorAsignaciones.Agregar(asignacionResponsable);
+                    let asignacionCoordinador : AsignacionesInterface = {'id': null, 'agendas_id': respuestaAgendas.mensaje.dbRefs[0].id, 'registro_fecha': this.resgistro_fecha, 'usuarios_id' : this.creador , 'tipo': "C" };
+                    this.controladorAsignaciones.Agregar(asignacionCoordinador);
+
+                    this.controladorAsignaciones.Guardar().subscribe(
+                      (respuestaAsignaciones : RespuestaInterface) => {
+                        if (respuestaAsignaciones.codigo == 200) {
+                          console.log("listo xD")
+                        } else {
+                          alert("Error al guardar Asignaciones");
+                        }
+                      }
+                    );
+                  } else {
+                    alert("Error al guardar Agendamientos");
+                  }
+                }
+              );
+            } else {
+                alert("Error al guardar Seguimientos");
+            }
+          }
+        );
 
       }    
       else{
