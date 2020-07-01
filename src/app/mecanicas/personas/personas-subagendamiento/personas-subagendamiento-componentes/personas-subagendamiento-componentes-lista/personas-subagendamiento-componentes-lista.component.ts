@@ -84,7 +84,7 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
     
     const modalRef = this.servicioEmergentes.open(PersonasSubagendamientoComponentesProcesarComponent, { size : 'xl'  ,  backdropClass: 'light-blue-backdrop', backdrop: "static"  } );
     modalRef.componentInstance.controladorAgendas = this.controladorAgendas;
-    modalRef.componentInstance.controladorSeguimientos = this.controladorSeguiminetos;
+    modalRef.componentInstance.controladorSeguimientos = this.controladorSeguimientos;
     modalRef.componentInstance.idAgendaProcesada = this.datosBaseAgenda.agenda_id;
     modalRef.componentInstance.modoProceso = modoRecibido;
     modalRef.componentInstance.modal = modalRef;

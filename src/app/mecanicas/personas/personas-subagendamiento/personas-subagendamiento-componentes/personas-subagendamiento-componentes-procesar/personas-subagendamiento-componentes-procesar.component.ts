@@ -3,6 +3,12 @@ import { AgendasInterface } from '@interfaces/agendas.interface';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { AgendasController } from '@controladores/agendas.controller';
 import { SeguimientosController } from '@controladores/seguimientos.controller';
+import { UsuariosController } from '@controladores/usuarios.controller';
+import { AmbienteService } from '@servicios/ambiente.service';
+import { HttpClient } from '@angular/common/http';
+import { AutenticacionService } from '@servicios/autenticacion.service';
+import { RespuestaInterface } from '@interfaces/respuesta.interface';
+import { SeguimientosInterface } from '@interfaces/seguimientos.interface';
 
 interface DatosIntercambioInterface{
   [index: string]: any;
@@ -13,7 +19,7 @@ interface AgendaCompletoInterface extends AgendasInterface{
 }
 
 interface DatosAgendas{
-  padre: AgendasController,
+  padre: AgendasInterface,
   actual: AgendaCompletoInterface,
   agendamientos: AgendasInterface[]
 }
@@ -33,21 +39,31 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
   modal:NgbModalRef;
 
   //Otros atributos
-  titulos: { [index: string]: string; } = { principal: "", seccion: "" }
 
+  controladorUsaurios: UsuariosController;
+
+  titulos: { [index: string]: string; } = { principal: "", seccion: "" }
   datos: DatosAgendas ={  padre: null,  actual: null, agendamientos: null }
 
-  datosAgendaPadre:AgendasController;
-  datosAgendaActual:AgendaCompletoInterface;
-  datosAgendamientos:AgendasInterface[];
+  listaSegimientosDisponibles:any[];
+  listaSegimientosAsignados:any[]];
 
   seleccionarTodos: any = {
-    nuevasPersonas: false,
-    nuevosEstudios: false,
-    conCambios: false
+    seguimientosDisponibles: false,
+    seguimientosAsignados: false,
   }
 
-  constructor() { }
+  constructor(
+    private servicioAmbiente : AmbienteService,
+    private llamadoHttp : HttpClient,
+    private autenticador: AutenticacionService  
+  ) {
+
+    this.controladorUsaurios = new UsuariosController(llamadoHttp,servicioAmbiente);
+
+    this.controladorUsaurios.CargarDesdeDB().subscribe( (respuesta:RespuestaInterface) => {           // Carge de usuarios
+    });
+   }
 
   ngOnInit() {
 
@@ -60,6 +76,17 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
         this.datos.padre = this.controladorAgendas.actual;
         this.datos.actual = { id: null, apertura_fecha: "", cierre_fecha: "", nivel: null, responsable_id: null };
         this.datos.agendamientos = [];
+
+        console.log(this.controladorSeguimientos.todos);
+
+        this.listaSegimientosDisponibles = []
+        this.listaSegimientosAsignados = [];
+
+        
+        this.FiltrarDatos( this.controladorSeguimientos.todos , 'agenda_id' , this.datos.padre.id ).forEach( (listaSegimientosDisponibles: any ) => {
+          this.listaSegimientosDisponibles.push(listaSegimientosDisponibles);
+        });
+
 
       break;
       case "modificar":
@@ -105,6 +132,11 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
 
   Cancelar(){
     this.modal.dismiss('CANCELAR');
+  }
+
+  FiltrarDatos( arreglo : any , campo : string , valor : any ){
+    let resultados = arreglo.filter( (elemento: { [x: string]: any; }) => elemento[campo] == valor );
+    return resultados;
   }
 
 }

@@ -56,9 +56,9 @@
   <div class="form-row justify-content-between align-items-center py-1">
     <div class="col-md">     
       <div class="form-row justify-content-between align-items-center">
-        <div class="col-md-2">
+        <div class="col-md-1">
           <div class="form-row">
-            <label for="actual_id" class="col-sm-4 col-form-label col-form-label-sm text-wrap">Id:</label>
+            <label for="actual_id" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Id:</label>
             <div class="col-sm">
               <input type="text" class="form-control form-control-sm" id="actual_id" name="actual_id" [(ngModel)]="datos.actual.id" [readonly]="true">
             </div>
@@ -83,13 +83,13 @@
           </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div class="form-row">
             <label for="actual_responsable" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Responsable:</label>
             <div class="col-sm-9">
               <select  class="form-control form-control-sm" id="actual_responsable" name="actual_responsable" [(ngModel)]="datos.actual.responsable_id">
                 <option value="null" disabled>-- Seleccione Responsable --</option>
-                <!-- <option *ngFor="let elementoIT of Estudios_ObtenerListaInstituciones(); let indiceIT= index" value="{{elementoIT.id}}">{{elementoIT.descripcion}}</option>               -->
+                <option *ngFor="let elemento of controladorUsaurios.todos; let indice= index" value="{{elemento.id}}">{{elemento.nombres + ' ' + elemento.apellidos}}</option>
               </select>
 
             </div>
@@ -98,7 +98,13 @@
       </div>
     </div>
   </div>
- 
+
+   
+  <div class="row">
+    <div class="col-md">
+      <span><strong>Seguimientos Disponibles:</strong></span>
+    </div>
+  </div>
   <div class="row">
     <div class="col-md">
 
@@ -132,9 +138,9 @@
           </tr>
         </thead>
         <tbody>
-          <!-- <tr *ngFor="let elemento of FiltrarDatos( controladorAgendamientos.todos , 'agendas_id' , agenda_id); let indiceAgendamientos = index">
-            <th scope="row">{{ elemento.seguimientosId }}</th>
-            <td>{{ elemento.uniminutoId }}</td>
+          <tr *ngFor="let elemento of listaSegimientosDisponibles; let indiceAgendamientos = index">
+            <th scope="row">{{ elemento.id }}</th>
+            <!-- <td>{{ elemento.uniminutoId }}</td>
             <td>{{ elemento.nombreCompleto }}</td>
             <td>{{ elemento.fechaRegistro }}</td>
             <td>{{ elemento.fechaActualizacion }}</td>
@@ -142,8 +148,8 @@
             <td>
               <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivarModalHistoricos( modalHistoricosEstudios, 5, elemento.id )"  placement="left" ngbTooltip="Actualización"><i class="fa fa-pencil-square-o"></i></button>
               <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="EliminarHistorico( elemento.dbRef  )"  placement="left" ngbTooltip="Seguimiento"><i class="fa fa-address-card-o"></i></button>
-            </td>                  
-          </tr> -->
+            </td>                   -->
+          </tr>
         </tbody>
       </table>
 
@@ -158,6 +164,12 @@
     <div class="col-md-5">
       <button type="button" class="btn btn-outline-primary py-0 px-1 my-1 mr-1"><i class="fa fa-angle-double-up"></i> Retirar Todos</button>
       <button type="button" class="btn btn-outline-primary py-0 px-1 my-1 ml-1"><i class="fa fa-angle-up"></i> Retirar Seleccionados</button>                  
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md">
+      <span><strong>Seguimientos Asignados:</strong></span>
     </div>
   </div>
 
