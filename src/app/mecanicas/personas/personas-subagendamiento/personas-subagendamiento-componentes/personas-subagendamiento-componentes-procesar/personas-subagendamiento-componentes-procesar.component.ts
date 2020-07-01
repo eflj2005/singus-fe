@@ -1,12 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AgendasInterface } from '@interfaces/agendas.interface';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { AgendasController } from '@controladores/agendas.controller';
+import { SeguimientosController } from '@controladores/seguimientos.controller';
 
 interface DatosIntercambioInterface{
   [index: string]: any;
 }
 
+interface AgendaCompletoInterface extends AgendasInterface{
+  responsable_id: number;
+}
 
+interface DatosAgendas{
+  padre: AgendasController,
+  actual: AgendaCompletoInterface,
+  agendamientos: AgendasInterface[]
+}
 
 @Component({
   selector: 'app-personas-subagendamiento-componentes-procesar',
@@ -15,14 +25,21 @@ interface DatosIntercambioInterface{
 })
 export class PersonasSubagendamientoComponentesProcesarComponent implements OnInit {
 
-  titulos: { [index: string]: string; } = {
-    principal: "",
-    seccion: ""
-  }
-
-  datos:DatosIntercambioInterface;
-
+  //Atribitos recibidos
+  controladorAgendas: AgendasController;
+  controladorSeguimientos: SeguimientosController;
+  idAgendaProcesada: number;
+  modoProceso: String;
   modal:NgbModalRef;
+
+  //Otros atributos
+  titulos: { [index: string]: string; } = { principal: "", seccion: "" }
+
+  datos: DatosAgendas ={  padre: null,  actual: null, agendamientos: null }
+
+  datosAgendaPadre:AgendasController;
+  datosAgendaActual:AgendaCompletoInterface;
+  datosAgendamientos:AgendasInterface[];
 
   seleccionarTodos: any = {
     nuevasPersonas: false,
@@ -34,14 +51,22 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
 
   ngOnInit() {
 
-    if( this.datos.actual.id == null ){
-      this.titulos.principal = "Creación de Distribución";
-      this.titulos.seccion = "Nueva Subagenda";
+    switch(this.modoProceso){
+      case "subagendar":
+        this.titulos.principal = "Creación de Distribución";
+        this.titulos.seccion = "Nueva Subagenda";
+
+        this.controladorAgendas.Encontrar("id",this.idAgendaProcesada);
+        this.datos.padre = this.controladorAgendas.actual;
+        this.datos.actual = { id: null, apertura_fecha: "", cierre_fecha: "", nivel: null, responsable_id: null };
+        this.datos.agendamientos = [];
+
+      break;
+      case "modificar":
+        this.titulos.principal = "Modificación de Distribución";
+        this.titulos.seccion = "Modificación Agenda";
+      break;
     }
-    else{
-      this.titulos.principal = "Modificación de Distribución";
-      this.titulos.seccion = "Modificación Agenda";
-    } 
 
   }
   

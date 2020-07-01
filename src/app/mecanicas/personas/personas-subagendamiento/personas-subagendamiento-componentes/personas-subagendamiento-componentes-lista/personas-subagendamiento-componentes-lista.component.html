@@ -4,17 +4,17 @@
   </div>
   <div class="col-md-6">
     <button 
-      *ngIf=" agendaEncontrada ? ( ( controladorAgendas.actual.creador_id == usuario_id ) && ( controladorAgendas.actual.distribuciones == 0 ) ) : false "     
+      *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.creador_id == usuario_id ) && ( datosBaseAgenda.distribuciones == 0 ) ) : false "     
       type="button" class="btn btn-outline-primary py-0 px-1 float-right" 
       (click)="EliminarAgenda( datosAgenda.id )"
     ><i class="fa fa-trash-o"></i> Descartar</button>
     <button 
-      *ngIf=" agendaEncontrada ? ( ( controladorAgendas.actual.creador_id == usuario_id ) && ( controladorAgendas.actual.distribuciones == 0 ) ) : false " 
+      *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.creador_id == usuario_id ) && ( datosBaseAgenda.distribuciones == 0 ) ) : false " 
       type="button" class="btn btn-outline-primary py-0 px-1 mx-1 float-right"
       (click)="ProcesarAgenda('modificar',agenda_id)"
     ><i class="fa fa-pencil-square-o"></i> Modificar</button>
     <button 
-      *ngIf=" agendaEncontrada ? ( controladorAgendas.actual.nivel < 2 ) : false "     
+      *ngIf=" agendaEncontrada ? ( datosBaseAgenda.nivel < 2 ) : false "     
       type="button" class="btn btn-outline-primary py-0 px-1 float-right" 
       (click)="ProcesarAgenda('subagendar',agenda_id)"
       ><i class="fa fa-sitemap"></i> Subagendar</button>
@@ -36,7 +36,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let elemento of FiltrarDatos( controladorSeguiminetos.todos , 'agenda_id' , agenda_id); let indiceAgendamientos = index">
+        <tr *ngFor="let elemento of FiltrarDatos( controladorSeguimientos.todos , 'agenda_id' , datosBaseAgenda.agenda_id); let indiceAgendamientos = index">
           <th scope="row">{{ elemento.id }}</th>
           <td>{{ elemento.uniminutoId }}</td>
           <td>{{ elemento.nombreCompleto }}</td>

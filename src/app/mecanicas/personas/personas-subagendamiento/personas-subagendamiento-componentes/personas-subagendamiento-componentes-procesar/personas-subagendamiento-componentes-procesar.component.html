@@ -65,7 +65,7 @@
           </div>         
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="form-row">
             <label for="actual_apertura_fecha" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Apertura:</label>
             <div class="col-sm-9">
@@ -74,7 +74,7 @@
           </div>
         </div>
         
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="form-row">
             <label for="actual_cierre_fecha" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Cierre:</label>
             <div class="col-sm-9">
@@ -82,6 +82,19 @@
             </div>
           </div>
         </div>
+
+        <div class="col-md-3">
+          <div class="form-row">
+            <label for="actual_responsable" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Responsable:</label>
+            <div class="col-sm-9">
+              <select  class="form-control form-control-sm" id="actual_responsable" name="actual_responsable" [(ngModel)]="datos.actual.responsable_id">
+                <option value="null" disabled>-- Seleccione Responsable --</option>
+                <!-- <option *ngFor="let elementoIT of Estudios_ObtenerListaInstituciones(); let indiceIT= index" value="{{elementoIT.id}}">{{elementoIT.descripcion}}</option>               -->
+              </select>
+
+            </div>
+          </div>
+        </div>        
       </div>
     </div>
   </div>

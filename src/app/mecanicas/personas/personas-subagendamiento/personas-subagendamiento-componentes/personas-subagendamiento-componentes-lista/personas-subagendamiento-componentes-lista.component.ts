@@ -27,8 +27,9 @@ interface DatosIntercambioInterface{
 export class PersonasSubagendamientoComponentesListaComponent implements OnInit {
 
   @Input() controladorAgendas:AgendasController;
+  @Input() controladorSeguimientos:SeguimientosController;
   @Input() agenda:Observable<number>;
-  agenda_id:number;
+  datosBaseAgenda:DatosIntercambioInterface = { agenda_id: null, creador_id: null, nivel: null };
 
   agendaEncontrada:boolean;
   
@@ -49,33 +50,20 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
     this.usuario_id = this.autenticador.UsuarioActualValor.id;
     this.agendaEncontrada=false;
 
-    this.controladorSeguiminetos = new SeguimientosController(llamadoHttp , servicioAmbiente);
-
-    caracteristicasConsultas = new EstructuraConsultas();
-    caracteristicasConsultas.AgregarColumna( null, "CONCAT(personas.nombres, ' ', personas.apellidos)", "nombreCompleto");
-    caracteristicasConsultas.AgregarColumna( "personas", "iduniminuto", "uniminutoId", true);
-    caracteristicasConsultas.AgregarColumna( "personas", "registro_fecha", "fechaRegistro");
-    caracteristicasConsultas.AgregarColumna( "personas", "actualizacion_fecha", "fechaActualizacion");
-    caracteristicasConsultas.AgregarColumna( "agendamientos", "agendas_id", "agenda_id", true);
-    caracteristicasConsultas.AgregarEnlace( "personas", "personas", "seguimientos");
-    caracteristicasConsultas.AgregarEnlace( "agendamientos", "seguimientos", "agendamientos");    
-    caracteristicasConsultas.AgregarEnlace( "agendas", "agendas", "agendamientos");
-    caracteristicasConsultas.AgregarEnlace( "asignaciones", "agendas", "asignaciones");
-    caracteristicasConsultas.AgregarFiltro(   "",     "asignaciones" ,  "usuarios_id" , "=", String(this.usuario_id) );
-    caracteristicasConsultas.AgregarFiltro(   "AND",  "asignaciones" ,  "tipo" , "=", "R" );
-    this.controladorSeguiminetos.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAG:RespuestaInterface) => {           // Carge de Agenda
-
-    }); 
-
-
   }
 
   ngOnInit() {
 
     this.agenda.subscribe( idAgenda => {
-      if(this.controladorAgendamientos.EstaListo('cargue')){
-        this.agenda_id = idAgenda;
-        this.agendaEncontrada = this.controladorAgendas.Encontrar("id",idAgenda);
+      if(this.controladorSeguimientos.EstaListo('cargue')){
+        this.agendaEncontrada = this.controladorAgendas.Encontrar("id", idAgenda);
+        if(this.agendaEncontrada){
+          this.datosBaseAgenda.agenda_id = this.controladorAgendas.actual.id;
+          this.datosBaseAgenda.creador_id = this.controladorAgendas.actual.creador_id;
+          this.datosBaseAgenda.nivel = this.controladorAgendas.actual.nivel;
+          this.datosBaseAgenda.distribuciones = this.controladorAgendas.actual.distribuciones;
+        }
+
       }
     });
     
@@ -94,28 +82,11 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
 
   ProcesarAgenda( modoRecibido: string, idRecibido : number ){
     
-
-    var registroPadre: AgendasInterface;
-    var registroActual: AgendasInterface;
-
-    var informacion: DatosIntercambioInterface = { 
-      padre: registroPadre,
-      actual: registroActual
-    }
-
-    switch(modoRecibido){
-      case "subagendar":
-        informacion.padre = Object.assign({},this.controladorAgendas.actual);
-        informacion.actual = {  id: null, apertura_fecha: "", cierre_fecha: "",  nivel: null  }
-      break;
-      case "modificar":
-
-      break;
-    }
-
-    
     const modalRef = this.servicioEmergentes.open(PersonasSubagendamientoComponentesProcesarComponent, { size : 'xl'  ,  backdropClass: 'light-blue-backdrop', backdrop: "static"  } );
-    modalRef.componentInstance.datos = informacion;
+    modalRef.componentInstance.controladorAgendas = this.controladorAgendas;
+    modalRef.componentInstance.controladorSeguimientos = this.controladorSeguiminetos;
+    modalRef.componentInstance.idAgendaProcesada = this.datosBaseAgenda.agenda_id;
+    modalRef.componentInstance.modoProceso = modoRecibido;
     modalRef.componentInstance.modal = modalRef;
 
 

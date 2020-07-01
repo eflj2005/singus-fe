@@ -9,6 +9,7 @@ import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { AgendasController } from '@controladores/agendas.controller';
 import { AgendamientosInterface } from '@interfaces/agendamientos.interface';
 import { BehaviorSubject } from 'rxjs';
+import { SeguimientosController } from '@controladores/seguimientos.controller';
 
 interface AgendasCompletoInterface extends AgendasInterface  {
   creador: string;
@@ -29,13 +30,14 @@ interface AgendamientosCompleto extends AgendamientosInterface{
 })
 export class PersonasSubagendamientoPrincipalComponent implements OnInit {
 
-  usuario_Id:number;
+  usuario_id:number;
 
   agendaSeleccionada:  BehaviorSubject<number>;
 
   controladorAsignaciones: AsignacionesController;
   controladorAgendas: AgendasController;
   controladorAgendasForaneas: AgendasController;
+  controladorSeguimientos: SeguimientosController;
 
   constructor(
     private servicioAmbiente : AmbienteService,
@@ -48,10 +50,12 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
 
     this.agendaSeleccionada = new BehaviorSubject(0);
 
-    this.usuario_Id = this.autenticador.UsuarioActualValor.id;
+    this.usuario_id = this.autenticador.UsuarioActualValor.id;
 
     this.controladorAgendas = new AgendasController(llamadoHttp , servicioAmbiente);
     this.controladorAgendasForaneas = new AgendasController(llamadoHttp , servicioAmbiente);
+    this.controladorAgendas.AgregarForanea(this.controladorAgendasForaneas);
+    this.controladorSeguimientos = new SeguimientosController(llamadoHttp , servicioAmbiente);
 
     caracteristicasConsultas = new EstructuraConsultas();
     caracteristicasConsultas.ActivarDiferentes();
@@ -61,7 +65,7 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
     caracteristicasConsultas.AgregarColumna( null , "(SELECT CONCAT(usuarios.nombres,' ',usuarios.apellidos) FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'C')", "creador" );
     caracteristicasConsultas.AgregarColumna( null , "( SELECT COUNT(*) FROM agendas AS AC WHERE AC.agendas_id = agendas.id )" , "distribuciones", true) ;
     caracteristicasConsultas.AgregarEnlace( "asignaciones" ,  "agendas" ,  "asignaciones" );
-    caracteristicasConsultas.AgregarFiltro( "", "asignaciones" , "usuarios_id" , "=", String(this.usuario_Id) );
+    caracteristicasConsultas.AgregarFiltro( "", "asignaciones" , "usuarios_id" , "=", String(this.usuario_id) );
     caracteristicasConsultas.AgregarOrdenamiento( "agendas.id" , "ASC" );
     this.controladorAgendas.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAP:RespuestaInterface) => {           // Carge de Agendas
 
@@ -79,19 +83,42 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
       });
       caracteristicasConsultas.AgregarOrdenamiento( "agendas.id" , "ASC" );
       this.controladorAgendasForaneas.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAF:RespuestaInterface) => {           // Carge de Agendas
-        this.controladorAgendas.AgregarForanea(this.controladorAgendasForaneas);
-      });   
 
+      });   
     });
 
+    caracteristicasConsultas = new EstructuraConsultas();
+    caracteristicasConsultas.AgregarColumna( null, "CONCAT(personas.nombres, ' ', personas.apellidos)", "nombreCompleto");
+    caracteristicasConsultas.AgregarColumna( "personas", "iduniminuto", "uniminutoId", true);
+    caracteristicasConsultas.AgregarColumna( "personas", "registro_fecha", "fechaRegistro");
+    caracteristicasConsultas.AgregarColumna( "personas", "actualizacion_fecha", "fechaActualizacion");
+    caracteristicasConsultas.AgregarColumna( "agendamientos", "agendas_id", "agenda_id", true);
+    caracteristicasConsultas.AgregarEnlace( "personas", "personas", "seguimientos");
+    caracteristicasConsultas.AgregarEnlace( "agendamientos", "seguimientos", "agendamientos");    
+    caracteristicasConsultas.AgregarEnlace( "agendas", "agendas", "agendamientos");
+    caracteristicasConsultas.AgregarEnlace( "asignaciones", "agendas", "asignaciones");
+    caracteristicasConsultas.AgregarFiltro(   "",     "asignaciones" ,  "usuarios_id" , "=", String(this.usuario_id) );
+    caracteristicasConsultas.AgregarFiltro(   "AND",  "asignaciones" ,  "tipo" , "=", "R" );
+    this.controladorSeguimientos.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAG:RespuestaInterface) => {           // Carge de Agenda
+
+    }); 
+
   }
-
-
 
   ngOnInit() {
 
   }
 
+  EstoyListo(){
+    let validador:boolean = false;
 
+    validador = (
+      this.controladorAgendas.EstaListo("cargue")                             &&
+      this.controladorAgendas.ObtenerForanea("agendas").EstaListo("cargue")   &&
+      this.controladorSeguimientos.EstaListo("cargue")
+    );
+
+    return validador;
+  }
 
 }
