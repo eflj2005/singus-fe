@@ -1,49 +1,91 @@
 <div class="modal-header">
-  <h4 class="modal-title">{{ titulo }}</h4>
+  <h4 class="modal-title">{{ titulos.principal }}</h4>
 </div>
 
 <div class="modal-body">
 
-  <div class="row">
-    <div class="col">
-      <!-- <form > -->
 
-        <div class="form-row justify-content-between">
-
-          <div class="form-group col-sm-2 px-1 mb-1">
-            <div class="form-row justify-content-between">
-              <label for="id" class="col-sm-4 col-form-label col-form-label-sm text-wrap">Id:</label>
-              <div class="col-sm">
-                <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="datos.id" [readonly]="true">
-              </div>     
+  <div class="form-row justify-content-between align-items-center">
+    <div class="col-md-2 align-middle">
+      <span><strong>Agenda Padre:</strong></span>
+    </div>
+    <div class="col-md-10">     
+      <div class="form-row justify-content-between align-items-center">
+        <div class="col-md-2">
+          <div class="form-row">
+            <label for="padre_id" class="col-sm-4 col-form-label col-form-label-sm text-wrap">Id:</label>
+            <div class="col-sm">
+              <input type="text" class="form-control form-control-sm" id="padre_id" name="padre_id" [(ngModel)]="datos.padre.id" [readonly]="true">
             </div>
-          </div>
-
-          <div class="form-group col-sm-4 px-1 mb-1">
-            <div class="form-row justify-content-between">
-              <label for="apertura_fecha" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Apertura:</label>
-              <div class="col-sm">
-                <input type="date" class="form-control form-control-sm" id="apertura_fecha" name="apertura_fecha" [(ngModel)]="datos.apertura_fecha">
-              </div>     
-            </div>                
-          </div>
-
-          <div class="form-group col-sm-4 px-1 mb-1">
-            <div class="form-row justify-content-between">
-              <label for="cierre_fecha" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Cierre:</label>
-              <div class="col-sm">
-                <input type="date" class="form-control form-control-sm" id="cierre_fecha" name="cierre_fecha" [(ngModel)]="datos.cierre_fecha">
-              </div>     
-            </div>                
-          </div>
-
+          </div>         
         </div>
 
-      <!-- </form> -->
-
+        <div class="col-md-4">
+          <div class="form-row">
+            <label for="padre_apertura_fecha" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Apertura:</label>
+            <div class="col-sm-9">
+              <input type="date" class="form-control form-control-sm" id="padre_apertura_fecha" name="padre_apertura_fecha" [(ngModel)]="datos.padre.apertura_fecha" [readonly]="true">
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="form-row">
+            <label for="padre_cierre_fecha" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Cierre:</label>
+            <div class="col-sm-9">
+              <input type="date" class="form-control form-control-sm" id="padre_cierre_fecha" name="padre_cierre_fecha" [(ngModel)]="datos.padre.cierre_fecha" [readonly]="true">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md">
+      <hr class="m-2">
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-md text-center">
+      <span><strong>{{ titulos.seccion }}</strong></span>
+    </div>
+  </div>
+
+  <div class="form-row justify-content-between align-items-center py-1">
+    <div class="col-md">     
+      <div class="form-row justify-content-between align-items-center">
+        <div class="col-md-2">
+          <div class="form-row">
+            <label for="actual_id" class="col-sm-4 col-form-label col-form-label-sm text-wrap">Id:</label>
+            <div class="col-sm">
+              <input type="text" class="form-control form-control-sm" id="actual_id" name="actual_id" [(ngModel)]="datos.actual.id" [readonly]="true">
+            </div>
+          </div>         
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-row">
+            <label for="actual_apertura_fecha" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Apertura:</label>
+            <div class="col-sm-9">
+              <input type="date" class="form-control form-control-sm" id="actual_apertura_fecha" name="actual_apertura_fecha" [(ngModel)]="datos.actual.apertura_fecha">
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="form-row">
+            <label for="actual_cierre_fecha" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Cierre:</label>
+            <div class="col-sm-9">
+              <input type="date" class="form-control form-control-sm" id="actual_cierre_fecha" name="actual_cierre_fecha" [(ngModel)]="datos.actual.cierre_fecha">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
   <div class="row">
     <div class="col-md">
 
@@ -57,18 +99,18 @@
             <th scope="col">Programa</th>
             <th scope="col">Cohorte</th>
             <th scope="col">Sede</th>
-            <th scope="col" class="col-actions">
+            <th scope="col">
 
               <ng-container *ngIf="seleccionarTodos.nuevasPersonas; then btn_nuevasPersonas_check_on; else btn_nuevasPersonas_check_off"></ng-container>
 
               <ng-template #btn_nuevasPersonas_check_off>
-                <button class="btn btn-sm" placement="left" ngbTooltip="Sel. Todos" (click)="SeleccionarTodos('nuevasPersonas')">
+                <button class="btn btn-sm p-0" placement="top" ngbTooltip="Sel. Todos" (click)="SeleccionarTodos('nuevasPersonas')">
                   <i class="fa fa-circle-o"></i>
                 </button>
               </ng-template>                      
 
               <ng-template #btn_nuevasPersonas_check_on>
-                <button class="btn btn-sm" placement="left" ngbTooltip="Sel. Ninguno" (click)="SeleccionarTodos('nuevasPersonas')">
+                <button class="btn btn-sm p-0" placement="top" ngbTooltip="Sel. Ninguno" (click)="SeleccionarTodos('nuevasPersonas')">
                   <i class="fa fa-check-circle-o"></i>
                 </button>
               </ng-template>
@@ -120,7 +162,7 @@
             <th scope="col">Cohorte</th>
             <th scope="col">Sede</th>
             <th scope="col" class="col-actions">
-
+<!-- 
               <ng-container *ngIf="seleccionarTodos.nuevasPersonas; then btn_nuevasPersonas_check_on; else btn_nuevasPersonas_check_off"></ng-container>
 
               <ng-template #btn_nuevasPersonas_check_off>
@@ -133,7 +175,7 @@
                 <button class="btn btn-sm" placement="left" ngbTooltip="Sel. Ninguno" (click)="SeleccionarTodos('nuevasPersonas')">
                   <i class="fa fa-check-circle-o"></i>
                 </button>
-              </ng-template>
+              </ng-template> -->
 
             </th>                 
           </tr>

@@ -111,7 +111,6 @@ export class PersonasSubagendamientoComponentesArbolesComponent implements OnIni
 
   ngOnInit() {
     this.GenerarListaArboles(this.agendas);
-    console.log(this.agendas);
     this.agendas = this.ObtenerListaAgendas();
   }
 

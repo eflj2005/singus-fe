@@ -35,6 +35,7 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
 
   controladorAsignaciones: AsignacionesController;
   controladorAgendas: AgendasController;
+  controladorAgendasForaneas: AgendasController;
 
   constructor(
     private servicioAmbiente : AmbienteService,
@@ -50,6 +51,7 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
     this.usuario_Id = this.autenticador.UsuarioActualValor.id;
 
     this.controladorAgendas = new AgendasController(llamadoHttp , servicioAmbiente);
+    this.controladorAgendasForaneas = new AgendasController(llamadoHttp , servicioAmbiente);
 
     caracteristicasConsultas = new EstructuraConsultas();
     caracteristicasConsultas.ActivarDiferentes();
@@ -61,16 +63,26 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
     caracteristicasConsultas.AgregarEnlace( "asignaciones" ,  "agendas" ,  "asignaciones" );
     caracteristicasConsultas.AgregarFiltro( "", "asignaciones" , "usuarios_id" , "=", String(this.usuario_Id) );
     caracteristicasConsultas.AgregarOrdenamiento( "agendas.id" , "ASC" );
-    this.controladorAgendas.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAG:RespuestaInterface) => {           // Carge de Agendas
-        console.log(this.controladorAgendas.todos);
-        // //OJO ajustar para permitir condicion con subconsulta y DISTINC
-        // this.controladorAgendasForaneo.CargarDesdeDB( true, "S" ).subscribe( (respuestaAGF:RespuestaInterface) => {           // Carge de Asignaciones
-        //   // console.log(this.controladorAgendasForaneo.todos, "A foraneaContro");
-        //   this.controladorAgendas.AgregarForanea(this.controladorAgendasForaneo);
+    this.controladorAgendas.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAP:RespuestaInterface) => {           // Carge de Agendas
 
-        // });
-
+      caracteristicasConsultas = new EstructuraConsultas();
+      caracteristicasConsultas.AgregarColumna( null , "(SELECT usuarios_id FROM asignaciones WHERE agendas_id = agendas.id AND tipo = 'C' )", "creador_id", true); 
+      caracteristicasConsultas.AgregarColumna( null , "(SELECT usuarios_id FROM asignaciones WHERE agendas_id = agendas.id AND tipo = 'R' )", "responsable_id", true );       
+      caracteristicasConsultas.AgregarColumna( null , "(SELECT COUNT(*) FROM agendamientos WHERE agendamientos.agendas_id = agendas.id)", "asignados", true ); 
+      caracteristicasConsultas.AgregarColumna( null , "(SELECT CONCAT(usuarios.nombres,' ',usuarios.apellidos) FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'C')", "creador" );
+      caracteristicasConsultas.AgregarColumna( null , "( SELECT COUNT(*) FROM agendas AS AC WHERE AC.agendas_id = agendas.id )" , "distribuciones", true) ;
+      let opereadorLogico: string = "";
+      this.controladorAgendas.todos.filter( (agenda: { agendas_id: any }) => agenda.agendas_id != null ).forEach( (agenda, indice) => {
+        if( indice == 0)  opereadorLogico = "";
+        else              opereadorLogico = "OR";
+        caracteristicasConsultas.AgregarFiltro( opereadorLogico, "agendas" , "id" , "=", agenda.agendas_id );  
       });
+      caracteristicasConsultas.AgregarOrdenamiento( "agendas.id" , "ASC" );
+      this.controladorAgendasForaneas.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAF:RespuestaInterface) => {           // Carge de Agendas
+        this.controladorAgendas.AgregarForanea(this.controladorAgendasForaneas);
+      });   
+
+    });
 
   }
 
@@ -79,6 +91,7 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
   ngOnInit() {
 
   }
+
 
 
 }

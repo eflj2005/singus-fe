@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AgendasInterface } from '@interfaces/agendas.interface';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
+interface DatosIntercambioInterface{
+  [index: string]: any;
+}
+
+
+
 @Component({
   selector: 'app-personas-subagendamiento-componentes-procesar',
   templateUrl: './personas-subagendamiento-componentes-procesar.component.html',
@@ -9,8 +15,12 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 })
 export class PersonasSubagendamientoComponentesProcesarComponent implements OnInit {
 
-  titulo:string;
-  datos:AgendasInterface;
+  titulos: { [index: string]: string; } = {
+    principal: "",
+    seccion: ""
+  }
+
+  datos:DatosIntercambioInterface;
 
   modal:NgbModalRef;
 
@@ -24,8 +34,14 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
 
   ngOnInit() {
 
-    if( this.datos.id == null )   this.titulo = "Creación de Distribución";
-    else                          this.titulo = "Modificación de Distribución";
+    if( this.datos.actual.id == null ){
+      this.titulos.principal = "Creación de Distribución";
+      this.titulos.seccion = "Nueva Subagenda";
+    }
+    else{
+      this.titulos.principal = "Modificación de Distribución";
+      this.titulos.seccion = "Modificación Agenda";
+    } 
 
   }
   

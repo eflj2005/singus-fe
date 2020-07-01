@@ -254,7 +254,7 @@ export class GenericoModel {
       .set("conSeguridad", String(conToken) )      
       .set("modo", modoCargue )                       //S = simple => consulta directa, A = avanzada => consulta con inner join
       .set("caracteristicas", JSON.stringify(caracteristicas));  
-    
+
     const llamado = this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
       map(
         (respuesta: RespuestaInterface) => {

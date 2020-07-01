@@ -12,6 +12,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { PersonasSubagendamientoComponentesProcesarComponent } from '../personas-subagendamiento-componentes-procesar/personas-subagendamiento-componentes-procesar.component';
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
+import { BrowserStack } from 'protractor/built/driverProviders';
+import { SeguimientosController } from '@controladores/seguimientos.controller';
 
 interface DatosIntercambioInterface{
   [index: string]: any;
@@ -33,6 +35,7 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
   usuario_id:number;
 
   controladorAgendamientos: AgendamientosController;
+  controladorSeguiminetos: SeguimientosController;
 
   constructor(
     private servicioAmbiente : AmbienteService,
@@ -45,26 +48,25 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
 
     this.usuario_id = this.autenticador.UsuarioActualValor.id;
     this.agendaEncontrada=false;
-    this.controladorAgendamientos = new AgendamientosController(llamadoHttp , servicioAmbiente);
+
+    this.controladorSeguiminetos = new SeguimientosController(llamadoHttp , servicioAmbiente);
 
     caracteristicasConsultas = new EstructuraConsultas();
-
-    caracteristicasConsultas.AgregarColumna(null,"CONCAT(personas.nombres, ' ', personas.apellidos)","nombreCompleto");
-    caracteristicasConsultas.AgregarColumna(  "personas", "iduniminuto",          "uniminutoId");
-    caracteristicasConsultas.AgregarColumna(  "personas", "registro_fecha",       "fechaRegistro");
-    caracteristicasConsultas.AgregarColumna(  "personas", "actualizacion_fecha",  "fechaActualizacion");
-
-    caracteristicasConsultas.AgregarEnlace(   "seguimientos", "seguimientos", "agendamientos");
-    caracteristicasConsultas.AgregarEnlace(   "personas",     "personas",     "seguimientos");
-    caracteristicasConsultas.AgregarEnlace(   "agendas",      "agendas",      "agendamientos");
-    caracteristicasConsultas.AgregarEnlace(   "asignaciones", "agendas",      "asignaciones");
-
+    caracteristicasConsultas.AgregarColumna( null, "CONCAT(personas.nombres, ' ', personas.apellidos)", "nombreCompleto");
+    caracteristicasConsultas.AgregarColumna( "personas", "iduniminuto", "uniminutoId", true);
+    caracteristicasConsultas.AgregarColumna( "personas", "registro_fecha", "fechaRegistro");
+    caracteristicasConsultas.AgregarColumna( "personas", "actualizacion_fecha", "fechaActualizacion");
+    caracteristicasConsultas.AgregarColumna( "agendamientos", "agendas_id", "agenda_id", true);
+    caracteristicasConsultas.AgregarEnlace( "personas", "personas", "seguimientos");
+    caracteristicasConsultas.AgregarEnlace( "agendamientos", "seguimientos", "agendamientos");    
+    caracteristicasConsultas.AgregarEnlace( "agendas", "agendas", "agendamientos");
+    caracteristicasConsultas.AgregarEnlace( "asignaciones", "agendas", "asignaciones");
     caracteristicasConsultas.AgregarFiltro(   "",     "asignaciones" ,  "usuarios_id" , "=", String(this.usuario_id) );
     caracteristicasConsultas.AgregarFiltro(   "AND",  "asignaciones" ,  "tipo" , "=", "R" );
-
-    this.controladorAgendamientos.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAG:RespuestaInterface) => {           // Carge de Agenda
+    this.controladorSeguiminetos.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAG:RespuestaInterface) => {           // Carge de Agenda
 
     }); 
+
 
   }
 
@@ -90,14 +92,30 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
 
   }
 
-  ProcesarAgenda( idRecibido : number = null ){
-    var registro: AgendasInterface;
+  ProcesarAgenda( modoRecibido: string, idRecibido : number ){
+    
 
-    if(idRecibido == null)  registro = {  id: null, apertura_fecha: "", cierre_fecha: "",  nivel: null  } 
-    else                    registro = this.controladorAgendas.actual;
+    var registroPadre: AgendasInterface;
+    var registroActual: AgendasInterface;
+
+    var informacion: DatosIntercambioInterface = { 
+      padre: registroPadre,
+      actual: registroActual
+    }
+
+    switch(modoRecibido){
+      case "subagendar":
+        informacion.padre = Object.assign({},this.controladorAgendas.actual);
+        informacion.actual = {  id: null, apertura_fecha: "", cierre_fecha: "",  nivel: null  }
+      break;
+      case "modificar":
+
+      break;
+    }
+
     
     const modalRef = this.servicioEmergentes.open(PersonasSubagendamientoComponentesProcesarComponent, { size : 'xl'  ,  backdropClass: 'light-blue-backdrop', backdrop: "static"  } );
-    modalRef.componentInstance.datos = registro;
+    modalRef.componentInstance.datos = informacion;
     modalRef.componentInstance.modal = modalRef;
 
 
