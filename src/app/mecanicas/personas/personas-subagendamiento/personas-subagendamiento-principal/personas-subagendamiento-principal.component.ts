@@ -93,6 +93,48 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
     caracteristicasConsultas.AgregarColumna( "personas", "registro_fecha", "fechaRegistro");
     caracteristicasConsultas.AgregarColumna( "personas", "actualizacion_fecha", "fechaActualizacion");
     caracteristicasConsultas.AgregarColumna( "agendamientos", "agendas_id", "agenda_id", true);
+    caracteristicasConsultas.AgregarColumna( 
+      null, 
+      "("+
+        "SELECT programas.codigo AS programa " +
+        "FROM estudios INNER JOIN ofertas ON ofertas.id = estudios.ofertas_id INNER JOIN programas ON programas.id = ofertas.programas_id " +
+        "WHERE estudios.personas_id = seguimientos.personas_id " +
+        "AND estudios.id = ( " +
+                            "SELECT id FROM estudios " +
+                            "WHERE grado_fecha = ( SELECT MAX(grado_fecha) FROM estudios WHERE personas_id = seguimientos.personas_id) " +
+                            "AND personas_id = seguimientos.personas_id LIMIT 1 " +
+                          ")" +
+      ")",
+      "programa"
+    );
+    caracteristicasConsultas.AgregarColumna(
+      null, 
+      "("+
+        "SELECT cohortes.descripcion AS cohorte " +
+        "FROM estudios INNER JOIN ofertas ON ofertas.id = estudios.ofertas_id INNER JOIN cohortes ON estudios.cohortes_id = cohortes.id " +
+        "WHERE estudios.personas_id = seguimientos.personas_id " +
+        "AND estudios.id = ( " +
+                            "SELECT id FROM estudios " +
+                            "WHERE grado_fecha = ( SELECT MAX(grado_fecha) FROM estudios WHERE personas_id = seguimientos.personas_id) " +
+                            "AND personas_id = seguimientos.personas_id LIMIT 1 " +
+                          ")" +
+      ")", 
+      "cohorte"
+    );
+    caracteristicasConsultas.AgregarColumna(
+      null,
+      "("+
+        "SELECT sedes.descripcion AS sede " +
+        "FROM estudios INNER JOIN sedes ON estudios.sedes_id = sedes.id " +
+        "WHERE estudios.personas_id = seguimientos.personas_id " +
+        "AND estudios.id = ( " +
+                            "SELECT id FROM estudios " +
+                            "WHERE grado_fecha = ( SELECT MAX(grado_fecha) FROM estudios WHERE personas_id = seguimientos.personas_id) " +
+                            "AND personas_id = seguimientos.personas_id LIMIT 1 " +
+                          ")" +
+      ")",
+      "sede"
+    );
     caracteristicasConsultas.AgregarEnlace( "personas", "personas", "seguimientos");
     caracteristicasConsultas.AgregarEnlace( "agendamientos", "seguimientos", "agendamientos");    
     caracteristicasConsultas.AgregarEnlace( "agendas", "agendas", "agendamientos");

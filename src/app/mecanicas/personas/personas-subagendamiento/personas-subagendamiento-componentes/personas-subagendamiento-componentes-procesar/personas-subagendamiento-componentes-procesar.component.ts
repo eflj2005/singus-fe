@@ -46,7 +46,7 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
   datos: DatosAgendas ={  padre: null,  actual: null, agendamientos: null }
 
   listaSegimientosDisponibles:any[];
-  listaSegimientosAsignados:any[]];
+  listaSegimientosAsignados:any[];
 
   seleccionarTodos: any = {
     seguimientosDisponibles: false,
@@ -81,10 +81,11 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
 
         this.listaSegimientosDisponibles = []
         this.listaSegimientosAsignados = [];
-
         
-        this.FiltrarDatos( this.controladorSeguimientos.todos , 'agenda_id' , this.datos.padre.id ).forEach( (listaSegimientosDisponibles: any ) => {
-          this.listaSegimientosDisponibles.push(listaSegimientosDisponibles);
+        this.FiltrarDatos( this.controladorSeguimientos.todos , 'agenda_id' , this.datos.padre.id ).forEach( (SegimientosDisponible: any ) => {
+          let temporal: any = Object.assign({},SegimientosDisponible);
+          temporal.seleccionado = false;
+          this.listaSegimientosDisponibles.push(temporal);
         });
 
 

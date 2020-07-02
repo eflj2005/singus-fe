@@ -62,6 +62,7 @@ export class DashboardMenuComponent {
 
         this.menu  = [ 
           { opcion: 'Personas'          , url: '/personas'                  , icon: "fa-pencil-square-o"         , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"     , orden: 2  },
+          { opcion: 'Agendamientos'     , url: '/agendamiento'              , icon: "fa-window-restore"          , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"     , orden: 2  },          
           { opcion: 'Alertas'           , url: '/alertas'                   , icon: "fa-exclamation-circle"      , agrupamiento: "Reportes"          ,iconPrincipal:"fa-file-text-o"        , orden: 4  },
           { opcion: 'Maestras'          , url: '/maestras'                  , icon: "fa-share-alt-square"        , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
           { opcion: 'Usuario'           , url: '/usuarios/lista'            , icon: "fa-user-circle-o "          , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },
@@ -70,9 +71,8 @@ export class DashboardMenuComponent {
       
       break;
       case "C":
-
-
         this.menu  = [ 
+          { opcion: 'Subagendamientos'   , url: '/subagendamiento'           , icon: "fa-sitemap"                 , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"     , orden: 2  },                    
           { opcion: 'Cambiar Clave'     , url: '/usuarios/cambiarclave'     , icon: "fa-user-circle-o "          , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },              
         ];        
 
@@ -82,6 +82,7 @@ export class DashboardMenuComponent {
 
         this.menu  = [ 
           { opcion: 'Personas'          , url: '/personas'                  , icon: "fa-pencil-square-o"         , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"     , orden: 2  },
+          { opcion: 'Subagendamientos'   , url: '/subagendamiento'           , icon: "fa-sitemap"                 , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"     , orden: 2  },                    
           { opcion: 'Cambiar Clave'     , url: '/usuarios/cambiarclave'     , icon: "fa-user-circle-o "          , agrupamiento: "Administración"    ,iconPrincipal:"fa-user-circle-o"      , orden: 5  },    
         ];
 
