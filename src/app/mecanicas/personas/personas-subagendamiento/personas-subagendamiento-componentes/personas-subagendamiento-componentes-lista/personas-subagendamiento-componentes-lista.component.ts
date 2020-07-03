@@ -58,6 +58,7 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
       if(this.controladorSeguimientos.EstaListo('cargue')){
         this.agendaEncontrada = this.controladorAgendas.Encontrar("id", idAgenda);
         if(this.agendaEncontrada){
+          console.log(this.controladorAgendas.todos);
           this.datosBaseAgenda.agenda_id = this.controladorAgendas.actual.id;
           this.datosBaseAgenda.creador_id = this.controladorAgendas.actual.creador_id;
           this.datosBaseAgenda.nivel = this.controladorAgendas.actual.nivel;

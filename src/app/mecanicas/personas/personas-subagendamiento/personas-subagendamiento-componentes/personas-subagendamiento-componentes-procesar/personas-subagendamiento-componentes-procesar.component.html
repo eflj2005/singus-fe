@@ -1,3 +1,8 @@
+<div class="blackout" *ngIf="!EstoyListo()">
+  <div class="spinner spinner-grow text-primary" role="status">
+  </div>
+</div>
+
 <div class="modal-header">
   <h4 class="modal-title">{{ titulos.principal }}</h4>
 </div>
@@ -89,7 +94,7 @@
             <div class="col-sm-9">
               <select  class="form-control form-control-sm" id="actual_responsable" name="actual_responsable" [(ngModel)]="datos.actual.responsable_id">
                 <option value="null" disabled>-- Seleccione Responsable --</option>
-                <option *ngFor="let elemento of controladorUsaurios.todos; let indice= index" value="{{elemento.id}}">{{elemento.nombres + ' ' + elemento.apellidos}}</option>
+                <option *ngFor="let elemento of controladorUsuarios.todos; let indice= index" value="{{elemento.id}}">{{elemento.nombres + ' ' + elemento.apellidos}}</option>
               </select>
 
             </div>
@@ -111,7 +116,7 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col py-1">Unim-Id</th>
+                <th scope="col">Unim-Id</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Actualización</th>
                 <th scope="col">Programa</th>
@@ -119,16 +124,16 @@
                 <th scope="col">Sede</th>
                 <th scope="col" class="text-center">
 
-                  <ng-container *ngIf="seleccionarTodos.nuevasPersonas; then btn_nuevasPersonas_check_on; else btn_nuevasPersonas_check_off"></ng-container>
+                  <ng-container *ngIf="seleccionarTodos.seguimientosDisponibles; then btn_seguimientosDisponibles_check_on; else btn_seguimientosDisponibles_check_off"></ng-container>
 
-                  <ng-template #btn_nuevasPersonas_check_off>
-                    <button class="btn btn-sm p-0" placement="top" ngbTooltip="Sel. Todos" (click)="SeleccionarTodos('nuevasPersonas')">
+                  <ng-template #btn_seguimientosDisponibles_check_off>
+                    <button class="btn btn-sm p-0" placement="top" ngbTooltip="Sel. Todos" (click)="SeleccionarTodos('disponibles')">
                       <i class="fa fa-circle-o"></i>
                     </button>
                   </ng-template>                      
 
-                  <ng-template #btn_nuevasPersonas_check_on>
-                    <button class="btn btn-sm p-0" placement="top" ngbTooltip="Sel. Ninguno" (click)="SeleccionarTodos('nuevasPersonas')">
+                  <ng-template #btn_seguimientosDisponibles_check_on>
+                    <button class="btn btn-sm p-0" placement="top" ngbTooltip="Sel. Ninguno" (click)="SeleccionarTodos('disponibles')">
                       <i class="fa fa-check-circle-o"></i>
                     </button>
                   </ng-template>
@@ -137,7 +142,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let elemento of listaSegimientosDisponibles; let indiceDisponibles = index">
+              <tr *ngFor="let elemento of listaSeguimientosDisponibles; let indiceDisponibles = index">
                 <th scope="row">{{ elemento.uniminutoId }}</th>
                 <td>{{ elemento.nombreCompleto }}</td>
                 <td>{{ elemento.fechaActualizacion }}</td>
@@ -146,8 +151,8 @@
                 <td>{{ elemento.sede }}</td>                        
                 <td class="text-center">
                   <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck_nuevasPersonas_{{ indiceDisponibles }}" [checked]="elemento.seleccionado">
-                    <label class="custom-control-label " for="customCheck_nuevasPersonas_{{ indiceDisponibles }}"></label>
+                    <input type="checkbox" class="custom-control-input" id="customCheck_Disponibles_{{ indiceDisponibles }}" [(ngModel)]="elemento.seleccionado">
+                    <label class="custom-control-label " for="customCheck_Disponibles_{{ indiceDisponibles }}"></label>
                   </div>
                 </td>
               </tr>
@@ -164,47 +169,49 @@
       </div>
       <div class="row">
         <div class="col-md">
-          <table class="table">
+          <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col">UniminutoId</th>
+                <th scope="col">Unim-Id</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Actualización</th>
                 <th scope="col">Programa</th>
                 <th scope="col">Cohorte</th>
                 <th scope="col">Sede</th>
-                <th scope="col" class="col-actions">
-    <!-- 
-                  <ng-container *ngIf="seleccionarTodos.nuevasPersonas; then btn_nuevasPersonas_check_on; else btn_nuevasPersonas_check_off"></ng-container>
-    
-                  <ng-template #btn_nuevasPersonas_check_off>
-                    <button class="btn btn-sm" placement="left" ngbTooltip="Sel. Todos" (click)="SeleccionarTodos('nuevasPersonas')">
+                <th scope="col" class="text-center">
+
+                  <ng-container *ngIf="seleccionarTodos.seguimientosAsignados; then btn_seguimientosAsignados_check_on; else btn_seguimientosAsignados_check_off"></ng-container>
+
+                  <ng-template #btn_seguimientosAsignados_check_off>
+                    <button class="btn btn-sm p-0" placement="top" ngbTooltip="Sel. Todos" (click)="SeleccionarTodos('asignados')">
                       <i class="fa fa-circle-o"></i>
                     </button>
                   </ng-template>                      
-    
-                  <ng-template #btn_nuevasPersonas_check_on>
-                    <button class="btn btn-sm" placement="left" ngbTooltip="Sel. Ninguno" (click)="SeleccionarTodos('nuevasPersonas')">
+
+                  <ng-template #btn_seguimientosAsignados_check_on>
+                    <button class="btn btn-sm p-0" placement="top" ngbTooltip="Sel. Ninguno" (click)="SeleccionarTodos('asignados')">
                       <i class="fa fa-check-circle-o"></i>
                     </button>
-                  </ng-template> -->
+                  </ng-template>
     
                 </th>                 
               </tr>
             </thead>
             <tbody>
-              <!-- <tr *ngFor="let elemento of FiltrarDatos( controladorAgendamientos.todos , 'agendas_id' , agenda_id); let indiceAgendamientos = index">
-                <th scope="row">{{ elemento.seguimientosId }}</th>
-                <td>{{ elemento.uniminutoId }}</td>
+              <tr *ngFor="let elemento of listaSeguimientosAsignados; let indiceAsignados = index">
+                <th scope="row">{{ elemento.uniminutoId }}</th>
                 <td>{{ elemento.nombreCompleto }}</td>
-                <td>{{ elemento.fechaRegistro }}</td>
                 <td>{{ elemento.fechaActualizacion }}</td>
-                <td>&nbsp;</td>
-                <td>
-                  <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivarModalHistoricos( modalHistoricosEstudios, 5, elemento.id )"  placement="left" ngbTooltip="Actualización"><i class="fa fa-pencil-square-o"></i></button>
-                  <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="EliminarHistorico( elemento.dbRef  )"  placement="left" ngbTooltip="Seguimiento"><i class="fa fa-address-card-o"></i></button>
-                </td>                  
-              </tr> -->
+                <td>{{ elemento.programa }}</td>
+                <td>{{ elemento.cohorte }}</td>
+                <td>{{ elemento.sede }}</td>                        
+                <td class="text-center">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck_Asignados_{{ indiceAsignados }}" [(ngModel)]="elemento.seleccionado">
+                    <label class="custom-control-label " for="customCheck_Asignados_{{ indiceAsignados }}"></label>
+                  </div>
+                </td>
+              </tr>
             </tbody>
           </table>    
         </div>
@@ -215,12 +222,10 @@
 
   <div class="row justify-content-center">
     <div class="col-md-6 text-center">
-      <button type="button" class="btn btn-outline-primary py-0 px-1 my-1 mr-1">Asignar Todos <i class="fa fa-forward"></i></button>
-      <button type="button" class="btn btn-outline-primary py-0 px-1 my-1 ml-1">Asignar Seleccionados <i class="fa fa-chevron-circle-right"></i></button>
+      <button type="button" class="btn btn-outline-primary py-0 px-1 my-1" (click)="MoverSeguimientos('disponibles')">Asignar Seleccionados <i class="fa fa-hand-o-right"></i></button>
     </div>
     <div class="col-md-6 text-center">
-      <button type="button" class="btn btn-outline-primary py-0 px-1 my-1 mr-1"><i class="fa fa-chevron-circle-left"></i> Retirar Seleccionados</button>
-      <button type="button" class="btn btn-outline-primary py-0 px-1 my-1 ml-1"><i class="fa fa-backward"></i> Retirar Todos</button>
+      <button type="button" class="btn btn-outline-primary py-0 px-1 my-1" (click)="MoverSeguimientos('asignados')"><i class="fa fa-hand-o-left"></i> Retirar Seleccionados</button>
     </div>
   </div>
 
@@ -229,7 +234,7 @@
 <div>&nbsp;</div>
 
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary" >Aplicar</button>            
+  <button type="button" class="btn btn-primary" (click)="Procesar()" >{{ modoProceso == 'subagendar' ? 'Crear' : 'Actualizar' }}</button>
   <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="Cancelar()">Cancelar</button>            
 </div>
 

@@ -9,6 +9,9 @@ import { HttpClient } from '@angular/common/http';
 import { AutenticacionService } from '@servicios/autenticacion.service';
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { SeguimientosInterface } from '@interfaces/seguimientos.interface';
+import { AgendamientosController } from '@controladores/agendamientos.controller';
+import { EstructuraConsultas } from '@generales/estructura-consultas';
+import { AsignacionesController } from '@controladores/asignaciones.controller';
 
 interface DatosIntercambioInterface{
   [index: string]: any;
@@ -40,13 +43,18 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
 
   //Otros atributos
 
-  controladorUsaurios: UsuariosController;
+  usuario_id:number;
+
+  controladorUsuarios: UsuariosController;
+  controladorAgendamientos: AgendamientosController;
+  controladorAsignaciones: AsignacionesController;
+  
 
   titulos: { [index: string]: string; } = { principal: "", seccion: "" }
   datos: DatosAgendas ={  padre: null,  actual: null, agendamientos: null }
 
-  listaSegimientosDisponibles:any[];
-  listaSegimientosAsignados:any[];
+  listaSeguimientosDisponibles:any[];
+  listaSeguimientosAsignados:any[];
 
   seleccionarTodos: any = {
     seguimientosDisponibles: false,
@@ -59,10 +67,34 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
     private autenticador: AutenticacionService  
   ) {
 
-    this.controladorUsaurios = new UsuariosController(llamadoHttp,servicioAmbiente);
+    this.usuario_id = this.autenticador.UsuarioActualValor.id;
 
-    this.controladorUsaurios.CargarDesdeDB().subscribe( (respuesta:RespuestaInterface) => {           // Carge de usuarios
+    this.controladorUsuarios = new UsuariosController(llamadoHttp,servicioAmbiente);
+    this.controladorAgendamientos = new AgendamientosController(llamadoHttp,servicioAmbiente);
+    this.controladorAsignaciones= new AsignacionesController(llamadoHttp,servicioAmbiente);
+
+    this.controladorUsuarios.CargarDesdeDB().subscribe( (respuestaUsuarios:RespuestaInterface) => {           // Carge de usuarios
+      
+      this.controladorAgendamientos.CargarDesdeDB(
+        true,
+        "S",
+        new EstructuraConsultas( "F", null, "agendas_id", "=",String(this.idAgendaProcesada) )
+      ).subscribe( (respuestaAgendamientos:RespuestaInterface) => {           // Carge de agendamientos
+        
+        this.controladorAsignaciones.CargarDesdeDB(
+          true,
+          "S",
+          new EstructuraConsultas( "F", null, "agendas_id", "=",String(this.idAgendaProcesada) )
+        ).subscribe( (respuestaAsignaciones:RespuestaInterface) => {           // Carge de Asignaciones
+
+        });
+
+      });
+
     });
+
+
+
    }
 
   ngOnInit() {
@@ -74,18 +106,30 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
 
         this.controladorAgendas.Encontrar("id",this.idAgendaProcesada);
         this.datos.padre = this.controladorAgendas.actual;
-        this.datos.actual = { id: null, apertura_fecha: "", cierre_fecha: "", nivel: null, responsable_id: null };
+        this.datos.actual = { id: null, apertura_fecha: "", cierre_fecha: "", nivel: this.datos.padre.nivel + 1 , responsable_id: null };
         this.datos.agendamientos = [];
 
-        console.log(this.controladorSeguimientos.todos);
-
-        this.listaSegimientosDisponibles = []
-        this.listaSegimientosAsignados = [];
+        this.listaSeguimientosDisponibles = []
+        this.listaSeguimientosAsignados = [];
         
-        this.FiltrarDatos( this.controladorSeguimientos.todos , 'agenda_id' , this.datos.padre.id ).forEach( (SegimientosDisponible: any ) => {
-          let temporal: any = Object.assign({},SegimientosDisponible);
+        this.FiltrarDatos( this.controladorSeguimientos.todos , 'agenda_id' , this.datos.padre.id ).forEach( (SeguimientoDisponible: any ) => {
+          let temporal: any = Object.assign({},SeguimientoDisponible);
           temporal.seleccionado = false;
-          this.listaSegimientosDisponibles.push(temporal);
+          this.listaSeguimientosDisponibles.push(temporal);
+        });
+
+        this.FiltrarDatos( this.controladorSeguimientos.todos , 'agendaPadre_id' , this.datos.padre.id ).forEach( (SegimientoYaAsignado: any ) => {
+          let posicion: number = 0;
+          let encontrado: boolean = false;
+          while(posicion < this.listaSeguimientosDisponibles.length && !encontrado){
+            if(this.listaSeguimientosDisponibles[posicion].id == SegimientoYaAsignado.id){
+              this.listaSeguimientosDisponibles.splice(posicion,1);
+              encontrado=true;
+            }
+            else{
+              posicion++;
+            }
+          }
         });
 
 
@@ -98,41 +142,139 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
 
   }
   
-  SeleccionarTodos(control: string){
-    switch(control){
-      case 'nuevasPersonas':
-        // if(this.seleccionarTodos.nuevasPersonas){
-        //   for (var posicion in this.arregloNuevasPersonas) {  
-        //     this.arregloNuevasPersonas[posicion].seleccionado = false;
-        //   }  
-        //   this.seleccionarTodos.nuevasPersonas = false;
-        // }
-        // else{
-        //   for (var posicion in this.arregloNuevasPersonas) {  
-        //     this.arregloNuevasPersonas[posicion].seleccionado = true;
-        //   }  
-        //   this.seleccionarTodos.nuevasPersonas = true;
-        // }
-      break;
-      case 'nuevosEstudios':
-        // if(this.seleccionarTodos.nuevosEstudios){
-        //   for (var posicion in this.arregloNuevosEstudios) {  
-        //     this.arregloNuevosEstudios[posicion].seleccionado = false;
-        //   }  
-        //   this.seleccionarTodos.nuevosEstudios = false;
-        // }
-        // else{
-        //   for (var posicion in this.arregloNuevosEstudios) {  
-        //     this.arregloNuevosEstudios[posicion].seleccionado = true;
-        //   }  
-        //   this.seleccionarTodos.nuevosEstudios = true;
-        // }
-      break;      
+  SeleccionarTodos( tablaControl: string){
+    let lista:any[];
+
+    switch(tablaControl){
+      case 'disponibles':   lista = this.listaSeguimientosDisponibles;  break;
+      case 'asignados':     lista = this.listaSeguimientosAsignados;    break; 
     }
+
+    if(this.seleccionarTodos[tablaControl])  lista.forEach(elemento => { elemento.seleccionado = false; });
+    else                                lista.forEach(elemento => { elemento.seleccionado = true; });
+
+    this.seleccionarTodos[tablaControl] = ! this.seleccionarTodos[tablaControl];
+  }
+
+  MoverSeguimientos( tablaOrigen: string ){
+    let listaOrigen:any[];
+    let listaDestino:any[];
+    let posicion:number;
+
+    switch(tablaOrigen){
+      case 'disponibles':
+        listaOrigen  = this.listaSeguimientosDisponibles;
+        listaDestino = this.listaSeguimientosAsignados;
+      break;
+      case 'asignados':
+        listaOrigen = this.listaSeguimientosAsignados;
+        listaDestino = this.listaSeguimientosDisponibles;
+      break; 
+    }
+    posicion = 0;
+    while(posicion < listaOrigen.length){
+      if(listaOrigen[posicion].seleccionado){
+        let temporal = Object.assign({},listaOrigen[posicion]);
+        temporal.seleccionado = false;
+        listaOrigen.splice( posicion, 1 ) ;
+        listaDestino.push( temporal ) ;
+        posicion = 0;
+      }
+      else{
+        posicion++;
+      }
+    }
+  }
+
+  Procesar(){
+    console.log(this.controladorAgendas.todos,"agendas");
+    console.log(this.controladorAgendamientos.todos,"agendamientos");
+    console.log(this.controladorSeguimientos.todos,"seguimientos");
+    if(this.modoProceso == "subagendar"){
+
+      let referenciaAgenda:string="";
+      let referenciasAgendamientos:string[];
+      let referenciasAsignaciones:string[];
+
+      referenciaAgenda = this.controladorAgendas.Agregar(this.datos.actual);
+
+      this.controladorAgendas.Guardar().subscribe( (respuestaAgendas:RespuestaInterface) => { 
+        console.log(respuestaAgendas);        
+        if( respuestaAgendas.codigo == 200 ){         
+          referenciasAgendamientos = [];
+          this.listaSeguimientosAsignados.forEach((elemento, indice)=>{
+            referenciasAgendamientos.push(
+              this.controladorAgendamientos.Agregar({ id: null, agendas_id: respuestaAgendas.mensaje.dbRefs[0].id, seguimientos_id: elemento.id  })
+            );
+          });
+
+          this.controladorAgendamientos.Guardar().subscribe( (respuestaAgendamientos:RespuestaInterface) => { 
+            console.log(respuestaAgendamientos);
+            if( respuestaAgendamientos.codigo == 200 ){
+              referenciasAsignaciones = [];
+              referenciasAsignaciones.push( this.controladorAsignaciones.Agregar( { id: null, agendas_id: respuestaAgendas.mensaje.dbRefs[0].id, usuarios_id: this.usuario_id , tipo: "C" } ) );
+              referenciasAsignaciones.push( this.controladorAsignaciones.Agregar( { id: null, agendas_id: respuestaAgendas.mensaje.dbRefs[0].id, usuarios_id: this.datos.actual.responsable_id , tipo: "R"} ) );
+
+              this.controladorAsignaciones.Guardar().subscribe( (respuestaAsignaciones:RespuestaInterface) => { 
+                console.log(respuestaAsignaciones);
+                if( respuestaAsignaciones.codigo == 200 ){
+                  alert("Agenda Guardada satisfactoriamente");
+                }    
+                else{
+                  alert("Error al asignar agendas");
+
+                  referenciasAsignaciones.forEach(elemento => {
+                    this.controladorAsignaciones.Encontrar("dbRef",elemento);
+                    this.controladorAsignaciones.Eliminar();
+                  });
+                  referenciasAgendamientos.forEach(elemento => {  //OJO ya los creo en la base de datos
+                    this.controladorAgendamientos.Encontrar("dbRef",elemento);
+                    this.controladorAgendamientos.Eliminar();
+                  });
+                  this.controladorAgendas.Encontrar("dbRef",referenciaAgenda);//OJO ya lo creo en la base de datos
+                  this.controladorAgendas.Eliminar();
+                }                              
+              });
+
+
+            }    
+            else{
+              alert("Error al guardar los detalles de la agenda");
+              referenciasAgendamientos.forEach(elemento => {
+                this.controladorAgendamientos.Encontrar("dbRef",elemento);
+                this.controladorAgendamientos.Eliminar();
+              });
+              this.controladorAgendas.Encontrar("dbRef",referenciaAgenda);
+              this.controladorAgendas.Eliminar();
+            }                              
+          });
+
+        }    
+        else{
+          alert("Error al guardar Agenda");
+          this.controladorAgendas.Encontrar("dbRef",referenciaAgenda);
+          this.controladorAgendas.Eliminar();
+        }                              
+      });
+
+
+    }
+
   }
 
   Cancelar(){
     this.modal.dismiss('CANCELAR');
+  }
+
+
+  EstoyListo(){
+    let validador:boolean = false;
+
+    validador = (
+      this.controladorAsignaciones.EstaListo("cargue")
+    );
+
+    return validador;
   }
 
   FiltrarDatos( arreglo : any , campo : string , valor : any ){

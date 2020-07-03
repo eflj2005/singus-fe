@@ -93,13 +93,15 @@ export class GenericoModel {
     return  this.registros;
   }
 
-  public Agregar(objeto:any){
+  public Agregar(objeto:any):string{
     objeto.modo = "I";
     objeto.dbRef = "#"+this.consecutivoDbRefs;
     this.consecutivoDbRefs++;
 
     this.registros.push(objeto);
     this.posicionActual = this.cantidad - 1;
+    
+    return objeto.dbRef;
   }
 
   public Modificar(objeto:any){

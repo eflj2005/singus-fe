@@ -34,7 +34,7 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
 
   agendaSeleccionada:  BehaviorSubject<number>;
 
-  controladorAsignaciones: AsignacionesController;
+  
   controladorAgendas: AgendasController;
   controladorAgendasForaneas: AgendasController;
   controladorSeguimientos: SeguimientosController;
@@ -92,7 +92,8 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
     caracteristicasConsultas.AgregarColumna( "personas", "iduniminuto", "uniminutoId", true);
     caracteristicasConsultas.AgregarColumna( "personas", "registro_fecha", "fechaRegistro");
     caracteristicasConsultas.AgregarColumna( "personas", "actualizacion_fecha", "fechaActualizacion");
-    caracteristicasConsultas.AgregarColumna( "agendamientos", "agendas_id", "agenda_id", true);
+    caracteristicasConsultas.AgregarColumna( "agendas", "id", "agenda_id", true);
+    caracteristicasConsultas.AgregarColumna( "agendas", "agendas_id", "agendaPadre_id", true);
     caracteristicasConsultas.AgregarColumna( 
       null, 
       "("+
