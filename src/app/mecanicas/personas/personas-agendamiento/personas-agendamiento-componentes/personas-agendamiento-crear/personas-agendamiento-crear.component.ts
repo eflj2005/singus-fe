@@ -430,21 +430,16 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
   CrearAgenda(){
    let nuevaAgenda: any = {'id': null , 'agendas_id': null, 'apertura_fecha': String(this.apertura_fecha) , 'cierre_fecha': String(this.cierre_fecha), 'nivel': 0, registro_fecha: this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd') }; // Por problema con 0 y json esta en any pero debe cambiar a la interfaz de agendas
    this.controladorAgendas.Agregar(nuevaAgenda);
-
-   console.log(this.controladorSeguimientos.todos,"Agendas");
    this.controladorAgendas.Guardar().subscribe( 
     (respuestaAgendas:RespuestaInterface) => { 
-      console.log(respuestaAgendas, "ERROR Agenas");
       if( respuestaAgendas.codigo == 200 ){
                 console.log(respuestaAgendas.mensaje.dbRefs[0].id);
         for (let i = 0; i < this.registrosAgendados.length ; i++) {
            let nuevoSeguimiento : SeguimientosInterface = { id: null, actualizacion_fecha: null, observacion: null, tiposobservaciones_id : null , personas_id: this.registrosAgendados[i].id};
            this.controladorSeguimientos.Agregar(nuevoSeguimiento);
         }
-        console.log(this.controladorSeguimientos.todos,"Seguimientos");
         this.controladorSeguimientos.Guardar().subscribe(
           (respuestaSeguimientos : RespuestaInterface) => {
-            console.log(respuestaSeguimientos, "ERROR segimientos");
             if ( respuestaSeguimientos.codigo == 200) {
               console.log(respuestaSeguimientos.mensaje.dbRefs);
               for (let i = 0; i < respuestaSeguimientos.mensaje.dbRefs.length; i++) {
