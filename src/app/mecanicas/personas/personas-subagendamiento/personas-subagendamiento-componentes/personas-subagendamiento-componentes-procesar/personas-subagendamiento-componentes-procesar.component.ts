@@ -108,7 +108,7 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
 
         this.controladorAgendas.Encontrar("id",this.idAgendaProcesada);
         this.datos.padre = this.controladorAgendas.actual;
-        this.datos.actual = { id: null, apertura_fecha: "", cierre_fecha: "", nivel: this.datos.padre.nivel + 1 , responsable_id: null, registro_fecha: this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd')  };
+        this.datos.actual = { id: null, agendas_id: this.datos.padre.id, apertura_fecha: "", cierre_fecha: "", nivel: this.datos.padre.nivel + 1 , responsable_id: null, registro_fecha: this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd')  };
         this.datos.agendamientos = [];
 
         this.listaSeguimientosDisponibles = []
