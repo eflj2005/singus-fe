@@ -4,6 +4,7 @@ export interface AgendasInterface {
     apertura_fecha: string;
     cierre_fecha: string;
     nivel: number;
+    registro_fecha:string;
     modo?:string;
     dbRef?:string;
 }

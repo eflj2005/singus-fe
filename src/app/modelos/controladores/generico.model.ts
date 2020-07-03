@@ -378,7 +378,7 @@ export class GenericoModel {
     let regExp = /\-/gi;
     for (var campo in objeto) {
       if( campo.search("_fecha") != -1 ){
-        if( isNull(objeto[campo]) || (objeto[campo] == "") )    objeto[campo] = "NULL";
+        if( isNull(objeto[campo]) || (objeto[campo] == "") )    objeto[campo] = null;
         else                                                    objeto[campo] = objeto[campo].replace(regExp, "");
       }
     }
@@ -409,7 +409,6 @@ export class GenericoModel {
       conSeguridad: conToken,      
       datos : aProcesar      
     };
-
 
     return this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php", parametros).pipe(
       map(
