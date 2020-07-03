@@ -428,7 +428,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
   }
 
   CrearAgenda(){
-   let nuevaAgenda: any = {'id': null , 'agendas_id': null, 'apertura_fecha': String(this.apertura_fecha) , 'cierre_fecha': String(this.cierre_fecha), 'nivel': 0, registro_fecha: this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd') }; // Por problema con 0 y json esta en any pero debe cambiar a la interfaz de agendas
+   let nuevaAgenda: any = {'id': null , 'agendas_id': null, 'apertura_fecha': String(this.apertura_fecha) , 'cierre_fecha': String(this.cierre_fecha), 'nivel': 0, registro_fecha: this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd') }; 
    this.controladorAgendas.Agregar(nuevaAgenda);
    this.controladorAgendas.Guardar().subscribe( 
     (respuestaAgendas:RespuestaInterface) => { 

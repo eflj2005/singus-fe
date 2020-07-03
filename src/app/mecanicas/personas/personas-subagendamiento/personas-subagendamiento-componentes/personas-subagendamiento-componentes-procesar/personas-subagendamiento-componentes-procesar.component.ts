@@ -12,6 +12,7 @@ import { SeguimientosInterface } from '@interfaces/seguimientos.interface';
 import { AgendamientosController } from '@controladores/agendamientos.controller';
 import { EstructuraConsultas } from '@generales/estructura-consultas';
 import { AsignacionesController } from '@controladores/asignaciones.controller';
+import { DatePipe } from '@angular/common';
 
 interface DatosIntercambioInterface{
   [index: string]: any;
@@ -64,7 +65,8 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
   constructor(
     private servicioAmbiente : AmbienteService,
     private llamadoHttp : HttpClient,
-    private autenticador: AutenticacionService  
+    private autenticador: AutenticacionService,
+    private utilidadFechas: DatePipe
   ) {
 
     this.usuario_id = this.autenticador.UsuarioActualValor.id;
@@ -106,7 +108,7 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
 
         this.controladorAgendas.Encontrar("id",this.idAgendaProcesada);
         this.datos.padre = this.controladorAgendas.actual;
-        this.datos.actual = { id: null, apertura_fecha: "", cierre_fecha: "", nivel: this.datos.padre.nivel + 1 , responsable_id: null };
+        this.datos.actual = { id: null, apertura_fecha: "", cierre_fecha: "", nivel: this.datos.padre.nivel + 1 , responsable_id: null, registro_fecha: this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd')  };
         this.datos.agendamientos = [];
 
         this.listaSeguimientosDisponibles = []
