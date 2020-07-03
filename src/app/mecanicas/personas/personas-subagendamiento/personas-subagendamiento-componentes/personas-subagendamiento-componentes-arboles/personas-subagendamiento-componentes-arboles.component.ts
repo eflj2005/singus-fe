@@ -37,6 +37,7 @@ class ArbolDeAgendas{
       nivel:          objetoRecibido.nivel,
       distribuciones: objetoRecibido.distribuciones,
       creador_id:     objetoRecibido.creador_id,
+      registro_fecha: objetoRecibido.registro_fecha,
       subagendas: []
     };
     return respuesta;
@@ -52,7 +53,8 @@ class ArbolDeAgendas{
       creador:        objetoRecibido.creador,
       nivel:          objetoRecibido.nivel,
       distribuciones: objetoRecibido.distribuciones,
-      creador_id:     objetoRecibido.creador_id
+      creador_id:     objetoRecibido.creador_id,
+      registro_fecha: objetoRecibido.registro_fecha
     };
     return respuesta;
   }

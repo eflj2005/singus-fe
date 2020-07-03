@@ -123,9 +123,9 @@ export class PersonasAgendamientoListaComponent implements OnInit {
         }
       }else{
         if( datos[i].tipo == 'C' ){
-          this.registrosAgendas.push({'id': datos[i].id, 'apertura_fecha': datos[i].apertura_fecha, 'cierre_fecha':datos[i].cierre_fecha, 'nombreCoordinador': datos[i].nombreCompletoUsuario,'nivel': datos[i].nivel});
+          this.registrosAgendas.push({'id': datos[i].id, 'apertura_fecha': datos[i].apertura_fecha, 'cierre_fecha':datos[i].cierre_fecha, 'nombreCoordinador': datos[i].nombreCompletoUsuario,'nivel': datos[i].nivel, 'registro_fecha': datos[i].registro_fecha, 'agendas_id': datos[i].agendas_id } );
         }else{
-          this.registrosAgendas.push({'id': datos[i].id, 'apertura_fecha': datos[i].apertura_fecha, 'cierre_fecha':datos[i].cierre_fecha, 'nombreResponsable': datos[i].nombreCompletoUsuario,'nivel': datos[i].nivel});
+          this.registrosAgendas.push({'id': datos[i].id, 'apertura_fecha': datos[i].apertura_fecha, 'cierre_fecha':datos[i].cierre_fecha, 'nombreResponsable': datos[i].nombreCompletoUsuario,'nivel': datos[i].nivel, 'registro_fecha': datos[i].registro_fecha, 'agendas_id': datos[i].agendas_id } );
         }
       }
     }
