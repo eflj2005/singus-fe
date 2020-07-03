@@ -14,7 +14,7 @@
       (click)="ProcesarAgenda('modificar',agenda_id)"
     ><i class="fa fa-pencil-square-o"></i> Modificar</button>
     <button 
-      *ngIf=" agendaEncontrada ? ( datosBaseAgenda.nivel < 2 ) : false "     
+      *ngIf=" agendaEncontrada ? ( datosBaseAgenda.nivel < 2 ) && (datosBaseAgenda.creador_id != usuario_id): false "     
       type="button" class="btn btn-outline-primary py-0 px-1 float-right" 
       (click)="ProcesarAgenda('subagendar',agenda_id)"
       ><i class="fa fa-sitemap"></i> Subagendar</button>

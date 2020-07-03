@@ -12,6 +12,16 @@
 </div>
 <div class="row">
   <div class="col-md-3">
+    
+    <div class="row">
+      <div class="col-md p-0">
+        <button 
+          type="button" class="btn btn-outline-primary py-0 px-1" 
+          (click)="RecargarControladores()"
+        ><i class="fa fa-refresh"></i> Actualizar</button>
+      </div>
+    </div>
+
     <div class="row justify-content-start">
       <div class="col-md-11 contenedor">
         <app-personas-subagendamiento-componentes-arboles 
@@ -21,6 +31,7 @@
         ></app-personas-subagendamiento-componentes-arboles>
       </div>
     </div>
+    
   </div>
   <div class="col-md-9 contenedor">
     <app-personas-subagendamiento-componentes-lista

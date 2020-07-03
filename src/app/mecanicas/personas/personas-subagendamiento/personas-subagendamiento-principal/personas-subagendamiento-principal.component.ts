@@ -57,6 +57,7 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
     this.controladorAgendas.AgregarForanea(this.controladorAgendasForaneas);
     this.controladorSeguimientos = new SeguimientosController(llamadoHttp , servicioAmbiente);
 
+
     caracteristicasConsultas = new EstructuraConsultas();
     caracteristicasConsultas.ActivarDiferentes();
     caracteristicasConsultas.AgregarColumna( null , "(SELECT usuarios_id FROM asignaciones WHERE agendas_id = agendas.id AND tipo = 'C' )", "creador_id", true); 
@@ -143,7 +144,7 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
     caracteristicasConsultas.AgregarEnlace( "agendas", "agendas", "agendamientos");
     caracteristicasConsultas.AgregarEnlace( "asignaciones", "agendas", "asignaciones");
     caracteristicasConsultas.AgregarFiltro(   "",     "asignaciones" ,  "usuarios_id" , "=", String(this.usuario_id) );
-    caracteristicasConsultas.AgregarFiltro(   "AND",  "asignaciones" ,  "tipo" , "=", "R" );
+    // caracteristicasConsultas.AgregarFiltro(   "AND",  "asignaciones" ,  "tipo" , "=", "R" );
     this.controladorSeguimientos.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAG:RespuestaInterface) => {           // Carge de Agenda
 
     }); 
@@ -164,6 +165,13 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
     );
 
     return validador;
+  }
+
+  RecargarControladores(){
+    this.controladorAgendas.Recargar().subscribe( (respuestaAP:RespuestaInterface) => { 
+      this.controladorAgendasForaneas.Recargar().subscribe( (respuestaAF:RespuestaInterface) => { });
+      this.controladorSeguimientos.Recargar().subscribe( (respuestaAG:RespuestaInterface) => { }); 
+    });
   }
 
 }
