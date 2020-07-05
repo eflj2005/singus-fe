@@ -280,7 +280,7 @@ export class GenericoModel {
           if(respuesta.codigo == 200){
             this.LimpiarTodo();
             if(!isNull(respuesta.mensaje)){
-              this.ProcesarRegistros(respuesta.mensaje, this, caracteristicas.listaColumnas );
+              this.ProcesarRegistros(respuesta.mensaje, this, !isNull(caracteristicas) ? caracteristicas.listaColumnas : caracteristicas );
 
               this.datosCargue.caracteristicas = caracteristicas;
               this.datosCargue.conToken = conToken;

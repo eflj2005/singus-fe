@@ -144,7 +144,6 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
     caracteristicasConsultas.AgregarEnlace( "agendas", "agendas", "agendamientos");
     caracteristicasConsultas.AgregarEnlace( "asignaciones", "agendas", "asignaciones");
     caracteristicasConsultas.AgregarFiltro(   "",     "asignaciones" ,  "usuarios_id" , "=", String(this.usuario_id) );
-    // caracteristicasConsultas.AgregarFiltro(   "AND",  "asignaciones" ,  "tipo" , "=", "R" );
     this.controladorSeguimientos.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAG:RespuestaInterface) => {           // Carge de Agenda
 
     }); 
