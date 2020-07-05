@@ -404,11 +404,12 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
 7
   EliminarTodos(){
 
+
   }
 
   AgregarPersonas(){
-    console.log('La Agregacion')
-    console.log(this.registrosAgendados.length)
+    console.log('La Agregacion');
+    console.log(this.registrosAgendados.length);
     if (this.registrosAgendados.length == 0) {
       for (let i = 0; i < this.registrosPersonasTemp.length; i++) {
         this.registrosAgendados.push(this.registrosPersonasTemp[i]);
@@ -425,6 +426,20 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
 
     this.AplicarFiltros(3)
     console.log(this.registrosAgendados);
+  }
+
+  Limpiar(){
+    this.sedeid = -1;
+    this.cohorteid = -1;
+    this.programaid = -1;
+
+    this.apertura_fecha = null;
+    this.cierre_fecha = null;
+    this.responsableSelecionado = {'id': null, 'nombres': ''};
+    this.registrosAgendados = [];
+    this.resgistro_fecha = null;
+
+    this.AplicarFiltros(3);
   }
 
   CrearAgenda(){
