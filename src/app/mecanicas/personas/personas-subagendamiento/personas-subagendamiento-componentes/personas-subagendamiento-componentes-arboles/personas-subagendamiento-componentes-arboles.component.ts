@@ -1,15 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AgendasInterface } from '@interfaces/agendas.interface'
+import { BehaviorSubject } from 'rxjs';
 
-
-interface DatosIntercambioInterface{
-  [index: string]: any;
-}
 
 interface AgendasCompletoInterface extends AgendasInterface  {
   creador: string;
   creador_id: number;
   asignados: number;
+  distribuciones:number,
   esRaiz?: boolean
   selecionado?:boolean;
 }
@@ -37,7 +35,9 @@ class ArbolDeAgendas{
       asignados:      objetoRecibido.asignados,
       creador:        objetoRecibido.creador,
       nivel:          objetoRecibido.nivel,
+      distribuciones: objetoRecibido.distribuciones,
       creador_id:     objetoRecibido.creador_id,
+      registro_fecha: objetoRecibido.registro_fecha,
       subagendas: []
     };
     return respuesta;
@@ -52,7 +52,9 @@ class ArbolDeAgendas{
       asignados:      objetoRecibido.asignados,
       creador:        objetoRecibido.creador,
       nivel:          objetoRecibido.nivel,
-      creador_id:     objetoRecibido.creador_id
+      distribuciones: objetoRecibido.distribuciones,
+      creador_id:     objetoRecibido.creador_id,
+      registro_fecha: objetoRecibido.registro_fecha
     };
     return respuesta;
   }
@@ -103,8 +105,7 @@ class ArbolDeAgendas{
 export class PersonasSubagendamientoComponentesArbolesComponent implements OnInit {
 
   @Input() agendas:AgendasCompletoInterface[]=[];
-  @Input() seleccionada: DatosIntercambioInterface;
-  @Output() seleccionadaChangue: EventEmitter<DatosIntercambioInterface> = new EventEmitter<DatosIntercambioInterface>();
+  @Input() seleccionada: BehaviorSubject<number>;
 
   listaArbolesAgendas: ArbolDeAgendas[] = [];
 
@@ -112,7 +113,6 @@ export class PersonasSubagendamientoComponentesArbolesComponent implements OnIni
 
   ngOnInit() {
     this.GenerarListaArboles(this.agendas);
-    console.log(this.agendas);
     this.agendas = this.ObtenerListaAgendas();
   }
 
@@ -193,9 +193,6 @@ export class PersonasSubagendamientoComponentesArbolesComponent implements OnIni
   }
 
   Seleccionado( indiceAgendaRecibido : number){
-    this.seleccionada.id = this.agendas[indiceAgendaRecibido].id;
-    this.seleccionada.creador_id = this.agendas[indiceAgendaRecibido].creador_id;
-    this.seleccionada.nivel = this.agendas[indiceAgendaRecibido].nivel;
-    this.seleccionadaChangue.emit( this.seleccionada );    
+    this.seleccionada.next( this.agendas[indiceAgendaRecibido].id );
   }
 }

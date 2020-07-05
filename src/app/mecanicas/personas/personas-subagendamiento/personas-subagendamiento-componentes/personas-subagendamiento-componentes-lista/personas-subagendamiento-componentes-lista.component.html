@@ -1,11 +1,23 @@
 <div class="row justify-content-between">
   <div class="col-md-4">
-    <h5>Seguimientos de Agenda No. {{ datosAgenda.id }} - Nivel {{ datosAgenda.nivel }}</h5>
+    <h5>Seguimientos de Agenda No. {{ datosBaseAgenda.agenda_id }} - Nivel {{ agendaEncontrada?datosBaseAgenda.nivel:'-' }} - Distribuciones: {{ agendaEncontrada?datosBaseAgenda.distribuciones:'-'  }}</h5>
   </div>
   <div class="col-md-6">
-    <button *ngIf="(datosAgenda.id != 0) && (datosAgenda.creador_id == usuario_id)" type="button" class="btn btn-outline-primary py-0 px-1 float-right" (click)="EliminarAgenda( datosAgenda.id )"><i class="fa fa-trash-o"></i> Descartar</button>
-    <button *ngIf="(datosAgenda.id != 0) && (datosAgenda.creador_id == usuario_id)" type="button" class="btn btn-outline-primary py-0 px-1 mx-1 float-right" (click)="Procesar(datosAgenda.id)"><i class="fa fa-pencil-square-o"></i> Modificar</button>
-    <button *ngIf="(datosAgenda.id != 0) && (datosAgenda.nivel < 2)" type="button" class="btn btn-outline-primary py-0 px-1 float-right" ><i class="fa fa-sitemap"></i> Subagendar</button>
+    <button 
+      *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.creador_id == usuario_id ) && ( datosBaseAgenda.distribuciones == 0 ) ) : false "     
+      type="button" class="btn btn-outline-primary py-0 px-1 float-right" 
+      (click)="EliminarAgenda( datosAgenda.id )"
+    ><i class="fa fa-trash-o"></i> Descartar</button>
+    <button 
+      *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.creador_id == usuario_id ) && ( datosBaseAgenda.distribuciones == 0 ) ) : false " 
+      type="button" class="btn btn-outline-primary py-0 px-1 mx-1 float-right"
+      (click)="ProcesarAgenda('modificar',agenda_id)"
+    ><i class="fa fa-pencil-square-o"></i> Modificar</button>
+    <button 
+      *ngIf=" agendaEncontrada ? ( datosBaseAgenda.nivel < 2 ) && (datosBaseAgenda.creador_id != usuario_id): false "     
+      type="button" class="btn btn-outline-primary py-0 px-1 float-right" 
+      (click)="ProcesarAgenda('subagendar',agenda_id)"
+      ><i class="fa fa-sitemap"></i> Subagendar</button>
   </div>
 </div>
 
@@ -15,7 +27,7 @@
       <thead>
         <tr>
           <th scope="col"># Seg.</th>
-          <th scope="col">UniminutoId</th>
+          <th scope="col">Uni-Id</th>
           <th scope="col">Nombre</th>
           <th scope="col">Creación</th>
           <th scope="col">Ultimo Cambio</th>
@@ -24,8 +36,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let elemento of agendamientos; let indiceAgendamientos = index">
-          <th scope="row">{{ elemento.seguimientosId }}</th>
+        <tr *ngFor="let elemento of FiltrarDatos( controladorSeguimientos.todos , 'agenda_id' , datosBaseAgenda.agenda_id); let indiceAgendamientos = index">
+          <th scope="row">{{ elemento.id }}</th>
           <td>{{ elemento.uniminutoId }}</td>
           <td>{{ elemento.nombreCompleto }}</td>
           <td>{{ elemento.fechaRegistro }}</td>

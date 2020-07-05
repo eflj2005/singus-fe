@@ -1,5 +1,5 @@
 import { Component, OnInit, PipeTransform} from '@angular/core';
-import {formatDate} from '@angular/common';
+import {formatDate, DatePipe} from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {AmbienteService} from '@servicios/ambiente.service';
 import { DecimalPipe } from '@angular/common';
@@ -93,7 +93,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     conCambios: false
   }
 
-  constructor(private autenticador: AutenticacionService, private servicioAmbiente: AmbienteService , private pipe: DecimalPipe, private modal: NgbModal, private llamadoHttp :HttpClient ) {
+  constructor(private autenticador: AutenticacionService, private servicioAmbiente: AmbienteService , private pipe: DecimalPipe, private modal: NgbModal, private llamadoHttp :HttpClient, private utilidadFechas: DatePipe ) {
     this.creador = this.autenticador.UsuarioActualValor.id;
     this.resgistro_fecha = formatDate(new Date(), 'yyyy-MM-dd', 'en')
     this.ConsultaResponsables();
@@ -401,7 +401,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
       // break;      
     }
   }
-
+7
   EliminarTodos(){
 
 
@@ -443,17 +443,16 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
   }
 
   CrearAgenda(){
-   let nuevaAgenda: any = {'id': null , 'agendas_id': null, 'apertura_fecha': String(this.apertura_fecha) , 'cierre_fecha': String(this.cierre_fecha), 'nivel': "0"}; // Por problema con 0 y json esta en any pero debe cambiar a la interfaz de agendas
+   let nuevaAgenda: any = {'id': null , 'agendas_id': null, 'apertura_fecha': String(this.apertura_fecha) , 'cierre_fecha': String(this.cierre_fecha), 'nivel': 0, registro_fecha: this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd') }; 
    this.controladorAgendas.Agregar(nuevaAgenda);
    this.controladorAgendas.Guardar().subscribe( 
     (respuestaAgendas:RespuestaInterface) => { 
       if( respuestaAgendas.codigo == 200 ){
-        console.log(respuestaAgendas.mensaje.dbRefs[0].id);
+                console.log(respuestaAgendas.mensaje.dbRefs[0].id);
         for (let i = 0; i < this.registrosAgendados.length ; i++) {
-           let nuevoSeguimiento : SeguimientosInterface = {'id': null, 'actualizacion_fecha': null, 'observacion': null, 'tiposobservaciones_id' : null , 'personas_id': this.registrosAgendados[i].id};
+           let nuevoSeguimiento : SeguimientosInterface = { id: null, actualizacion_fecha: null, observacion: null, tiposobservaciones_id : null , personas_id: this.registrosAgendados[i].id};
            this.controladorSeguimientos.Agregar(nuevoSeguimiento);
         }
-        console.log(this.controladorSeguimientos.todos);
         this.controladorSeguimientos.Guardar().subscribe(
           (respuestaSeguimientos : RespuestaInterface) => {
             if ( respuestaSeguimientos.codigo == 200) {

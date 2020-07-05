@@ -154,6 +154,11 @@ export class EstructuraConsultas {
     }
   }
 
+  public get listaColumnas():any{
+    return this.columnas;
+  }
+
+
   public AgregarColumna( nombreTabla:string, nombreColumna:string, aliasColumna:string, esNumerico:boolean = false ){
     if( isNull( this.columnas ) ) this.columnas = [];
     this.columnas.push( { tabla: nombreTabla , columna: nombreColumna , alias: aliasColumna, esNumerico: esNumerico } );

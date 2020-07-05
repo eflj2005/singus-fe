@@ -14,8 +14,14 @@ interface RelacionesInterface {
   sentido: string;
 }
 
-interface ArrayOfObjects {
+interface ArrayOfObjectsInterface {
   [index: number]: object;
+}
+
+interface DatosCargueInterface{
+  caracteristicas: EstructuraConsultas;
+  conToken:boolean;
+  modoCargue:string;
 }
 
 export class GenericoModel {
@@ -24,7 +30,7 @@ export class GenericoModel {
 
   public nombreTabla:string;
 
-  protected camposTabla:ArrayOfObjects[];
+  protected camposTabla:ArrayOfObjectsInterface[];
   protected camposFecha:string[];
 
   protected controladoresForaneos:any[];        //eliminar
@@ -37,6 +43,12 @@ export class GenericoModel {
   private consecutivoDbRefs:number;
   protected listoCampos:boolean;
   protected listoCargue:boolean;
+
+  private datosCargue:DatosCargueInterface = {
+    caracteristicas: null,
+    conToken: false,
+    modoCargue: "S"
+  };
 
   constructor( 
     instanciaHttpClient :HttpClient,
@@ -52,6 +64,8 @@ export class GenericoModel {
     this.consecutivoDbRefs =1;
     this.listoCampos=false;
     this.listoCargue=false;
+
+    
 
   }
 
@@ -69,7 +83,7 @@ export class GenericoModel {
     return  this.registros[this.posicionActual];
   }
 
-  public get campos():ArrayOfObjects[]{
+  public get campos():ArrayOfObjectsInterface[]{
     return this.camposTabla;
   }
 
@@ -93,13 +107,15 @@ export class GenericoModel {
     return  this.registros;
   }
 
-  public Agregar(objeto:any){
+  public Agregar(objeto:any):string{
     objeto.modo = "I";
     objeto.dbRef = "#"+this.consecutivoDbRefs;
     this.consecutivoDbRefs++;
 
     this.registros.push(objeto);
     this.posicionActual = this.cantidad - 1;
+    
+    return objeto.dbRef;
   }
 
   public Modificar(objeto:any){
@@ -238,30 +254,38 @@ export class GenericoModel {
 
   }
 
-  public CargarDesdeDB(  conToken:boolean=true , modoCargue:string="S", caracteristicas:any = null): Observable<any> {
+  public Recargar(): Observable<any>{
+    const respuesta = this.CargarDesdeDB( this.datosCargue.conToken, this.datosCargue.modoCargue, this.datosCargue.caracteristicas );
+    return respuesta;
+  }
+
+  public CargarDesdeDB(  conToken:boolean=true , modoCargue:string="S", caracteristicas:EstructuraConsultas = null): Observable<any> {
   
     this.listoCargue=false;
 
     let re1 = /\"/gi;
     let re2 = /{/gi;
     let re3 = /\}/gi;    
-
-    let columnasSolicitadas:any = !isNull(caracteristicas) ? caracteristicas.columnas : null;
-    
+  
     let datosEnviados = new HttpParams()
       .set("accion","obtener_registros")
       .set("tabla",this.nombreTabla)
       .set("conSeguridad", String(conToken) )      
       .set("modo", modoCargue )                       //S = simple => consulta directa, A = avanzada => consulta con inner join
       .set("caracteristicas", JSON.stringify(caracteristicas));  
-    
+
     const llamado = this.llamadoHttp.get<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php",  { params: datosEnviados  }  ).pipe(
       map(
         (respuesta: RespuestaInterface) => {
           if(respuesta.codigo == 200){
             this.LimpiarTodo();
             if(!isNull(respuesta.mensaje)){
-              this.ProcesarRegistros(respuesta.mensaje, this, columnasSolicitadas );
+              this.ProcesarRegistros(respuesta.mensaje, this, !isNull(caracteristicas) ? caracteristicas.listaColumnas : caracteristicas );
+
+              this.datosCargue.caracteristicas = caracteristicas;
+              this.datosCargue.conToken = conToken;
+              this.datosCargue.modoCargue = modoCargue;
+
             }
             else{
               this.listoCargue=true;
@@ -278,6 +302,7 @@ export class GenericoModel {
     return llamado;
 
   }
+
 
   private ActualizarReferencias(datos:filtroInterface[]){
 
@@ -376,7 +401,7 @@ export class GenericoModel {
     let regExp = /\-/gi;
     for (var campo in objeto) {
       if( campo.search("_fecha") != -1 ){
-        if( isNull(objeto[campo]) || (objeto[campo] == "") )    objeto[campo] = "NULL";
+        if( isNull(objeto[campo]) || (objeto[campo] == "") )    objeto[campo] = null;
         else                                                    objeto[campo] = objeto[campo].replace(regExp, "");
       }
     }
@@ -407,7 +432,6 @@ export class GenericoModel {
       conSeguridad: conToken,      
       datos : aProcesar      
     };
-
 
     return this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php", parametros).pipe(
       map(
