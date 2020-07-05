@@ -108,8 +108,17 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
   //   );
   // }
 
+  ObtenerSeguimientos(): any[] {
+    let listaRespuesta: any[];
+    listaRespuesta = this.FiltrarDatos( this.controladorSeguimientos.todos,  'agenda_id' , this.datosBaseAgenda.agenda_id );
 
-  FiltrarDatos( arreglo : any , campo : string , valor : any ){
+    if( this.datosBaseAgenda.creador_id == this.usuario_id ){
+      listaRespuesta = this.FiltrarDatos( listaRespuesta,  'tipo_asignacion' , 'C' );
+    }
+    return listaRespuesta;
+  }
+
+  FiltrarDatos( arreglo : any[] , campo : string , valor : any ): any[] {
     let resultados = arreglo.filter( (elemento: { [x: string]: any; }) => elemento[campo] == valor );
     return resultados;
   }

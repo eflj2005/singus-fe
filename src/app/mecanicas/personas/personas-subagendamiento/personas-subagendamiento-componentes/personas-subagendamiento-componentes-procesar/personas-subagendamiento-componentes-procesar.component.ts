@@ -221,6 +221,7 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
                 console.log(respuestaAsignaciones);
                 if( respuestaAsignaciones.codigo == 200 ){
                   alert("Agenda Guardada satisfactoriamente");
+                  this.Cancelar();
                 }    
                 else{
                   alert("Error al asignar agendas");

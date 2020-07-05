@@ -36,7 +36,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let elemento of FiltrarDatos( controladorSeguimientos.todos , 'agenda_id' , datosBaseAgenda.agenda_id); let indiceAgendamientos = index">
+        <tr *ngFor="let elemento of ObtenerSeguimientos(); let indiceAgendamientos = index">
           <th scope="row">{{ elemento.id }}</th>
           <td>{{ elemento.uniminutoId }}</td>
           <td>{{ elemento.nombreCompleto }}</td>
