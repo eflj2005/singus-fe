@@ -62,6 +62,9 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
     seguimientosAsignados: false,
   }
 
+  notificacionActiva:boolean=false;
+  notificacionMensaje:string ="";
+
   constructor(
     private servicioAmbiente : AmbienteService,
     private llamadoHttp : HttpClient,
@@ -139,8 +142,49 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
       case "modificar":
         this.titulos.principal = "Modificación de Distribución";
         this.titulos.seccion = "Modificación Agenda";
+
+        this.controladorAgendas.Encontrar("id",this.idAgendaProcesada);
+        this.datos.actual = this.controladorAgendas.actual;
+        this.controladorAgendas.Encontrar("id",this.datos.actual.agendas_id);
+        this.datos.padre = this.controladorAgendas.actual;
+        this.datos.agendamientos = [];
+
+        this.listaSeguimientosDisponibles = []
+
+        this.FiltrarDatos( this.controladorSeguimientos.todos , 'agenda_id' , this.datos.padre.id ).forEach( (SeguimientoDisponible: any ) => {
+          let temporal: any = Object.assign({},SeguimientoDisponible);
+          temporal.seleccionado = false;
+          this.listaSeguimientosDisponibles.push(temporal);
+        });
+
+        this.FiltrarDatos( this.controladorSeguimientos.todos , 'agendaPadre_id' , this.datos.padre.id ).forEach( (SegimientoYaAsignado: any ) => {
+          let posicion: number = 0;
+          let encontrado: boolean = false;
+          while(posicion < this.listaSeguimientosDisponibles.length && !encontrado){
+            if(this.listaSeguimientosDisponibles[posicion].id == SegimientoYaAsignado.id){
+              this.listaSeguimientosDisponibles.splice(posicion,1);
+              encontrado=true;
+            }
+            else{
+              posicion++;
+            }
+          }
+
+          this.listaSeguimientosAsignados = [];
+
+          this.FiltrarDatos( this.controladorSeguimientos.todos , 'agenda_id' , this.datos.actual.id ).forEach( (SeguimientoAsiganado: any ) => {
+            let temporal: any = Object.assign({},SeguimientoAsiganado);
+            temporal.seleccionado = false;
+            this.listaSeguimientosAsignados.push(temporal);
+          });        
+
+        });
+
+
       break;
     }
+
+    this.ValidarFormulario();
 
   }
   
@@ -186,12 +230,14 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
         posicion++;
       }
     }
+    this.ValidarFormulario();
   }
 
   Procesar(){
-    console.log(this.controladorAgendas.todos,"agendas");
-    console.log(this.controladorAgendamientos.todos,"agendamientos");
-    console.log(this.controladorSeguimientos.todos,"seguimientos");
+    // console.log(this.controladorAgendas.todos,"agendas");
+    // console.log(this.controladorAgendamientos.todos,"agendamientos");
+    // console.log(this.controladorSeguimientos.todos,"seguimientos");
+
     if(this.modoProceso == "subagendar"){
 
       let referenciaAgenda:string="";
@@ -259,29 +305,47 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
           this.controladorAgendas.Eliminar();
         }                              
       });
-
-
     }
 
   }
+
+
+  ValidarFormulario(){
+
+    this.notificacionActiva = false;
+
+    if( this.datos.actual.responsable_id == null ){
+      this.notificacionActiva = true;
+      this.notificacionMensaje = "Debe seleccionar un responsable";
+    }  
+    
+    if( this.datos.actual.cierre_fecha == null || this.datos.actual.cierre_fecha == "" || ( new Date(this.datos.actual.cierre_fecha) > new Date(this.datos.padre.cierre_fecha) ) ){
+      this.notificacionActiva = true;
+      this.notificacionMensaje = "Debe seleccionar una fecha de cierre adecuada";
+    }
+
+    if( this.datos.actual.apertura_fecha == null || this.datos.actual.apertura_fecha == "" || ( new Date(this.datos.actual.apertura_fecha) < new Date(this.datos.padre.apertura_fecha) ) ){
+      this.notificacionActiva = true;
+      this.notificacionMensaje = "Debe seleccionar una fecha de apertura adecuada";
+    }
+
+  }
+
+
 
   Cancelar(){
     this.modal.dismiss('CANCELAR');
   }
 
-
   EstoyListo(){
     let validador:boolean = false;
-
-    validador = (
-      this.controladorAsignaciones.EstaListo("cargue")
-    );
-
+    validador = (this.controladorAsignaciones.EstaListo("cargue") );
     return validador;
   }
 
-  FiltrarDatos( arreglo : any , campo : string , valor : any ){
-    let resultados = arreglo.filter( (elemento: { [x: string]: any; }) => elemento[campo] == valor );
+  FiltrarDatos( arreglo : any[] , campo : string , valor : any ){
+    let resultados: any[] = [] ;
+    resultados = arreglo.filter( (elemento: { [x: string]: any; }) => elemento[campo] == valor );
     return resultados;
   }
 
