@@ -123,13 +123,15 @@ export class GenericoModel {
     this.registros[this.posicionActual]=objeto;
   }
 
-  public Eliminar(){
-    if( this.registros[this.posicionActual].modo == "I" )
+  public Eliminar( moveToFirst:boolean = true ){
+    if( this.registros[this.posicionActual].modo == "I" ){
       this.registros.splice( this.posicionActual, 1 );
+      this.Primero();
+    }
     else{
       this.registros[this.posicionActual].modo = "E";
+      if (moveToFirst) this.Primero();
     }
-    this.Primero();
   }
 
   public LimpiarTodo(){
