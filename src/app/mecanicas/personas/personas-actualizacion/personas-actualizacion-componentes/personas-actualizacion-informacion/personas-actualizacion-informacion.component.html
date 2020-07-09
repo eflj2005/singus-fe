@@ -4,12 +4,17 @@
 </div>
 
 <div class="row">
-  <div class="container col-md">
+  <div class="col-md pb-2 mx-2">
     
-    <h1 align='center'>Editar Persona</h1>
+        
+    <div class="row">
+      <div class="col-md">
+        <h1 align='center'>Editar Persona</h1>
+      </div>
+    </div>
             
     <div class="form-group row">
-      <div class="col-md-1 form-group column  " >
+      <div class="col-md-1 form-group" >
         <button type="button" class="btn editperson active" (click)="cambiarGrupoDatos(1)">
           <div><img src="../../../../../../assets/imagenes/persona.png" class="img-fluid editperson" alt="Responsive image"></div>
         </button>
@@ -27,7 +32,7 @@
         </button>          
       </div>
       
-      <div class=" col-md-11 column infoSpace " >
+      <div class=" col-md-11 infoSpace " >
         <h3>{{ grupoDatos.nombre }}</h3>
 
         <hr class="my-1">
@@ -447,13 +452,20 @@
 
       </div>  
     </div>
-    <div class="buttonDown">
-      
-      <button type="button" *ngIf="procesando == false" class="btn btn-outline-dark buttonGeneral" (click)="Regresar()">Regresar</button>
-      <button type="button" *ngIf="procesando == true" class="btn btn-outline-dark buttonGeneral"><i class="fa fa-spinner fa-spin"></i></button>    
-      <button type="button" *ngIf="procesando == false" class="btn btn-primary" (click)="ActualizarPersona()">Actualizar</button>
-      <button type="button" *ngIf="procesando == true" class="btn btn-primary"><i class="fa fa-spinner fa-spin"></i></button>
-      
+
+    <div class="row">
+      <div class="col-md">
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md buttonDown">
+        <button type="button" *ngIf="procesando == false" class="btn btn-outline-dark buttonGeneral" (click)="Regresar()">Regresar</button>
+        <button type="button" *ngIf="procesando == true" class="btn btn-outline-dark buttonGeneral"><i class="fa fa-spinner fa-spin"></i></button>    
+        <button type="button" *ngIf="procesando == false" class="btn btn-primary" (click)="ActualizarPersona()">Actualizar</button>
+        <button type="button" *ngIf="procesando == true" class="btn btn-primary"><i class="fa fa-spinner fa-spin"></i></button>
+      </div>
     </div>
 
   </div>
