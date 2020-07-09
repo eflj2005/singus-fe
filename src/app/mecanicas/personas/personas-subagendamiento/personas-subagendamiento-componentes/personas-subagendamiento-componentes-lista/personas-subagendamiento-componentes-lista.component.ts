@@ -14,6 +14,8 @@ import { PersonasSubagendamientoComponentesProcesarComponent } from '../personas
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { BrowserStack } from 'protractor/built/driverProviders';
 import { SeguimientosController } from '@controladores/seguimientos.controller';
+import { PersonasActualizacionInformacionComponent } from '@mecanicas/personas/personas-actualizacion/personas-actualizacion-componentes/personas-actualizacion-informacion/personas-actualizacion-informacion.component';
+
 
 interface DatosIntercambioInterface{
   [index: string]: any;
@@ -101,6 +103,12 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
 
   }
 
+  CargarPersona( idPersona: number ){
+    console.log(idPersona, "idPersona");
+    this.servicioAmbiente.controlMecanicasPersonas.datos = { id: idPersona };
+    const modalRef = this.servicioEmergentes.open(PersonasActualizacionInformacionComponent, { size : 'xl'  ,  backdropClass: 'light-blue-backdrop', backdrop: "static"  } );
+  }
+
   // AplicarFiltros(){
   //   this.registros$ = this.filter.valueChanges.pipe(
   //     startWith(''),
@@ -108,8 +116,17 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
   //   );
   // }
 
+  ObtenerSeguimientos(): any[] {
+    let listaRespuesta: any[];
+    listaRespuesta = this.FiltrarDatos( this.controladorSeguimientos.todos,  'agenda_id' , this.datosBaseAgenda.agenda_id );
 
-  FiltrarDatos( arreglo : any , campo : string , valor : any ){
+    if( this.datosBaseAgenda.creador_id == this.usuario_id ){
+      listaRespuesta = this.FiltrarDatos( listaRespuesta,  'tipo_asignacion' , 'C' );
+    }
+    return listaRespuesta;
+  }
+
+  FiltrarDatos( arreglo : any[] , campo : string , valor : any ): any[] {
     let resultados = arreglo.filter( (elemento: { [x: string]: any; }) => elemento[campo] == valor );
     return resultados;
   }

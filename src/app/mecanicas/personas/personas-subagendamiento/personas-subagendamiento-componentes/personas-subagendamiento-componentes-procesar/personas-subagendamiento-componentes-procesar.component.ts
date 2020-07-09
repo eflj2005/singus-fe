@@ -13,6 +13,7 @@ import { AgendamientosController } from '@controladores/agendamientos.controller
 import { EstructuraConsultas } from '@generales/estructura-consultas';
 import { AsignacionesController } from '@controladores/asignaciones.controller';
 import { DatePipe } from '@angular/common';
+import { Console } from 'console';
 
 interface DatosIntercambioInterface{
   [index: string]: any;
@@ -61,6 +62,9 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
     seguimientosDisponibles: false,
     seguimientosAsignados: false,
   }
+
+  notificacionActiva:boolean=false;
+  notificacionMensaje:string ="";
 
   constructor(
     private servicioAmbiente : AmbienteService,
@@ -139,8 +143,52 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
       case "modificar":
         this.titulos.principal = "Modificación de Distribución";
         this.titulos.seccion = "Modificación Agenda";
+
+        this.controladorAgendas.Encontrar("id",this.idAgendaProcesada);
+        this.datos.actual = this.controladorAgendas.actual;
+        this.controladorAgendas.Encontrar("id",this.datos.actual.agendas_id);
+        this.datos.padre = this.controladorAgendas.actual;
+        this.datos.agendamientos = [];
+
+        this.listaSeguimientosDisponibles = []
+
+        this.FiltrarDatos( this.controladorSeguimientos.todos , 'agenda_id' , this.datos.padre.id ).forEach( (SeguimientoDisponible: any ) => {
+          let temporal: any = Object.assign({},SeguimientoDisponible);
+          temporal.seleccionado = false;
+          this.listaSeguimientosDisponibles.push(temporal);
+        });
+
+        this.FiltrarDatos( this.controladorSeguimientos.todos , 'agendaPadre_id' , this.datos.padre.id ).forEach( (SegimientoYaAsignado: any ) => {
+          let posicion: number = 0;
+          let encontrado: boolean = false;
+          while(posicion < this.listaSeguimientosDisponibles.length && !encontrado){
+            if(this.listaSeguimientosDisponibles[posicion].id == SegimientoYaAsignado.id){
+              this.listaSeguimientosDisponibles.splice(posicion,1);
+              encontrado=true;
+            }
+            else{
+              posicion++;
+            }
+          }
+
+          this.listaSeguimientosAsignados = [];
+
+          this.FiltrarDatos( this.controladorSeguimientos.todos , 'agenda_id' , this.datos.actual.id ).forEach( (SeguimientoAsiganado: any ) => {
+            if( SeguimientoAsiganado.tipo_asignacion == "R" ){
+              let temporal: any = Object.assign({},SeguimientoAsiganado);
+              temporal.seleccionado = false;
+              this.listaSeguimientosAsignados.push(temporal);
+            }
+          });        
+
+
+        });
+
+
       break;
     }
+
+    this.ValidarFormulario();
 
   }
   
@@ -186,101 +234,185 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
         posicion++;
       }
     }
+    this.ValidarFormulario();
   }
 
   Procesar(){
-    console.log(this.controladorAgendas.todos,"agendas");
-    console.log(this.controladorAgendamientos.todos,"agendamientos");
-    console.log(this.controladorSeguimientos.todos,"seguimientos");
-    if(this.modoProceso == "subagendar"){
 
-      let referenciaAgenda:string="";
-      let referenciasAgendamientos:string[];
-      let referenciasAsignaciones:string[];
+    let referenciaAgenda:string="";
+    let referenciasAgendamientos:string[];
+    let referenciasAsignaciones:string[];
 
-      referenciaAgenda = this.controladorAgendas.Agregar(this.datos.actual);
+    switch(this.modoProceso){
+      case 'subagendar':
 
-      this.controladorAgendas.Guardar().subscribe( (respuestaAgendas:RespuestaInterface) => { 
-        console.log(respuestaAgendas);        
-        if( respuestaAgendas.codigo == 200 ){         
-          referenciasAgendamientos = [];
-          this.listaSeguimientosAsignados.forEach((elemento, indice)=>{
-            referenciasAgendamientos.push(
-              this.controladorAgendamientos.Agregar({ id: null, agendas_id: respuestaAgendas.mensaje.dbRefs[0].id, seguimientos_id: elemento.id  })
-            );
-          });
+        referenciaAgenda="";
+        referenciasAgendamientos=[];
+        referenciasAsignaciones=[];
 
-          this.controladorAgendamientos.Guardar().subscribe( (respuestaAgendamientos:RespuestaInterface) => { 
-            console.log(respuestaAgendamientos);
-            if( respuestaAgendamientos.codigo == 200 ){
-              referenciasAsignaciones = [];
-              referenciasAsignaciones.push( this.controladorAsignaciones.Agregar( { id: null, agendas_id: respuestaAgendas.mensaje.dbRefs[0].id, usuarios_id: this.usuario_id , tipo: "C" } ) );
-              referenciasAsignaciones.push( this.controladorAsignaciones.Agregar( { id: null, agendas_id: respuestaAgendas.mensaje.dbRefs[0].id, usuarios_id: this.datos.actual.responsable_id , tipo: "R"} ) );
+        referenciaAgenda = this.controladorAgendas.Agregar(this.datos.actual);
 
-              this.controladorAsignaciones.Guardar().subscribe( (respuestaAsignaciones:RespuestaInterface) => { 
-                console.log(respuestaAsignaciones);
-                if( respuestaAsignaciones.codigo == 200 ){
-                  alert("Agenda Guardada satisfactoriamente");
-                }    
+        this.controladorAgendas.Guardar().subscribe( (respuestaAgendas:RespuestaInterface) => { 
+          if( respuestaAgendas.codigo == 200 ){         
+            referenciasAgendamientos = [];
+            this.listaSeguimientosAsignados.forEach((elemento, indice)=>{
+              referenciasAgendamientos.push(
+                this.controladorAgendamientos.Agregar({ id: null, agendas_id: respuestaAgendas.mensaje.dbRefs[0].id, seguimientos_id: elemento.id  })
+              );
+            });
+
+            this.controladorAgendamientos.Guardar().subscribe( (respuestaAgendamientos:RespuestaInterface) => { 
+              if( respuestaAgendamientos.codigo == 200 ){
+                referenciasAsignaciones = [];
+                referenciasAsignaciones.push( this.controladorAsignaciones.Agregar( { id: null, agendas_id: respuestaAgendas.mensaje.dbRefs[0].id, usuarios_id: this.usuario_id , tipo: "C" } ) );
+                referenciasAsignaciones.push( this.controladorAsignaciones.Agregar( { id: null, agendas_id: respuestaAgendas.mensaje.dbRefs[0].id, usuarios_id: this.datos.actual.responsable_id , tipo: "R"} ) );
+
+                this.controladorAsignaciones.Guardar().subscribe( (respuestaAsignaciones:RespuestaInterface) => { 
+                  if( respuestaAsignaciones.codigo == 200 ){
+                    alert("Agenda Guardada satisfactoriamente");
+                    this.Cancelar();
+                  }    
+                  else{
+                    alert("Error al asignar agendas");
+
+                    referenciasAsignaciones.forEach(elemento => {
+                      this.controladorAsignaciones.Encontrar("dbRef",elemento);
+                      this.controladorAsignaciones.Eliminar();
+                    });
+                    referenciasAgendamientos.forEach(elemento => {  
+                      this.controladorAgendamientos.Encontrar("dbRef",elemento);
+                      this.controladorAgendamientos.Eliminar();
+                    });
+                    this.controladorAgendamientos.Guardar().subscribe( (respuestaAgendamientos:RespuestaInterface) => {});//Limpieza en BD
+                    this.controladorAgendas.Encontrar("dbRef",referenciaAgenda);
+                    this.controladorAgendas.Eliminar();
+                    this.controladorAgendamientos.Guardar().subscribe( (respuestaAgendamientos:RespuestaInterface) => {});//Limpieza en BD
+                  }                              
+                });
+
+
+              }    
+              else{
+                alert("Error al guardar los detalles de la agenda");
+                referenciasAgendamientos.forEach(elemento => {
+                  this.controladorAgendamientos.Encontrar("dbRef",elemento);
+                  this.controladorAgendamientos.Eliminar();
+                });
+                this.controladorAgendas.Encontrar("dbRef",referenciaAgenda);//OJO ya los creo en la base de datos
+                this.controladorAgendas.Eliminar();
+                this.controladorAgendamientos.Guardar().subscribe( (respuestaAgendamientos:RespuestaInterface) => {}); //Limpieza en BD
+              }                              
+            });
+
+          }    
+          else{
+            alert("Error al guardar Agenda");
+            this.controladorAgendas.Encontrar("dbRef",referenciaAgenda);
+            this.controladorAgendas.Eliminar();
+          }                              
+        });
+        break;
+        case "modificar":
+          referenciasAgendamientos=[];
+          referenciasAsignaciones=[];
+
+          this.controladorAgendas.Encontrar("id",this.datos.actual.id);
+          this.controladorAgendas.Modificar(this.datos.actual);
+          this.controladorAgendas.Guardar().subscribe( (respuestaAgendas:RespuestaInterface) => { 
+            if( respuestaAgendas.codigo == 200 ){ 
+              let posicion: number;
+              let encontrado:boolean;
+
+              //Retirar Eliminados Agendamientos
+              this.controladorAgendamientos.Primero();
+              while( !this.controladorAgendamientos.esFin ){
+                let posicion = 0;
+                let encontrado = false;
+                while( posicion < this.listaSeguimientosAsignados.length && !encontrado ){
+                  if( this.controladorAgendamientos.actual.seguimientos_id == this.listaSeguimientosAsignados[posicion].id ) encontrado = true;
+                  else                                                                                                       posicion++;
+                }
+                if(!encontrado) this.controladorAgendamientos.Eliminar(false);
+                this.controladorAgendamientos.Siguiente();
+              }
+
+              //Agregar Nuevos Agendamientos
+              this.listaSeguimientosAsignados.forEach( (seguimiento, indice) => {
+                encontrado=false;
+                encontrado = this.controladorAgendamientos.Encontrar("seguimientos_id",seguimiento.id);
+                if(!encontrado){
+                  this.controladorAgendamientos.Agregar({ id: null, agendas_id: this.datos.actual.id, seguimientos_id: seguimiento.id  });
+                }               
+              });
+              this.controladorAgendamientos.Guardar().subscribe( (respuestaAgendamientos:RespuestaInterface) => { 
+
+                if( respuestaAgendamientos.codigo == 200 ){
+
+                  this.controladorAsignaciones.Encontrar("tipo","R");
+                  this.controladorAsignaciones.Modificar( { id: this.controladorAsignaciones.actual.id , agendas_id: this.controladorAsignaciones.actual.agendas_id, usuarios_id: this.datos.actual.responsable_id , tipo: "R" } );
+                  this.controladorAsignaciones.Guardar().subscribe( (respuestaAsignaciones:RespuestaInterface) => { 
+
+                    if( respuestaAsignaciones.codigo == 200 ){
+                      alert("Agenda Guardada satisfactoriamente");
+                      this.Cancelar();
+                    }    
+                    else{
+                      alert("Error al asignar agendas");
+                    }
+                  });
+                }
                 else{
-                  alert("Error al asignar agendas");
-
-                  referenciasAsignaciones.forEach(elemento => {
-                    this.controladorAsignaciones.Encontrar("dbRef",elemento);
-                    this.controladorAsignaciones.Eliminar();
-                  });
-                  referenciasAgendamientos.forEach(elemento => {  //OJO ya los creo en la base de datos
-                    this.controladorAgendamientos.Encontrar("dbRef",elemento);
-                    this.controladorAgendamientos.Eliminar();
-                  });
-                  this.controladorAgendas.Encontrar("dbRef",referenciaAgenda);//OJO ya lo creo en la base de datos
-                  this.controladorAgendas.Eliminar();
-                }                              
-              });
+                  alert("Error al modificar los detalles la Agenda");
+                }
+              }); 
 
 
-            }    
+            }
             else{
-              alert("Error al guardar los detalles de la agenda");
-              referenciasAgendamientos.forEach(elemento => {
-                this.controladorAgendamientos.Encontrar("dbRef",elemento);
-                this.controladorAgendamientos.Eliminar();
-              });
-              this.controladorAgendas.Encontrar("dbRef",referenciaAgenda);
-              this.controladorAgendas.Eliminar();
-            }                              
-          });
-
-        }    
-        else{
-          alert("Error al guardar Agenda");
-          this.controladorAgendas.Encontrar("dbRef",referenciaAgenda);
-          this.controladorAgendas.Eliminar();
-        }                              
-      });
+              alert("Error al modificar la Agenda");
+            }
+          });          
+        break;
+    } 
+  }
 
 
+  ValidarFormulario(){
+
+    this.notificacionActiva = false;
+
+    if( this.datos.actual.responsable_id == null ){
+      this.notificacionActiva = true;
+      this.notificacionMensaje = "Debe seleccionar un responsable";
+    }  
+    
+    if( this.datos.actual.cierre_fecha == null || this.datos.actual.cierre_fecha == "" || ( new Date(this.datos.actual.cierre_fecha) > new Date(this.datos.padre.cierre_fecha) ) ){
+      this.notificacionActiva = true;
+      this.notificacionMensaje = "Debe seleccionar una fecha de cierre adecuada";
+    }
+
+    if( this.datos.actual.apertura_fecha == null || this.datos.actual.apertura_fecha == "" || ( new Date(this.datos.actual.apertura_fecha) < new Date(this.datos.padre.apertura_fecha) ) ){
+      this.notificacionActiva = true;
+      this.notificacionMensaje = "Debe seleccionar una fecha de apertura adecuada";
     }
 
   }
+
+
 
   Cancelar(){
     this.modal.dismiss('CANCELAR');
   }
 
-
   EstoyListo(){
     let validador:boolean = false;
-
-    validador = (
-      this.controladorAsignaciones.EstaListo("cargue")
-    );
-
+    validador = (this.controladorAsignaciones.EstaListo("cargue") );
     return validador;
   }
 
-  FiltrarDatos( arreglo : any , campo : string , valor : any ){
-    let resultados = arreglo.filter( (elemento: { [x: string]: any; }) => elemento[campo] == valor );
+  FiltrarDatos( arreglo : any[] , campo : string , valor : any ){
+    let resultados: any[] = [] ;
+    resultados = arreglo.filter( (elemento: { [x: string]: any; }) => elemento[campo] == valor );
     return resultados;
   }
 

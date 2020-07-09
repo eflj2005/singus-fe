@@ -97,6 +97,7 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
     caracteristicasConsultas.AgregarColumna( "personas", "actualizacion_fecha", "fechaActualizacion");
     caracteristicasConsultas.AgregarColumna( "agendas", "id", "agenda_id", true);
     caracteristicasConsultas.AgregarColumna( "agendas", "agendas_id", "agendaPadre_id", true);
+    caracteristicasConsultas.AgregarColumna( "asignaciones", "tipo", "tipo_asignacion");
     caracteristicasConsultas.AgregarColumna( 
       null, 
       "("+
