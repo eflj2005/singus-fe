@@ -5,6 +5,9 @@ import { PersonasSubagendamientoComponentesArbolesComponent } from './personas-s
 import { PersonasSubagendamientoComponentesListaComponent } from './personas-subagendamiento-componentes-lista/personas-subagendamiento-componentes-lista.component';
 import { PersonasSubagendamientoComponentesProcesarComponent } from './personas-subagendamiento-componentes-procesar/personas-subagendamiento-componentes-procesar.component';
 import { FormsModule } from '@angular/forms';
+import { PersonasActualizacionComponentesModule } from '@mecanicas/personas/personas-actualizacion/personas-actualizacion-componentes/personas-actualizacion-componentes.module';
+import { PersonasActualizacionInformacionComponent } from '@mecanicas/personas/personas-actualizacion/personas-actualizacion-componentes/personas-actualizacion-informacion/personas-actualizacion-informacion.component';
+
 
 
 
@@ -14,8 +17,9 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     NgbModule,
+    PersonasActualizacionComponentesModule
   ],
-  entryComponents: [PersonasSubagendamientoComponentesProcesarComponent],
+  entryComponents: [PersonasSubagendamientoComponentesProcesarComponent, PersonasActualizacionInformacionComponent],
   exports:  [
     PersonasSubagendamientoComponentesArbolesComponent,
     PersonasSubagendamientoComponentesListaComponent,

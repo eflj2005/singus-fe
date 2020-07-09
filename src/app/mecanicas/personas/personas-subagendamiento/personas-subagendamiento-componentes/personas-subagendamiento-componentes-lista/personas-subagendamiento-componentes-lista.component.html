@@ -44,7 +44,7 @@
           <td>{{ elemento.fechaActualizacion }}</td>
           <td>&nbsp;</td>
           <td>
-            <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivarModalHistoricos( modalHistoricosEstudios, 5, elemento.id )"  placement="left" ngbTooltip="Actualización"><i class="fa fa-pencil-square-o"></i></button>
+            <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="CargarPersona( elemento.personas_id )"  placement="left" ngbTooltip="Actualización"><i class="fa fa-pencil-square-o"></i></button>
             <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="EliminarHistorico( elemento.dbRef  )"  placement="left" ngbTooltip="Seguimiento"><i class="fa fa-address-card-o"></i></button>
           </td>                  
         </tr>
