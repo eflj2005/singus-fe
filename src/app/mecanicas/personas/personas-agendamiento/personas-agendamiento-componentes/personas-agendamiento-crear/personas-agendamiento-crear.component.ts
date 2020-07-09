@@ -29,6 +29,7 @@ import { SeguimientosInterface } from "@interfaces/seguimientos.interface";
 import { AgendamientosInterface } from "@interfaces/agendamientos.interface";
 import { AsignacionesInterface } from "@interfaces/asignaciones.interface";
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
+import { element } from 'protractor';
 
 
 interface  ResponsableSeleccionado  {
@@ -339,8 +340,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
       this.controladorPersonas.EstaListo("cargue")   &&
       this.controladorCohortes.EstaListo("cargue")   &&
       this.controladorProgramas.EstaListo("cargue")  &&
-      this.controladorSedes.EstaListo("cargue")      //&&               //REVISAR - ELIMINACION DE CONTROLADOR
-      // this.controladorResponsables.EstaListo("cargue")               //REVISAR - ELIMINACION DE CONTROLADOR
+      this.controladorSedes.EstaListo("cargue")
     );
 
     return validador;
@@ -385,43 +385,55 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
           this.seleccionarTodos.nuevasPersonas = true;
         }
       break;
-      // case 'nuevosAgendados':
-      //   if(this.seleccionarTodos.nuevosAgendados){
-      //     for (var posicion in this.arregloNuevosEstudios) {  
-      //       this.arregloNuevosEstudios[posicion].seleccionado = false;
-      //     }  
-      //     this.seleccionarTodos.nuevosEstudios = false;
-      //   }
-      //   else{
-      //     for (var posicion in this.arregloNuevosEstudios) {  
-      //       this.arregloNuevosEstudios[posicion].seleccionado = true;
-      //     }  
-      //     this.seleccionarTodos.nuevosEstudios = true;
-      //   }
-      // break;      
+       case 'nuevosAgendados':
+         if(this.seleccionarTodos.nuevosAgendados){
+            this.registrosAgendados.forEach(element => element.seleccionado = false);
+            this.seleccionarTodos.nuevosAgendados = false ;
+         }
+         else{
+            this.registrosAgendados.forEach(element => element.seleccionado = true);
+            this.seleccionarTodos.nuevosAgendados = true ;
+         }
+       break;      
     }
   }
-7
+
+
+
   EliminarTodos(){
 
 
   }
 
+
+
   AgregarPersonas(){
-    console.log('La Agregacion');
-    console.log(this.registrosAgendados.length);
-    if (this.registrosAgendados.length == 0) {
+
+    if (this.registrosAgendados.length == 0){
+
       for (let i = 0; i < this.registrosPersonasTemp.length; i++) {
-        this.registrosAgendados.push(this.registrosPersonasTemp[i]);
+
+        if (this.registrosPersonasTemp[i].seleccionado){
+          let clonPersona = Object.assign({}, this.registrosPersonasTemp[i]);
+          clonPersona.seleccionado = false;
+          this.registrosAgendados.push(clonPersona);
+        }
+        
       }
+
     } else {
-      let contador: number = 0;
-      for (let contador = 0; contador < this.registrosAgendados.length; contador++) {
-        // for (let i = 0; i < array.length; i++) {
-          
-        // }
-        // this.registrosAgendados.push(this.registrosPersonasTemp[i]);
+     
+      for (let i = 0; i < this.registrosPersonasTemp.length; i++) {
+        
+        let index = this.registrosAgendados.findIndex(element => element.documento == this.registrosPersonasTemp[i].documento);
+        if(index == -1){
+          let clonPersona = Object.assign({}, this.registrosPersonasTemp[i]);
+          clonPersona.seleccionado = false;
+          this.registrosAgendados.push(clonPersona);
+        }
+
       }
+
     }
 
     this.AplicarFiltros(3)
@@ -432,12 +444,17 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     this.sedeid = -1;
     this.cohorteid = -1;
     this.programaid = -1;
+    this.seleccionarTodos.nuevasPersonas = false;
+    this.seleccionarTodos.nuevosAgendados = false;
+    this.seleccionarTodos.conCambios = false ;
 
     this.apertura_fecha = null;
     this.cierre_fecha = null;
     this.responsableSelecionado = {'id': null, 'nombres': ''};
     this.registrosAgendados = [];
     this.resgistro_fecha = null;
+
+    this.registrosPersonas.forEach(element => element.seleccionado = false );
 
     this.AplicarFiltros(3);
   }
@@ -473,7 +490,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
                     this.controladorAsignaciones.Guardar().subscribe(
                       (respuestaAsignaciones : RespuestaInterface) => {
                         if (respuestaAsignaciones.codigo == 200) {
-                          console.log("listo xD")
+                          console.log("listo")
                         } else {
                           alert("Error al guardar Asignaciones");
                         }
