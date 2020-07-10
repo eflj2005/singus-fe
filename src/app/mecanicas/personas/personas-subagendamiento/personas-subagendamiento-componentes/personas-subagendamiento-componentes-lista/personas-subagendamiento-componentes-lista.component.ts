@@ -104,9 +104,9 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
   }
 
   CargarPersona( idPersona: number ){
-    const modalRef = this.servicioEmergentes.open(PersonasActualizacionInformacionComponent, { size : 'xl'  ,  backdropClass: 'light-blue-backdrop', backdrop: "static"  } );
     this.servicioAmbiente.controlMecanicasPersonas.datos = { id: idPersona };
     this.servicioAmbiente.controlMecanicasPersonas.modo = 3;
+    const modalRef = this.servicioEmergentes.open(PersonasActualizacionInformacionComponent, { size : 'xl'  ,  backdropClass: 'light-blue-backdrop', backdrop: "static"  } );    
     modalRef.componentInstance.modalRecibido = modalRef;
   }
 

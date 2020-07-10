@@ -169,7 +169,7 @@ export class EstructuraConsultas {
     this.enlaces.push( { tablaE: tablaEnlace , tablaPk: tablaConPK , tablaFk: tablaConFK, tablaAlss: tablaAlias } );
   }
 
-  public AgregarFiltro( operadorLogico:string="", nombreTabla:string, campoFiltrado:string, condicionAplicada:string, valorBuscado:string){
+  public AgregarFiltro( operadorLogico:string, nombreTabla:string, campoFiltrado:string, condicionAplicada:string, valorBuscado:string){
     if( isNull( this.filtros ) ) this.filtros = [];    
     this.filtros.push( { operadorLogico: operadorLogico , tabla: nombreTabla , campo: campoFiltrado , condicion: condicionAplicada, valor: valorBuscado} );
   }

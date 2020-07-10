@@ -79,24 +79,19 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
     this.controladorAgendamientos = new AgendamientosController(llamadoHttp,servicioAmbiente);
     this.controladorAsignaciones= new AsignacionesController(llamadoHttp,servicioAmbiente);
 
-    this.controladorUsuarios.CargarDesdeDB().subscribe( (respuestaUsuarios:RespuestaInterface) => {           // Carge de usuarios
+    let caracteristicasConsultas:EstructuraConsultas = new EstructuraConsultas();
+    caracteristicasConsultas.AgregarFiltro( "", "usuarios" , "rol" , "=", 'O' );        
+    caracteristicasConsultas.AgregarFiltro( "OR", "usuarios" , "id" , "=", String(this.usuario_id) );
+    caracteristicasConsultas.AgregarOrdenamiento( "rol" , "ASC" );
+    this.controladorUsuarios.CargarDesdeDB(true, "S", caracteristicasConsultas).subscribe( (respuestaUsuarios:RespuestaInterface) => {           // Carge de usuarios
       
-      this.controladorAgendamientos.CargarDesdeDB(
-        true,
-        "S",
-        new EstructuraConsultas( "F", null, "agendas_id", "=",String(this.idAgendaProcesada) )
-      ).subscribe( (respuestaAgendamientos:RespuestaInterface) => {           // Carge de agendamientos
-        
-        this.controladorAsignaciones.CargarDesdeDB(
-          true,
-          "S",
-          new EstructuraConsultas( "F", null, "agendas_id", "=",String(this.idAgendaProcesada) )
-        ).subscribe( (respuestaAsignaciones:RespuestaInterface) => {           // Carge de Asignaciones
+      caracteristicasConsultas = new EstructuraConsultas( "F", null, "agendas_id", "=",String(this.idAgendaProcesada) );
+      this.controladorAgendamientos.CargarDesdeDB( true, "S",  caracteristicasConsultas ).subscribe( (respuestaAgendamientos:RespuestaInterface) => {           // Carge de agendamientos       
 
+        caracteristicasConsultas = new EstructuraConsultas( "F", null, "agendas_id", "=",String(this.idAgendaProcesada) );
+        this.controladorAsignaciones.CargarDesdeDB( true, "S", caracteristicasConsultas).subscribe( (respuestaAsignaciones:RespuestaInterface) => {           // Carge de Asignaciones
         });
-
       });
-
     });
 
 
