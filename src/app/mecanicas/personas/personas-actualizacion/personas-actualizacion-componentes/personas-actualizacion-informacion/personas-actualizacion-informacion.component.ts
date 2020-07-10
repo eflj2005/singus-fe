@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AmbienteService } from '@servicios/ambiente.service';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
 
 import { EstructuraConsultas } from '@generales/estructura-consultas';
@@ -52,6 +52,8 @@ interface PersonaCompletoInterface extends PersonasInterface{
   styleUrls: ['./personas-actualizacion-informacion.component.css']
 })
 export class PersonasActualizacionInformacionComponent implements OnInit {
+
+  modalRecibido:NgbModalRef;
 
   personaId:number;
 
@@ -337,9 +339,13 @@ export class PersonasActualizacionInformacionComponent implements OnInit {
 
 
   Regresar(){
-    this.servicioAmbiente.controlMecanicasPersonas.modo = 1
-
-    this.router.navigateByUrl(this.servicioAmbiente.controlMecanicasPersonas.origen);
+    if(this.servicioAmbiente.controlMecanicasPersonas.modo != 3 ){
+      this.servicioAmbiente.controlMecanicasPersonas.modo = 1
+      this.router.navigateByUrl(this.servicioAmbiente.controlMecanicasPersonas.origen);
+    }
+    else{
+      this.modalRecibido.dismiss('CANCELAR');
+    }
   }
 
   cambiarGrupoDatos( posicion : number ){
