@@ -15,10 +15,20 @@ import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { BrowserStack } from 'protractor/built/driverProviders';
 import { SeguimientosController } from '@controladores/seguimientos.controller';
 import { PersonasActualizacionInformacionComponent } from '@mecanicas/personas/personas-actualizacion/personas-actualizacion-componentes/personas-actualizacion-informacion/personas-actualizacion-informacion.component';
+import { SeguimientosInterface } from '@interfaces/seguimientos.interface';
+import { DatePipe } from '@angular/common';
 
 
 interface DatosIntercambioInterface{
   [index: string]: any;
+}
+
+interface registroSeguimientoInterface{
+  id: number;
+  actualizacion_fecha: string;
+  tiposobservaciones_id: number;
+  observacion: string;
+  nombre: string;
 }
 
 @Component({
@@ -40,17 +50,31 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
   controladorAgendamientos: AgendamientosController;
   controladorSeguiminetos: SeguimientosController;
 
+  seguimientoRegistro: registroSeguimientoInterface;
+
+  notificacionActiva:boolean=false;
+  notificacionMensaje:string ="";
+
   constructor(
     private servicioAmbiente : AmbienteService,
     private llamadoHttp : HttpClient,    
     private autenticador: AutenticacionService,
-    private servicioEmergentes: NgbModal,    
+    private servicioEmergentes: NgbModal,
+    private utilidadFechas: DatePipe
   ) { 
 
     let caracteristicasConsultas:EstructuraConsultas;
 
     this.usuario_id = this.autenticador.UsuarioActualValor.id;
     this.agendaEncontrada=false;
+  
+    this.seguimientoRegistro = {
+      id: null,
+      actualizacion_fecha: null,
+      tiposobservaciones_id: null,
+      observacion: null,
+      nombre: null
+    }
 
   }
 
@@ -109,6 +133,61 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
     const modalRef = this.servicioEmergentes.open(PersonasActualizacionInformacionComponent, { size : 'xl'  ,  backdropClass: 'light-blue-backdrop', backdrop: "static"  } );    
     modalRef.componentInstance.modalRecibido = modalRef;
   }
+
+  ActivaSeguimiento( idSeguimiento: number, modalRecibido: any ){
+    this.controladorSeguimientos.Encontrar("id",idSeguimiento );
+    
+    this.seguimientoRegistro = { 
+      id: this.controladorSeguimientos.actual.id,  
+      actualizacion_fecha: this.controladorSeguimientos.actual.actualizacion_fecha,
+      tiposobservaciones_id: this.controladorSeguimientos.actual.tiposobservaciones_id,
+      observacion: this.controladorSeguimientos.actual.observacion,
+      nombre: this.controladorSeguimientos.actual.nombreCompleto,
+    }
+
+    let parametrosModal = { centered : true,  backdropClass: 'light-blue-backdrop'  };
+    this.servicioEmergentes.open( modalRecibido, parametrosModal );
+
+    this.ValidarSeguimiento();
+  }
+
+  ValidarSeguimiento(){
+
+    this.notificacionActiva = false;
+
+    if( this.seguimientoRegistro.observacion == null || this.seguimientoRegistro.observacion == "" ){
+      this.notificacionActiva = true;
+      this.notificacionMensaje = "Debe registrar una observación";
+    }   
+
+    if( this.seguimientoRegistro.tiposobservaciones_id == null ){
+      this.notificacionActiva = true;
+      this.notificacionMensaje = "Debe seleccionar una tipo de observación";
+    }    
+
+  }
+
+  ActualizarSeguimiento( modalref: any ){
+    let temporal: SeguimientosInterface;
+    this.controladorSeguimientos.Encontrar("id",this.seguimientoRegistro.id );
+    temporal = Object.assign({},this.controladorSeguimientos.actual);
+    temporal.tiposobservaciones_id = this.seguimientoRegistro.tiposobservaciones_id;
+    temporal.observacion = this.seguimientoRegistro.observacion;
+    temporal.actualizacion_fecha = this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd');
+    this.controladorSeguimientos.Modificar(temporal);
+    
+    this.controladorSeguimientos.Guardar().subscribe((respuesta: RespuestaInterface) => {
+      if( respuesta.codigo == 200 ){
+        alert("Guardado de seguimieto satisfactorio");
+        modalref.dismiss('NO');
+      }    
+      else{
+        alert("Error al guardar seguimieto");
+      }         
+    });
+
+  }
+
 
   // AplicarFiltros(){
   //   this.registros$ = this.filter.valueChanges.pipe(

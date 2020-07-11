@@ -45,7 +45,7 @@
           <td>&nbsp;</td>
           <td>
             <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="CargarPersona( elemento.personas_id )"  placement="left" ngbTooltip="Actualización"><i class="fa fa-pencil-square-o"></i></button>
-            <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="EliminarHistorico( elemento.dbRef  )"  placement="left" ngbTooltip="Seguimiento"><i class="fa fa-address-card-o"></i></button>
+            <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivaSeguimiento( elemento.id, modalSeguimientos )"  placement="left" ngbTooltip="Seguimiento"><i class="fa fa-address-card-o"></i></button>
           </td>                  
         </tr>
       </tbody>
@@ -53,3 +53,80 @@
 
   </div>
 </div>
+
+<!-- ************************************************* MODAL PARA SEGUIMIENTO ************************************************* -->  
+<ng-template #modalSeguimientos let-modal>
+
+    <div class="modal-header"> <h4 class="modal-title">Control de Seguimieto</h4> </div>
+    <div class="modal-body container">       
+  
+      <div class="row">
+        <div class="col">
+          <form >
+  
+            <div class="form-row justify-content-between">
+  
+              <div class="form-group col-sm-2 px-1 mb-1">
+                <div class="form-row justify-content-between">
+                  <label for="id" class="col-sm-4 col-form-label col-form-label-sm text-wrap">Id:</label>
+                  <div class="col-sm">
+                    <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="seguimientoRegistro.id" [readonly]="true">
+                  </div>     
+                </div>
+              </div>
+  
+              <div class="form-group col-sm-8 px-1 mb-1">
+                <div class="form-row justify-content-between">
+                  <label for="actualizacion_fecha" class="col-sm-6 col-form-label col-form-label-sm text-wrap">Fecha de Actualización:</label>
+                  <div class="col-sm">
+                    <input type="text" ngbDatepicker class="form-control form-control-sm" id="actualizacion_fecha" name="actualizacion_fecha" [(ngModel)]="seguimientoRegistro.actualizacion_fecha" [readonly]="true">
+                  </div>     
+                </div>                
+              </div>
+  
+            </div>
+            <div class="form-row justify-content-between">  
+              <label for="nombre" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Nombre Persona:</label>
+              <div class="col-sm">
+                <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" [(ngModel)]="seguimientoRegistro.nombre" [readonly]="true">
+              </div>     
+            </div>
+
+            <hr/>
+  
+            <div class="form-row justify-content-between"> 
+              <label for="tiposobservaciones" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Tipo:</label>
+              <div class="col-sm">
+                <select  class="form-control form-control-sm" id="tiposobservaciones" name="tiposobservaciones" [(ngModel)]="seguimientoRegistro.tiposobservaciones_id" (change)="ValidarSeguimiento()">                  
+                  <option value="1">tipo 1</option>            
+                  <option value="2">tipo 2</option>            
+                </select>
+              </div>     
+            </div>
+
+            <div class="form-row justify-content-between">
+              <label for="observacion" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Observación:</label>
+              <div class="col-sm">
+                <textarea class="form-control form-control-sm" id="observacion" name="observacion" rows="4" [(ngModel)]="seguimientoRegistro.observacion" (change)="ValidarSeguimiento()"></textarea>
+              </div>
+            </div>
+   
+    
+            <div class="form-row justify-content-between">
+              <div class="col-sm pt-2 px-1">
+                  <ngb-alert class="py-1" *ngIf="notificacionActiva" type="custom" [dismissible]="false">{{ notificacionMensaje }}</ngb-alert>
+              </div>              
+            </div>
+  
+          </form>
+        </div>
+      </div>
+  
+    </div>
+    <div class="modal-footer "> 
+      <button type="button" class="btn btn-primary" (click)="ActualizarSeguimiento(modal)" [disabled]="notificacionActiva">Aplicar</button>
+      <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">Atras</button> 
+    </div>
+  </ng-template>
+  
+  
