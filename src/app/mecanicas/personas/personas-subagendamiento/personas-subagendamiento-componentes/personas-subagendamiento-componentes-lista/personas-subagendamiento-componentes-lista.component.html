@@ -124,7 +124,7 @@
   
     </div>
     <div class="modal-footer "> 
-      <button type="button" class="btn btn-primary" (click)="ActualizarSeguimiento();modal.dismiss('NO')" [disabled]="notificacionActiva">Aplicar</button>
+      <button type="button" class="btn btn-primary" (click)="ActualizarSeguimiento(modal)" [disabled]="notificacionActiva">Aplicar</button>
       <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">Atras</button> 
     </div>
   </ng-template>

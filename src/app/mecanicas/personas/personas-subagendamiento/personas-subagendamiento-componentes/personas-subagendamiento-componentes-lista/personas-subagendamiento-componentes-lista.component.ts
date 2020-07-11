@@ -15,6 +15,8 @@ import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { BrowserStack } from 'protractor/built/driverProviders';
 import { SeguimientosController } from '@controladores/seguimientos.controller';
 import { PersonasActualizacionInformacionComponent } from '@mecanicas/personas/personas-actualizacion/personas-actualizacion-componentes/personas-actualizacion-informacion/personas-actualizacion-informacion.component';
+import { SeguimientosInterface } from '@interfaces/seguimientos.interface';
+import { DatePipe } from '@angular/common';
 
 
 interface DatosIntercambioInterface{
@@ -50,7 +52,6 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
 
   seguimientoRegistro: registroSeguimientoInterface;
 
-
   notificacionActiva:boolean=false;
   notificacionMensaje:string ="";
 
@@ -58,7 +59,8 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
     private servicioAmbiente : AmbienteService,
     private llamadoHttp : HttpClient,    
     private autenticador: AutenticacionService,
-    private servicioEmergentes: NgbModal,  
+    private servicioEmergentes: NgbModal,
+    private utilidadFechas: DatePipe
   ) { 
 
     let caracteristicasConsultas:EstructuraConsultas;
@@ -144,8 +146,7 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
     }
 
     let parametrosModal = { centered : true,  backdropClass: 'light-blue-backdrop'  };
-    // let parametrosModal = { size : 'lg'  ,  backdropClass: 'light-blue-backdrop', backdrop: "static"  }; 
-    const respuesta  = this.servicioEmergentes.open( modalRecibido, parametrosModal );
+    this.servicioEmergentes.open( modalRecibido, parametrosModal );
 
     this.ValidarSeguimiento();
   }
@@ -166,13 +167,25 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
 
   }
 
-  ActualizarSeguimiento(){
-    if(this.seguimientoRegistro.id == null) {
-      
-    }
-    else{
-      // this.controladorSeguimientos.Encontrar("id",idSeguimiento );
-    }
+  ActualizarSeguimiento( modalref: any ){
+    let temporal: SeguimientosInterface;
+    this.controladorSeguimientos.Encontrar("id",this.seguimientoRegistro.id );
+    temporal = Object.assign({},this.controladorSeguimientos.actual);
+    temporal.tiposobservaciones_id = this.seguimientoRegistro.tiposobservaciones_id;
+    temporal.observacion = this.seguimientoRegistro.observacion;
+    temporal.actualizacion_fecha = this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd');
+    this.controladorSeguimientos.Modificar(temporal);
+    
+    this.controladorSeguimientos.Guardar().subscribe((respuesta: RespuestaInterface) => {
+      if( respuesta.codigo == 200 ){
+        alert("Guardado de seguimieto satisfactorio");
+        modalref.dismiss('NO');
+      }    
+      else{
+        alert("Error al guardar seguimieto");
+      }         
+    });
+
   }
 
 
