@@ -150,7 +150,7 @@
     </div>
     <div  class="row button justify-content-end">
         <div class= col>
-            <button class="btn btn-primary buttonGeneral" (click)="CrearAgenda()" >Guardar</button>
+            <button class="btn btn-primary buttonGeneral" (click)="CrearAgenda()" [disabled]=" responsableSelecionado.id == null || apertura_fecha == null || cierre_fecha == null || registrosAgendados == [] ">Guardar</button>
             <button class="btn btn-outline-dark buttonGeneral"  (click)="Cancelar()" >Cancelar</button>
         </div>
         <div class="col">
