@@ -21,6 +21,14 @@ interface DatosIntercambioInterface{
   [index: string]: any;
 }
 
+interface registroSeguimientoInterface{
+  id: number;
+  actualizacion_fecha: string;
+  tiposobservaciones_id: number;
+  observacion: string;
+  nombre: string;
+}
+
 @Component({
   selector: 'app-personas-subagendamiento-componentes-lista',
   templateUrl: './personas-subagendamiento-componentes-lista.component.html',
@@ -40,17 +48,31 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
   controladorAgendamientos: AgendamientosController;
   controladorSeguiminetos: SeguimientosController;
 
+  seguimientoRegistro: registroSeguimientoInterface;
+
+
+  notificacionActiva:boolean=false;
+  notificacionMensaje:string ="";
+
   constructor(
     private servicioAmbiente : AmbienteService,
     private llamadoHttp : HttpClient,    
     private autenticador: AutenticacionService,
-    private servicioEmergentes: NgbModal,    
+    private servicioEmergentes: NgbModal,  
   ) { 
 
     let caracteristicasConsultas:EstructuraConsultas;
 
     this.usuario_id = this.autenticador.UsuarioActualValor.id;
     this.agendaEncontrada=false;
+  
+    this.seguimientoRegistro = {
+      id: null,
+      actualizacion_fecha: null,
+      tiposobservaciones_id: null,
+      observacion: null,
+      nombre: null
+    }
 
   }
 
@@ -109,6 +131,50 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
     const modalRef = this.servicioEmergentes.open(PersonasActualizacionInformacionComponent, { size : 'xl'  ,  backdropClass: 'light-blue-backdrop', backdrop: "static"  } );    
     modalRef.componentInstance.modalRecibido = modalRef;
   }
+
+  ActivaSeguimiento( idSeguimiento: number, modalRecibido: any ){
+    this.controladorSeguimientos.Encontrar("id",idSeguimiento );
+    
+    this.seguimientoRegistro = { 
+      id: this.controladorSeguimientos.actual.id,  
+      actualizacion_fecha: this.controladorSeguimientos.actual.actualizacion_fecha,
+      tiposobservaciones_id: this.controladorSeguimientos.actual.tiposobservaciones_id,
+      observacion: this.controladorSeguimientos.actual.observacion,
+      nombre: this.controladorSeguimientos.actual.nombreCompleto,
+    }
+
+    let parametrosModal = { centered : true,  backdropClass: 'light-blue-backdrop'  };
+    // let parametrosModal = { size : 'lg'  ,  backdropClass: 'light-blue-backdrop', backdrop: "static"  }; 
+    const respuesta  = this.servicioEmergentes.open( modalRecibido, parametrosModal );
+
+    this.ValidarSeguimiento();
+  }
+
+  ValidarSeguimiento(){
+
+    this.notificacionActiva = false;
+
+    if( this.seguimientoRegistro.observacion == null || this.seguimientoRegistro.observacion == "" ){
+      this.notificacionActiva = true;
+      this.notificacionMensaje = "Debe registrar una observación";
+    }   
+
+    if( this.seguimientoRegistro.tiposobservaciones_id == null ){
+      this.notificacionActiva = true;
+      this.notificacionMensaje = "Debe seleccionar una tipo de observación";
+    }    
+
+  }
+
+  ActualizarSeguimiento(){
+    if(this.seguimientoRegistro.id == null) {
+      
+    }
+    else{
+      // this.controladorSeguimientos.Encontrar("id",idSeguimiento );
+    }
+  }
+
 
   // AplicarFiltros(){
   //   this.registros$ = this.filter.valueChanges.pipe(
