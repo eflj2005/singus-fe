@@ -11,8 +11,6 @@ import { HttpClient } from '@angular/common/http';
 import { AutenticacionService } from '@servicios/autenticacion.service';
 
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
-import { ResponsablesInterface } from "@interfaces/responsables.interface";
-// import { ResponsablesController } from "@controladores/responsables.controller";        //REVISAR - ELIMINACION DE CONTROLADOR
 import { PersonasInterface } from "@interfaces/personas.interface";
 import { PersonasController } from "@controladores/personas.controller";
 import { CohortesController } from "@controladores/cohortes.controller";
@@ -405,10 +403,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
 
   }
 
-
-
   AgregarPersonas(){
-
     if (this.registrosAgendados.length == 0){
 
       for (let i = 0; i < this.registrosPersonasTemp.length; i++) {
@@ -436,7 +431,12 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
 
     }
 
-    this.AplicarFiltros(3)
+    this.sedeid = -1;
+    this.cohorteid = -1;
+    this.programaid = -1;
+    this.seleccionarTodos.nuevasPersonas = false;
+    this.AplicarFiltros(2);
+    this.AplicarFiltros(3);
     console.log(this.registrosAgendados);
   }
 
