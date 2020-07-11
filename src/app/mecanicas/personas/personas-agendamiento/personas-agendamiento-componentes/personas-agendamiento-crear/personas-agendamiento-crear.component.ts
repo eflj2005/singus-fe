@@ -398,9 +398,19 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
 
 
 
-  EliminarTodos(){
+  EliminarSeleccionados(){
 
-
+    for (let i = 0; i <= this.registrosAgendados.length; i++) {
+        let index = this.registrosAgendados.findIndex(element => element.seleccionado == true);
+        if (!(index == -1)){
+          this.registrosAgendados.splice(index,1);
+          index = -1;
+          i = 0;
+        }
+    }
+    this.seleccionarTodos.nuevosAgendados = false;
+    this.AplicarFiltros(3);
+    
   }
 
   AgregarPersonas(){
