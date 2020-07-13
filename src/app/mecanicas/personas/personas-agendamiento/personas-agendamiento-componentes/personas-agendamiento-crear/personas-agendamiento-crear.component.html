@@ -70,10 +70,10 @@
                                               <button class="btn btn-sm" placement="left" ngbTooltip="Sel. Ninguno" (click)="SeleccionarTodos('nuevosAgendados')">
                                                 <i class="fa fa-check-circle-o"></i>
                                               </button>
-                                              <button class="btn btn-sm" placement="left" ngbTooltip="Eliminar todos" (click)="EliminarTodos()">
+                                            </ng-template>  
+                                            <button class="btn btn-sm" placement="left" ngbTooltip="Eliminar selecionados" (click)="EliminarSeleccionados()">
                                                 <i class="fa fa-minus-circle"></i>
                                               </button>
-                                            </ng-template>  
                                         </th>
                                     </tr>
                                     </thead>
@@ -85,8 +85,8 @@
                                                 <td><ngb-highlight [result]="agendado.programa " [term]="filterAgendados.value"></ngb-highlight></td>
                                                 <td >
                                                     <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck_nuevoSeguimiento" [(ngModel)]="agendado.seleccionado">
-                                                    <label class="custom-control-label " for="customCheck_nuevoSeguimiento" ></label>
+                                                    <input type="checkbox" class="custom-control-input" [id]="'customCheck_nuevoSeguimiento'+agendado.id" [(ngModel)]="agendado.seleccionado">
+                                                    <label class="custom-control-label " [for]="'customCheck_nuevoSeguimiento'+agendado.id" ></label>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -150,7 +150,7 @@
     </div>
     <div  class="row button justify-content-end">
         <div class= col>
-            <button class="btn btn-primary buttonGeneral" (click)="CrearAgenda()" >Guardar</button>
+            <button class="btn btn-primary buttonGeneral" (click)="CrearAgenda()" [disabled]=" responsableSelecionado.id == null || apertura_fecha == null || cierre_fecha == null || registrosAgendados == [] ">Guardar</button>
             <button class="btn btn-outline-dark buttonGeneral"  (click)="Cancelar()" >Cancelar</button>
         </div>
         <div class="col">
@@ -201,8 +201,8 @@
                             <td><ngb-highlight [result]="persona.nombres  + ' ' + persona.apellidos  " [term]="filterResponsables.value"></ngb-highlight></td>
                             <td >
                                 <div class="custom-control custom-checkbox">
-                                  <input type="checkbox" class="custom-control-input" id="customCheck_nuevasPersonas" >
-                                  <label class="custom-control-label " for="customCheck_nuevasPersonas"  (click)="SeleccionResponsable( persona.id , persona.nombres  + ' ' + persona.apellidos)"></label>
+                                  <input type="checkbox" class="custom-control-input" [id]="'customCheck_nuevasPersonas'+persona.id" >
+                                  <label class="custom-control-label " [for]="'customCheck_nuevasPersonas'+persona.id"  (click)="SeleccionResponsable( persona.id , persona.nombres  + ' ' + persona.apellidos)"></label>
                                 </div>
                             </td>
                             </tr>

@@ -398,37 +398,41 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
 
 
 
-  EliminarTodos(){
+  EliminarSeleccionados(){
 
+    for (let i = 0; i <= this.registrosAgendados.length; i++) {
+        let index = this.registrosAgendados.findIndex(element => element.seleccionado == true);
+        if (!(index == -1)){
+          this.registrosAgendados.splice(index,1);
+          index = -1;
+          i = 0;
+        }
+    }
+    this.seleccionarTodos.nuevosAgendados = false;
+    this.AplicarFiltros(3);
 
   }
 
   AgregarPersonas(){
     if (this.registrosAgendados.length == 0){
-
       for (let i = 0; i < this.registrosPersonasTemp.length; i++) {
-
         if (this.registrosPersonasTemp[i].seleccionado){
           let clonPersona = Object.assign({}, this.registrosPersonasTemp[i]);
           clonPersona.seleccionado = false;
           this.registrosAgendados.push(clonPersona);
         }
-        
       }
 
     } else {
      
       for (let i = 0; i < this.registrosPersonasTemp.length; i++) {
-        
         let index = this.registrosAgendados.findIndex(element => element.documento == this.registrosPersonasTemp[i].documento);
-        if(index == -1){
+        if(index == -1 && this.registrosPersonasTemp[i].seleccionado == true){
           let clonPersona = Object.assign({}, this.registrosPersonasTemp[i]);
           clonPersona.seleccionado = false;
           this.registrosAgendados.push(clonPersona);
         }
-
       }
-
     }
 
     this.sedeid = -1;
@@ -490,7 +494,9 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
                     this.controladorAsignaciones.Guardar().subscribe(
                       (respuestaAsignaciones : RespuestaInterface) => {
                         if (respuestaAsignaciones.codigo == 200) {
-                          console.log("listo")
+                          console.log("listo");
+                          alert("Agenda guardada");
+                          this.Limpiar();
                         } else {
                           alert("Error al guardar Asignaciones");
                         }
