@@ -39,6 +39,7 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
   //Atribitos recibidos
   controladorAgendas: AgendasController;
   controladorSeguimientos: SeguimientosController;
+  controladorAsignaciones: AsignacionesController;
   idAgendaProcesada: number;
   modoProceso: String;
   modal:NgbModalRef;
@@ -48,9 +49,7 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
   usuario_id:number;
 
   controladorUsuarios: UsuariosController;
-  controladorAgendamientos: AgendamientosController;
-  controladorAsignaciones: AsignacionesController;
-  
+  controladorAgendamientos: AgendamientosController; 
 
   titulos: { [index: string]: string; } = { principal: "", seccion: "" }
   datos: DatosAgendas ={  padre: null,  actual: null, agendamientos: null }
@@ -66,6 +65,8 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
   notificacionActiva:boolean=false;
   notificacionMensaje:string ="";
 
+  estaProcesando:Boolean;
+
   constructor(
     private servicioAmbiente : AmbienteService,
     private llamadoHttp : HttpClient,
@@ -75,11 +76,14 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
 
     this.usuario_id = this.autenticador.UsuarioActualValor.id;
 
+    this.estaProcesando= false;
+
     this.controladorUsuarios = new UsuariosController(llamadoHttp,servicioAmbiente);
     this.controladorAgendamientos = new AgendamientosController(llamadoHttp,servicioAmbiente);
-    this.controladorAsignaciones= new AsignacionesController(llamadoHttp,servicioAmbiente);
 
-    let caracteristicasConsultas:EstructuraConsultas = new EstructuraConsultas();
+    let caracteristicasConsultas:EstructuraConsultas;
+
+    caracteristicasConsultas = new EstructuraConsultas();
     caracteristicasConsultas.AgregarFiltro( "", "usuarios" , "rol" , "=", 'O' );        
     caracteristicasConsultas.AgregarFiltro( "OR", "usuarios" , "id" , "=", String(this.usuario_id) );
     caracteristicasConsultas.AgregarOrdenamiento( "rol" , "ASC" );
@@ -88,9 +92,9 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
       caracteristicasConsultas = new EstructuraConsultas( "F", null, "agendas_id", "=",String(this.idAgendaProcesada) );
       this.controladorAgendamientos.CargarDesdeDB( true, "S",  caracteristicasConsultas ).subscribe( (respuestaAgendamientos:RespuestaInterface) => {           // Carge de agendamientos       
 
-        caracteristicasConsultas = new EstructuraConsultas( "F", null, "agendas_id", "=",String(this.idAgendaProcesada) );
-        this.controladorAsignaciones.CargarDesdeDB( true, "S", caracteristicasConsultas).subscribe( (respuestaAsignaciones:RespuestaInterface) => {           // Carge de Asignaciones
-        });
+        // caracteristicasConsultas = new EstructuraConsultas( "F", null, "agendas_id", "=",String(this.idAgendaProcesada) );
+        // this.controladorAsignaciones.CargarDesdeDB( true, "S", caracteristicasConsultas).subscribe( (respuestaAsignaciones:RespuestaInterface) => {           // Carge de Asignaciones
+        // });
       });
     });
 
@@ -245,6 +249,8 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
         referenciasAgendamientos=[];
         referenciasAsignaciones=[];
 
+        this.estaProcesando = true;
+
         referenciaAgenda = this.controladorAgendas.Agregar(this.datos.actual);
 
         this.controladorAgendas.Guardar().subscribe( (respuestaAgendas:RespuestaInterface) => { 
@@ -265,11 +271,12 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
                 this.controladorAsignaciones.Guardar().subscribe( (respuestaAsignaciones:RespuestaInterface) => { 
                   if( respuestaAsignaciones.codigo == 200 ){
                     alert("Agenda Guardada satisfactoriamente");
+                    this.RecargarControladores();
                     this.Cancelar();
                   }    
                   else{
                     alert("Error al asignar agendas");
-
+                    
                     referenciasAsignaciones.forEach(elemento => {
                       this.controladorAsignaciones.Encontrar("dbRef",elemento);
                       this.controladorAsignaciones.Eliminar();
@@ -282,6 +289,8 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
                     this.controladorAgendas.Encontrar("dbRef",referenciaAgenda);
                     this.controladorAgendas.Eliminar();
                     this.controladorAgendamientos.Guardar().subscribe( (respuestaAgendamientos:RespuestaInterface) => {});//Limpieza en BD
+
+                    this.estaProcesando = false;
                   }                              
                 });
 
@@ -296,6 +305,8 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
                 this.controladorAgendas.Encontrar("dbRef",referenciaAgenda);//OJO ya los creo en la base de datos
                 this.controladorAgendas.Eliminar();
                 this.controladorAgendamientos.Guardar().subscribe( (respuestaAgendamientos:RespuestaInterface) => {}); //Limpieza en BD
+
+                this.estaProcesando = false;
               }                              
             });
 
@@ -304,12 +315,16 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
             alert("Error al guardar Agenda");
             this.controladorAgendas.Encontrar("dbRef",referenciaAgenda);
             this.controladorAgendas.Eliminar();
+
+            this.estaProcesando = false;
           }                              
         });
         break;
         case "modificar":
           referenciasAgendamientos=[];
           referenciasAsignaciones=[];
+
+          this.estaProcesando = true;
 
           this.controladorAgendas.Encontrar("id",this.datos.actual.id);
           this.controladorAgendas.Modificar(this.datos.actual);
@@ -349,22 +364,24 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
 
                     if( respuestaAsignaciones.codigo == 200 ){
                       alert("Agenda Guardada satisfactoriamente");
+                      this.RecargarControladores();
                       this.Cancelar();
                     }    
                     else{
                       alert("Error al asignar agendas");
+                      this.estaProcesando = false;
                     }
                   });
                 }
                 else{
                   alert("Error al modificar los detalles la Agenda");
+                  this.estaProcesando = false;
                 }
               }); 
-
-
             }
             else{
               alert("Error al modificar la Agenda");
+              this.estaProcesando = false;
             }
           });          
         break;
@@ -398,6 +415,14 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
   Cancelar(){
     this.modal.dismiss('CANCELAR');
   }
+
+  RecargarControladores(){
+    this.controladorAgendas.Recargar().subscribe( (respuestaAP:RespuestaInterface) => { 
+      this.controladorAgendas.ObtenerForanea("agendas").Recargar().subscribe( (respuestaAF:RespuestaInterface) => { });
+      this.controladorSeguimientos.Recargar().subscribe( (respuestaAG:RespuestaInterface) => { }); 
+    });
+  }
+
 
   EstoyListo(){
     let validador:boolean = false;

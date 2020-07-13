@@ -17,6 +17,7 @@ import { SeguimientosController } from '@controladores/seguimientos.controller';
 import { PersonasActualizacionInformacionComponent } from '@mecanicas/personas/personas-actualizacion/personas-actualizacion-componentes/personas-actualizacion-informacion/personas-actualizacion-informacion.component';
 import { SeguimientosInterface } from '@interfaces/seguimientos.interface';
 import { DatePipe } from '@angular/common';
+import { AsignacionesController } from '@controladores/asignaciones.controller';
 
 
 interface DatosIntercambioInterface{
@@ -48,7 +49,8 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
   usuario_id:number;
 
   controladorAgendamientos: AgendamientosController;
-  controladorSeguiminetos: SeguimientosController;
+  controladorAsignaciones: AsignacionesController;
+  
 
   seguimientoRegistro: registroSeguimientoInterface;
 
@@ -63,7 +65,7 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
     private utilidadFechas: DatePipe
   ) { 
 
-    let caracteristicasConsultas:EstructuraConsultas;
+    this.controladorAsignaciones= new AsignacionesController(llamadoHttp,servicioAmbiente);
 
     this.usuario_id = this.autenticador.UsuarioActualValor.id;
     this.agendaEncontrada=false;
@@ -88,6 +90,12 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
           this.datosBaseAgenda.creador_id = this.controladorAgendas.actual.creador_id;
           this.datosBaseAgenda.nivel = this.controladorAgendas.actual.nivel;
           this.datosBaseAgenda.distribuciones = this.controladorAgendas.actual.distribuciones;
+
+          let caracteristicasConsultas:EstructuraConsultas;
+          caracteristicasConsultas = new EstructuraConsultas( "F", null, "agendas_id", "=",String(this.controladorAgendas.actual.id) );
+          this.controladorAsignaciones.CargarDesdeDB( true, "S", caracteristicasConsultas).subscribe( (respuestaAsignaciones:RespuestaInterface) => {           // Carge de Asignaciones
+          });
+
         }
 
       }
@@ -95,22 +103,56 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
     
   }
 
-  EliminarAgenda( agenda_id: number ){
-    // if(this.agendamientos.length != 0 ){
-    //   alert("La agenda a descartar debe estar vacia");
-    // }
-    // else{
-    //   this.controladorAgendas.Encontrar("id",agenda_id );
-    //   console.log(this.controladorAgendas.actual);
-    // }
+  EliminarAgenda( ){
+    let seguimientos: SeguimientosInterface[];
+
+    if(confirm("Esta seguro ued esea descartar la agenda seleccionada?")){
+      seguimientos = this.controladorSeguimientos.todos.filter( elemento => elemento.agenda_id == this.datosBaseAgenda.agenda_id && elemento.tipo_asignacion == "C" );
+ 
+      if(seguimientos.length != 0 ){
+        alert("La agenda a descartar debe estar vacia");
+      }
+      else{
+        if(this.controladorAgendas.actual.id != this.datosBaseAgenda.agenda_id )  this.controladorAgendas.Encontrar("id",this.datosBaseAgenda.agenda_id);
+        
+        this.controladorAgendas.Eliminar();
+        this.controladorAsignaciones.Primero();
+        while(!this.controladorAsignaciones.esFin){
+          this.controladorAsignaciones.Eliminar(false);
+          this.controladorAsignaciones.Siguiente();
+        }
+  
+        this.controladorAsignaciones.Guardar().subscribe((respuestaAsignaciones: RespuestaInterface) => {
+          if( respuestaAsignaciones.codigo == 200 ){
+  
+            this.controladorSeguimientos.Guardar().subscribe((respuestaAgendas: RespuestaInterface) => {
+              if( respuestaAgendas.codigo == 200 ){
+                
+                alert("Eliminicación de agenda satisfactorio");
+                
+                this.RecargarControladores();
+              }    
+              else{
+                alert("Error al descartar agenda");
+              }         
+            });
+  
+          }    
+          else{
+            alert("Error al desasignar de agenda");
+          }         
+        });
+      }
+    }
 
   }
 
-  ProcesarAgenda( modoRecibido: string, idRecibido : number ){
+  ProcesarAgenda( modoRecibido: string ){
     
     const modalRef = this.servicioEmergentes.open(PersonasSubagendamientoComponentesProcesarComponent, { size : 'xl'  ,  backdropClass: 'light-blue-backdrop', backdrop: "static"  } );
     modalRef.componentInstance.controladorAgendas = this.controladorAgendas;
     modalRef.componentInstance.controladorSeguimientos = this.controladorSeguimientos;
+    modalRef.componentInstance.controladorAsignaciones = this.controladorAsignaciones;
     modalRef.componentInstance.idAgendaProcesada = this.datosBaseAgenda.agenda_id;
     modalRef.componentInstance.modoProceso = modoRecibido;
     modalRef.componentInstance.modal = modalRef;
@@ -196,6 +238,15 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
   //   );
   // }
 
+
+  RecargarControladores(){
+    this.controladorAgendas.Recargar().subscribe( (respuestaAP:RespuestaInterface) => { 
+      this.controladorAgendas.ObtenerForanea("agendas").Recargar().subscribe( (respuestaAF:RespuestaInterface) => { });
+      this.controladorSeguimientos.Recargar().subscribe( (respuestaAG:RespuestaInterface) => { }); 
+    });
+  }
+
+  
   ObtenerSeguimientos(): any[] {
     let listaRespuesta: any[];
     listaRespuesta = this.FiltrarDatos( this.controladorSeguimientos.todos,  'agenda_id' , this.datosBaseAgenda.agenda_id );
@@ -205,6 +256,10 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
     }
     return listaRespuesta;
   }
+
+
+
+
 
   FiltrarDatos( arreglo : any[] , campo : string , valor : any ): any[] {
     let resultados = arreglo.filter( (elemento: { [x: string]: any; }) => elemento[campo] == valor );

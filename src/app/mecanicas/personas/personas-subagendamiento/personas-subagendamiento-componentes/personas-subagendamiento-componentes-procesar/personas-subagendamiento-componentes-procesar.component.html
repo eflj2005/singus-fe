@@ -239,6 +239,7 @@
 
 
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary" (click)="Procesar()" [disabled]="this.notificacionActiva" >{{ modoProceso == 'subagendar' ? 'Crear' : 'Actualizar' }}</button>
-  <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="Cancelar()">Cancelar</button>            
+  <button *ngIf="!estaProcesando" type="button" class="btn btn-primary" (click)="Procesar()" [disabled]="this.notificacionActiva" >{{ modoProceso == 'subagendar' ? 'Crear' : 'Actualizar' }}</button>
+  <button *ngIf="estaProcesando" type="button" class="btn btn-primary"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Procesando...</button>  
+  <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="Cancelar()" [disabled]="estaProcesando" >Cancelar</button>            
 </div>
