@@ -8,7 +8,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1">Fecha de Inicio : </span>
                 </div>
-                <input type="date" class="form-control" aria-describedby="basic-addon1" [(ngModel)]="apertura_fecha">
+                <input type="date" class="form-control" aria-describedby="basic-addon1" [(ngModel)]="apertura_fecha" (change)="ValidarSeguimiento()">
             </div>
         </div>
         <div class="col-4">
@@ -16,7 +16,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1">Fecha de Finalización : </span>
                 </div>
-                <input type="date" class="form-control" aria-describedby="basic-addon1" [(ngModel)]="cierre_fecha">
+                <input type="date" class="form-control" aria-describedby="basic-addon1" [(ngModel)]="cierre_fecha" (change)="ValidarSeguimiento()">
             </div>
         </div>
     </div>
@@ -71,7 +71,7 @@
                                                 <i class="fa fa-check-circle-o"></i>
                                               </button>
                                             </ng-template>  
-                                            <button class="btn btn-sm" placement="left" ngbTooltip="Eliminar selecionados" (click)="EliminarSeleccionados()">
+                                            <button class="btn btn-sm" placement="left" ngbTooltip="Eliminar selecionados" (click)="EliminarSeleccionados()" >
                                                 <i class="fa fa-minus-circle"></i>
                                               </button>
                                         </th>
@@ -105,7 +105,7 @@
                             <div class="input-group-prepend">
                               <label class="input-group-text" for="inputGroupSelect01" >Rol</label>
                             </div>
-                            <select class="custom-select" id="inputGroupSelect01"  [(ngModel)]="rol" >
+                            <select class="custom-select" id="inputGroupSelect01"  [(ngModel)]="rol" (change)="ValidarSeguimiento()">
                               <option value="A">Administrador</option>
                               <option value="C">Coordinador</option>
                               <option value="O">Operador</option>
@@ -142,19 +142,25 @@
                 </div>
                 <div class="row ">
                     <div class="col">
-                        <button class="btn btn-outline-info btn-lg btn-block buttonGeneral" (click)="Limpiar()" >limpiar</button>
+                        <div class="row" >
+                            <button class="btn btn-outline-info btn-lg btn-block buttonGeneral" (click)="Limpiar()" >limpiar</button>
+                        </div>
                     </div>
                 </div>
+                <div class="row ">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <ngb-alert class="notificacion py-1"  *ngIf="notificacionActiva" type="custom" [dismissible]="false">{{ notificacionMensaje }}</ngb-alert>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center" >
+                            <button class="btn btn-primary buttonGeneral" (click)="CrearAgenda()" [disabled]="notificacionActiva == true">Guardar</button>
+                            <button class="btn btn-outline-dark buttonGeneral"  (click)="Cancelar()" >Cancelar</button>
+                        </div>
+                    </div>    
+                </div>
             </div>
-        </div>
-    </div>
-    <div  class="row button justify-content-end">
-        <div class= col>
-            <button class="btn btn-primary buttonGeneral" (click)="CrearAgenda()" [disabled]=" responsableSelecionado.id == null || apertura_fecha == null || cierre_fecha == null || registrosAgendados == [] ">Guardar</button>
-            <button class="btn btn-outline-dark buttonGeneral"  (click)="Cancelar()" >Cancelar</button>
-        </div>
-        <div class="col">
-
         </div>
     </div>
 </div>
@@ -202,7 +208,7 @@
                             <td >
                                 <div class="custom-control custom-checkbox">
                                   <input type="checkbox" class="custom-control-input" [id]="'customCheck_nuevasPersonas'+persona.id" >
-                                  <label class="custom-control-label " [for]="'customCheck_nuevasPersonas'+persona.id"  (click)="SeleccionResponsable( persona.id , persona.nombres  + ' ' + persona.apellidos)"></label>
+                                  <label class="custom-control-label " [for]="'customCheck_nuevasPersonas'+persona.id"  (click)="SeleccionResponsable( persona.id , persona.nombres  + ' ' + persona.apellidos)" ></label>
                                 </div>
                             </td>
                             </tr>
@@ -212,7 +218,7 @@
             </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Aceptar</button>
+      <button type="button" class="btn btn-primary buttonGeneral" (click)="modal.close('Close click')">Aceptar</button>
     </div>
   </ng-template>
 
@@ -336,8 +342,8 @@
 
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-light" (click)="AgregarPersonas()">Agregar</button>
-      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-primary buttonGeneral" (click)="AgregarPersonas()" >Agregar</button>
+      <button type="button" class="btn btn-outline-dark buttonGeneral" (click)="modal.close('Close click')" >Close</button>
     </div>
   </ng-template>
 

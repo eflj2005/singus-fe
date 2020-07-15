@@ -24,6 +24,7 @@
             <th scope="col">Fecha Final</th>
             <th scope="col"></th> 
             <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -33,12 +34,133 @@
           <td><ngb-highlight [result]="agenda.nombreResponsable " [term]="filter.value"></ngb-highlight></td>
           <td><ngb-highlight [result]="agenda.apertura_fecha" [term]="filter.value"></ngb-highlight></td>
           <td><ngb-highlight [result]="agenda.cierre_fecha" [term]="filter.value"></ngb-highlight></td>
-          <td><button  type="button" class="btn btn-outline-secondary " (click)="verPersona({id : agenda.id, modo:4})"  placement="right" ngbTooltip="Seguir"><i class="fa fa-eye"></i></button></td>
+          <td><button  type="button" class="btn btn-outline-secondary " (click)="AbrirModal(1, agenda.id, modalAgenda)"  placement="right" ngbTooltip="Seguir"><i class="fa fa-eye"></i></button></td>
           <td>
             <button class="btn btn-outline-secondary " (click)="verPersona({id : agenda.id, modo:3})" placement="left" ngbTooltip="Editar"><i class="fa fa-pencil"></i></button>
-            </td>
+          </td>
+          <td>
+            <button class="btn btn-outline-secondary " (click)="AbrirModal(2, agenda.id, modalAplazar)" placement="left" ngbTooltip="Aplazar"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+          </td>
         </tr>
         </tbody>
       </table>
     </div>
 </div>
+
+<!-- Modal para ver agenda -->
+<ng-template #modalAgenda let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Datos de agenda {{this.agendaEncontrada.id}}</h4>
+
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col">
+        <div class="form-group ">
+          <label for="ofertas_id" class="col-form-label col-form-label-sm">Coordinador:</label>
+          <input type="text" class="form-control form-control-sm" id="ofertas_id" name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.nombreCoordinador">
+        </div>
+      </div>
+      <div class="col">
+        <label for="ofertas_id" class="col-form-label col-form-label-sm">Responsable:</label>
+        <input type="text" class="form-control form-control-sm" id="ofertas_id" name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.nombreResponsable">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="form-group ">
+          <label for="ofertas_id" class="col-form-label col-form-label-sm">Fecha de apertura:</label>
+          <input type="date" class="form-control form-control-sm" id="ofertas_id" name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.apertura_fecha" >
+        </div>
+      </div>
+      <div class="col">
+        <label for="ofertas_id" class="col-form-label col-form-label-sm">Fecha de cierre:</label>
+        <input type="date" class="form-control form-control-sm" id="ofertas_id" name="ofertas_id" [readonly]="true"  [(ngModel)]="this.agendaEncontrada.cierre_fecha">
+      </div>
+    </div>
+              
+    <hr/>
+
+    <div class="row row-cols-3 ">
+
+      <div class="col bg-gradient-success">
+        <blockquote class="blockquote ">
+          <p class="mb-0"><i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;Total de seguimientos</p>
+          <footer class="blockquote-footer">  30000 </footer>
+        </blockquote>
+      </div>
+      <div class="col">
+        <blockquote class="blockquote ">
+          <p class="mb-0"><i class="fa fa-calendar-times-o" aria-hidden="true"></i>&nbsp;Seguimientos faltantes</p>
+          <footer class="blockquote-footer">  30000 </footer>
+        </blockquote>
+      </div>
+      <div class="col">
+        <blockquote class="blockquote ">
+          <p class="mb-0"><i class="fa fa-calendar-check-o" aria-hidden="true"></i>&nbsp;Seguimientos realizados</p>
+          <footer class="blockquote-footer">  30000 </footer>
+        </blockquote>
+      </div>
+      <div class="col">
+        <blockquote class="blockquote ">
+          <p class="mb-0"><i class="fa fa-hourglass-half" aria-hidden="true"></i>&nbsp;Estado de la agenda</p>
+          <footer class="blockquote-footer">  0% </footer>
+        </blockquote>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary buttonGeneral" (click)="modal.close('Close click')">Aceptar</button>
+  </div>
+</ng-template>
+
+<!-- Modal para aplazar -->
+<ng-template #modalAplazar let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Aplazar agenda {{this.agendaEncontrada.id}}</h4>
+
+  </div>
+  <div class="modal-body">
+
+    <div class="row">
+      <div class="col">
+        <div class="form-group ">
+          <label for="ofertas_id" class="col-form-label col-form-label-sm">Coordinador:</label>
+          <input type="text" class="form-control form-control-sm" id="ofertas_id" name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.nombreCoordinador">
+        </div>
+      </div>
+      <div class="col">
+        <label for="ofertas_id" class="col-form-label col-form-label-sm">Responsable:</label>
+        <input type="text" class="form-control form-control-sm" id="ofertas_id" name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.nombreResponsable">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="form-group ">
+          <label for="ofertas_id" class="col-form-label col-form-label-sm">Fecha de apertura:</label>
+          <input type="date" class="form-control form-control-sm" id="ofertas_id" name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.apertura_fecha" >
+        </div>
+      </div>
+      <div class="col">
+        <label for="ofertas_id" class="col-form-label col-form-label-sm">Fecha de cierre:</label>
+        <input type="date" class="form-control form-control-sm" id="ofertas_id" name="ofertas_id"   [(ngModel)]="this.agendaEncontrada.cierre_fecha" (change)="ValidarFecha()">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <ngb-alert class="notificacion py-1"  *ngIf="notificacionActiva" type="custom" [dismissible]="false">{{ notificacionMensaje }}</ngb-alert>
+    </div>
+  </div>
+
+              
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary buttonGeneral" (click)="AplazarAgenda()" [disabled]="notificacionActiva == true">Aceptar</button>
+    <button type="button" class="btn btn-outline-dark buttonGeneral" (click)="modal.close('Close click')" >Close</button>
+  </div>
+</ng-template>

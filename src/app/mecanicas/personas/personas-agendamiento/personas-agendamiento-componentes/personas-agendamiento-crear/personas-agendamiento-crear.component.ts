@@ -3,7 +3,7 @@ import {formatDate, DatePipe} from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {AmbienteService} from '@servicios/ambiente.service';
 import { DecimalPipe } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, empty } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EstructuraConsultas } from '@generales/estructura-consultas';
@@ -41,6 +41,14 @@ interface ListaPersonasInterface extends PersonasInterface {
   sede:string;
   programa:string;
   seleccionado: any ;
+}
+
+interface registroSeguimientoInterface{
+  id: number;
+  actualizacion_fecha: string;
+  tiposobservaciones_id: number;
+  observacion: string;
+  nombre: string;
 }
 
 @Component({
@@ -92,6 +100,11 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     conCambios: false
   }
 
+ 
+
+  notificacionActiva:boolean=false;
+  notificacionMensaje:string ="";
+
   constructor(private autenticador: AutenticacionService, private servicioAmbiente: AmbienteService , private pipe: DecimalPipe, private modal: NgbModal, private llamadoHttp :HttpClient, private utilidadFechas: DatePipe ) {
     this.creador = this.autenticador.UsuarioActualValor.id;
     this.resgistro_fecha = formatDate(new Date(), 'yyyy-MM-dd', 'en')
@@ -103,6 +116,8 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     this.controladorAgendas = new AgendasController(this.llamadoHttp, this.servicioAmbiente);
     this.controladorSeguimientos = new SeguimientosController(this.llamadoHttp, this.servicioAmbiente);
     this.registrosAgendados = [];
+    this.ValidarSeguimiento();
+    this.rol = null;
     // this.dateFormatormat(this.now, "dddd, mmmm dS, yyyy");
     // this.FechaInicio= formatDate(new Date(), 'yyyy-MM-dd', 'en')
     
@@ -231,7 +246,8 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
   SeleccionResponsable(id : number ){
      this.controladorUsuarios.Encontrar('id', id);                                                                                 
      this.responsableSelecionado.id = this.controladorUsuarios.actual.id;                                                                       
-     this.responsableSelecionado.nombres = this.controladorUsuarios.actual.nombres + ' ' + this.controladorUsuarios.actual.apellidos;     
+     this.responsableSelecionado.nombres = this.controladorUsuarios.actual.nombres + ' ' + this.controladorUsuarios.actual.apellidos;  
+     this.ValidarSeguimiento();   
   }
 
   ConsultaResponsables(){
@@ -410,6 +426,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     }
     this.seleccionarTodos.nuevosAgendados = false;
     this.AplicarFiltros(3);
+    this.ValidarSeguimiento();
 
   }
 
@@ -441,6 +458,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     this.seleccionarTodos.nuevasPersonas = false;
     this.AplicarFiltros(2);
     this.AplicarFiltros(3);
+    this.ValidarSeguimiento();
     console.log(this.registrosAgendados);
   }
 
@@ -461,6 +479,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     this.registrosPersonas.forEach(element => element.seleccionado = false );
 
     this.AplicarFiltros(3);
+    this.ValidarSeguimiento();
   }
 
   CrearAgenda(){
@@ -520,6 +539,40 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     }
   );
 
+
+  }
+
+  ValidarSeguimiento(){
+
+    this.notificacionActiva = false; 
+    
+    if( this.registrosAgendados.length == 0 ){
+      this.notificacionActiva = true;
+      this.notificacionMensaje = "Debe asignar seguimientos";
+    }   
+    
+    if( this.responsableSelecionado.id == null ){
+      this.notificacionActiva = true;
+      this.notificacionMensaje = "Debe seleccionar un responsable";
+    } 
+
+    if( this.rol == null || this.rol == ''){
+      this.notificacionActiva = true;
+      this.notificacionMensaje = "Debe seleccionar un rol";
+    }
+
+    if( this.cierre_fecha == null ){
+      this.notificacionActiva = true;
+      this.notificacionMensaje = "Debe seleccionar una fecha de cierre";
+    }
+
+    if( this.apertura_fecha == null ){
+      this.notificacionActiva = true;
+      this.notificacionMensaje = "Debe seleccionar una fecha de apertura";
+    }
+
+
+  
 
   }
 

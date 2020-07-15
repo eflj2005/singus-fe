@@ -98,10 +98,20 @@
   margin-bottom: 2rem;
 }
 
-.btn.btn-outline-dark{
-  margin: 2rem;
-}
 
 .nover{
   display: none;
+}
+
+.notificacion{
+  margin-top: 1rem;
+}
+
+.alert-custom{
+  background-color: #ffadda;
+  border-color: #ee0077;
+  color: #0e2e49;
+  font-weight: bold;
+  font-size: small;
+  text-align: center;
 }
