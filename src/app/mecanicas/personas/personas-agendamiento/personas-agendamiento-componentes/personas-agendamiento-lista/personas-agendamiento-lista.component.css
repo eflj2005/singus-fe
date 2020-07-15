@@ -22,3 +22,12 @@
     display: flex;
     align-items: baseline;
 }
+
+.alert-custom{
+    background-color: #ffadda;
+    border-color: #ee0077;
+    color: #0e2e49;
+    font-weight: bold;
+    font-size: small;
+    text-align: center;
+  }

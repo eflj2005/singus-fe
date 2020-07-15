@@ -9,12 +9,18 @@ import { AgendasController } from '@controladores/agendas.controller';
 import { HttpClient } from '@angular/common/http';
 import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { EstructuraConsultas } from '@generales/estructura-consultas';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { element } from 'protractor';
 
 interface ListaAgendas extends AgendasInterface{
   nombreCompletoUsuario? : string,
   tipo?:string,
   nombreResponsable?: string,
   nombreCoordinador?: string
+}
+
+interface EstadisticaAgenda extends AgendasInterface{
+  
 }
 
 
@@ -29,17 +35,16 @@ export class PersonasAgendamientoListaComponent implements OnInit {
   controladorAgendas: AgendasController;
   registrosAgendas: ListaAgendas[];
   registrosAgendas$: Observable<ListaAgendas[]>;
-
   filter = new FormControl('');
+  agendaEncontrada:ListaAgendas;
+  notificacionActiva:boolean=false;
+  notificacionMensaje:string ="";
 
 
 
-  constructor(private pipe: DecimalPipe, private llamadoHttp :HttpClient, private servicioAmbiente: AmbienteService) { 
-
+  constructor(private modal: NgbModal,private pipe: DecimalPipe, private llamadoHttp :HttpClient, private servicioAmbiente: AmbienteService) { 
     this.registrosAgendas = [];
     this.ConsultarAgendas();
-    this.AplicarFiltros();
-
   }
 
   ConsultarAgendas(){
@@ -60,10 +65,12 @@ export class PersonasAgendamientoListaComponent implements OnInit {
       (respuesta: RespuestaInterface) =>{
         switch(respuesta.codigo){
           case 200:
+            console.log("momento de consulta -")
             console.log(this.controladorAgendas.todos);
             this.Organizador(this.controladorAgendas.todos)
             console.log(this.registrosAgendas);
             this.AplicarFiltros();
+            console.log("momento de consulta +")
             break;
           default:
             alert("Error: "+respuesta.mensaje);
@@ -106,7 +113,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
     this.registrosAgendas$ = this.filter.valueChanges.pipe(
       startWith(''),
       map(text => this.buscarAgendas(text, this.pipe))
-    )
+    );
   }
   
 
@@ -129,5 +136,56 @@ export class PersonasAgendamientoListaComponent implements OnInit {
         }
       }
     }
+  }
+
+  AbrirModal(tipo:number, agenda: number, modal: any){
+    let respuesta : any;
+    switch (tipo) {
+      case 1:
+        this.agendaEncontrada = this.registrosAgendas.find(element => element.id == agenda) ;
+        respuesta = this.modal.open( modal, { size : 'lg'  ,  backdropClass: 'light-blue-backdrop' } );
+        break;
+      case 2:
+        this.agendaEncontrada = Object.assign({}, this.registrosAgendas.find(element => element.id == agenda) ) ;
+        this.ValidarFecha();
+        respuesta = this.modal.open( modal, { size : 'lg'  ,  backdropClass: 'light-blue-backdrop' } );
+
+        break;
+      default:
+        break;
+    }
+  }
+
+  AplazarAgenda(){
+
+    this.controladorAgendas.Modificar(this.agendaEncontrada);
+    this.controladorAgendas.Guardar().subscribe(
+      (notificacion:RespuestaInterface) => {
+        switch (notificacion.codigo){
+          case 200:         //login ok    
+
+          alert("GUARDADO");
+          this.registrosAgendas.find(element => element.id == this.agendaEncontrada.id).cierre_fecha = this.agendaEncontrada.cierre_fecha;
+         
+
+          break;
+           case 400:         //autenticación erronea / Usuario Bloqueado / Usuario Inactivo
+          alert(notificacion.asunto + ": " + notificacion.mensaje);
+           break;
+         }
+       }
+     );
+  }
+
+  ValidarFecha(){
+
+    let fechaCierreOriginal = this.registrosAgendas.find(element => element.id == this.agendaEncontrada.id).cierre_fecha;
+    this.notificacionActiva = false; 
+    
+    if(fechaCierreOriginal >= this.agendaEncontrada.cierre_fecha ){
+      this.notificacionActiva = true;
+      this.notificacionMensaje = "La nueva fecha de cierre debe ser mayor a la fecha anterior";
+    }   
+
   }
 }
