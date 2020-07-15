@@ -57,26 +57,26 @@
     <div class="row">
       <div class="col">
         <div class="form-group ">
-          <label for="ofertas_id" class="col-form-label col-form-label-sm">Coordinador:</label>
-          <input type="text" class="form-control form-control-sm" id="ofertas_id" name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.nombreCoordinador">
+          <label class="col-form-label col-form-label-sm">Coordinador:</label>
+          <input type="text" class="form-control form-control-sm"  name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.nombreCoordinador">
         </div>
       </div>
       <div class="col">
-        <label for="ofertas_id" class="col-form-label col-form-label-sm">Responsable:</label>
-        <input type="text" class="form-control form-control-sm" id="ofertas_id" name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.nombreResponsable">
+        <label  class="col-form-label col-form-label-sm">Responsable:</label>
+        <input type="text" class="form-control form-control-sm"  name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.nombreResponsable">
       </div>
     </div>
 
     <div class="row">
       <div class="col">
         <div class="form-group ">
-          <label for="ofertas_id" class="col-form-label col-form-label-sm">Fecha de apertura:</label>
-          <input type="date" class="form-control form-control-sm" id="ofertas_id" name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.apertura_fecha" >
+          <label  class="col-form-label col-form-label-sm">Fecha de apertura:</label>
+          <input type="date" class="form-control form-control-sm"  name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.apertura_fecha" >
         </div>
       </div>
       <div class="col">
-        <label for="ofertas_id" class="col-form-label col-form-label-sm">Fecha de cierre:</label>
-        <input type="date" class="form-control form-control-sm" id="ofertas_id" name="ofertas_id" [readonly]="true"  [(ngModel)]="this.agendaEncontrada.cierre_fecha">
+        <label  class="col-form-label col-form-label-sm">Fecha de cierre:</label>
+        <input type="date" class="form-control form-control-sm"  name="ofertas_id" [readonly]="true"  [(ngModel)]="this.agendaEncontrada.cierre_fecha">
       </div>
     </div>
               
@@ -87,25 +87,25 @@
       <div class="col bg-gradient-success">
         <blockquote class="blockquote ">
           <p class="mb-0"><i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;Total de seguimientos</p>
-          <footer class="blockquote-footer">  30000 </footer>
+          <footer class="blockquote-footer">  {{estadisticasAgendaE.total}} </footer>
         </blockquote>
       </div>
       <div class="col">
         <blockquote class="blockquote ">
           <p class="mb-0"><i class="fa fa-calendar-times-o" aria-hidden="true"></i>&nbsp;Seguimientos faltantes</p>
-          <footer class="blockquote-footer">  30000 </footer>
+          <footer class="blockquote-footer">  {{estadisticasAgendaE.faltantes}} </footer>
         </blockquote>
       </div>
       <div class="col">
         <blockquote class="blockquote ">
           <p class="mb-0"><i class="fa fa-calendar-check-o" aria-hidden="true"></i>&nbsp;Seguimientos realizados</p>
-          <footer class="blockquote-footer">  30000 </footer>
+          <footer class="blockquote-footer">  {{estadisticasAgendaE.realizados}} </footer>
         </blockquote>
       </div>
       <div class="col">
         <blockquote class="blockquote ">
           <p class="mb-0"><i class="fa fa-hourglass-half" aria-hidden="true"></i>&nbsp;Estado de la agenda</p>
-          <footer class="blockquote-footer">  0% </footer>
+          <footer class="blockquote-footer"> {{estadisticasAgendaE.estado}} </footer>
         </blockquote>
       </div>
     </div>
@@ -128,26 +128,26 @@
     <div class="row">
       <div class="col">
         <div class="form-group ">
-          <label for="ofertas_id" class="col-form-label col-form-label-sm">Coordinador:</label>
-          <input type="text" class="form-control form-control-sm" id="ofertas_id" name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.nombreCoordinador">
+          <label class="col-form-label col-form-label-sm">Coordinador:</label>
+          <input type="text" class="form-control form-control-sm"  name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.nombreCoordinador">
         </div>
       </div>
       <div class="col">
-        <label for="ofertas_id" class="col-form-label col-form-label-sm">Responsable:</label>
-        <input type="text" class="form-control form-control-sm" id="ofertas_id" name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.nombreResponsable">
+        <label  class="col-form-label col-form-label-sm">Responsable:</label>
+        <input type="text" class="form-control form-control-sm" name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.nombreResponsable">
       </div>
     </div>
 
     <div class="row">
       <div class="col">
         <div class="form-group ">
-          <label for="ofertas_id" class="col-form-label col-form-label-sm">Fecha de apertura:</label>
-          <input type="date" class="form-control form-control-sm" id="ofertas_id" name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.apertura_fecha" >
+          <label  class="col-form-label col-form-label-sm">Fecha de apertura:</label>
+          <input type="date" class="form-control form-control-sm"  name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.apertura_fecha" >
         </div>
       </div>
       <div class="col">
-        <label for="ofertas_id" class="col-form-label col-form-label-sm">Fecha de cierre:</label>
-        <input type="date" class="form-control form-control-sm" id="ofertas_id" name="ofertas_id"   [(ngModel)]="this.agendaEncontrada.cierre_fecha" (change)="ValidarFecha()">
+        <label  class="col-form-label col-form-label-sm">Fecha de cierre:</label>
+        <input type="date" class="form-control form-control-sm"  name="ofertas_id"   [(ngModel)]="this.agendaEncontrada.cierre_fecha" (change)="ValidarFecha()">
       </div>
     </div>
 

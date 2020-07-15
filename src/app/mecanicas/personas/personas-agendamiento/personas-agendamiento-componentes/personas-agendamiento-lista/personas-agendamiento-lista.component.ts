@@ -11,7 +11,8 @@ import { RespuestaInterface } from '@interfaces/respuesta.interface';
 import { EstructuraConsultas } from '@generales/estructura-consultas';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { element } from 'protractor';
-
+import { AgendamientosInterface} from '@interfaces/agendamientos.interface';
+import { AgendamientosController } from '@controladores/agendamientos.controller';
 interface ListaAgendas extends AgendasInterface{
   nombreCompletoUsuario? : string,
   tipo?:string,
@@ -19,8 +20,8 @@ interface ListaAgendas extends AgendasInterface{
   nombreCoordinador?: string
 }
 
-interface EstadisticaAgenda extends AgendasInterface{
-  
+interface EstadisticaAgenda extends AgendamientosInterface{
+  actualizacion_fecha: string;
 }
 
 
@@ -33,22 +34,25 @@ interface EstadisticaAgenda extends AgendasInterface{
 export class PersonasAgendamientoListaComponent implements OnInit {
 
   controladorAgendas: AgendasController;
+  controladorAgendamientos : AgendamientosController;
+
+  estadisticas : EstadisticaAgenda[];
   registrosAgendas: ListaAgendas[];
   registrosAgendas$: Observable<ListaAgendas[]>;
   filter = new FormControl('');
   agendaEncontrada:ListaAgendas;
+  estadisticasAgendaE = {"total": null, "realizados": null, "faltantes": null, "estado":''}
   notificacionActiva:boolean=false;
   notificacionMensaje:string ="";
 
 
 
   constructor(private modal: NgbModal,private pipe: DecimalPipe, private llamadoHttp :HttpClient, private servicioAmbiente: AmbienteService) { 
-    this.registrosAgendas = [];
+    this.controladorAgendamientos = new AgendamientosController(this.llamadoHttp,this.servicioAmbiente);
     this.ConsultarAgendas();
   }
 
   ConsultarAgendas(){
-
     let caracteristicas = new EstructuraConsultas();
     caracteristicas.AgregarColumna( "agendas", "id" , null );
     caracteristicas.AgregarColumna( "agendas", "apertura_fecha" , null );
@@ -65,12 +69,11 @@ export class PersonasAgendamientoListaComponent implements OnInit {
       (respuesta: RespuestaInterface) =>{
         switch(respuesta.codigo){
           case 200:
-            console.log("momento de consulta -")
+            this.registrosAgendas = [];
             console.log(this.controladorAgendas.todos);
             this.Organizador(this.controladorAgendas.todos)
             console.log(this.registrosAgendas);
             this.AplicarFiltros();
-            console.log("momento de consulta +")
             break;
           default:
             alert("Error: "+respuesta.mensaje);
@@ -143,6 +146,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
     switch (tipo) {
       case 1:
         this.agendaEncontrada = this.registrosAgendas.find(element => element.id == agenda) ;
+        this.ConsultarEstadisticas();
         respuesta = this.modal.open( modal, { size : 'lg'  ,  backdropClass: 'light-blue-backdrop' } );
         break;
       case 2:
@@ -187,5 +191,36 @@ export class PersonasAgendamientoListaComponent implements OnInit {
       this.notificacionMensaje = "La nueva fecha de cierre debe ser mayor a la fecha anterior";
     }   
 
+  }
+
+  ConsultarEstadisticas(){
+    
+    let caracteristicas = new EstructuraConsultas();
+    caracteristicas.AgregarColumna( "seguimientos", "actualizacion_fecha" , null );
+    caracteristicas.AgregarEnlace( "seguimientos" , "seguimientos" , "agendamientos" );
+    caracteristicas.AgregarFiltro( "","agendamientos" , "agendas_id" , "=", String(this.agendaEncontrada.id) ); 
+
+    this.controladorAgendamientos.CargarDesdeDB(true, "A" , caracteristicas).subscribe(
+
+      (respuesta: RespuestaInterface) =>{
+        switch(respuesta.codigo){
+          case 200:
+            this.estadisticas = this.controladorAgendamientos.todos;
+            this.estadisticasAgendaE.total = this.estadisticas.length;
+            for (let i = 0; i < this.estadisticasAgendaE.total; i++) {
+              if(this.estadisticas[i].actualizacion_fecha != null){
+                this.estadisticasAgendaE.realizados++;
+              }
+            }
+            this.estadisticasAgendaE.faltantes = this.estadisticasAgendaE.total - this.estadisticasAgendaE.realizados;
+            this.estadisticasAgendaE.estado = (this.estadisticasAgendaE.realizados*100)/this.estadisticasAgendaE.total + '%';
+            console.log(this.estadisticas);
+            break;
+          default:
+            alert("Error: "+respuesta.mensaje);
+            break;
+        }
+      }
+    );
   }
 }
