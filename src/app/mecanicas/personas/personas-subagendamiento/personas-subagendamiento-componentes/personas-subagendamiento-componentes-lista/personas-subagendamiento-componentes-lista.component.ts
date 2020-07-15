@@ -269,10 +269,7 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
       else                                          registro.seguimiento="";
     })
 
-    console.log(listaRespuesta);
-
     listaRespuesta=this.FiltradoAdicional(listaRespuesta);
-
     
     return listaRespuesta;
   }
