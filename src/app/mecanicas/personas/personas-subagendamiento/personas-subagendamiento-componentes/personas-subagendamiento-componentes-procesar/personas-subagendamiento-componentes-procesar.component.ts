@@ -14,6 +14,7 @@ import { EstructuraConsultas } from '@generales/estructura-consultas';
 import { AsignacionesController } from '@controladores/asignaciones.controller';
 import { DatePipe } from '@angular/common';
 import { Console } from 'console';
+import { Observable } from 'rxjs';
 
 interface DatosIntercambioInterface{
   [index: string]: any;
@@ -66,6 +67,26 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
   notificacionMensaje:string ="";
 
   estaProcesando:Boolean;
+
+
+  estructuraFiltro:any = {
+    disponibles: {
+      uniId: "",
+      nombre: "",
+      programa: "",
+      cohorte: "",
+      sede: "",
+      ultimoCambio: ""
+    },
+    asignados:{
+      uniId: "",
+      nombre: "",
+      programa: "",
+      cohorte: "",
+      sede: "",
+      ultimoCambio: ""      
+    }
+  }
 
   constructor(
     private servicioAmbiente : AmbienteService,
@@ -186,9 +207,8 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
 
       break;
     }
-
     this.ValidarFormulario();
-
+    console.log(this.listaSeguimientosDisponibles);
   }
   
   SeleccionarTodos( tablaControl: string){
@@ -428,6 +448,33 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
     let validador:boolean = false;
     validador = (this.controladorAsignaciones.EstaListo("cargue") );
     return validador;
+  }
+
+  ObtenerLista( nombreLista: string ):any[]{
+    let listaResultado:any[];
+    switch(nombreLista){
+      case 'disponibles':
+        listaResultado = this.listaSeguimientosDisponibles.filter(registro => 
+          String(registro.uniminutoId).includes( this.estructuraFiltro.disponibles.uniId )
+           && registro.nombreCompleto.toLowerCase().includes( this.estructuraFiltro.disponibles.nombre.toLowerCase() )
+           && registro.programa.toLowerCase().includes( this.estructuraFiltro.disponibles.programa.toLowerCase() )
+           && registro.cohorte.toLowerCase().includes( this.estructuraFiltro.disponibles.cohorte )
+           && registro.sede.toLowerCase().includes( this.estructuraFiltro.disponibles.sede.toLowerCase() )
+           && registro.fechaActualizacion.toLowerCase().includes( this.estructuraFiltro.disponibles.ultimoCambio )                                                 
+        );
+      break;
+      case 'asignados':
+        listaResultado = this.listaSeguimientosAsignados.filter(registro => 
+          String(registro.uniminutoId).includes( this.estructuraFiltro.asignados.uniId )
+           && registro.nombreCompleto.toLowerCase().includes( this.estructuraFiltro.asignados.nombre.toLowerCase() )
+           && registro.programa.toLowerCase().includes( this.estructuraFiltro.asignados.programa.toLowerCase() )
+           && registro.cohorte.toLowerCase().includes( this.estructuraFiltro.asignados.cohorte )
+           && registro.sede.toLowerCase().includes( this.estructuraFiltro.asignados.sede.toLowerCase() )
+           && registro.fechaActualizacion.toLowerCase().includes( this.estructuraFiltro.asignados.ultimoCambio )                                                 
+        );        
+      break;   
+    }
+    return listaResultado;
   }
 
   FiltrarDatos( arreglo : any[] , campo : string , valor : any ){
