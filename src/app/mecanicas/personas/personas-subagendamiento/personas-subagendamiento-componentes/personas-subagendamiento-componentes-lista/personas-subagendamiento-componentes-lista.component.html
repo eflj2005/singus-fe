@@ -28,23 +28,41 @@
     <table class="table">
       <thead>
         <tr>
+          <td>&nbsp;</td>
+          <td><input class="form-control form-control-sm m-0 p-0 input_sm" [(ngModel)]="estructuraFiltro.uniId"></td>
+          <td><input class="form-control form-control-sm m-0 p-0 input_lg" [(ngModel)]="estructuraFiltro.nombre"></td>
+          <td><input class="form-control form-control-sm m-0 p-0 input_sm" [(ngModel)]="estructuraFiltro.programa"></td>
+          <td><input class="form-control form-control-sm m-0 p-0 input_sm" [(ngModel)]="estructuraFiltro.cohorte"></td>
+          <td><input class="form-control form-control-sm m-0 p-0 input_sm" [(ngModel)]="estructuraFiltro.sede"></td>  
+          <td><input class="form-control form-control-sm m-0 p-0 input_sm" [(ngModel)]="estructuraFiltro.creacion"></td>
+          <td><input class="form-control form-control-sm m-0 p-0 input_sm" [(ngModel)]="estructuraFiltro.ultimoCambio"></td>
+          <td><input class="form-control form-control-sm m-0 p-0 input_lg" [(ngModel)]="estructuraFiltro.seguimiento"></td>
+          <td>&nbsp;</td>                  
+        </tr>        
+        <tr>
           <th scope="col"># Seg.</th>
           <th scope="col">Uni-Id</th>
           <th scope="col">Nombre</th>
+          <th scope="col">Programa</th>
+          <th scope="col">Cohorte</th>
+          <th scope="col">Sede</th>          
           <th scope="col">Creación</th>
           <th scope="col">Ultimo Cambio</th>
           <th scope="col">Seguimientos</th>
           <th scope="col" class="col-actions">Acción</th>                  
-        </tr>
+        </tr>        
       </thead>
       <tbody>
         <tr *ngFor="let elemento of ObtenerSeguimientos(); let indiceAgendamientos = index">
           <th scope="row">{{ elemento.id }}</th>
           <td>{{ elemento.uniminutoId }}</td>
           <td>{{ elemento.nombreCompleto }}</td>
+          <td>{{ elemento.programa }}</td>
+          <td>{{ elemento.cohorte }}</td>
+          <td>{{ elemento.sede }}</td>            
           <td>{{ elemento.fechaRegistro }}</td>
           <td>{{ elemento.fechaActualizacion }}</td>
-          <td>{{ elemento.tiposobservaciones_id != null ? controladorSeguimientos.ObtenerForanea("tiposobservaciones",true,elemento.tiposobservaciones_id ,true).actual.descripcion : '' }}</td>
+          <td>{{ elemento.seguimiento }}</td>
           <td>
             <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="CargarPersona( elemento.personas_id )"  placement="left" ngbTooltip="Actualización"><i class="fa fa-pencil-square-o"></i></button>
             <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivaSeguimiento( elemento.id, modalSeguimientos )"  placement="left" ngbTooltip="Seguimiento"><i class="fa fa-address-card-o"></i></button>

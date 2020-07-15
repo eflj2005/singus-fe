@@ -15,7 +15,7 @@ import { MecanicasModule } from '@mecanicas/mecanicas.module';
 import { ModelosModule } from './modelos/_modelos.module'
 import { ErrorInterceptorService } from '@servicios/error.interceptor';
 import { JwtInterceptorService } from '@servicios/jwt.interceptor';
-import { DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
@@ -44,6 +44,7 @@ import { FormControl } from '@angular/forms';
   ],
   providers: [ 
     DatePipe,
+    DecimalPipe,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true  }
    ],

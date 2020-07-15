@@ -6,3 +6,13 @@
   font-size: small;
   text-align: center;
 }
+
+thead input.input_lg{
+  max-width: 120px;
+  height: 20px;
+}
+
+thead input.input_sm{
+  max-width: 50px;
+  height: 20px;  
+}

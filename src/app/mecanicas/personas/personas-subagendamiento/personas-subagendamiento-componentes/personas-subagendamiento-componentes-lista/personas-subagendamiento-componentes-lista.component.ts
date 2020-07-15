@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, PipeTransform} from '@angular/core';
 import { AgendamientosInterface } from '@interfaces/agendamientos.interface';
 import { AgendasInterface } from '@interfaces/agendas.interface';
 import { AmbienteService } from '@servicios/ambiente.service';
@@ -18,6 +18,9 @@ import { PersonasActualizacionInformacionComponent } from '@mecanicas/personas/p
 import { SeguimientosInterface } from '@interfaces/seguimientos.interface';
 import { DatePipe } from '@angular/common';
 import { AsignacionesController } from '@controladores/asignaciones.controller';
+import { FormControl } from '@angular/forms';
+import { startWith, map } from 'rxjs/operators';
+import { isNull } from 'util';
 
 
 interface DatosIntercambioInterface{
@@ -31,6 +34,7 @@ interface registroSeguimientoInterface{
   observacion: string;
   nombre: string;
 }
+
 
 @Component({
   selector: 'app-personas-subagendamiento-componentes-lista',
@@ -58,12 +62,23 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
   notificacionActiva:boolean=false;
   notificacionMensaje:string ="";
 
+  estructuraFiltro:any = {
+    uniId: "",
+    nombre: "",
+    programa: "",
+    cohorte: "",
+    sede: "",
+    creacion: "",
+    ultimoCambio: "",
+    seguimiento: "",
+  }
+
   constructor(
     private servicioAmbiente : AmbienteService,
     private llamadoHttp : HttpClient,    
     private autenticador: AutenticacionService,
     private servicioEmergentes: NgbModal,
-    private utilidadFechas: DatePipe
+    private utilidadFechas: DatePipe,
   ) { 
 
     this.controladorAsignaciones= new AsignacionesController(llamadoHttp,servicioAmbiente);
@@ -233,15 +248,6 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
 
   }
 
-
-  // AplicarFiltros(){
-  //   this.registros$ = this.filter.valueChanges.pipe(
-  //     startWith(''),
-  //     map(text => this.Buscar(text, this.pipe))
-  //   );
-  // }
-
-
   RecargarControladores(){
     this.controladorAgendas.Recargar().subscribe( (respuestaAP:RespuestaInterface) => { 
       this.controladorAgendas.ObtenerForanea("agendas").Recargar().subscribe( (respuestaAF:RespuestaInterface) => { });
@@ -250,21 +256,40 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
   }
 
   
-  ObtenerSeguimientos(): any[] {
+  ObtenerSeguimientos(): any[]{
+
     let listaRespuesta: any[];
     listaRespuesta = this.FiltrarDatos( this.controladorSeguimientos.todos,  'agenda_id' , this.datosBaseAgenda.agenda_id );
 
-    if( this.datosBaseAgenda.creador_id == this.usuario_id ){
-      listaRespuesta = this.FiltrarDatos( listaRespuesta,  'tipo_asignacion' , 'C' );
-    }
-    else{
-      listaRespuesta = this.FiltrarDatos( listaRespuesta,  'tipo_asignacion' , 'R' );
-    }
+    if( this.datosBaseAgenda.creador_id == this.usuario_id )  listaRespuesta = this.FiltrarDatos( listaRespuesta,  'tipo_asignacion' , 'C' );
+    else                                                      listaRespuesta = this.FiltrarDatos( listaRespuesta,  'tipo_asignacion' , 'R' );
+    
+    listaRespuesta.forEach(registro => {
+      if( !isNull(registro.tiposobservaciones_id) ) registro.seguimiento = this.controladorSeguimientos.ObtenerForanea("tiposobservaciones",true,registro.tiposobservaciones_id ,true).actual.descripcion;
+      else                                          registro.seguimiento="";
+    })
+
+    console.log(listaRespuesta);
+
+    listaRespuesta=this.FiltradoAdicional(listaRespuesta);
+
+    
     return listaRespuesta;
   }
 
 
-
+  FiltradoAdicional(arregloRecibido: any[]): any[] {
+    return arregloRecibido.filter(registro => 
+            String(registro.uniminutoId).includes( this.estructuraFiltro.uniId )
+             && registro.nombreCompleto.toLowerCase().includes( this.estructuraFiltro.nombre.toLowerCase() )
+             && registro.programa.toLowerCase().includes( this.estructuraFiltro.programa.toLowerCase() )
+             && registro.cohorte.toLowerCase().includes( this.estructuraFiltro.cohorte )
+             && registro.sede.toLowerCase().includes( this.estructuraFiltro.sede.toLowerCase() )
+             && registro.fechaRegistro.toLowerCase().includes( this.estructuraFiltro.creacion )
+             && registro.fechaActualizacion.toLowerCase().includes( this.estructuraFiltro.ultimoCambio )                                                 
+             && registro.seguimiento.toLowerCase().includes( this.estructuraFiltro.seguimiento.toLowerCase() )              
+    );
+  }
 
 
   FiltrarDatos( arreglo : any[] , campo : string , valor : any ): any[] {
