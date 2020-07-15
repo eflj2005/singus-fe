@@ -24,7 +24,5 @@ export class AsignacionesController extends GenericoModel {
 
         this.AgregarForanea( new AgendasController(instanciaHttpClient,InstanciaAmbienteService)  );
         this.AgregarForanea( new UsuariosController(instanciaHttpClient,InstanciaAmbienteService)  );
-
-
       }
 }

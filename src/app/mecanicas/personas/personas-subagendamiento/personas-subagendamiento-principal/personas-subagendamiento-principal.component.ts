@@ -31,6 +31,7 @@ interface AgendamientosCompleto extends AgendamientosInterface{
 export class PersonasSubagendamientoPrincipalComponent implements OnInit {
 
   usuario_id:number;
+  usuario_rol:string;
 
   agendaSeleccionada:  BehaviorSubject<number>;
 
@@ -51,6 +52,7 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
     this.agendaSeleccionada = new BehaviorSubject(0);
 
     this.usuario_id = this.autenticador.UsuarioActualValor.id;
+    this.usuario_rol = this.autenticador.UsuarioActualValor.rol;
 
     this.controladorAgendas = new AgendasController(llamadoHttp , servicioAmbiente);
     this.controladorAgendasForaneas = new AgendasController(llamadoHttp , servicioAmbiente);
@@ -64,9 +66,20 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
     caracteristicasConsultas.AgregarColumna( null , "(SELECT usuarios_id FROM asignaciones WHERE agendas_id = agendas.id AND tipo = 'R' )", "responsable_id", true );       
     caracteristicasConsultas.AgregarColumna( null , "(SELECT COUNT(*) FROM agendamientos WHERE agendamientos.agendas_id = agendas.id)", "asignados", true ); 
     caracteristicasConsultas.AgregarColumna( null , "(SELECT CONCAT(usuarios.nombres,' ',usuarios.apellidos) FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'C')", "creador" );
-    caracteristicasConsultas.AgregarColumna( null , "( SELECT COUNT(*) FROM agendas AS AC WHERE AC.agendas_id = agendas.id )" , "distribuciones", true) ;
+    caracteristicasConsultas.AgregarColumna( null , "(SELECT CONCAT(usuarios.nombres,' ',usuarios.apellidos) FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'R')", "responsable" );
+    caracteristicasConsultas.AgregarColumna( null , "(SELECT COUNT(*) FROM agendas AS AC WHERE AC.agendas_id = agendas.id )" , "distribuciones", true);
+    caracteristicasConsultas.AgregarColumna( 
+      null, 
+      "(SELECT " +
+          "( SELECT count(*) FROM seguimientos INNER JOIN agendamientos ON seguimientos.id = agendamientos.seguimientos_id  WHERE agendamientos.agendas_id = agendas.id ) "+
+          " - " +
+          "( SELECT count(*) FROM seguimientos INNER JOIN agendamientos ON seguimientos.id = agendamientos.seguimientos_id  WHERE agendamientos.agendas_id = agendas.id AND seguimientos.tiposobservaciones_id IS NOT NULL )" +
+      ")", 
+      "pendientes", 
+      true
+    );
     caracteristicasConsultas.AgregarEnlace( "asignaciones" ,  "agendas" ,  "asignaciones" );
-    caracteristicasConsultas.AgregarFiltro( "", "asignaciones" , "usuarios_id" , "=", String(this.usuario_id) );
+    if(this.usuario_rol != 'A')   caracteristicasConsultas.AgregarFiltro( "", "asignaciones" , "usuarios_id" , "=", String(this.usuario_id) );
     caracteristicasConsultas.AgregarOrdenamiento( "agendas.id" , "ASC" );
     this.controladorAgendas.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAP:RespuestaInterface) => {           // Carge de Agendas
 
@@ -77,12 +90,13 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
       caracteristicasConsultas.AgregarColumna( null , "(SELECT usuarios_id FROM asignaciones WHERE agendas_id = agendas.id AND tipo = 'R' )", "responsable_id", true );       
       caracteristicasConsultas.AgregarColumna( null , "(SELECT COUNT(*) FROM agendamientos WHERE agendamientos.agendas_id = agendas.id)", "asignados", true ); 
       caracteristicasConsultas.AgregarColumna( null , "(SELECT CONCAT(usuarios.nombres,' ',usuarios.apellidos) FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'C')", "creador" );
+      caracteristicasConsultas.AgregarColumna( null , "(SELECT CONCAT(usuarios.nombres,' ',usuarios.apellidos) FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'R')", "responsable" );      
       caracteristicasConsultas.AgregarColumna( null , "( SELECT COUNT(*) FROM agendas AS AC WHERE AC.agendas_id = agendas.id )" , "distribuciones", true) ;
       let opereadorLogico: string = "";
       this.controladorAgendas.todos.filter( (agenda: { agendas_id: any }) => agenda.agendas_id != null ).forEach( (agenda, indice) => {
         if( indice == 0)  opereadorLogico = "";
         else              opereadorLogico = "OR";
-        caracteristicasConsultas.AgregarFiltro( opereadorLogico, "agendas" , "id" , "=", agenda.agendas_id );  
+        if(this.usuario_rol != 'A')   caracteristicasConsultas.AgregarFiltro( opereadorLogico, "agendas" , "id" , "=", agenda.agendas_id );  
       });
       caracteristicasConsultas.AgregarOrdenamiento( "agendas.id" , "ASC" );
       this.controladorAgendasForaneas.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAF:RespuestaInterface) => {           // Carge de Agendas
@@ -144,9 +158,9 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
     caracteristicasConsultas.AgregarEnlace( "agendamientos", "seguimientos", "agendamientos");    
     caracteristicasConsultas.AgregarEnlace( "agendas", "agendas", "agendamientos");
     caracteristicasConsultas.AgregarEnlace( "asignaciones", "agendas", "asignaciones");
-    caracteristicasConsultas.AgregarFiltro(   "",     "asignaciones" ,  "usuarios_id" , "=", String(this.usuario_id) );
+    if(this.usuario_rol != 'A')   caracteristicasConsultas.AgregarFiltro(   "",     "asignaciones" ,  "usuarios_id" , "=", String(this.usuario_id) );
     this.controladorSeguimientos.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAG:RespuestaInterface) => {           // Carge de Agenda
-
+      this.controladorSeguimientos.CargarForanea("tiposobservaciones");
     }); 
 
   }

@@ -6,8 +6,11 @@ import { BehaviorSubject } from 'rxjs';
 interface AgendasCompletoInterface extends AgendasInterface  {
   creador: string;
   creador_id: number;
+  responsable: string;
+  responsable_id: number;  
   asignados: number;
   distribuciones:number,
+  pendientes:number,
   esRaiz?: boolean
   selecionado?:boolean;
 }
@@ -33,11 +36,14 @@ class ArbolDeAgendas{
       apertura_fecha: objetoRecibido.apertura_fecha,
       cierre_fecha:   objetoRecibido.cierre_fecha,
       asignados:      objetoRecibido.asignados,
-      creador:        objetoRecibido.creador,
       nivel:          objetoRecibido.nivel,
       distribuciones: objetoRecibido.distribuciones,
+      creador:        objetoRecibido.creador,      
       creador_id:     objetoRecibido.creador_id,
+      responsable:    objetoRecibido.responsable,
+      responsable_id: objetoRecibido.responsable_id,
       registro_fecha: objetoRecibido.registro_fecha,
+      pendientes:     objetoRecibido.pendientes,
       subagendas: []
     };
     return respuesta;
@@ -50,11 +56,14 @@ class ArbolDeAgendas{
       apertura_fecha: objetoRecibido.apertura_fecha,
       cierre_fecha:   objetoRecibido.cierre_fecha,
       asignados:      objetoRecibido.asignados,
-      creador:        objetoRecibido.creador,
       nivel:          objetoRecibido.nivel,
       distribuciones: objetoRecibido.distribuciones,
+      creador:        objetoRecibido.creador,      
       creador_id:     objetoRecibido.creador_id,
-      registro_fecha: objetoRecibido.registro_fecha
+      responsable:    objetoRecibido.responsable,
+      responsable_id: objetoRecibido.responsable_id,
+      registro_fecha: objetoRecibido.registro_fecha,
+      pendientes:     objetoRecibido.pendientes,
     };
     return respuesta;
   }
@@ -195,4 +204,5 @@ export class PersonasSubagendamientoComponentesArbolesComponent implements OnIni
   Seleccionado( indiceAgendaRecibido : number){
     this.seleccionada.next( this.agendas[indiceAgendaRecibido].id );
   }
+
 }

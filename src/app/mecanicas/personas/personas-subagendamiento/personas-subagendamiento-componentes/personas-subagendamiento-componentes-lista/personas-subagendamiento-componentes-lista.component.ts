@@ -47,6 +47,7 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
   agendaEncontrada:boolean;
   
   usuario_id:number;
+  usuario_rol:string;
 
   controladorAgendamientos: AgendamientosController;
   controladorAsignaciones: AsignacionesController;
@@ -68,6 +69,8 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
     this.controladorAsignaciones= new AsignacionesController(llamadoHttp,servicioAmbiente);
 
     this.usuario_id = this.autenticador.UsuarioActualValor.id;
+    this.usuario_rol = this.autenticador.UsuarioActualValor.rol;
+    
     this.agendaEncontrada=false;
   
     this.seguimientoRegistro = {
@@ -125,7 +128,7 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
         this.controladorAsignaciones.Guardar().subscribe((respuestaAsignaciones: RespuestaInterface) => {
           if( respuestaAsignaciones.codigo == 200 ){
   
-            this.controladorSeguimientos.Guardar().subscribe((respuestaAgendas: RespuestaInterface) => {
+            this.controladorAgendas.Guardar().subscribe((respuestaAgendas: RespuestaInterface) => {
               if( respuestaAgendas.codigo == 200 ){
                 
                 alert("Eliminicación de agenda satisfactorio");
@@ -253,6 +256,9 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
 
     if( this.datosBaseAgenda.creador_id == this.usuario_id ){
       listaRespuesta = this.FiltrarDatos( listaRespuesta,  'tipo_asignacion' , 'C' );
+    }
+    else{
+      listaRespuesta = this.FiltrarDatos( listaRespuesta,  'tipo_asignacion' , 'R' );
     }
     return listaRespuesta;
   }

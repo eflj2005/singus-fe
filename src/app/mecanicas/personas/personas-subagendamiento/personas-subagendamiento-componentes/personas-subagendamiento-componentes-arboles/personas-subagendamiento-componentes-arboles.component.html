@@ -16,14 +16,15 @@
           </ng-template>
           <ng-template #popContent>
             <div class="popover-class">
-              <div class="d-flex flex-row"> <div class="popover-label">Id:</div>         <div class="">{{ agenda.id }}</div>             </div>
-              <div class="d-flex flex-row"> <div class="popover-label">Creador:</div>    <div class="">{{ agenda.creador }}</div>        </div>
-              <div class="d-flex flex-row"> <div class="popover-label">Apertura:</div>   <div class="">{{ agenda.apertura_fecha }}</div> </div>
-              <div class="d-flex flex-row"> <div class="popover-label">Cierre:</div>     <div class="">{{ agenda.cierre_fecha }}</div>   </div>
-              <div class="d-flex flex-row"> <div class="popover-label">Días Rest:</div>  <div class="">#</div>                           </div>
-              <div class="d-flex flex-row"> <div class="popover-label">Asignados:</div>  <div class="">{{ agenda.asignados }}</div>      </div>
-              <div class="d-flex flex-row"> <div class="popover-label">Completos:</div>  <div class="">#</div>                           </div>
-              <div class="d-flex flex-row"> <div class="popover-label">Estado:</div>     <div class=""># %</div>                         </div>
+              <div class="d-flex flex-row"> <div class="popover-label">Id:</div>          <div class="">{{ agenda.id }}</div>             </div>
+              <div class="d-flex flex-row"> <div class="popover-label">Creador:</div>     <div class="">{{ agenda.creador }}</div>        </div>
+              <div class="d-flex flex-row"> <div class="popover-label">Responsable:</div> <div class="">{{ agenda.responsable }}</div>        </div>              
+              <div class="d-flex flex-row"> <div class="popover-label">Apertura:</div>    <div class="">{{ agenda.apertura_fecha }}</div> </div>
+              <div class="d-flex flex-row"> <div class="popover-label">Cierre:</div>      <div class="">{{ agenda.cierre_fecha }}</div>   </div>
+              <div class="d-flex flex-row"> <div class="popover-label">Días Rest:</div>   <div class="">#</div>                           </div>
+              <div class="d-flex flex-row"> <div class="popover-label">Asignados:</div>   <div class="">{{ agenda.asignados }}</div>      </div>
+              <div class="d-flex flex-row"> <div class="popover-label">Completos:</div>   <div class="">#</div>                           </div>
+              <div class="d-flex flex-row"> <div class="popover-label">Estado:</div>      <div class=""># %</div>                         </div>
             </div>
           </ng-template>
 
@@ -44,7 +45,7 @@
                   </div>
                 </span>
                 <span>{{ agenda.asignados }} <span class="fa fa-users"></span></span>
-                <span class="badge badge-primary badge-pill">{{ agenda.asignados }}</span>  
+                <span class="badge badge-primary badge-pill">{{ agenda.pendientes }}</span>  
               </div>
             </button>
           </div>

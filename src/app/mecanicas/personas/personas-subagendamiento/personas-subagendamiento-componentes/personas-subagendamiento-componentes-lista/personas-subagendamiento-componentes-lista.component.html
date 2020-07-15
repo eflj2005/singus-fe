@@ -1,23 +1,25 @@
 <div class="row justify-content-between">
   <div class="col-md-4">
-    <h5>Seguimientos de Agenda No. {{ datosBaseAgenda.agenda_id }} - Nivel {{ agendaEncontrada?datosBaseAgenda.nivel:'-' }} - Distribuciones: {{ agendaEncontrada?datosBaseAgenda.distribuciones:'-'  }}</h5>
+    <h5>Seguimientos de Agenda No. {{ datosBaseAgenda.agenda_id }}</h5>
   </div>
   <div class="col-md-6">
-    <button 
-      *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.creador_id == usuario_id ) && ( datosBaseAgenda.distribuciones == 0 ) && controladorAsignaciones.EstaListo('cargue') ) : false "     
-      type="button" class="btn btn-outline-primary py-0 px-1 float-right" 
-      (click)="EliminarAgenda()"
-    ><i class="fa fa-trash-o"></i> Descartar</button>
-    <button 
-      *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.creador_id == usuario_id ) && ( datosBaseAgenda.distribuciones == 0 )  && controladorAsignaciones.EstaListo('cargue') ) : false " 
-      type="button" class="btn btn-outline-primary py-0 px-1 mx-1 float-right"
-      (click)="ProcesarAgenda('modificar')"
-    ><i class="fa fa-pencil-square-o"></i> Modificar</button>
-    <button 
-      *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.nivel < 2 ) && (datosBaseAgenda.creador_id != usuario_id) && controladorAsignaciones.EstaListo('cargue') ): false "     
-      type="button" class="btn btn-outline-primary py-0 px-1 float-right" 
-      (click)="ProcesarAgenda('subagendar')"
-      ><i class="fa fa-sitemap"></i> Subagendar</button>
+    <ng-container *ngIf="usuario_rol != 'A'">
+      <button 
+        *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.creador_id == usuario_id ) && ( datosBaseAgenda.distribuciones == 0 ) && controladorAsignaciones.EstaListo('cargue') ) : false "     
+        type="button" class="btn btn-outline-primary py-0 px-1 float-right" 
+        (click)="EliminarAgenda()"
+      ><i class="fa fa-trash-o"></i> Descartar</button>
+      <button 
+        *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.creador_id == usuario_id ) && ( datosBaseAgenda.distribuciones == 0 )  && controladorAsignaciones.EstaListo('cargue') ) : false " 
+        type="button" class="btn btn-outline-primary py-0 px-1 mx-1 float-right"
+        (click)="ProcesarAgenda('modificar')"
+      ><i class="fa fa-pencil-square-o"></i> Modificar</button>
+      <button 
+        *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.nivel < 2 ) && (datosBaseAgenda.creador_id != usuario_id) && controladorAsignaciones.EstaListo('cargue') ): false "     
+        type="button" class="btn btn-outline-primary py-0 px-1 float-right" 
+        (click)="ProcesarAgenda('subagendar')"
+        ><i class="fa fa-sitemap"></i> Subagendar</button>
+    </ng-container>
   </div>
 </div>
 
@@ -42,7 +44,7 @@
           <td>{{ elemento.nombreCompleto }}</td>
           <td>{{ elemento.fechaRegistro }}</td>
           <td>{{ elemento.fechaActualizacion }}</td>
-          <td>&nbsp;</td>
+          <td>{{ elemento.tiposobservaciones_id != null ? controladorSeguimientos.ObtenerForanea("tiposobservaciones",true,elemento.tiposobservaciones_id ,true).actual.descripcion : '' }}</td>
           <td>
             <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="CargarPersona( elemento.personas_id )"  placement="left" ngbTooltip="Actualización"><i class="fa fa-pencil-square-o"></i></button>
             <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivaSeguimiento( elemento.id, modalSeguimientos )"  placement="left" ngbTooltip="Seguimiento"><i class="fa fa-address-card-o"></i></button>
@@ -97,9 +99,8 @@
             <div class="form-row justify-content-between"> 
               <label for="tiposobservaciones" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Tipo:</label>
               <div class="col-sm">
-                <select  class="form-control form-control-sm" id="tiposobservaciones" name="tiposobservaciones" [(ngModel)]="seguimientoRegistro.tiposobservaciones_id" (change)="ValidarSeguimiento()">                  
-                  <option value="1">tipo 1</option>            
-                  <option value="2">tipo 2</option>            
+                <select  class="form-control form-control-sm" id="tiposobservaciones" name="tiposobservaciones" [(ngModel)]="seguimientoRegistro.tiposobservaciones_id" (change)="ValidarSeguimiento()" [disabled]="usuario_rol == 'A'">
+                  <option *ngFor="let tipo of controladorSeguimientos.ObtenerForanea('tiposobservaciones').todos; let indiceTipos = index" value="{{ tipo.id }}">{{tipo.descripcion}}</option>            
                 </select>
               </div>     
             </div>
@@ -107,7 +108,7 @@
             <div class="form-row justify-content-between">
               <label for="observacion" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Observación:</label>
               <div class="col-sm">
-                <textarea class="form-control form-control-sm" id="observacion" name="observacion" rows="4" [(ngModel)]="seguimientoRegistro.observacion" (change)="ValidarSeguimiento()"></textarea>
+                <textarea class="form-control form-control-sm" id="observacion" name="observacion" rows="4" [(ngModel)]="seguimientoRegistro.observacion" (change)="ValidarSeguimiento()" [disabled]="usuario_rol == 'A'"></textarea>
               </div>
             </div>
    
@@ -124,7 +125,7 @@
   
     </div>
     <div class="modal-footer "> 
-      <button type="button" class="btn btn-primary" (click)="ActualizarSeguimiento(modal)" [disabled]="notificacionActiva">Aplicar</button>
+      <button type="button" *ngIf="usuario_rol != 'A'" class="btn btn-primary" (click)="ActualizarSeguimiento(modal)" [disabled]="notificacionActiva">Aplicar</button>
       <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">Atras</button> 
     </div>
   </ng-template>
