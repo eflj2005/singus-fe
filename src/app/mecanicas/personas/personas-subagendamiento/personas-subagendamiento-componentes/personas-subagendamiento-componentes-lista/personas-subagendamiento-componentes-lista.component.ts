@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, PipeTransform} from '@angular/core';
+import { Component, OnInit, Input, PipeTransform, ɵConsole} from '@angular/core';
 import { AgendamientosInterface } from '@interfaces/agendamientos.interface';
 import { AgendasInterface } from '@interfaces/agendas.interface';
 import { AmbienteService } from '@servicios/ambiente.service';
@@ -239,6 +239,13 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
     this.controladorSeguimientos.Guardar().subscribe((respuesta: RespuestaInterface) => {
       if( respuesta.codigo == 200 ){
         alert("Guardado de seguimieto satisfactorio");
+
+        this.controladorSeguimientos.todos.filter( elemento => elemento.id == temporal.id ).forEach( (elemento:any) => {
+          elemento.tiposobservaciones_id = temporal.tiposobservaciones_id;
+          elemento.observacion = temporal.observacion;
+          elemento.actualizacion_fecha = temporal.actualizacion_fecha;
+        });
+
         modalref.dismiss('NO');
       }    
       else{

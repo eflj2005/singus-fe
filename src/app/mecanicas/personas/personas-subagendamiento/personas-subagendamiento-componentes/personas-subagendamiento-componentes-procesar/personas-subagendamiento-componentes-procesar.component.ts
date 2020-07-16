@@ -194,7 +194,7 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
           this.listaSeguimientosAsignados = [];
 
           this.FiltrarDatos( this.controladorSeguimientos.todos , 'agenda_id' , this.datos.actual.id ).forEach( (SeguimientoAsiganado: any ) => {
-            if( SeguimientoAsiganado.tipo_asignacion == "R" ){
+            if( SeguimientoAsiganado.tipo_asignacion == "C" ){
               let temporal: any = Object.assign({},SeguimientoAsiganado);
               temporal.seleccionado = false;
               this.listaSeguimientosAsignados.push(temporal);
