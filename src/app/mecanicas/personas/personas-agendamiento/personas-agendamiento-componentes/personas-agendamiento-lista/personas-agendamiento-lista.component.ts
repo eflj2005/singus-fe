@@ -13,6 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { element } from 'protractor';
 import { AgendamientosInterface} from '@interfaces/agendamientos.interface';
 import { AgendamientosController } from '@controladores/agendamientos.controller';
+
 interface ListaAgendas extends AgendasInterface{
   nombreCompletoUsuario? : string,
   tipo?:string,
@@ -41,7 +42,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
   registrosAgendas$: Observable<ListaAgendas[]>;
   filter = new FormControl('');
   agendaEncontrada:ListaAgendas;
-  estadisticasAgendaE = {"total": null, "realizados": null, "faltantes": null, "estado":''}
+  estadisticasAgendaE = {"total": 0, "realizados": 0, "faltantes": 0, "estado":''}
   notificacionActiva:boolean=false;
   notificacionMensaje:string ="";
 
@@ -71,7 +72,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
           case 200:
             this.registrosAgendas = [];
             console.log(this.controladorAgendas.todos);
-            this.Organizador(this.controladorAgendas.todos)
+            this.Organizador(this.controladorAgendas.todos);
             console.log(this.registrosAgendas);
             this.AplicarFiltros();
             break;
@@ -100,16 +101,15 @@ export class PersonasAgendamientoListaComponent implements OnInit {
   ngOnInit() {
   }
   
-  verPersona(datos){
-    this.servicioAmbiente.agendaModo.modo = datos.modo
-  }
-
-  EditarAgenda(datos){
-    this.servicioAmbiente.agendaModo.modo = datos.modo
+  EditarAgenda(modo:number, id:number){
+    this.servicioAmbiente.agendaModo.modo = modo;
+    this.servicioAmbiente.agendaModo.datos = id;
   }
   
   NuevaAgenda(datos){
     this.servicioAmbiente.agendaModo.modo = datos.modo
+    this.servicioAmbiente.agendaModo.datos = null;
+    
   }
 
   AplicarFiltros(){
@@ -122,6 +122,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
 
   Organizador( datos : ListaAgendas[] ){
     console.log('aqui');
+    console.log(datos.length, "tamaño");
     let encontrado: number;
     for (let i = 0; i < datos.length; i++) {
       encontrado = this.registrosAgendas.findIndex(agenda => agenda.id == datos[i].id );
