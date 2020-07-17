@@ -127,7 +127,12 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     this.rol = null;
 
     if(this.servicioAmbiente.agendaModo.datos != null){
-      this.CargarAgenda(this.servicioAmbiente.agendaModo.datos);
+      
+      this.controladorAgendas = this.servicioAmbiente.agendaModo.datos.controladorBase;
+      this.controladorAgendas.Encontrar("id",this.servicioAmbiente.agendaModo.datos.id);
+
+      
+      // this.CargarAgenda(this.servicioAmbiente.agendaModo.datos);
 
     }
     // this.dateFormatormat(this.now, "dddd, mmmm dS, yyyy");
@@ -562,13 +567,13 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
         switch (respuesta.codigo){
           case 200:
             console.log("consulta Agenda Lista");
-            this.controladorAgendas.Primero();
-            this.apertura_fecha = this.controladorAgendas.actual.apertura_fecha;
-            this.cierre_fecha = this.controladorAgendas.actual.cierre_fecha;
+            // this.controladorAgendas.Primero();
+            //  this.apertura_fecha = this.controladorAgendas.actual.apertura_fecha;
+            //  this.cierre_fecha = this.controladorAgendas.actual.cierre_fecha;
 
             let caracteristicasAsignaciones = new EstructuraConsultas();
             caracteristicasAsignaciones.AgregarFiltro( "", "asignaciones" , "agendas_id" , "=", String(id) );
-            caracteristicasAsignaciones.AgregarFiltro( "", "asignaciones" , "tipo" , "=", "R" );
+            caracteristicasAsignaciones.AgregarFiltro( "AND", "asignaciones" , "tipo" , "=", "R" );
             this.controladorAsignaciones.CargarDesdeDB(true,"A",caracteristicasAsignaciones).subscribe(
               (respuestaAsignaciones: RespuestaInterface) =>{
                 switch (respuestaAsignaciones.codigo){
@@ -591,10 +596,10 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
                           case 200:
                             console.log("consulta agendamientos lista");
                             this.registrosAgendamientos = this.controladorAgendamientos.todos; 
-                            for (let i = 0; i < this.registrosAgendamientos.length; i++) {
-                              this.registrosPersonas.find(element => element.id == this.registrosAgendamientos[i].personas_id).seleccionado = true;
-                              this.registrosAgendados = Object.assign([], this.registrosPersonas.find(element => element.id ==  this.registrosAgendamientos[i].personas_id));
-                            }
+                            // for (let i = 0; i < this.registrosAgendamientos.length; i++) {
+                            //   // this.registrosPersonas.find(element => element.id == this.registrosAgendamientos[i].personas_id).seleccionado = true;
+                            //   this.registrosAgendados = Object.assign([], this.registrosPersonas.find(element => element.id ==  this.registrosAgendamientos[i].personas_id));
+                            // }
                             break;
                           default:
                             alert("Error: "+respuestaAgendamientos.mensaje);

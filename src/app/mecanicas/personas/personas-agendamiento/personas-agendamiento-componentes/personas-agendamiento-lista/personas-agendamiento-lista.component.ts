@@ -56,6 +56,8 @@ export class PersonasAgendamientoListaComponent implements OnInit {
     caracteristicas.AgregarColumna( "agendas", "id" , null );
     caracteristicas.AgregarColumna( "agendas", "apertura_fecha" , null );
     caracteristicas.AgregarColumna( "agendas", "cierre_fecha" , null);
+    caracteristicas.AgregarColumna( null , "(SELECT usuarios_id FROM asignaciones WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'R')", "responsableId", true );
+    caracteristicas.AgregarColumna( null , "(SELECT usuarios_id FROM asignaciones WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'C')", "creadorId", true );    
     caracteristicas.AgregarColumna( null , "(SELECT CONCAT(usuarios.nombres,' ',usuarios.apellidos) FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'C')", "creador" );
     caracteristicas.AgregarColumna( null , "(SELECT CONCAT(usuarios.nombres,' ',usuarios.apellidos) FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'R')", "responsable" );
     caracteristicas.AgregarFiltro( "","agendas" , "nivel" , "=", "0" ); 
@@ -66,7 +68,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
       (respuesta: RespuestaInterface) =>{
         switch(respuesta.codigo){
           case 200:
-            
+
           break;
           default:
             alert("Error: "+respuesta.mensaje);
@@ -115,15 +117,15 @@ export class PersonasAgendamientoListaComponent implements OnInit {
   ObtenerRegistros():ListaAgendas[]{
     this.registrosAgendas = [];
     this.registrosAgendas = this.buscarAgendas();
-    return this.registrosAgendas
+    return this.registrosAgendas;
   }
 
   ngOnInit() {
   }
   
-  EditarAgenda(modo:number, id:number){
+  EditarAgenda(modo:number, idRecibido:number){
     this.servicioAmbiente.agendaModo.modo = modo;
-    this.servicioAmbiente.agendaModo.datos = id;
+    this.servicioAmbiente.agendaModo.datos = { id: idRecibido, controladorBase: this.controladorAgendas };
   }
   
   NuevaAgenda(datos){
@@ -256,3 +258,4 @@ export class PersonasAgendamientoListaComponent implements OnInit {
 
 
 }
+
