@@ -3,47 +3,47 @@
   </div>
 </div>
 
+<div class="container-fluid px-0">
 
-
-<div class="row">
-  <div class="col-md">
-    <h1 align='center'>Administrar Distribución de Agendas</h1>
+  <div class="row">
+    <div class="col-md">
+      <h1 align='center'>Administrar Distribución de Agendas</h1>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-3">
-    
-    <div class="row">
-      <div class="col-md p-0">
-        <button 
-          type="button" class="btn btn-outline-primary py-0 px-1" 
-          (click)="RecargarControladores()"
-        ><i class="fa fa-refresh"></i> Actualizar</button>
+  <div class="row">
+    <div class="col-md-3">
+      
+      <div class="row">
+        <div class="col-md p-0">
+          <button 
+            type="button" class="btn btn-outline-primary py-0 px-1" 
+            (click)="RecargarControladores()"
+          ><i class="fa fa-refresh"></i> Actualizar</button>
+        </div>
       </div>
+
+      <div class="row justify-content-start">
+        <div class="col-md-11 contenedor">
+          <app-personas-subagendamiento-componentes-arboles 
+            *ngIf="controladorAgendas.EstaListo('cargue')"
+            [agendas]='controladorAgendas.todos' 
+            [seleccionada]="agendaSeleccionada" 
+          ></app-personas-subagendamiento-componentes-arboles>
+        </div>
+      </div>
+      
+    </div>
+    <div class="col-md-9 contenedor">
+      <app-personas-subagendamiento-componentes-lista
+        *ngIf="controladorSeguimientos.EstaListo('cargue')"
+        [controladorAgendas]="controladorAgendas"
+        [controladorSeguimientos]="controladorSeguimientos"
+        [agenda]="agendaSeleccionada"
+      ></app-personas-subagendamiento-componentes-lista>
     </div>
 
-    <div class="row justify-content-start">
-      <div class="col-md-11 contenedor">
-        <app-personas-subagendamiento-componentes-arboles 
-          *ngIf="controladorAgendas.EstaListo('cargue')"
-          [agendas]='controladorAgendas.todos' 
-          [seleccionada]="agendaSeleccionada" 
-        ></app-personas-subagendamiento-componentes-arboles>
-      </div>
-    </div>
+  </div>
+
+
     
-  </div>
-  <div class="col-md-9 contenedor">
-    <app-personas-subagendamiento-componentes-lista
-      *ngIf="controladorSeguimientos.EstaListo('cargue')"
-      [controladorAgendas]="controladorAgendas"
-      [controladorSeguimientos]="controladorSeguimientos"
-      [agenda]="agendaSeleccionada"
-    ></app-personas-subagendamiento-componentes-lista>
-  </div>
-
 </div>
-
-
-   
-  

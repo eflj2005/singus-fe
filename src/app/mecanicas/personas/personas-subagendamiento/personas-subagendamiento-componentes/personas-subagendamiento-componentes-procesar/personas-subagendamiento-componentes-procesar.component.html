@@ -3,6 +3,11 @@
   </div>
 </div>
 
+
+<div class="container-fluid">
+
+
+
 <div class="modal-header">
   <h4 class="modal-title">{{ titulos.principal }}</h4>
 </div>
@@ -260,4 +265,8 @@
   <button *ngIf="!estaProcesando" type="button" class="btn btn-primary" (click)="Procesar()" [disabled]="this.notificacionActiva" >{{ modoProceso == 'subagendar' ? 'Crear' : 'Actualizar' }}</button>
   <button *ngIf="estaProcesando" type="button" class="btn btn-primary"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Procesando...</button>  
   <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="Cancelar()" [disabled]="estaProcesando" >Cancelar</button>            
+</div>
+
+
+
 </div>
