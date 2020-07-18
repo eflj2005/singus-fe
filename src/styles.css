@@ -18,7 +18,8 @@ table{
 body {
     font-family: 'lato';
     /* overflow: auto;     */
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
+    overflow-x: hidden;
 }
 
 /* Set a style for all buttons */
@@ -53,17 +54,10 @@ body {
     padding: 2rem;
 }
 
-.contenedor {
-    padding: 10px;
+.contenedor{
+    background-color: rgb(255,255,255); /* Fallback color */
+    background-color: rgba(0,0,0,0.04); /* Black w/ opacity */
 }
-
-/* .contenedor.contenido {
-    background-color:rgb(255, 255, 255, 0.9);
-}
-
-.contenedor.opcionesPie{
-    background-color:rgba(226, 226, 226, 0.9);
-} */
 
 .contenedor.roundUp {
     border-top-left-radius: 25px;
@@ -97,6 +91,7 @@ h1{
     color: #00529b;
 }
 html, body { height: 100%; }
+
 
 .row{
     font-size: 15px ;
@@ -158,6 +153,9 @@ thead{
 .menu{
     max-width: 70px;
 }
+
+
+
 
 .blackout{
     position: absolute;

@@ -1,22 +1,27 @@
-
-      <div class="row" >
-        <div class="col-md-12 col-sm-12 col-lg-12">
-            <dashboard-encabezado></dashboard-encabezado>
-        </div>      
+<div class="container-fluid px-0">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-lg-12">
+        <dashboard-encabezado></dashboard-encabezado>
+    </div>      
+  </div>
+  <div class="row" id="menu">
+    <!-- <div class="col-md col-sm col-lg">    
+      <div class="d-flex bd-highlight">
+        <div class="p-2 flex-grow-1 bd-highlight">Flex item</div>
+        <div class="p-2 bd-highlight">Flex item</div>
+        <div class="p-2 bd-highlight">Third flex item</div>
       </div>
-      <div class="row" id="menu">
-          <div class="col-md-1 col-sm-1 col-lg-1 menu"  >
-            <dashboard-menu></dashboard-menu>
-          </div>
-          <div class="col-md-11 col-sm-11 col-lg-11 dash">
-            <router-outlet></router-outlet>
-          </div>
+    </div> -->
+      <div class="col-md-1 col-sm-1 col-lg-1 menu">
+        <dashboard-menu></dashboard-menu>
       </div>
-      <div class="row">
-          <div class="col-md-12 col-sm-12 col-lg-12">
-           <dashboard-workspace></dashboard-workspace>
-          </div>
+      <div class="col-md-11 col-sm-11 col-lg-11">
+        <router-outlet></router-outlet>
       </div>
-
-
-
+  </div>
+  <div class="row">
+      <div class="col-md-12 col-sm-12 col-lg-12">
+        <dashboard-workspace></dashboard-workspace>
+      </div>
+  </div>
+</div>
