@@ -48,13 +48,10 @@ export class UsuariosComponentesListaComponent implements OnInit {
       (respuesta: RespuestaInterface) =>{
         switch (respuesta.codigo){
           case 200:
-            console.log(this.controladorUsuarios.EstaListo("cargue"));
 
-            this.controladorUsuarios.EstaListo("cargue",true).subscribe( ( valor: boolean )  => {
-              
-              console.log(this.controladorUsuarios.EstaListo("cargue"));
-
-              this.controladorUsuarios.CargarForanea("areas");
+            this.controladorUsuarios.CargarForanea("areas");
+            
+            this.controladorUsuarios.EstaListo("cargue",true).subscribe( ( valor: boolean )  => {            
               this.registros =this.controladorUsuarios.todos;
               this.AplicarFiltros();
             });        

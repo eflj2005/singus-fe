@@ -3,17 +3,25 @@ table{
     font-size: 0.8rem;
 }
 
+thead{
+    background-color: #fde894;
+}
+
 .table td, .table th{
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
     padding-left: 0.3rem;
     padding-right: 0.3rem;
-
+    vertical-align: middle;
 }
 
 .table .col-actions{
     width: 60px;
 }
+
+
+
+
 
 body {
     font-family: 'lato';
@@ -44,15 +52,11 @@ body {
     color: white;
 }
 
-#filtro{
-    width: 90%;
-    height: auto;
-
-}
-
 .containerAgenda{
     padding: 2rem;
 }
+
+
 
 .contenedor{
     background-color: rgb(255,255,255); /* Fallback color */
@@ -68,6 +72,9 @@ body {
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
 }
+
+
+
 
 .tituloPrincipal {
     text-align: center;
@@ -86,10 +93,9 @@ body {
 
 h1{
     font-family: 'lato';
-    padding: 1rem;
-    display: BLOCK;
     color: #00529b;
 }
+
 html, body { height: 100%; }
 
 
@@ -106,6 +112,9 @@ html, body { height: 100%; }
 .light-blue-backdrop {
     background-color: #fde894;
   }
+
+
+
 
 .modal-header{
     background-color: #00529b;
@@ -133,10 +142,7 @@ html, body { height: 100%; }
 }
 
 
-thead{
-    background-color: #fde894;
 
-}
 
 .form{
     /* display: flex;
@@ -149,6 +155,8 @@ thead{
 .search{
     padding: 3px;
 }
+
+
 
 
 .blackout{
@@ -168,6 +176,9 @@ thead{
    width: 10rem; 
    height: 10rem;
 }
+
+
+
 
 .custom-checkbox label{
     left: 1rem;

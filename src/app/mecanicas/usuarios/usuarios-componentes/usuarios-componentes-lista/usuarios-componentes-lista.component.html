@@ -1,23 +1,26 @@
 <div class="container-fluid">
 
-  <div class="row">
-    <div class="col-md">
+
       
-      <div class="row no-gutters">
+      <div class="row">
         <div class="col-md">
           <h1 align='center'>Lista Usuarios</h1>
         </div>
       </div>
-
-      <div class="row no-gutters align-items-center form mb-2">
-        <div class="col-md-1 pl-2"><span class="align-middle"><i class="fa fa-search"></i> Buscar:</span>                                                                          </div>
-        <div class="col-md-2">  <input class="form-control form-control-sm" type="text" id="filter" [formControl]="filter"/>                                              </div>
-
-        <div class="offset-md-7 col-md-2">  <button class="btn btn-primary nuevaAgenda" (click)="Procesar(1)" type="button" ><i class="fa fa-plus-circle"></i> Nuevo usuario</button> </div>
+      
+      <div class="container-fluid">
+        <div class="row justify-content-between form mb-2">
+          <div class="col-md-5">
+            <div class="d-flex align-items-center">
+              <div class="pr-1">        <label for="filter" class="col-form-label"><i class="fa fa-search"></i> Buscar:</label> </div>
+              <div class="flex-grow-1"> <input class="form-control form-control-sm" type="text" id="filter" [formControl]="filter"/> </div>
+            </div>
+          </div>
+          <div class="col-md-3 text-right">  <button class="btn btn-primary nuevaAgenda" (click)="Procesar(1)" type="button" ><i class="fa fa-plus-circle"></i> Nuevo usuario</button> </div>
+        </div>
       </div>
 
-
-      <div class="row no-gutters">
+      <div class="row">
         <div class="col-md">
 
           <table class="table table-striped">
@@ -50,7 +53,7 @@
                 <td><ngb-highlight [result]="registro.rol" [term]="filter.value"></ngb-highlight></td>
                 <td><ngb-highlight [result]="registro.areas_id | number" [term]="filter.value"></ngb-highlight></td>
                 <td>
-                  <button class="btn btn-outline-secondary "  placement="right" ngbTooltip="Editar" (click)="Procesar( 2 , registro.id )"  ><i class="fa fa-pencil"></i></button>
+                  <button class="btn btn-outline-secondary btn-sm py-0 px-1"  placement="right" ngbTooltip="Editar" (click)="Procesar( 2 , registro.id )"  ><i class="fa fa-pencil"></i></button>
                 </td>
               </tr>
             </tbody>
@@ -59,7 +62,5 @@
         </div>
       </div>
 
-    </div>
-  </div>
 
 </div>
