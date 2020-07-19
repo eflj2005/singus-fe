@@ -64,13 +64,15 @@ body {
 }
 
 .contenedor.roundUp {
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
+    padding-top: 10px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
 .contenedor.roundDown {
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding-bottom: 10px;
 }
 
 
