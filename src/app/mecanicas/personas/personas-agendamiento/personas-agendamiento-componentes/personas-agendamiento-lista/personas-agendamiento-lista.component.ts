@@ -105,26 +105,6 @@ export class PersonasAgendamientoListaComponent implements OnInit {
     });
   }
 
-  // buscarAgendas(): ListaAgendas[] {
-  //   let temporal: ListaAgendas[];
-
-  //   temporal = this.controladorAgendas.todos.filter(agenda => {  
-  //     return String(agenda.id).includes(this.filter) 
-  //     || agenda.cierre_fecha.toLowerCase().includes(this.filter)
-  //     || agenda.apertura_fecha.toLowerCase().includes(this.filter)
-  //     || agenda.creador.toLowerCase().includes(this.filter)
-  //     || agenda.responsable.toLowerCase().includes(this.filter) ;        
-  //   });
-
-  //   return temporal;
-  // }
-
-  // ObtenerRegistros():ListaAgendas[]{
-  //   this.registrosAgendas = [];
-  //   this.registrosAgendas = this.buscarAgendas();
-  //   return this.registrosAgendas;
-  // }
-
   ngOnInit() {
   }
   
@@ -138,36 +118,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
     this.servicioAmbiente.agendaModo.datos = null;
     
   }
-
-
-  
-
-  // Organizador(  ):Observable<ListaAgendas[]>{
-
-  //   console.log('aqui');
-  //   console.log(datos.length, "tamaño");
-  //   let encontrado: number;
-  //   for (let i = 0; i < datos.length; i++) {
-  //     encontrado = this.registrosAgendas.findIndex(agenda => agenda.id == datos[i].id );
-  //     if (!(encontrado == -1)){
-  //       if( datos[i].tipo == 'C' ){
-  //         this.registrosAgendas[encontrado].nombreCoordinador = datos[i].nombreCompletoUsuario;
-  //       }else{
-  //         this.registrosAgendas[encontrado].nombreResponsable = datos[i].nombreCompletoUsuario;
-  //       }
-  //     }else{
-  //       if( datos[i].tipo == 'C' ){
-  //         this.registrosAgendas.push({'id': datos[i].id, 'apertura_fecha': datos[i].apertura_fecha, 'cierre_fecha':datos[i].cierre_fecha, 'nombreCoordinador': datos[i].nombreCompletoUsuario,'nivel': datos[i].nivel, 'registro_fecha': datos[i].registro_fecha, 'agendas_id': datos[i].agendas_id } );
-  //       }else{
-  //         this.registrosAgendas.push({'id': datos[i].id, 'apertura_fecha': datos[i].apertura_fecha, 'cierre_fecha':datos[i].cierre_fecha, 'nombreResponsable': datos[i].nombreCompletoUsuario,'nivel': datos[i].nivel, 'registro_fecha': datos[i].registro_fecha, 'agendas_id': datos[i].agendas_id } );
-  //       }
-  //     }
-  //   }
-
-
-  //   return this.registrosAgendas$
-  // }
-
+ 
   AbrirModal(tipo:number, agenda: number, modal: any){
     let respuesta : any;
     switch (tipo) {
