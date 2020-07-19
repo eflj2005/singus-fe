@@ -43,13 +43,19 @@ export class UsuariosComponentesListaComponent implements OnInit {
     this.registros =[];
     this.controladorUsuarios = new UsuariosController(llamadoHttp,servicioAmbiente);
 
+    console.log(this.controladorUsuarios.EstaListo("cargue"));
     this.controladorUsuarios.CargarDesdeDB().subscribe(
       (respuesta: RespuestaInterface) =>{
         switch (respuesta.codigo){
           case 200:
+
             this.controladorUsuarios.CargarForanea("areas");
-            this.registros =this.controladorUsuarios.todos;
-            this.AplicarFiltros();
+            
+            this.controladorUsuarios.EstaListo("cargue",true).subscribe( ( valor: boolean )  => {            
+              this.registros =this.controladorUsuarios.todos;
+              this.AplicarFiltros();
+            });        
+
 
           break;
           default:

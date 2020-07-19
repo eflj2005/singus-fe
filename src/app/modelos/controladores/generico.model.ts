@@ -1,5 +1,5 @@
 import { Injector } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, isEmpty } from 'rxjs/operators';
 
@@ -41,8 +41,8 @@ export class GenericoModel {
   protected registros:any[];      //ESTE ATRIBUTO SE SOBRECARGA
   
   private consecutivoDbRefs:number;
-  protected listoCampos:boolean;
-  protected listoCargue:boolean;
+  protected listoCampos:BehaviorSubject<boolean>;
+  protected listoCargue:BehaviorSubject<boolean>;
 
   private datosCargue:DatosCargueInterface = {
     caracteristicas: null,
@@ -62,8 +62,8 @@ export class GenericoModel {
     this.controladoresForaneos = [];
     this.posicionActual = null;
     this.consecutivoDbRefs =1;
-    this.listoCampos=false;
-    this.listoCargue=false;
+    this.listoCampos= new BehaviorSubject(false);
+    this.listoCargue = new BehaviorSubject(false);
 
     
 
@@ -89,18 +89,21 @@ export class GenericoModel {
 
   //ADMINISTRACION BASICA
 
-  public EstaListo(tipo:string):boolean{
-    let validador:boolean=false;
+  public EstaListo(tipo:string, returnObservable:boolean = false ):any{
+    let resultado:any;
+
     switch(tipo){
       case "campos":
-        validador = this.listoCampos;
+        if(returnObservable)  resultado = this.listoCampos.value
+        else                  resultado = this.listoCampos;
       break;
       case "cargue":
-        validador = this.listoCargue;
+        if(returnObservable)  resultado = this.listoCargue;
+        else                  resultado = this.listoCargue.value;     
       break;
     }
 
-    return validador;
+    return resultado;
   }
 
   public get todos():any[]{
@@ -226,7 +229,7 @@ export class GenericoModel {
 
   protected DetectarCampos(conToken:boolean=true):Observable<any>{
 
-    this.listoCampos = false;
+    this.listoCampos.next( false );
 
     let datosEnviados = new HttpParams()
       .set("accion","obtener_campos")
@@ -245,7 +248,7 @@ export class GenericoModel {
                 }
               );
               
-              this.listoCampos=true;
+              this.listoCampos.next( true );
             break;
           }
 
@@ -263,7 +266,7 @@ export class GenericoModel {
 
   public CargarDesdeDB(  conToken:boolean=true , modoCargue:string="S", caracteristicas:EstructuraConsultas = null): Observable<any> {
   
-    this.listoCargue=false;
+    this.listoCargue.next( false );
 
     let re1 = /\"/gi;
     let re2 = /{/gi;
@@ -286,22 +289,23 @@ export class GenericoModel {
 
               this.datosCargue.caracteristicas = caracteristicas;
               this.datosCargue.conToken = conToken;
-              this.datosCargue.modoCargue = modoCargue;
-
+              this.datosCargue.modoCargue = modoCargue;            
             }
             else{
-              this.listoCargue=true;
+              this.listoCargue.next( true );
             }
           }
           else{
-            console.log(respuesta,"Controlador: "+this.nombreTabla)
+            console.log(respuesta,"Controlador: "+this.nombreTabla);
+            this.listoCargue.next( false );
           }
-          return respuesta;
+          
+          return respuesta;  
         }
       )
     );
 
-    return llamado;
+    return llamado;  
 
   }
 
@@ -352,7 +356,7 @@ export class GenericoModel {
   // }
 
   private ProcesarRegistros( registrosRecibidos:any[], controladorActual:any, columnasSolicitadas:any ){
-    if(controladorActual.listoCampos == false){
+    if(controladorActual.listoCampos.value == false){
       window.setTimeout(controladorActual.ProcesarRegistros, 100, registrosRecibidos,controladorActual,columnasSolicitadas); /* this checks the flag every 100 milliseconds*/
     }
     else{
@@ -395,7 +399,7 @@ export class GenericoModel {
       );
 
       if( registrosRecibidos.length > 0 ) controladorActual.posicionActual=0;
-      controladorActual.listoCargue=true;
+      controladorActual.listoCargue.next( true );
     }
   }
 

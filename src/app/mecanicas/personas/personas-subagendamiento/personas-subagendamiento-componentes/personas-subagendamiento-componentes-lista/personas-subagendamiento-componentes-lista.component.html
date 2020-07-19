@@ -1,151 +1,153 @@
-<div class="row justify-content-between">
-  <div class="col-md-4">
-    <h5>Seguimientos de Agenda No. {{ datosBaseAgenda.agenda_id }}</h5>
+<div class="container-fluid">
+
+  <div class="row justify-content-between">
+    <div class="col-md-5">
+      <h5>Seguimientos de Agenda No. {{ datosBaseAgenda.agenda_id }}</h5>
+    </div>
+    <div class="col-md-6">
+      <ng-container *ngIf="usuario_rol != 'A'">
+        <button 
+          *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.creador_id == usuario_id ) && ( datosBaseAgenda.distribuciones == 0 ) && controladorAsignaciones.EstaListo('cargue') ) : false "     
+          type="button" class="btn btn-outline-primary py-0 px-1 float-right" 
+          (click)="EliminarAgenda()"
+        ><i class="fa fa-trash-o"></i> Descartar</button>
+        <button 
+          *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.creador_id == usuario_id ) && ( datosBaseAgenda.distribuciones == 0 )  && controladorAsignaciones.EstaListo('cargue') ) : false " 
+          type="button" class="btn btn-outline-primary py-0 px-1 mx-1 float-right"
+          (click)="ProcesarAgenda('modificar')"
+        ><i class="fa fa-pencil-square-o"></i> Modificar</button>
+        <button 
+          *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.nivel < 2 ) && (datosBaseAgenda.creador_id != usuario_id) && controladorAsignaciones.EstaListo('cargue') ): false "     
+          type="button" class="btn btn-outline-primary py-0 px-1 float-right" 
+          (click)="ProcesarAgenda('subagendar')"
+          ><i class="fa fa-sitemap"></i> Subagendar</button>
+      </ng-container>
+    </div>
   </div>
-  <div class="col-md-6">
-    <ng-container *ngIf="usuario_rol != 'A'">
-      <button 
-        *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.creador_id == usuario_id ) && ( datosBaseAgenda.distribuciones == 0 ) && controladorAsignaciones.EstaListo('cargue') ) : false "     
-        type="button" class="btn btn-outline-primary py-0 px-1 float-right" 
-        (click)="EliminarAgenda()"
-      ><i class="fa fa-trash-o"></i> Descartar</button>
-      <button 
-        *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.creador_id == usuario_id ) && ( datosBaseAgenda.distribuciones == 0 )  && controladorAsignaciones.EstaListo('cargue') ) : false " 
-        type="button" class="btn btn-outline-primary py-0 px-1 mx-1 float-right"
-        (click)="ProcesarAgenda('modificar')"
-      ><i class="fa fa-pencil-square-o"></i> Modificar</button>
-      <button 
-        *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.nivel < 2 ) && (datosBaseAgenda.creador_id != usuario_id) && controladorAsignaciones.EstaListo('cargue') ): false "     
-        type="button" class="btn btn-outline-primary py-0 px-1 float-right" 
-        (click)="ProcesarAgenda('subagendar')"
-        ><i class="fa fa-sitemap"></i> Subagendar</button>
-    </ng-container>
+
+  <div class="row">
+    <div class="col-md-12">        
+      <table class="table">
+        <thead>
+          <tr>
+            <td>&nbsp;</td>
+            <td><input class="form-control form-control-sm m-0 p-0 input_sm" [(ngModel)]="estructuraFiltro.uniId"></td>
+            <td><input class="form-control form-control-sm m-0 p-0 input_lg" [(ngModel)]="estructuraFiltro.nombre"></td>
+            <td><input class="form-control form-control-sm m-0 p-0 input_sm" [(ngModel)]="estructuraFiltro.programa"></td>
+            <td><input class="form-control form-control-sm m-0 p-0 input_sm" [(ngModel)]="estructuraFiltro.cohorte"></td>
+            <td><input class="form-control form-control-sm m-0 p-0 input_sm" [(ngModel)]="estructuraFiltro.sede"></td>  
+            <td><input class="form-control form-control-sm m-0 p-0 input_sm" [(ngModel)]="estructuraFiltro.creacion"></td>
+            <td><input class="form-control form-control-sm m-0 p-0 input_sm" [(ngModel)]="estructuraFiltro.ultimoCambio"></td>
+            <td><input class="form-control form-control-sm m-0 p-0 input_lg" [(ngModel)]="estructuraFiltro.seguimiento"></td>
+            <td>&nbsp;</td>                  
+          </tr>        
+          <tr>
+            <th scope="col"># Seg.</th>
+            <th scope="col">Uni-Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Programa</th>
+            <th scope="col">Cohorte</th>
+            <th scope="col">Sede</th>          
+            <th scope="col">Creación</th>
+            <th scope="col">Ultimo Cambio</th>
+            <th scope="col">Seguimientos</th>
+            <th scope="col" class="col-actions">Acción</th>                  
+          </tr>        
+        </thead>
+        <tbody>
+          <tr *ngFor="let elemento of ObtenerSeguimientos(); let indiceAgendamientos = index">
+            <th scope="row">{{ elemento.id }}</th>
+            <td><ngb-highlight [result]="elemento.uniminutoId"        [term]="estructuraFiltro.uniId">        </ngb-highlight></td>
+            <td><ngb-highlight [result]="elemento.nombreCompleto"     [term]="estructuraFiltro.nombre">       </ngb-highlight></td>
+            <td><ngb-highlight [result]="elemento.programa"           [term]="estructuraFiltro.programa">     </ngb-highlight></td>
+            <td><ngb-highlight [result]="elemento.cohorte"            [term]="estructuraFiltro.cohorte">      </ngb-highlight></td>
+            <td><ngb-highlight [result]="elemento.sede"               [term]="estructuraFiltro.sede">         </ngb-highlight></td>
+            <td><ngb-highlight [result]="elemento.fechaRegistro"      [term]="estructuraFiltro.creacion">     </ngb-highlight></td>
+            <td><ngb-highlight [result]="elemento.fechaActualizacion" [term]="estructuraFiltro.ultimoCambio"> </ngb-highlight></td>
+            <td><ngb-highlight [result]="elemento.seguimiento"        [term]="estructuraFiltro.seguimiento">  </ngb-highlight></td>
+            <td>
+              <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="CargarPersona( elemento.personas_id )"  placement="left" ngbTooltip="Actualización"><i class="fa fa-pencil-square-o"></i></button>
+              <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivaSeguimiento( elemento.id, modalSeguimientos )"  placement="left" ngbTooltip="Seguimiento"><i class="fa fa-address-card-o"></i></button>
+            </td>                  
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
   </div>
+
 </div>
-
-<div class="row">
-  <div class="col-md-12">        
-    <table class="table">
-      <thead>
-        <tr>
-          <td>&nbsp;</td>
-          <td><input class="form-control form-control-sm m-0 p-0 input_sm" [(ngModel)]="estructuraFiltro.uniId"></td>
-          <td><input class="form-control form-control-sm m-0 p-0 input_lg" [(ngModel)]="estructuraFiltro.nombre"></td>
-          <td><input class="form-control form-control-sm m-0 p-0 input_sm" [(ngModel)]="estructuraFiltro.programa"></td>
-          <td><input class="form-control form-control-sm m-0 p-0 input_sm" [(ngModel)]="estructuraFiltro.cohorte"></td>
-          <td><input class="form-control form-control-sm m-0 p-0 input_sm" [(ngModel)]="estructuraFiltro.sede"></td>  
-          <td><input class="form-control form-control-sm m-0 p-0 input_sm" [(ngModel)]="estructuraFiltro.creacion"></td>
-          <td><input class="form-control form-control-sm m-0 p-0 input_sm" [(ngModel)]="estructuraFiltro.ultimoCambio"></td>
-          <td><input class="form-control form-control-sm m-0 p-0 input_lg" [(ngModel)]="estructuraFiltro.seguimiento"></td>
-          <td>&nbsp;</td>                  
-        </tr>        
-        <tr>
-          <th scope="col"># Seg.</th>
-          <th scope="col">Uni-Id</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Programa</th>
-          <th scope="col">Cohorte</th>
-          <th scope="col">Sede</th>          
-          <th scope="col">Creación</th>
-          <th scope="col">Ultimo Cambio</th>
-          <th scope="col">Seguimientos</th>
-          <th scope="col" class="col-actions">Acción</th>                  
-        </tr>        
-      </thead>
-      <tbody>
-        <tr *ngFor="let elemento of ObtenerSeguimientos(); let indiceAgendamientos = index">
-          <th scope="row">{{ elemento.id }}</th>
-          <td><ngb-highlight [result]="elemento.uniminutoId"        [term]="estructuraFiltro.uniId">        </ngb-highlight></td>
-          <td><ngb-highlight [result]="elemento.nombreCompleto"     [term]="estructuraFiltro.nombre">       </ngb-highlight></td>
-          <td><ngb-highlight [result]="elemento.programa"           [term]="estructuraFiltro.programa">     </ngb-highlight></td>
-          <td><ngb-highlight [result]="elemento.cohorte"            [term]="estructuraFiltro.cohorte">      </ngb-highlight></td>
-          <td><ngb-highlight [result]="elemento.sede"               [term]="estructuraFiltro.sede">         </ngb-highlight></td>
-          <td><ngb-highlight [result]="elemento.fechaRegistro"      [term]="estructuraFiltro.creacion">     </ngb-highlight></td>
-          <td><ngb-highlight [result]="elemento.fechaActualizacion" [term]="estructuraFiltro.ultimoCambio"> </ngb-highlight></td>
-          <td><ngb-highlight [result]="elemento.seguimiento"        [term]="estructuraFiltro.seguimiento">  </ngb-highlight></td>
-          <td>
-            <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="CargarPersona( elemento.personas_id )"  placement="left" ngbTooltip="Actualización"><i class="fa fa-pencil-square-o"></i></button>
-            <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" (click)="ActivaSeguimiento( elemento.id, modalSeguimientos )"  placement="left" ngbTooltip="Seguimiento"><i class="fa fa-address-card-o"></i></button>
-          </td>                  
-        </tr>
-      </tbody>
-    </table>
-
-  </div>
-</div>
-
 <!-- ************************************************* MODAL PARA SEGUIMIENTO ************************************************* -->  
 <ng-template #modalSeguimientos let-modal>
 
-    <div class="modal-header"> <h4 class="modal-title">Control de Seguimieto</h4> </div>
-    <div class="modal-body container">       
-  
-      <div class="row">
-        <div class="col">
-          <form >
-  
-            <div class="form-row justify-content-between">
-  
-              <div class="form-group col-sm-2 px-1 mb-1">
-                <div class="form-row justify-content-between">
-                  <label for="id" class="col-sm-4 col-form-label col-form-label-sm text-wrap">Id:</label>
-                  <div class="col-sm">
-                    <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="seguimientoRegistro.id" [readonly]="true">
-                  </div>     
-                </div>
+  <div class="modal-header"> <h4 class="modal-title">Control de Seguimieto</h4> </div>
+  <div class="modal-body">       
+
+    <div class="row">
+      <div class="col">
+        <form >
+
+          <div class="form-row justify-content-between">
+
+            <div class="form-group col-sm-2 px-1 mb-1">
+              <div class="form-row justify-content-between">
+                <label for="id" class="col-sm-4 col-form-label col-form-label-sm text-wrap">Id:</label>
+                <div class="col-sm">
+                  <input type="text" class="form-control form-control-sm" id="id" name="id" [(ngModel)]="seguimientoRegistro.id" [readonly]="true">
+                </div>     
               </div>
-  
-              <div class="form-group col-sm-8 px-1 mb-1">
-                <div class="form-row justify-content-between">
-                  <label for="actualizacion_fecha" class="col-sm-6 col-form-label col-form-label-sm text-wrap">Fecha de Actualización:</label>
-                  <div class="col-sm">
-                    <input type="text" ngbDatepicker class="form-control form-control-sm" id="actualizacion_fecha" name="actualizacion_fecha" [(ngModel)]="seguimientoRegistro.actualizacion_fecha" [readonly]="true">
-                  </div>     
-                </div>                
-              </div>
-  
-            </div>
-            <div class="form-row justify-content-between">  
-              <label for="nombre" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Nombre Persona:</label>
-              <div class="col-sm">
-                <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" [(ngModel)]="seguimientoRegistro.nombre" [readonly]="true">
-              </div>     
             </div>
 
-            <hr/>
-  
-            <div class="form-row justify-content-between"> 
-              <label for="tiposobservaciones" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Tipo:</label>
-              <div class="col-sm">
-                <select  class="form-control form-control-sm" id="tiposobservaciones" name="tiposobservaciones" [(ngModel)]="seguimientoRegistro.tiposobservaciones_id" (change)="ValidarSeguimiento()" [disabled]="usuario_rol == 'A'">
-                  <option *ngFor="let tipo of controladorSeguimientos.ObtenerForanea('tiposobservaciones').todos; let indiceTipos = index" value="{{ tipo.id }}">{{tipo.descripcion}}</option>            
-                </select>
-              </div>     
+            <div class="form-group col-sm-8 px-1 mb-1">
+              <div class="form-row justify-content-between">
+                <label for="actualizacion_fecha" class="col-sm-6 col-form-label col-form-label-sm text-wrap">Fecha de Actualización:</label>
+                <div class="col-sm">
+                  <input type="text" ngbDatepicker class="form-control form-control-sm" id="actualizacion_fecha" name="actualizacion_fecha" [(ngModel)]="seguimientoRegistro.actualizacion_fecha" [readonly]="true">
+                </div>     
+              </div>                
             </div>
 
-            <div class="form-row justify-content-between">
-              <label for="observacion" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Observación:</label>
-              <div class="col-sm">
-                <textarea class="form-control form-control-sm" id="observacion" name="observacion" rows="4" [(ngModel)]="seguimientoRegistro.observacion" (change)="ValidarSeguimiento()" [disabled]="usuario_rol == 'A'"></textarea>
-              </div>
+          </div>
+          <div class="form-row justify-content-between">  
+            <label for="nombre" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Nombre Persona:</label>
+            <div class="col-sm">
+              <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" [(ngModel)]="seguimientoRegistro.nombre" [readonly]="true">
+            </div>     
+          </div>
+
+          <hr/>
+
+          <div class="form-row justify-content-between"> 
+            <label for="tiposobservaciones" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Tipo:</label>
+            <div class="col-sm">
+              <select  class="form-control form-control-sm" id="tiposobservaciones" name="tiposobservaciones" [(ngModel)]="seguimientoRegistro.tiposobservaciones_id" (change)="ValidarSeguimiento()" [disabled]="usuario_rol == 'A'">
+                <option *ngFor="let tipo of controladorSeguimientos.ObtenerForanea('tiposobservaciones').todos; let indiceTipos = index" value="{{ tipo.id }}">{{tipo.descripcion}}</option>            
+              </select>
+            </div>     
+          </div>
+
+          <div class="form-row justify-content-between">
+            <label for="observacion" class="col-sm-3 col-form-label col-form-label-sm text-wrap">Observación:</label>
+            <div class="col-sm">
+              <textarea class="form-control form-control-sm" id="observacion" name="observacion" rows="4" [(ngModel)]="seguimientoRegistro.observacion" (change)="ValidarSeguimiento()" [disabled]="usuario_rol == 'A'"></textarea>
             </div>
-   
-    
-            <div class="form-row justify-content-between">
-              <div class="col-sm pt-2 px-1">
-                  <ngb-alert class="py-1" *ngIf="notificacionActiva" type="custom" [dismissible]="false">{{ notificacionMensaje }}</ngb-alert>
-              </div>              
-            </div>
+          </div>
+
   
-          </form>
-        </div>
+          <div class="form-row justify-content-between">
+            <div class="col-sm pt-2 px-1">
+                <ngb-alert class="py-1 m-0" *ngIf="notificacionActiva" type="custom" [dismissible]="false">{{ notificacionMensaje }}</ngb-alert>
+            </div>              
+          </div>
+
+        </form>
       </div>
-  
     </div>
-    <div class="modal-footer "> 
-      <button type="button" *ngIf="usuario_rol != 'A'" class="btn btn-primary" (click)="ActualizarSeguimiento(modal)" [disabled]="notificacionActiva">Aplicar</button>
-      <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">Atras</button> 
-    </div>
-  </ng-template>
-  
-  
+
+  </div>
+  <div class="modal-footer "> 
+    <button type="button" *ngIf="usuario_rol != 'A'" class="btn btn-primary" (click)="ActualizarSeguimiento(modal)" [disabled]="notificacionActiva">Aplicar</button>
+    <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="modal.dismiss('NO')">Atras</button> 
+  </div>
+</ng-template>
+

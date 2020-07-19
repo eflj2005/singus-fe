@@ -1,56 +1,66 @@
 <div class="container-fluid">
 
-  <div class="row">
-    <div class="col-md contenedor">
-        
-      <h1 align='center'>Lista usuarios</h1>
 
-
-      <div class="form-group form-inline form ">
-        <div class="row col-md-10 form2"><i class="fa fa-search search "></i><p>Buscar: </p><input class="form-control" type="text" [formControl]="filter"/></div>
-        <button class="btn btn-primary nuevaAgenda" (click)="Procesar(1)" type="button" ><i class="fa fa-plus-circle"></i> Nuevo usuario</button>
+      
+      <div class="row">
+        <div class="col-md">
+          <h1 align='center'>Lista Usuarios</h1>
+        </div>
+      </div>
+      
+      <div class="container-fluid">
+        <div class="row justify-content-between form mb-2">
+          <div class="col-md-5">
+            <div class="d-flex align-items-center">
+              <div class="pr-1">        <label for="filter" class="col-form-label"><i class="fa fa-search"></i> Buscar:</label> </div>
+              <div class="flex-grow-1"> <input class="form-control form-control-sm" type="text" id="filter" [formControl]="filter"/> </div>
+            </div>
+          </div>
+          <div class="col-md-3 text-right">  <button class="btn btn-primary nuevaAgenda" (click)="Procesar(1)" type="button" ><i class="fa fa-plus-circle"></i> Nuevo usuario</button> </div>
+        </div>
       </div>
 
+      <div class="row">
+        <div class="col-md">
 
+          <table class="table table-striped">
+            <thead class="thead">
+              <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Documento</th>
+                  <th scope="col">Nombres</th>
+                  <th scope="col">Apellidos</th>
+                  <th scope="col">Telefono</th>
+                  <th scope="col">Correos</th>
+                  <th scope="col">Fecha de creacion</th>
+                  <th scope="col">Estado</th> 
+                  <th scope="col">Rol</th>
+                  <th scope="col">Areas</th>
+                  <th scope="col"></th>
 
-      <table class="table table-striped">
-        <thead class="thead">
-          <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Documento</th>
-              <th scope="col">Nombres</th>
-              <th scope="col">Apellidos</th>
-              <th scope="col">Telefono</th>
-              <th scope="col">Correos</th>
-              <th scope="col">Fecha de creacion</th>
-              <th scope="col">Estado</th> 
-              <th scope="col">Rol</th>
-              <th scope="col">Areas</th>
-              <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let registro of  registros$ | async; index as i">
+                <td><ngb-highlight [result]="registro.id | number" [term]="filter.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="registro.documento | number" [term]="filter.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="registro.nombres" [term]="filter.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="registro.apellidos" [term]="filter.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="registro.telefono | number" [term]="filter.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="registro.correo" [term]="filter.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="registro.creacion_fecha" [term]="filter.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="registro.estado" [term]="filter.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="registro.rol" [term]="filter.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="registro.areas_id | number" [term]="filter.value"></ngb-highlight></td>
+                <td>
+                  <button class="btn btn-outline-secondary btn-sm py-0 px-1"  placement="right" ngbTooltip="Editar" (click)="Procesar( 2 , registro.id )"  ><i class="fa fa-pencil"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let registro of  registros$ | async; index as i">
-            <td><ngb-highlight [result]="registro.id | number" [term]="filter.value"></ngb-highlight></td>
-            <td><ngb-highlight [result]="registro.documento | number" [term]="filter.value"></ngb-highlight></td>
-            <td><ngb-highlight [result]="registro.nombres" [term]="filter.value"></ngb-highlight></td>
-            <td><ngb-highlight [result]="registro.apellidos" [term]="filter.value"></ngb-highlight></td>
-            <td><ngb-highlight [result]="registro.telefono | number" [term]="filter.value"></ngb-highlight></td>
-            <td><ngb-highlight [result]="registro.correo" [term]="filter.value"></ngb-highlight></td>
-            <td><ngb-highlight [result]="registro.creacion_fecha" [term]="filter.value"></ngb-highlight></td>
-            <td><ngb-highlight [result]="registro.estado" [term]="filter.value"></ngb-highlight></td>
-            <td><ngb-highlight [result]="registro.rol" [term]="filter.value"></ngb-highlight></td>
-            <td><ngb-highlight [result]="registro.areas_id | number" [term]="filter.value"></ngb-highlight></td>
-            <td>
-              <button class="btn btn-outline-secondary "  placement="right" ngbTooltip="Editar" (click)="Procesar( 2 , registro.id )"  ><i class="fa fa-pencil"></i></button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        </div>
+      </div>
 
-
-    </div>
-  </div>
 
 </div>

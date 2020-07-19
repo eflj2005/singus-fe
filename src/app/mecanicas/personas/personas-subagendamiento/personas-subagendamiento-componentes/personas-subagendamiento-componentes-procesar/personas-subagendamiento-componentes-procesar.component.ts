@@ -124,6 +124,9 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
    }
 
   ngOnInit() {
+    this.listaSeguimientosDisponibles = [];
+    this.listaSeguimientosAsignados = [];
+
 
     switch(this.modoProceso){
       case "subagendar":
@@ -134,9 +137,6 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
         this.datos.padre = this.controladorAgendas.actual;
         this.datos.actual = { id: null, agendas_id: this.datos.padre.id, apertura_fecha: "", cierre_fecha: "", nivel: this.datos.padre.nivel + 1 , responsable_id: null, registro_fecha: this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd')  };
         this.datos.agendamientos = [];
-
-        this.listaSeguimientosDisponibles = []
-        this.listaSeguimientosAsignados = [];
         
         this.FiltrarDatos( this.controladorSeguimientos.todos , 'agenda_id' , this.datos.padre.id ).forEach( (SeguimientoDisponible: any ) => {
           let temporal: any = Object.assign({},SeguimientoDisponible);
@@ -170,8 +170,6 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
         this.datos.padre = this.controladorAgendas.actual;
         this.datos.agendamientos = [];
 
-        this.listaSeguimientosDisponibles = []
-
         this.FiltrarDatos( this.controladorSeguimientos.todos , 'agenda_id' , this.datos.padre.id ).forEach( (SeguimientoDisponible: any ) => {
           let temporal: any = Object.assign({},SeguimientoDisponible);
           temporal.seleccionado = false;
@@ -191,8 +189,6 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
             }
           }
 
-          this.listaSeguimientosAsignados = [];
-
           this.FiltrarDatos( this.controladorSeguimientos.todos , 'agenda_id' , this.datos.actual.id ).forEach( (SeguimientoAsiganado: any ) => {
             if( SeguimientoAsiganado.tipo_asignacion == "C" ){
               let temporal: any = Object.assign({},SeguimientoAsiganado);
@@ -208,7 +204,6 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
       break;
     }
     this.ValidarFormulario();
-    console.log(this.listaSeguimientosDisponibles);
   }
   
   SeleccionarTodos( tablaControl: string){

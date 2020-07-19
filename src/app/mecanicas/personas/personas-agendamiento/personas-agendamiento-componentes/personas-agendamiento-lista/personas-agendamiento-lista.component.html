@@ -12,7 +12,7 @@
 
  
         <div class="form-group form-inline form ">
-            <div class="row col-md-10 form2"><i class="fa fa-search search "></i><p>Buscar: </p><input class="form-control" type="text" [(ngModel)]="filter"/></div>
+            <div class="row col-md-10 form2"><i class="fa fa-search search "></i><p>Buscar: </p><input class="form-control" type="text" [formControl]="filter"/></div>
             <button class="btn btn-primary nuevaAgenda" (click)="NuevaAgenda({modo:2})" ><i class="fa fa-plus-circle"></i> Nueva Agenda</button>
   
         </div>
@@ -33,12 +33,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let agenda of ObtenerRegistros(); index as i">
-          <td><ngb-highlight [result]="agenda.id" [term]="filter"></ngb-highlight></td>
-          <td><ngb-highlight [result]="agenda.creador " [term]="filter"></ngb-highlight></td>
-          <td><ngb-highlight [result]="agenda.responsable " [term]="filter"></ngb-highlight></td>
-          <td><ngb-highlight [result]="agenda.apertura_fecha" [term]="filter"></ngb-highlight></td>
-          <td><ngb-highlight [result]="agenda.cierre_fecha" [term]="filter"></ngb-highlight></td>
+        <tr *ngFor="let agenda of registrosAgendas$ | async; index as i">
+          <td><ngb-highlight [result]="agenda.id" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="agenda.creador " [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="agenda.responsable " [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="agenda.apertura_fecha" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="agenda.cierre_fecha" [term]="filter.value"></ngb-highlight></td>
           <td><button  type="button" class="btn btn-outline-secondary " (click)="AbrirModal(1, agenda.id, modalAgenda)"  placement="right" ngbTooltip="Seguir"><i class="fa fa-eye"></i></button></td>
           <td>
             <button class="btn btn-outline-secondary " (click)="EditarAgenda(2,agenda.id)" placement="left" ngbTooltip="Editar"><i class="fa fa-pencil"></i></button>
