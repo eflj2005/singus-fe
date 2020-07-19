@@ -41,7 +41,7 @@ export class GenericoModel {
   protected registros:any[];      //ESTE ATRIBUTO SE SOBRECARGA
   
   private consecutivoDbRefs:number;
-  protected listoCampos:boolean;
+  protected listoCampos:BehaviorSubject<boolean>;
   protected listoCargue:BehaviorSubject<boolean>;
 
   private datosCargue:DatosCargueInterface = {
@@ -62,8 +62,8 @@ export class GenericoModel {
     this.controladoresForaneos = [];
     this.posicionActual = null;
     this.consecutivoDbRefs =1;
-    this.listoCampos=false;
-    this.listoCargue = new BehaviorSubject(false); ;
+    this.listoCampos= new BehaviorSubject(false);
+    this.listoCargue = new BehaviorSubject(false);
 
     
 
@@ -94,7 +94,7 @@ export class GenericoModel {
 
     switch(tipo){
       case "campos":
-        if(returnObservable)  resultado = false
+        if(returnObservable)  resultado = this.listoCampos.value
         else                  resultado = this.listoCampos;
       break;
       case "cargue":
@@ -229,7 +229,7 @@ export class GenericoModel {
 
   protected DetectarCampos(conToken:boolean=true):Observable<any>{
 
-    this.listoCampos = false;
+    this.listoCampos.next( false );
 
     let datosEnviados = new HttpParams()
       .set("accion","obtener_campos")
@@ -248,7 +248,7 @@ export class GenericoModel {
                 }
               );
               
-              this.listoCampos=true;
+              this.listoCampos.next( true );
             break;
           }
 
@@ -356,7 +356,7 @@ export class GenericoModel {
   // }
 
   private ProcesarRegistros( registrosRecibidos:any[], controladorActual:any, columnasSolicitadas:any ){
-    if(controladorActual.listoCampos == false){
+    if(controladorActual.listoCampos.value == false){
       window.setTimeout(controladorActual.ProcesarRegistros, 100, registrosRecibidos,controladorActual,columnasSolicitadas); /* this checks the flag every 100 milliseconds*/
     }
     else{
