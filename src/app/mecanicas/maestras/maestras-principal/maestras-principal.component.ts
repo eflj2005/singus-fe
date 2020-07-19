@@ -26,6 +26,8 @@ import { SectoreslaboralesController } from '@controladores/sectoreslaborales.co
 import { TiposcontratosController } from '@controladores/tiposcontratos.controller';
 import { RangosingresosController } from '@controladores/rangosingresos.controller';
 import { SectoresasociacionesController } from '@controladores/sectoresasociaciones.controller';
+import { OfertasController } from '@controladores/ofertas.controller';
+import { TiposobservacionesController } from '@controladores/tiposobservaciones.controller';
 
 
 
@@ -61,6 +63,10 @@ export class MaestrasPrincipalComponent implements OnInit {
 
   controladorSectoresasociaciones: SectoresasociacionesController;
 
+  controladorOfertas: OfertasController;
+
+  controladorTiposobservaciones: TiposobservacionesController;
+
   constructor(
     private llamadoHttp: HttpClient,
     private servicioAmbiente: AmbienteService,
@@ -88,6 +94,10 @@ export class MaestrasPrincipalComponent implements OnInit {
     this.controladorRangosingresos = new RangosingresosController(llamadoHttp, servicioAmbiente); 
 
     this.controladorSectoresasociaciones = new SectoresasociacionesController(llamadoHttp, servicioAmbiente); 
+
+    this.controladorOfertas = new OfertasController(llamadoHttp, servicioAmbiente); 
+
+    this.controladorTiposobservaciones = new TiposobservacionesController(llamadoHttp, servicioAmbiente); 
     
   }
   
