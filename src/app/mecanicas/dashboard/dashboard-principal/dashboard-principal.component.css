@@ -1,0 +1,16 @@
+/* .dashboard_header{
+  background-color: yellow;
+}
+
+.dashboard_footer{
+  background-color: green;
+} */
+
+.dashboard_menu{
+  max-width: 70px;
+}
+
+.dashboard_content{
+  height: 86vh;
+  overflow-y: auto;
+}

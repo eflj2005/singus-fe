@@ -1,7 +1,7 @@
 <div class="container-fluid px-0">
   
   <div class="row">
-    <div class="col-md-12 col-sm-12 col-lg-12">
+    <div class="col-md-12 col-sm-12 col-lg-12 dashboard_header">
         <dashboard-encabezado></dashboard-encabezado>
     </div>      
   </div>
@@ -9,10 +9,10 @@
 
     <div class="col-md col-sm col-lg">    
       <div class="d-flex">
-        <div class="menu">
+        <div class="dashboard_menu">
           <dashboard-menu></dashboard-menu>
         </div>
-        <div class="flex-grow-1">
+        <div class="flex-grow-1 dashboard_content">
           <router-outlet></router-outlet>
         </div>
       </div>
@@ -20,7 +20,7 @@
 
   </div>
   <div class="row">
-      <div class="col-md-12 col-sm-12 col-lg-12">
+      <div class="col-md-12 col-sm-12 col-lg-12 dashboard_footer">
         <dashboard-workspace></dashboard-workspace>
       </div>
   </div>

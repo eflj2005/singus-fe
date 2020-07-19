@@ -139,22 +139,16 @@ thead{
 }
 
 .form{
-    display: flex;
-    align-items: baseline;
+    /* display: flex;
+    align-items: baseline; */
     background-color: #fde894;
-    padding: .5rem;
-    line-height: 0;
+    /* padding: .5rem;
+    line-height: 0; */
 
 }
 .search{
     padding: 3px;
 }
-
-.menu{
-    max-width: 70px;
-}
-
-
 
 
 .blackout{

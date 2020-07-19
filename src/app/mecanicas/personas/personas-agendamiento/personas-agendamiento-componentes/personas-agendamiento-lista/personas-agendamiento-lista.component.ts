@@ -18,7 +18,9 @@ interface ListaAgendas extends AgendasInterface{
   nombreCompletoUsuario? : string,
   tipo?:string,
   nombreResponsable?: string,
-  nombreCoordinador?: string
+  nombreCoordinador?: string,
+  creador:string,
+  responsable:string
 }
 
 interface EstadisticaAgenda extends AgendamientosInterface{
@@ -38,10 +40,9 @@ export class PersonasAgendamientoListaComponent implements OnInit {
   controladorAgendamientos : AgendamientosController;
 
   estadisticas : EstadisticaAgenda[];
-  registrosAgendas: ListaAgendas[];
   registrosAgendas$: Observable<ListaAgendas[]>;
-  // filter = new FormControl('');
-  filter = "";
+  filter = new FormControl('');
+
   agendaEncontrada:ListaAgendas;
   estadisticasAgendaE = {"total": 0, "realizados": 0, "faltantes": 0, "estado":''}
   notificacionActiva:boolean=false;
@@ -62,12 +63,16 @@ export class PersonasAgendamientoListaComponent implements OnInit {
     caracteristicas.AgregarColumna( null , "(SELECT CONCAT(usuarios.nombres,' ',usuarios.apellidos) FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'R')", "responsable" );
     caracteristicas.AgregarFiltro( "","agendas" , "nivel" , "=", "0" ); 
 
+
     this.controladorAgendas = new AgendasController(this.llamadoHttp,this.servicioAmbiente);
     this.controladorAgendas.CargarDesdeDB(true, "A" , caracteristicas).subscribe(
-
       (respuesta: RespuestaInterface) =>{
         switch(respuesta.codigo){
           case 200:
+
+            this.controladorAgendas.EstaListo("cargue",true).subscribe((valor:boolean) => {
+              this.AplicarFiltros();
+            });          
 
           break;
           default:
@@ -81,44 +86,44 @@ export class PersonasAgendamientoListaComponent implements OnInit {
 
 
 
-  // AplicarFiltros(){
-  //   this.registrosAgendas$ = this.filter.valueChanges.pipe(
-  //     startWith(''),
-  //     map(text => this.buscarAgendas(text, this.pipe))
-  //   );
-  // }
+  AplicarFiltros(){
+    this.registrosAgendas$ = this.filter.valueChanges.pipe(
+      startWith(''),
+      map(text => this.buscarAgendas(text, this.pipe))
+    );
+  }
 
-  // buscarAgendas(text: string , pipe: PipeTransform): ListaAgendas[] {
-  //   return this.controladorAgendas.todos.filter(agenda => {
-  //     const term = text.toLowerCase();
-  //     return pipe.transform(agenda.id).includes(term)
-  //         || agenda.cierre_fecha.toLowerCase().includes(term)
-  //         || agenda.apertura_fecha.toLowerCase().includes(term)
-  //         || agenda.creador.toLowerCase().includes(term)
-  //         || agenda.responsable.toLowerCase().includes(term) ;
+  buscarAgendas(text: string , pipe: PipeTransform): ListaAgendas[] {
+    return this.controladorAgendas.todos.filter(agenda => {
+      const term = text.toLowerCase();
+      return pipe.transform(agenda.id).includes(term)
+          || agenda.cierre_fecha.toLowerCase().includes(term)
+          || agenda.apertura_fecha.toLowerCase().includes(term)
+          || agenda.creador.toLowerCase().includes(term)
+          || agenda.responsable.toLowerCase().includes(term) ;
 
-  //   });
-  // }
-
-  buscarAgendas(): ListaAgendas[] {
-    let temporal: ListaAgendas[];
-
-    temporal = this.controladorAgendas.todos.filter(agenda => {  
-      return String(agenda.id).includes(this.filter) 
-      || agenda.cierre_fecha.toLowerCase().includes(this.filter)
-      || agenda.apertura_fecha.toLowerCase().includes(this.filter)
-      || agenda.creador.toLowerCase().includes(this.filter)
-      || agenda.responsable.toLowerCase().includes(this.filter) ;        
     });
-
-    return temporal;
   }
 
-  ObtenerRegistros():ListaAgendas[]{
-    this.registrosAgendas = [];
-    this.registrosAgendas = this.buscarAgendas();
-    return this.registrosAgendas;
-  }
+  // buscarAgendas(): ListaAgendas[] {
+  //   let temporal: ListaAgendas[];
+
+  //   temporal = this.controladorAgendas.todos.filter(agenda => {  
+  //     return String(agenda.id).includes(this.filter) 
+  //     || agenda.cierre_fecha.toLowerCase().includes(this.filter)
+  //     || agenda.apertura_fecha.toLowerCase().includes(this.filter)
+  //     || agenda.creador.toLowerCase().includes(this.filter)
+  //     || agenda.responsable.toLowerCase().includes(this.filter) ;        
+  //   });
+
+  //   return temporal;
+  // }
+
+  // ObtenerRegistros():ListaAgendas[]{
+  //   this.registrosAgendas = [];
+  //   this.registrosAgendas = this.buscarAgendas();
+  //   return this.registrosAgendas;
+  // }
 
   ngOnInit() {
   }
@@ -167,12 +172,12 @@ export class PersonasAgendamientoListaComponent implements OnInit {
     let respuesta : any;
     switch (tipo) {
       case 1:
-        this.agendaEncontrada = this.registrosAgendas.find(element => element.id == agenda) ;
+        this.agendaEncontrada = this.controladorAgendas.todos.find(element => element.id == agenda) ;
         this.ConsultarEstadisticas();
         respuesta = this.modal.open( modal, { size : 'lg'  ,  backdropClass: 'light-blue-backdrop' } );
         break;
       case 2:
-        this.agendaEncontrada = Object.assign({}, this.registrosAgendas.find(element => element.id == agenda) ) ;
+        this.agendaEncontrada = Object.assign({}, this.controladorAgendas.todos.find(element => element.id == agenda) ) ;
         this.ValidarFecha();
         respuesta = this.modal.open( modal, { size : 'lg'  ,  backdropClass: 'light-blue-backdrop' } );
 
@@ -191,7 +196,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
           case 200:         //login ok    
 
           alert("GUARDADO");
-          this.registrosAgendas.find(element => element.id == this.agendaEncontrada.id).cierre_fecha = this.agendaEncontrada.cierre_fecha;
+          this.controladorAgendas.todos.find(element => element.id == this.agendaEncontrada.id).cierre_fecha = this.agendaEncontrada.cierre_fecha;
          
 
           break;
@@ -205,7 +210,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
 
   ValidarFecha(){
 
-    let fechaCierreOriginal = this.registrosAgendas.find(element => element.id == this.agendaEncontrada.id).cierre_fecha;
+    let fechaCierreOriginal = this.controladorAgendas.todos.find(element => element.id == this.agendaEncontrada.id).cierre_fecha;
     this.notificacionActiva = false; 
     
     if(fechaCierreOriginal >= this.agendaEncontrada.cierre_fecha ){
