@@ -44,7 +44,7 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
     }
 
 
-    (this.controlador.foraneas).forEach( ( nombreForanea: string ) => {
+    this.controlador.foraneas.forEach( ( nombreForanea: string ) => {
       this.controlador.CargarForanea(nombreForanea);
     });
 

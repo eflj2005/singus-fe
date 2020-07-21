@@ -258,7 +258,6 @@ export class GenericoModel {
                   this.camposTabla.push( campo );
                 }
               );
-              
               this.listoCampos.next( true );
             break;
           }
