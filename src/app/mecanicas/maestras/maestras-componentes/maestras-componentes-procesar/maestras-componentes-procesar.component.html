@@ -6,24 +6,51 @@
  <div class="modal-body">
 
     <div *ngFor="let campo of controlador.campos; index as camposIndex">
-      <label>{{campo.nombre}} :</label>
+
+
+      <div class="form-row justify-content-between mb-1">  
+
+
+        <ng-container *ngIf="!campo.nombre.includes('_id') && !campo.tipo.includes('enum')">
+        
+          <label for="{{campo.nombre}}" class="col-sm-3 col-form-label col-form-label-sm text-wrap">{{campo.nombre}} :</label>
+          <div class="col-sm">
+            <input 
+              id="{{campo.nombre}}" 
+              [type]="campo.nombre.includes('_fecha') ? 'date' : 'text'" 
+              class="form-control form-control-sm" 
+              [(ngModel)]="datos[campo.nombre]" 
+              [readonly]="campo.nombre=='id' ? true : false" 
+              required
+            >
+          </div>     
       
-      <input 
-        *ngIf="!campo.nombre.includes('_id') && !campo.tipo.includes('enum')" 
-          [type]="campo.nombre.includes('_fecha') ? 'date' : 'text'" 
-          class="form-control" 
-          [(ngModel)]="datos[campo.nombre]" 
-          [readonly]="campo.nombre=='id' ? true : false"
-          required
-      >
+        </ng-container>
+      
+        <ng-container *ngIf="campo.tipo.includes('enum')">
+        
+          <label for="{{campo.nombre}}" class="col-sm-3 col-form-label col-form-label-sm text-wrap">{{campo.nombre}} :</label>
+          <div class="col-sm">
+            <select id="{{campo.nombre}}" [(ngModel)]="datos[campo.nombre]" class="form-control form-control-sm">
+              <option *ngFor="let opcion of ProcesarSelectEnum(campo.tipo); index as opcionesIndex" [value]="opcion">{{ ObtenerOptionTextEnum(opcion,campo.comentarios) }}</option>
+            </select>
+          </div>     
+      
+        </ng-container>
 
-      <select *ngIf="campo.tipo.includes('enum')" [(ngModel)]="datos[campo.nombre]">
-        <option *ngFor="let opcion of ProcesarSelectEnum(campo.tipo); index as opcionesIndex" [value]="opcion">{{ ObtenerOptionTextEnum(opcion,campo.comentarios) }}</option>
-      </select>
+        <ng-container *ngIf="campo.nombre.includes('_id')">
+        
+          <label for="{{campo.nombre}}" class="col-sm-3 col-form-label col-form-label-sm text-wrap">{{campo.nombre}} :</label>
+          <div class="col-sm">
+            <select id="{{campo.nombre}}" [(ngModel)]="datos[campo.nombre]" class="form-control form-control-sm">
+              <option *ngFor="let opcion of ProcesarSelectId(campo.nombre); index as opcionesIndex" [value]="opcion.id">{{opcion.descripcion}}</option>
+            </select>  
+          </div>     
+      
+        </ng-container>        
 
-      <select *ngIf="campo.nombre.includes('_id')" [(ngModel)]="datos[campo.nombre]">
-        <option *ngFor="let opcion of ProcesarSelectId(campo.nombre); index as opcionesIndex" [value]="opcion.id">{{opcion.descripcion}}</option>
-      </select>      
+      </div>
+    
     </div>
 </div>
 

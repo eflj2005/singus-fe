@@ -25,7 +25,10 @@
         <tbody>
           <tr *ngFor="let registro of  registros$ | async; index as indexR">
             <td *ngFor="let campo of controlador.campos; index as indexC" >
-                <ngb-highlight [result]="registro[campo.nombre]" [term]="filter.value"></ngb-highlight>
+                <ngb-highlight 
+                  [result]="registro[campo.nombre]" 
+                  [term]="filter.value"
+                  ></ngb-highlight>
             </td>
             <td class="col-actions">
               <button class="btn btn-outline-secondary btn-sm py-0 px-1"  placement="right" ngbTooltip="Editar" (click)="Procesar( 2 , registro.id )"  ><i class="fa fa-pencil"></i></button>
