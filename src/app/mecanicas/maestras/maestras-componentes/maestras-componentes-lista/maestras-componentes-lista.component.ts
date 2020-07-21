@@ -7,6 +7,7 @@ import { startWith, map } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MaestrasComponentesProcesarComponent } from '../maestras-componentes-procesar/maestras-componentes-procesar.component';
 import { UsuarioInterface } from '@interfaces/usuario.interface';
+import { EstructuraConsultas } from '@generales/estructura-consultas';
 
 @Component({
   selector: 'app-maestras-componentes-lista',
@@ -22,7 +23,6 @@ export class MaestrasComponentesListaComponent implements OnInit {
 
   
 
-  registros:any[];
 
   registros$: Observable<any[]>;
   filter = new FormControl('');
@@ -31,17 +31,37 @@ export class MaestrasComponentesListaComponent implements OnInit {
     private pipe: DecimalPipe,
     private servicioEmergentes: NgbModal,    
   ) {
-      this.registros=[];
+
   }
 
   ngOnInit() {
-    this.controlador.CargarDesdeDB().subscribe(
+    
+    let caracteristicasConsultas:EstructuraConsultas = new EstructuraConsultas();
+
+
+    this.controlador.foraneas.forEach( ( nombreForanea: string ) => {
+
+      caracteristicasConsultas.AgregarColumna( nombreForanea, "descripcion", nombreForanea + "_des");
+      caracteristicasConsultas.AgregarEnlace( nombreForanea, nombreForanea, this.controlador.nombreTabla );
+
+
+      // this.controlador.CargarForanea(nombreForanea);
+    });
+
+    
+
+    this.controlador.CargarDesdeDB(true,'A',caracteristicasConsultas).subscribe(
       (respuesta: RespuestaInterface) =>{
 
         switch (respuesta.codigo){
           case 200:
-            this.registros =this.controlador.todos;
-            this.AplicarFiltros();
+
+            this.controlador.EstaListo('cargue',true).subscribe( (valor: Boolean ) => {
+             
+              this.AplicarFiltros();
+
+            });
+
           break;
           default:
             alert("Error: "+respuesta.mensaje);
@@ -53,21 +73,21 @@ export class MaestrasComponentesListaComponent implements OnInit {
   }
 
   Buscar(text: string , pipe: PipeTransform): any[] {
-    return this.registros.filter(registro => {
+    return this.controlador.todos.filter( (registro:any) => {
       const term = text.toLowerCase();
 
       var validacion:boolean = false;
 
-      this.controlador.campos.forEach(
-        (campo:any) => {
-          if(!validacion){
-            if(typeof(registro[campo.nombre]) != "string"){
-              registro[campo.nombre] = registro[campo.nombre].toString();
-            }
-            if( registro[campo.nombre].toLowerCase().includes(term) )  validacion = true;
+      for (let campo in registro) {  
+        if(!validacion){
+          if(typeof(registro[campo]) != "string"){
+            registro[campo] = String(registro[campo]);
           }
+
+          if( registro[campo].toLowerCase().includes(term) )  validacion = true;
         }
-      );
+
+      }
 
       return validacion;
     });
@@ -112,6 +132,12 @@ export class MaestrasComponentesListaComponent implements OnInit {
       startWith(''),
       map(text => this.Buscar(text, this.pipe))
     );
+  }
+
+  AjustarNombreCampo( nombreCampo:string, sufijo: string){
+    let nombre:string[] = nombreCampo.split("_");
+
+    return nombre[0]+"_"+sufijo;
   }
 
 

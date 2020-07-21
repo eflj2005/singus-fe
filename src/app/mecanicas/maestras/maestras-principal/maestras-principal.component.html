@@ -1,11 +1,15 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-md-12 col-sm-12 col-log-12">
-  
+    <div class="col-md-12">
         <h1 align='center'>Maestras</h1>
-              
-        <ngb-tabset>
+    </div>
+  </div>
+
+   <div class="row">
+    <div class="col-md-12">        
+
+        <ngb-tabset >
       
           <ngb-tab  *ngIf="controladorAreas.EstaListo('campos')">
             <ng-template ngbTabTitle>Areas</ng-template>
@@ -163,6 +167,26 @@
               <div class="ngTabContainer">
                 <h1>Lista de Sectores para Comunidades y/o Asociaciones</h1><hr>
                 <app-maestras-componentes-lista nombreTabla="sectoresasociaciones" [controlador]="controladorSectoresasociaciones"></app-maestras-componentes-lista>
+              </div>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab  *ngIf="controladorOfertas.EstaListo('campos')">
+            <ng-template ngbTabTitle>Ofertas</ng-template>
+            <ng-template ngbTabContent>
+              <div class="ngTabContainer">
+                <h1>Lista de Ofertas</h1><hr>
+                <app-maestras-componentes-lista nombreTabla="ofertas" [controlador]="controladorOfertas"></app-maestras-componentes-lista>
+              </div>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab  *ngIf="controladorTiposobservaciones.EstaListo('campos')">
+            <ng-template ngbTabTitle>Tipos Observaciones</ng-template>
+            <ng-template ngbTabContent>
+              <div class="ngTabContainer">
+                <h1>Lista de Tipos de Observaciones</h1><hr>
+                <app-maestras-componentes-lista nombreTabla="tiposobservaciones" [controlador]="controladorTiposobservaciones"></app-maestras-componentes-lista>
               </div>
             </ng-template>
           </ngb-tab>

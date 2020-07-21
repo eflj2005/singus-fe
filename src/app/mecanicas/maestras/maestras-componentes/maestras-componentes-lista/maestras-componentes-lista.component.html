@@ -1,34 +1,53 @@
 <div class="container">
-  <div class="row">
 
-
-      <form >
-        <div class="form-group form-inline form ">
-          <div class="row col-md-10 form2"><i class="fa fa-search search "></i><p>Buscar: </p><input class="form-control" type="text" [formControl]="filter"/></div>
-          <button class="btn btn-primary nuevaAgenda" (click)="Procesar(1)" type="button" ><i class="fa fa-plus-circle"></i> Nuevo usuario</button>
+  <div class="container-fluid">
+    <div class="row justify-content-between form mb-2">
+      <div class="col-md-5">
+        <div class="d-flex align-items-center">
+          <div class="pr-1">        <label for="filter" class="col-form-label"><i class="fa fa-search"></i> Buscar:</label> </div>
+          <div class="flex-grow-1"> <input class="form-control form-control-sm" type="text" id="filter" [formControl]="filter"/> </div>
         </div>
-      </form>
+      </div>
+      <div class="col-md-3 text-right">  <button class="btn btn-primary nuevaAgenda" (click)="Procesar(1)" type="button" ><i class="fa fa-plus-circle"></i> Nuevo Elemento</button> </div>
+    </div>
+  </div>
 
+  <div class="row">
+    <div class="col-md">
 
       <table class="table table-striped">
         <thead class="thead">
           <tr>
-              <th *ngFor="let campo of  controlador.campos; index as i" scope="col">{{campo.nombre}}</th>
-              <th scope="col"></th>
+            <ng-container *ngFor="let campo of  controlador.campos; index as i">
+              <th *ngIf="campo.restriccion != 'MUL'" scope="col">{{ campo.nombre }}</th>
+              <th *ngIf="campo.restriccion == 'MUL'" scope="col">{{ AjustarNombreCampo(campo.nombre,'id') }}</th>
+              <th *ngIf="campo.restriccion == 'MUL'" scope="col">{{ AjustarNombreCampo(campo.nombre,'des') }}</th>
+            </ng-container>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let registro of  registros$ | async; index as indexR">
-            <td *ngFor="let campo of controlador.campos; index as indexC" >
-                <ngb-highlight [result]="registro[campo.nombre]" [term]="filter.value"></ngb-highlight>
-            </td>
-            <td>
-              <button class="btn btn-outline-secondary "  placement="right" ngbTooltip="Editar" (click)="Procesar( 2 , registro.id )"  ><i class="fa fa-pencil"></i></button>
+            <ng-container *ngFor="let campo of controlador.campos; index as indexC">
+              <td *ngIf="campo.restriccion != 'MUL'">
+                  <ngb-highlight [result]="registro[campo.nombre]" [term]="filter.value"></ngb-highlight>
+              </td>
+              <td *ngIf="campo.restriccion == 'MUL'">
+                <ngb-highlight [result]="registro[AjustarNombreCampo(campo.nombre,'id')]" [term]="filter.value"></ngb-highlight>
+              </td>
+              <td *ngIf="campo.restriccion == 'MUL'">
+                <ngb-highlight [result]="registro[AjustarNombreCampo(campo.nombre,'des')]" [term]="filter.value"></ngb-highlight>
+              </td>
+            </ng-container>
+            <td class="col-actions">
+              <button class="btn btn-outline-secondary btn-sm py-0 px-1"  placement="right" ngbTooltip="Editar" (click)="Procesar( 2 , registro.id )"  ><i class="fa fa-pencil"></i></button>
             </td>
           </tr>
         </tbody>
       </table>
 
-
+    </div>
   </div>
+
+
 </div>

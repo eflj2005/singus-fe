@@ -32,6 +32,7 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
     this.numeroModelo="^[0-9]*$";
     this.correoModelo="^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$";
 
+
   }
 
   ngOnInit() {
@@ -43,7 +44,11 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
     }
 
 
-    
+    this.controlador.foraneas.forEach( ( nombreForanea: string ) => {
+      this.controlador.CargarForanea(nombreForanea);
+    });
+
+
   }
 
 
@@ -82,9 +87,12 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
     
   }
 
-  ProcesarSelectId( campo:string, opcion:string ){
+  ProcesarSelectId( campo:string ){
     let partes:string[] = campo.split("_");
     var opciones:any[] = this.controlador.ObtenerForanea(partes[0]).todos;
+
+    // console.log(partes,"partes");
+
     return opciones;
   }
 

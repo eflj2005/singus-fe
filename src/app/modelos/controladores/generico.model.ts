@@ -33,7 +33,7 @@ export class GenericoModel {
   protected camposTabla:ArrayOfObjectsInterface[];
   protected camposFecha:string[];
 
-  protected controladoresForaneos:any[];        //eliminar
+  protected controladoresForaneos:any[];      
 
   protected posicionActual:number;
   //protected cantidad:number = null;
@@ -83,8 +83,21 @@ export class GenericoModel {
     return  this.registros[this.posicionActual];
   }
 
+  public get todos():any[]{
+    return  this.registros;
+  }
+
   public get campos():ArrayOfObjectsInterface[]{
     return this.camposTabla;
+  }
+
+  public get foraneas():string[]{
+    let nombresForaneas: string[] = [];
+
+    for (let nombreFforanea in this.controladoresForaneos) {  
+      nombresForaneas.push ( nombreFforanea );
+    }
+    return nombresForaneas;
   }
 
   //ADMINISTRACION BASICA
@@ -106,9 +119,7 @@ export class GenericoModel {
     return resultado;
   }
 
-  public get todos():any[]{
-    return  this.registros;
-  }
+
 
   public Agregar(objeto:any):string{
     objeto.modo = "I";
@@ -247,7 +258,6 @@ export class GenericoModel {
                   this.camposTabla.push( campo );
                 }
               );
-              
               this.listoCampos.next( true );
             break;
           }
