@@ -1,46 +1,46 @@
+<div class="container">
+    <div class="row">
+        <div>
+            <h1 align='center'>Lista de eventos</h1>
+            <form>
+                <div class="form-group form-inline form">
+                    <i class="fa fa-search search"></i><p>Buscar: </p><input class="form-control ml-2" type="text" [formControl]="filter"/>
+                    <button class="btn btn-primary nuevaAgenda" (click)="crear(1)" type="button" ><i class="fa fa-plus-circle"></i> Nuevo evento</button>
+                </div>
+            </form>
 
-<div class="row">
-    <div>
-      <h1 align='center'>Lista de eventos</h1>
-        <form>
-            <div class="form-group form-inline form">
-                <i class="fa fa-search search"></i><p>Buscar: </p><input class="form-control ml-2" type="text" [formControl]="filter"/>
-                <button class="btn btn-primary nuevaAgenda" (click)="crear(1)" type="button" ><i class="fa fa-plus-circle"></i> Nuevo evento</button>
-            </div>
-          </form>
-
-        <table class="table table-striped">
-            <thead class="thead">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Fecha del evento</th>
-                <th scope="col">Sede</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let evento of  registrosEventos$ | async; index as i" >
-                <td><ngb-highlight [result]="evento.id | number" [term]="filter.value"></ngb-highlight></td>
-                <td><ngb-highlight [result]=" evento.nombre" [term]="filter.value"></ngb-highlight></td>
-                <td><ngb-highlight [result]="evento.evento_fecha" [term]="filter.value"></ngb-highlight></td>
-                <td><ngb-highlight [result]="evento.lugar" [term]="filter.value"></ngb-highlight></td>
-                <td>
-                  <button class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Editar" (click)="crear(2, evento)">
-                      <i class="fa fa-pencil"></i>
-                  </button>
-                </td>
-                <td>
-                    <button class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Registrar asistencia" (click)="verModal(agregador, evento.id)" >
-                            <i class="fa fa-address-book-o"></i>
+            <table class="table table-striped">
+                <thead class="thead">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Fecha del evento</th>
+                    <th scope="col">Sede</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let evento of  registrosEventos$ | async; index as i" >
+                    <td><ngb-highlight [result]="evento.id | number" [term]="filter.value"></ngb-highlight></td>
+                    <td><ngb-highlight [result]=" evento.nombre" [term]="filter.value"></ngb-highlight></td>
+                    <td><ngb-highlight [result]="evento.evento_fecha" [term]="filter.value"></ngb-highlight></td>
+                    <td><ngb-highlight [result]="evento.lugar" [term]="filter.value"></ngb-highlight></td>
+                    <td>
+                    <button class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Editar" (click)="crear(2, evento)">
+                        <i class="fa fa-pencil"></i>
                     </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Registrar asistencia" (click)="verModal(agregador, evento.id)" >
+                                <i class="fa fa-address-book-o"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 
     <ng-template #agregador let-modal>
 
@@ -129,3 +129,4 @@
             </div>
 
     </ng-template>
+</div>

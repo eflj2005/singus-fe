@@ -1,85 +1,27 @@
-
-<div class="row" >
-    <div class="col text-center">
-        <h1>Alertas</h1>
-    </div>
-</div>
-<div class="row">
-  <div class="col">
-    <p>
-      <ngb-alert type="warning" [dismissible]="false"> Recuerde que el código de colores cambia de acuerdo al tipo de alerta </ngb-alert>
-    </p>
+<div class="container-fluid">
+  <div class="row" >
+      <div class="col text-center">
+          <h1>Alertas</h1>
+      </div>
   </div>
-</div>
-<div class="row">
+  <div class="row">
     <div class="col">
-        <ngb-tabset>
-            <ngb-tab>
-              <ng-template ngbTabTitle>Cumpleaños</ng-template>
-              <ng-template ngbTabContent>
-                <div class="row">
-                  <div class="col">
-                      <form >
-                        <div class="form-group form-inline form ">
-                          <div class="col-md">
-                            <div class="row justify-content">
-                                <div class="col-1">
-                                  <i class="fa fa-search search "></i> 
-                                </div>
-                                <div class="col-1 align-content-center py-1 ">
-                                  <p >Buscar:</p> 
-                                </div>
-                            </div>
-                          </div>
-                            <div class="col-md-6">
-                                <input class="form-control" type="text"  [formControl]="filter"/>
-                            </div>  
-                            <div class="col-5">
-                              <div class="row justify-content-end">
-                                <button type="button" class="btn btn-outline-primary " (click)="VerColores(modalColores,1)"><i class="fa fa-eye"></i>&nbsp;Codigo de colores</button>
-                              </div>
-                            </div>       
-                        </div>
-                        </form>
-                  <table class="table table-striped">
-                      <thead  class="thead">     
-                          <tr class="colums">
-                            <th scope="col" class="semaforo">Semaforo</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Programa</th>
-                            <th scope="col">Doc. Identificación</th>
-                            <th scope="col">Id Uniminuto</th>
-                            <th scope="col">Fecha de nacimiento</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let persona of   personas$ | async; index as i">
-                            <td class="text-center">    
-                              <label class="contenedor">
-                                  <span class="checkmark" [ngClass]="{'negro':persona.diasRestantesCumple == 0,'gris': persona.diasRestantesCumple > 30 ,'rojo': persona.diasRestantesCumple <= 5,'amarillo': persona.diasRestantesCumple <= 8 && persona.diasRestantesCumple > 5,'verde': persona.diasRestantesCumple <= 31}"></span>
-                              </label>
-                          </td>
-                          <td><ngb-highlight [result]="persona.nombreCompleto" [term]="filter.value"></ngb-highlight></td>
-                          <td><ngb-highlight [result]="persona.programa" [term]="filter.value"></ngb-highlight></td>
-                          <td><ngb-highlight [result]="persona.documento| number " [term]="filter.value"></ngb-highlight></td>
-                          <td><ngb-highlight [result]="persona.idUniminuto  | number" [term]="filter.value"></ngb-highlight></td>
-                          <td><ngb-highlight [result]="persona.nacimiento_fecha" [term]="filter.value"></ngb-highlight></td>
-
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </ng-template>
-            </ngb-tab>
-            <ngb-tab>
-              <ng-template ngbTabTitle>Actualización</ng-template>
-              <ng-template ngbTabContent>
-                <div class="row">
-                  <div class="col">
-                    <form >
-                      <div class="form-group form-inline form ">
-                          <div class="col-md">
+      <p>
+        <ngb-alert type="warning" [dismissible]="false"> Recuerde que el código de colores cambia de acuerdo al tipo de alerta </ngb-alert>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col">
+          <ngb-tabset>
+              <ngb-tab>
+                <ng-template ngbTabTitle>Cumpleaños</ng-template>
+                <ng-template ngbTabContent>
+                  <div class="row">
+                    <div class="col">
+                        <form >
+                          <div class="form-group form-inline form ">
+                            <div class="col-md">
                               <div class="row justify-content">
                                   <div class="col-1">
                                     <i class="fa fa-search search "></i> 
@@ -88,54 +30,112 @@
                                     <p >Buscar:</p> 
                                   </div>
                               </div>
+                            </div>
+                              <div class="col-md-6">
+                                  <input class="form-control" type="text"  [formControl]="filter"/>
+                              </div>  
+                              <div class="col-5">
+                                <div class="row justify-content-end">
+                                  <button type="button" class="btn btn-outline-primary " (click)="VerColores(modalColores,1)"><i class="fa fa-eye"></i>&nbsp;Codigo de colores</button>
+                                </div>
+                              </div>       
                           </div>
-                          <div class="col-md-6">
-                              <input class="form-control" type="text"  [formControl]="filter"/>
-                          </div>  
-                          <div class="col-5 ">
-                            <div class="row justify-content-end">
-                              <button type="button" class="btn btn-outline-primary " (click)="VerColores(modalColores,2)"><i class="fa fa-eye"></i>&nbsp;Codigo de colores</button>
-                            </div>    
-                          </div>       
-                      </div>
-                    </form>
-      
-                  <table class="table table-striped">
-                      <thead  class="thead">     
-                          <tr class="colums">
+                          </form>
+                    <table class="table table-striped">
+                        <thead  class="thead">     
+                            <tr class="colums">
                               <th scope="col" class="semaforo">Semaforo</th>
                               <th scope="col">Nombre</th>
                               <th scope="col">Programa</th>
                               <th scope="col">Doc. Identificación</th>
                               <th scope="col">Id Uniminuto</th>
-                              <th scope="col">Ultima Actualización</th>
- 
+                              <th scope="col">Fecha de nacimiento</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let persona of   personas$ | async; index as i">
+                              <td class="text-center">    
+                                <label class="contenedor">
+                                    <span class="checkmark" [ngClass]="{'negro':persona.diasRestantesCumple == 0,'gris': persona.diasRestantesCumple > 30 ,'rojo': persona.diasRestantesCumple <= 5,'amarillo': persona.diasRestantesCumple <= 8 && persona.diasRestantesCumple > 5,'verde': persona.diasRestantesCumple <= 31}"></span>
+                                </label>
+                            </td>
+                            <td><ngb-highlight [result]="persona.nombreCompleto" [term]="filter.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="persona.programa" [term]="filter.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="persona.documento| number " [term]="filter.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="persona.idUniminuto  | number" [term]="filter.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="persona.nacimiento_fecha" [term]="filter.value"></ngb-highlight></td>
+
                           </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let persona of   personas$ | async; index as i">
-                          <td class="text-center">    
-                            <label class="contenedor">
-                              <span class="checkmark" [ngClass]="{'verde': persona.diasRestantesActualizacion <= 31,'amarillo': persona.diasRestantesActualizacion <= 186 && persona.diasRestantesActualizacion > 31, 'rojo': persona.diasRestantesActualizacion <= 720 , 'gris': persona.diasRestantesActualizacion > 720 }"></span>
-                            </label>
-                          </td>
-                          <td><ngb-highlight [result]="persona.nombreCompleto" [term]="filter.value"></ngb-highlight></td>
-                          <td><ngb-highlight [result]="persona.programa" [term]="filter.value"></ngb-highlight></td>
-                          <td><ngb-highlight [result]="persona.documento| number " [term]="filter.value"></ngb-highlight></td>
-                          <td><ngb-highlight [result]="persona.idUniminuto  | number" [term]="filter.value"></ngb-highlight></td>
-                          <td><ngb-highlight [result]="persona.actualizacion_fecha" [term]="filter.value"></ngb-highlight></td>
-
-                        </tr>
-                      </tbody>
-                    </table>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
-                </div>
-              </ng-template>
-            </ngb-tab>
-          </ngb-tabset>
-    </div>
-</div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab>
+                <ng-template ngbTabTitle>Actualización</ng-template>
+                <ng-template ngbTabContent>
+                  <div class="row">
+                    <div class="col">
+                      <form >
+                        <div class="form-group form-inline form ">
+                            <div class="col-md">
+                                <div class="row justify-content">
+                                    <div class="col-1">
+                                      <i class="fa fa-search search "></i> 
+                                    </div>
+                                    <div class="col-1 align-content-center py-1 ">
+                                      <p >Buscar:</p> 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text"  [formControl]="filter"/>
+                            </div>  
+                            <div class="col-5 ">
+                              <div class="row justify-content-end">
+                                <button type="button" class="btn btn-outline-primary " (click)="VerColores(modalColores,2)"><i class="fa fa-eye"></i>&nbsp;Codigo de colores</button>
+                              </div>    
+                            </div>       
+                        </div>
+                      </form>
+        
+                    <table class="table table-striped">
+                        <thead  class="thead">     
+                            <tr class="colums">
+                                <th scope="col" class="semaforo">Semaforo</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Programa</th>
+                                <th scope="col">Doc. Identificación</th>
+                                <th scope="col">Id Uniminuto</th>
+                                <th scope="col">Ultima Actualización</th>
+  
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let persona of   personas$ | async; index as i">
+                            <td class="text-center">    
+                              <label class="contenedor">
+                                <span class="checkmark" [ngClass]="{'verde': persona.diasRestantesActualizacion <= 31,'amarillo': persona.diasRestantesActualizacion <= 186 && persona.diasRestantesActualizacion > 31, 'rojo': persona.diasRestantesActualizacion <= 720 , 'gris': persona.diasRestantesActualizacion > 720 }"></span>
+                              </label>
+                            </td>
+                            <td><ngb-highlight [result]="persona.nombreCompleto" [term]="filter.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="persona.programa" [term]="filter.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="persona.documento| number " [term]="filter.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="persona.idUniminuto  | number" [term]="filter.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="persona.actualizacion_fecha" [term]="filter.value"></ngb-highlight></td>
 
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+            </ngb-tabset>
+      </div>
+  </div>
+</div>
 <!-- Modal para responsables -->
 
 <ng-template #modalColores let-modal>

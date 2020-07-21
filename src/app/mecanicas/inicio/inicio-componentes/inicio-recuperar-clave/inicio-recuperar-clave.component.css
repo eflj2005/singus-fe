@@ -5,7 +5,7 @@
 }
 
 .contenedor input {
-    display: initial;
+    /* display: initial; */
     text-align: center;
     /* width: 60%; */
     font-size: 20px;
