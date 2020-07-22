@@ -61,6 +61,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
     caracteristicas.AgregarColumna( null , "(SELECT usuarios_id FROM asignaciones WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'C')", "creadorId", true );    
     caracteristicas.AgregarColumna( null , "(SELECT CONCAT(usuarios.nombres,' ',usuarios.apellidos) FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'C')", "creador" );
     caracteristicas.AgregarColumna( null , "(SELECT CONCAT(usuarios.nombres,' ',usuarios.apellidos) FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'R')", "responsable" );
+    caracteristicas.AgregarColumna( null , "(SELECT rol FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'R')", "rolResponsable" );
     caracteristicas.AgregarFiltro( "","agendas" , "nivel" , "=", "0" ); 
 
 

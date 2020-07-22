@@ -28,6 +28,7 @@ import { AgendamientosInterface } from "@interfaces/agendamientos.interface";
 import { AsignacionesInterface } from "@interfaces/asignaciones.interface";
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { element } from 'protractor';
+import { isUndefined } from 'util';
 
 
 
@@ -94,6 +95,8 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
   creador : number;
 // ------------------------- Observables y demas -------------------------
   rol : string;
+  contador :number = 0;
+  agendaLista : boolean = true;
   responsables$: Observable<UsuarioInterface[]>;
   personas$: Observable<ListaPersonasInterface[]>;
   agendados$: Observable<ListaPersonasInterface[]>;
@@ -130,6 +133,15 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
       
       this.controladorAgendas = this.servicioAmbiente.agendaModo.datos.controladorBase;
       this.controladorAgendas.Encontrar("id",this.servicioAmbiente.agendaModo.datos.id);
+      console.log(this.controladorAgendas.actual);
+      this.apertura_fecha = this.controladorAgendas.actual.apertura_fecha;
+      this.cierre_fecha = this.controladorAgendas.actual.cierre_fecha;
+      this.responsableSelecionado.id = this.controladorAgendas.actual.responsableId;
+      this.responsableSelecionado.nombres = this.controladorAgendas.actual.responsable;
+      this.rol = this.controladorAgendas.actual.rolResponsable;
+      this.ValidarSeguimiento();
+     
+
 
       
       // this.CargarAgenda(this.servicioAmbiente.agendaModo.datos);
@@ -151,7 +163,6 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
   
   BuscarResponsable(text: string , pipe: PipeTransform ): UsuarioInterface[] {
       let registrosResponsablesTemp =  this.registroUsuarios.filter(responsable => responsable.rol == this.rol );
-      console.log(registrosResponsablesTemp)
       return registrosResponsablesTemp.filter(responsable => {
         const term = text.toLowerCase();
         return pipe.transform(responsable.id).includes(term)
@@ -202,7 +213,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     }
     return this.registrosPersonasTemp.filter(agendado => {
       const term = text.toLowerCase();
-      return pipe.transform(agendado.iduniminuto).includes(term)
+      return String(agendado.iduniminuto).includes(term)
           || pipe.transform(agendado.documento).includes(term)
           || agendado.nombreCompleto.toLowerCase().includes(term)
           || pipe.transform(agendado.cohorte).includes(term)
@@ -307,11 +318,17 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
         switch (respuesta.codigo){
           case 200:
 
+          this.controladorPersonas.EstaListo("cargue",true).subscribe((valor:boolean) => {
             this.registrosPersonas = this.controladorPersonas.todos;
+            console.log(this.registrosPersonas);
+            if(this.servicioAmbiente.agendaModo.datos != null){
+              this.CargarAgenda();
+            };
+            this.AplicarFiltros(2);
+          });
             // this.controladorPersonas.todos.forEach(val => this.registrosPersonas.push(Object.assign({},val)));
             // this.registrosPersonas.forEach(persona => persona.seleccionado = false);
-            console.log(this.registrosPersonas);
-            this.AplicarFiltros(2);
+
           break;
           default:
             alert("Error: "+respuesta.mensaje);
@@ -436,13 +453,14 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     for (let i = 0; i <= this.registrosAgendados.length; i++) {
         let index = this.registrosAgendados.findIndex(element => element.seleccionado == true);
         if (!(index == -1)){
+          this.registrosPersonas.find(persona => persona.id == this.registrosAgendados[index].id ).seleccionado = false;
           this.registrosAgendados.splice(index,1);
           index = -1;
           i = 0;
         }
     }
     this.seleccionarTodos.nuevosAgendados = false;
-    this.AplicarFiltros(3);
+    this.AplicarFiltros(3);   
     this.ValidarSeguimiento();
 
   }
@@ -480,6 +498,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
   }
 
   Limpiar(){
+
     this.sedeid = -1;
     this.cohorteid = -1;
     this.programaid = -1;
@@ -558,48 +577,48 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
 
   }
 
-  CargarAgenda(id: number){
-  
-    let caracteristicas = new EstructuraConsultas("F", null , "id" , "=" , String(id) );
-
-    this.controladorAgendas.CargarDesdeDB(true, "A", caracteristicas ).subscribe(
-      (respuesta: RespuestaInterface) =>{
-        switch (respuesta.codigo){
+  CargarAgenda(){
+    
+    let caracteristicasAsignaciones = new EstructuraConsultas("F", null,"agendas_id","=",  String(this.controladorAgendas.actual.id) );
+    this.controladorAsignaciones.CargarDesdeDB(true,"A",caracteristicasAsignaciones).subscribe(
+      (respuestaAsignaciones: RespuestaInterface) =>{
+        switch (respuestaAsignaciones.codigo){
           case 200:
-            console.log("consulta Agenda Lista");
-            // this.controladorAgendas.Primero();
-            //  this.apertura_fecha = this.controladorAgendas.actual.apertura_fecha;
-            //  this.cierre_fecha = this.controladorAgendas.actual.cierre_fecha;
+            console.log(this.controladorAsignaciones.todos,"asignaciones");
 
-            let caracteristicasAsignaciones = new EstructuraConsultas();
-            caracteristicasAsignaciones.AgregarFiltro( "", "asignaciones" , "agendas_id" , "=", String(id) );
-            caracteristicasAsignaciones.AgregarFiltro( "AND", "asignaciones" , "tipo" , "=", "R" );
-            this.controladorAsignaciones.CargarDesdeDB(true,"A",caracteristicasAsignaciones).subscribe(
-              (respuestaAsignaciones: RespuestaInterface) =>{
-                switch (respuestaAsignaciones.codigo){
+            let caracteristicasSeguimientos = new EstructuraConsultas();
+            caracteristicasSeguimientos.AgregarEnlace( "agendamientos" , "seguimientos" , "agendamientos" );
+            caracteristicasSeguimientos.AgregarFiltro( "","agendamientos" , "agendas_id" , "=", String(this.controladorAgendas.actual.id)); 
+        
+            this.controladorSeguimientos.CargarDesdeDB(true, "A" , caracteristicasSeguimientos).subscribe(
+              (respuestaSeguimientos: RespuestaInterface) =>{
+                switch(respuestaSeguimientos.codigo){
                   case 200:
-                    console.log("consulta responsable lista");
-                    this.controladorAsignaciones.Primero();
-                    this.controladorUsuarios.Encontrar('id', this.controladorAsignaciones.actual.id); 
-                    this.responsableSelecionado.id = this.controladorUsuarios.actual.id;
-                    this.responsableSelecionado.nombres = this.controladorUsuarios.actual.nombres + ' '+ this.controladorUsuarios.actual.apellidos;
+                    console.log("consulta seguimientos lista lista");
+                    this.controladorSeguimientos.EstaListo("cargue",true).subscribe((valor:boolean) => {
+                      if (this.contador == 0) {
+                        this.controladorSeguimientos.todos.forEach(seguimiento => {
+                          this.registrosPersonas.find(persona => persona.id == seguimiento.personas_id).seleccionado = true;
+                           let clonPersona = Object.assign({}, this.registrosPersonas.find(persona => persona.id == seguimiento.personas_id));
+                           clonPersona.seleccionado = false;
+                           this.registrosAgendados.push(clonPersona);
+                           this.contador ++;
+                        }); 
+                      }
+                      this.AplicarFiltros(3);
+                      this.ValidarSeguimiento();
+                    });
 
                     let caracteristicasAgendamientos = new EstructuraConsultas();
-                    caracteristicas.AgregarColumna( "seguimientos", "personas_id" , null );
-                    caracteristicas.AgregarEnlace( "seguimientos" , "seguimientos" , "agendamientos" );
-                    caracteristicas.AgregarFiltro( "","agendamientos" , "agendas_id" , "=", String(id) ); 
+                    caracteristicasAgendamientos.AgregarEnlace( "seguimientos" , "seguimientos" , "agendamientos" );
+                    caracteristicasAgendamientos.AgregarFiltro( "","agendamientos" , "agendas_id" , "=", String(this.controladorAgendas.actual.id) ); 
                 
                     this.controladorAgendamientos.CargarDesdeDB(true, "A" , caracteristicasAgendamientos).subscribe(
-                
                       (respuestaAgendamientos: RespuestaInterface) =>{
                         switch(respuestaAgendamientos.codigo){
                           case 200:
                             console.log("consulta agendamientos lista");
-                            this.registrosAgendamientos = this.controladorAgendamientos.todos; 
-                            // for (let i = 0; i < this.registrosAgendamientos.length; i++) {
-                            //   // this.registrosPersonas.find(element => element.id == this.registrosAgendamientos[i].personas_id).seleccionado = true;
-                            //   this.registrosAgendados = Object.assign([], this.registrosPersonas.find(element => element.id ==  this.registrosAgendamientos[i].personas_id));
-                            // }
+  
                             break;
                           default:
                             alert("Error: "+respuestaAgendamientos.mensaje);
@@ -607,26 +626,77 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
                         }
                       }
                     );
-
-                  break;
+                    break;
                   default:
-                    alert("Error: "+respuestaAsignaciones.mensaje);
-                  break;
+                    alert("Error: "+respuestaSeguimientos.mensaje);
+                    break;
                 }
               }
             );
-
-          break;
-          default:
-            alert("Error: "+respuesta.mensaje);
-          break;
+            break;
+            default:
+              alert("Error: "+respuestaAsignaciones.mensaje);
+            break;
+          }
         }
-      } 
-    );
+      );  
   }
 
   ModificarAgenda(){
-    console.log("modificar agenda")
+    this.agendaLista = false;
+    // Modificacion de la Agenda
+    let agendaCambiada:AgendasInterface= {id: this.controladorAgendas.actual.id, agendas_id: null, apertura_fecha : String(this.apertura_fecha), cierre_fecha : String(this.cierre_fecha), nivel : 0 , registro_fecha: this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd')};
+    this.controladorAgendas.Modificar(agendaCambiada);
+    // Modificacion de asignacion de responsable  
+    this.controladorAsignaciones.Encontrar("tipo", "R");
+    let responsableCambiado: AsignacionesInterface = {id: this.controladorAsignaciones.actual.id, agendas_id: this.controladorAgendas.actual.id, usuarios_id : this.responsableSelecionado.id , tipo : "R" , registro_fecha : this.utilidadFechas.transform(new Date(), 'yyyy-MM-dd')};
+    this.controladorAsignaciones.Modificar(responsableCambiado);
+    // Insercion nuevos seguimientos en el controlador 
+    this.registrosAgendados.forEach(element => {
+      if (!this.controladorSeguimientos.Encontrar("personas_id", element.id )) {
+        console.log(element.id,"no encontrado");
+        let nuevoSeguimiento : SeguimientosInterface = { id: null, actualizacion_fecha: null, observacion: null, tiposobservaciones_id : null , personas_id: element.id};
+        this.controladorSeguimientos.Agregar(nuevoSeguimiento);
+      }
+    });
+    // Eliminacion de seguimientos en el controlador 
+    this.controladorSeguimientos.Primero();
+    while (!this.controladorSeguimientos.esFin) {
+      let encontrado = this.registrosAgendados.find(agendado => agendado.id == this.controladorSeguimientos.actual.personas_id);   
+      if(isUndefined(encontrado)){
+        console.log(this.controladorSeguimientos.actual,"a eliminar");
+        this.controladorAgendamientos.Encontrar("seguimientos_id", this.controladorSeguimientos.actual.id);
+        this.controladorAgendamientos.Eliminar();
+        this.controladorSeguimientos.Eliminar(false);
+      }
+      this.controladorSeguimientos.Siguiente();
+    }
+
+    // Modificacion Agenda BD
+    this.controladorAgendas.Guardar().subscribe(
+      (respuestaAgendas : RespuestaInterface) => {
+        if (respuestaAgendas.codigo == 200) {
+          // Modificacion Asignacion responsable BD
+          this.controladorAsignaciones.Guardar().subscribe(
+            (respuestaAsignaciones : RespuestaInterface) => {
+              if (respuestaAsignaciones.codigo == 200) {
+      
+                console.log(respuestaAsignaciones.mensaje);
+                this.agendaLista = true;
+      
+      
+              } else {
+                alert("Error al guardar Agendamientos" +respuestaAsignaciones.mensaje);
+              }
+            }
+          );
+
+        } else {
+          alert("Error al guardar Agendamientos" +respuestaAgendas.mensaje);
+        }
+      }
+    );
+
   }
 
 
@@ -645,8 +715,10 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     } 
 
     if( this.rol == null || this.rol == ''){
-      this.notificacionActiva = true;
-      this.notificacionMensaje = "Debe seleccionar un rol";
+      if (this.responsableSelecionado.id == null) {
+        this.notificacionActiva = true;
+        this.notificacionMensaje = "Debe seleccionar un rol";
+      }
     }
 
     if( this.cierre_fecha == null ){
@@ -662,6 +734,26 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
 
   
 
+  }
+
+  EstoyListoCrear(){
+    let validador:boolean = false;
+
+    if (this.servicioAmbiente.agendaModo.datos == null ) {
+      validador = (
+        this.controladorPersonas.EstaListo("cargue") &&
+        this.agendaLista
+      );
+    } else {
+      validador = (
+        this.controladorPersonas.EstaListo("cargue") &&
+        this.controladorSeguimientos.EstaListo("cargue") &&
+        this.agendaLista
+      );
+    }
+
+
+    return validador;
   }
 
 }
