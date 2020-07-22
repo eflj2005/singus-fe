@@ -7,17 +7,17 @@
     <div class="col-md-6">
       <ng-container *ngIf="usuario_rol != 'A'">
         <button 
-          *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.creador_id == usuario_id ) && ( datosBaseAgenda.distribuciones == 0 ) && controladorAsignaciones.EstaListo('cargue') ) : false "     
+          *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.usuario_rol != 'A' ) &&( datosBaseAgenda.creador_id == usuario_id ) && ( datosBaseAgenda.distribuciones == 0 ) && controladorAsignaciones.EstaListo('cargue') ) : false "     
           type="button" class="btn btn-outline-primary py-0 px-1 float-right" 
           (click)="EliminarAgenda()"
         ><i class="fa fa-trash-o"></i> Descartar</button>
         <button 
-          *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.creador_id == usuario_id ) && ( datosBaseAgenda.distribuciones == 0 )  && controladorAsignaciones.EstaListo('cargue') ) : false " 
+          *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.usuario_rol != 'A' ) && ( datosBaseAgenda.creador_id == usuario_id ) && ( datosBaseAgenda.distribuciones == 0 )  && controladorAsignaciones.EstaListo('cargue') ) : false " 
           type="button" class="btn btn-outline-primary py-0 px-1 mx-1 float-right"
           (click)="ProcesarAgenda('modificar')"
         ><i class="fa fa-pencil-square-o"></i> Modificar</button>
         <button 
-          *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.nivel < 2 ) && (datosBaseAgenda.creador_id != usuario_id) && controladorAsignaciones.EstaListo('cargue') ): false "     
+          *ngIf=" agendaEncontrada ? ( ( datosBaseAgenda.usuario_rol != 'A' ) &&( datosBaseAgenda.nivel < 2 ) && (datosBaseAgenda.creador_id != usuario_id) && controladorAsignaciones.EstaListo('cargue') ): false "     
           type="button" class="btn btn-outline-primary py-0 px-1 float-right" 
           (click)="ProcesarAgenda('subagendar')"
           ><i class="fa fa-sitemap"></i> Subagendar</button>

@@ -8,6 +8,7 @@ import { filtroInterface } from '@interfaces/filtro.interface';
 import { RespuestaInterface } from '../interfaces/respuesta.interface';
 import { isNull, isUndefined } from 'util';
 import { EstructuraConsultas } from '@generales/estructura-consultas';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 interface RelacionesInterface {
   controlador: number;
@@ -293,13 +294,19 @@ export class GenericoModel {
       map(
         (respuesta: RespuestaInterface) => {
           if(respuesta.codigo == 200){
+
+            let temporalClone:EstructuraConsultas = null;
+            if(!isNull(caracteristicas))  temporalClone = caracteristicas.ClonarEstructura();
+
+            this.datosCargue.caracteristicas = temporalClone;
+            this.datosCargue.conToken = conToken;
+            this.datosCargue.modoCargue = modoCargue;            
+
             this.LimpiarTodo();
             if(!isNull(respuesta.mensaje)){
-              this.ProcesarRegistros(respuesta.mensaje, this, !isNull(caracteristicas) ? caracteristicas.listaColumnas : caracteristicas );
 
-              this.datosCargue.caracteristicas = caracteristicas;
-              this.datosCargue.conToken = conToken;
-              this.datosCargue.modoCargue = modoCargue;            
+              this.ProcesarRegistros(respuesta.mensaje, this, !isNull(caracteristicas) ? caracteristicas.listaColumnas : caracteristicas );
+                         
             }
             else{
               this.listoCargue.next( true );

@@ -81,9 +81,10 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
     caracteristicasConsultas.AgregarEnlace( "asignaciones" ,  "agendas" ,  "asignaciones" );
     if(this.usuario_rol != 'A')   caracteristicasConsultas.AgregarFiltro( "", "asignaciones" , "usuarios_id" , "=", String(this.usuario_id) );
     caracteristicasConsultas.AgregarOrdenamiento( "agendas.id" , "ASC" );
+
     this.controladorAgendas.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAP:RespuestaInterface) => {           // Carge de Agendas
 
-      console.log(this.controladorAgendas.todos);
+      console.log(this.controladorAgendas.todos,"cargue");
       
       caracteristicasConsultas = new EstructuraConsultas();
       caracteristicasConsultas.AgregarColumna( null , "(SELECT usuarios_id FROM asignaciones WHERE agendas_id = agendas.id AND tipo = 'C' )", "creador_id", true); 
@@ -175,7 +176,8 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
     validador = (
       this.controladorAgendas.EstaListo("cargue")                             &&
       this.controladorAgendas.ObtenerForanea("agendas").EstaListo("cargue")   &&
-      this.controladorSeguimientos.EstaListo("cargue")
+      this.controladorSeguimientos.EstaListo("cargue")                        &&
+      this.controladorSeguimientos.ObtenerForanea("tiposobservaciones").EstaListo("cargue") 
     );
 
     return validador;
@@ -184,8 +186,8 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
   RecargarControladores(){
     this.controladorAgendas.Recargar().subscribe( (respuestaAP:RespuestaInterface) => { 
       this.controladorAgendasForaneas.Recargar().subscribe( (respuestaAF:RespuestaInterface) => { });
-      this.controladorSeguimientos.Recargar().subscribe( (respuestaAG:RespuestaInterface) => { }); 
     });
+    this.controladorSeguimientos.Recargar().subscribe( (respuestaAG:RespuestaInterface) => { }); 
   }
 
 }

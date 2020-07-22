@@ -158,6 +158,30 @@ export class EstructuraConsultas {
     return this.columnas;
   }
 
+  public ClonarEstructura( ):EstructuraConsultas{
+    let estructuraClon = new EstructuraConsultas();
+
+    estructuraClon.ReemplazarAtributos  (
+      JSON.parse(JSON.stringify(this.columnas)),
+      JSON.parse(JSON.stringify(this.enlaces)),
+      JSON.parse(JSON.stringify(this.filtros)),
+      JSON.parse(JSON.stringify(this.ordenamientos)),
+      JSON.parse(JSON.stringify(this.especiales))
+    );
+
+    return estructuraClon;
+  }
+  
+
+  public ReemplazarAtributos ( arregloColumnas: any, arregloEnlaces: any, arregloFiltros: any, arreglordenamientos: any, objetoEspeciales: any ){
+    this.columnas = arregloColumnas;
+    this.enlaces = arregloEnlaces;
+    this.filtros = arregloFiltros;
+    this.ordenamientos = arreglordenamientos;
+    this.especiales = objetoEspeciales;
+  }
+
+
 
   public AgregarColumna( nombreTabla:string, nombreColumna:string, aliasColumna:string, esNumerico:boolean = false ){
     if( isNull( this.columnas ) ) this.columnas = [];
