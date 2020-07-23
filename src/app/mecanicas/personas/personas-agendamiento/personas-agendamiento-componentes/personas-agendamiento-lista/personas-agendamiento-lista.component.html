@@ -37,10 +37,10 @@
           <td><ngb-highlight [result]="agenda.cierre_fecha" [term]="filter.value"></ngb-highlight></td>
           <td><button  type="button" class="btn btn-outline-secondary " (click)="AbrirModal(1, agenda.id, modalAgenda)"  placement="right" ngbTooltip="Seguir"><i class="fa fa-eye"></i></button></td>
           <td>
-            <button class="btn btn-outline-secondary " (click)="EditarAgenda(2,agenda.id)" placement="left" ngbTooltip="Editar"><i class="fa fa-pencil"></i></button>
+            <button class="btn btn-outline-secondary " *ngIf=" !(agenda.subagendas != 0 || this.autenticador.UsuarioActualValor.id != agenda.creadorId ) " (click)="EditarAgenda(2,agenda.id)" placement="left" ngbTooltip="Editar"><i class="fa fa-pencil"></i></button>
           </td>
           <td>
-            <button class="btn btn-outline-secondary " (click)="AbrirModal(2, agenda.id, modalAplazar)" placement="left" ngbTooltip="Aplazar"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+            <button  *ngIf=" !(agenda.subagendas != 0 || this.autenticador.UsuarioActualValor.id != agenda.creadorId ) "  class="btn btn-outline-secondary " (click)="AbrirModal(2, agenda.id, modalAplazar)" placement="left" ngbTooltip="Aplazar"><i class="fa fa-calendar" aria-hidden="true"></i></button>
           </td>
         </tr>
         </tbody>
@@ -59,12 +59,12 @@
       <div class="col">
         <div class="form-group ">
           <label class="col-form-label col-form-label-sm">Coordinador:</label>
-          <input type="text" class="form-control form-control-sm"  name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.nombreCoordinador">
+          <input type="text" class="form-control form-control-sm"  name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.creador">
         </div>
       </div>
       <div class="col">
         <label  class="col-form-label col-form-label-sm">Responsable:</label>
-        <input type="text" class="form-control form-control-sm"  name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.nombreResponsable">
+        <input type="text" class="form-control form-control-sm"  name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.responsable">
       </div>
     </div>
 
@@ -130,12 +130,12 @@
       <div class="col">
         <div class="form-group ">
           <label class="col-form-label col-form-label-sm">Coordinador:</label>
-          <input type="text" class="form-control form-control-sm"  name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.nombreCoordinador">
+          <input type="text" class="form-control form-control-sm"  name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.creador">
         </div>
       </div>
       <div class="col">
         <label  class="col-form-label col-form-label-sm">Responsable:</label>
-        <input type="text" class="form-control form-control-sm" name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.nombreResponsable">
+        <input type="text" class="form-control form-control-sm" name="ofertas_id"  [readonly]="true" [(ngModel)]="this.agendaEncontrada.responsable">
       </div>
     </div>
 

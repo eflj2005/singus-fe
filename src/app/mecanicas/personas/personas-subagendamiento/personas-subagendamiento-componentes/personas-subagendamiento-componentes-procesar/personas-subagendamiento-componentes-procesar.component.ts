@@ -170,6 +170,8 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
         this.datos.padre = this.controladorAgendas.actual;
         this.datos.agendamientos = [];
 
+        console.log(this.controladorSeguimientos.todos, "seguimientos");
+
         this.FiltrarDatos( this.controladorSeguimientos.todos , 'agenda_id' , this.datos.padre.id ).forEach( (SeguimientoDisponible: any ) => {
           let temporal: any = Object.assign({},SeguimientoDisponible);
           temporal.seleccionado = false;
@@ -189,16 +191,15 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
             }
           }
 
-          this.FiltrarDatos( this.controladorSeguimientos.todos , 'agenda_id' , this.datos.actual.id ).forEach( (SeguimientoAsiganado: any ) => {
-            if( SeguimientoAsiganado.tipo_asignacion == "C" ){
-              let temporal: any = Object.assign({},SeguimientoAsiganado);
-              temporal.seleccionado = false;
-              this.listaSeguimientosAsignados.push(temporal);
-            }
-          });        
-
-
         });
+
+        this.FiltrarDatos( this.controladorSeguimientos.todos , 'agenda_id' , this.datos.actual.id ).forEach( (SeguimientoAsiganado: any ) => {
+          if( SeguimientoAsiganado.tipo_asignacion == "C" ){
+            let temporal: any = Object.assign({},SeguimientoAsiganado);
+            temporal.seleccionado = false;
+            this.listaSeguimientosAsignados.push(temporal);
+          }
+        });  
 
 
       break;

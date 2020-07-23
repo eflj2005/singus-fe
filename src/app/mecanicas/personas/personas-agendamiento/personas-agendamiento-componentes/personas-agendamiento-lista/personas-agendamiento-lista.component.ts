@@ -13,6 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { element } from 'protractor';
 import { AgendamientosInterface} from '@interfaces/agendamientos.interface';
 import { AgendamientosController } from '@controladores/agendamientos.controller';
+import { AutenticacionService } from '@servicios/autenticacion.service';
 
 interface ListaAgendas extends AgendasInterface{
   nombreCompletoUsuario? : string,
@@ -20,7 +21,9 @@ interface ListaAgendas extends AgendasInterface{
   nombreResponsable?: string,
   nombreCoordinador?: string,
   creador:string,
-  responsable:string
+  responsable:string,
+  subagendas:number,
+  creadorId: number
 }
 
 interface EstadisticaAgenda extends AgendamientosInterface{
@@ -50,7 +53,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
 
 
 
-  constructor(private modal: NgbModal,private pipe: DecimalPipe, private llamadoHttp :HttpClient, private servicioAmbiente: AmbienteService) { 
+  constructor(public autenticador: AutenticacionService, private modal: NgbModal,private pipe: DecimalPipe, private llamadoHttp :HttpClient, private servicioAmbiente: AmbienteService) { 
     this.controladorAgendamientos = new AgendamientosController(this.llamadoHttp,this.servicioAmbiente);
 
     let caracteristicas = new EstructuraConsultas();
@@ -62,6 +65,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
     caracteristicas.AgregarColumna( null , "(SELECT CONCAT(usuarios.nombres,' ',usuarios.apellidos) FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'C')", "creador" );
     caracteristicas.AgregarColumna( null , "(SELECT CONCAT(usuarios.nombres,' ',usuarios.apellidos) FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'R')", "responsable" );
     caracteristicas.AgregarColumna( null , "(SELECT rol FROM usuarios INNER JOIN asignaciones ON usuarios.id = asignaciones.usuarios_id WHERE asignaciones.agendas_id = agendas.id AND asignaciones.tipo = 'R')", "rolResponsable" );
+    caracteristicas.AgregarColumna( null , "(SELECT COUNT(*) FROM agendas AS principal WHERE  principal.agendas_id IS NOT NULL AND principal.id = agendas.id)", "subagendas", true );
     caracteristicas.AgregarFiltro( "","agendas" , "nivel" , "=", "0" ); 
 
 

@@ -83,9 +83,7 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
     caracteristicasConsultas.AgregarOrdenamiento( "agendas.id" , "ASC" );
 
     this.controladorAgendas.CargarDesdeDB( true, "A", caracteristicasConsultas ).subscribe( (respuestaAP:RespuestaInterface) => {           // Carge de Agendas
-
-      console.log(this.controladorAgendas.todos,"cargue");
-      
+     
       caracteristicasConsultas = new EstructuraConsultas();
       caracteristicasConsultas.AgregarColumna( null , "(SELECT usuarios_id FROM asignaciones WHERE agendas_id = agendas.id AND tipo = 'C' )", "creador_id", true); 
       caracteristicasConsultas.AgregarColumna( null , "(SELECT usuarios_id FROM asignaciones WHERE agendas_id = agendas.id AND tipo = 'R' )", "responsable_id", true );       

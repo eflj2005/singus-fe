@@ -133,7 +133,6 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
       
       this.controladorAgendas = this.servicioAmbiente.agendaModo.datos.controladorBase;
       this.controladorAgendas.Encontrar("id",this.servicioAmbiente.agendaModo.datos.id);
-      console.log(this.controladorAgendas.actual);
       this.apertura_fecha = this.controladorAgendas.actual.apertura_fecha;
       this.cierre_fecha = this.controladorAgendas.actual.cierre_fecha;
       this.responsableSelecionado.id = this.controladorAgendas.actual.responsableId;
@@ -320,7 +319,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
 
           this.controladorPersonas.EstaListo("cargue",true).subscribe((valor:boolean) => {
             this.registrosPersonas = this.controladorPersonas.todos;
-            console.log(this.registrosPersonas);
+          
             if(this.servicioAmbiente.agendaModo.datos != null){
               this.CargarAgenda();
             };
@@ -494,7 +493,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     this.AplicarFiltros(2);
     this.AplicarFiltros(3);
     this.ValidarSeguimiento();
-    console.log(this.registrosAgendados);
+
   }
 
   Limpiar(){
@@ -524,7 +523,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
    this.controladorAgendas.Guardar().subscribe( 
     (respuestaAgendas:RespuestaInterface) => { 
       if( respuestaAgendas.codigo == 200 ){
-                console.log(respuestaAgendas.mensaje.dbRefs[0].id);
+    
         for (let i = 0; i < this.registrosAgendados.length ; i++) {
            let nuevoSeguimiento : SeguimientosInterface = { id: null, actualizacion_fecha: null, observacion: null, tiposobservaciones_id : null , personas_id: this.registrosAgendados[i].id};
            this.controladorSeguimientos.Agregar(nuevoSeguimiento);
@@ -532,7 +531,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
         this.controladorSeguimientos.Guardar().subscribe(
           (respuestaSeguimientos : RespuestaInterface) => {
             if ( respuestaSeguimientos.codigo == 200) {
-              console.log(respuestaSeguimientos.mensaje.dbRefs);
+      
               for (let i = 0; i < respuestaSeguimientos.mensaje.dbRefs.length; i++) {
                 let nuevoAgendamiento : AgendamientosInterface = {'id': null, 'agendas_id': respuestaAgendas.mensaje.dbRefs[0].id ,'seguimientos_id' : respuestaSeguimientos.mensaje.dbRefs[i].id }
                 this.controladorAgendamientos.Agregar(nuevoAgendamiento);
@@ -540,7 +539,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
               this.controladorAgendamientos.Guardar().subscribe(
                 (respuestaAgendamientos : RespuestaInterface) => {
                   if (respuestaAgendamientos.codigo == 200) {
-                    console.log(respuestaAgendamientos.mensaje.dbRefs);
+              
                     let asignacionResponsable : AsignacionesInterface = {'id': null, 'agendas_id': respuestaAgendas.mensaje.dbRefs[0].id, 'registro_fecha': this.resgistro_fecha, 'usuarios_id': this.responsableSelecionado.id ,'tipo': "R" };
                     this.controladorAsignaciones.Agregar(asignacionResponsable);
                     let asignacionCoordinador : AsignacionesInterface = {'id': null, 'agendas_id': respuestaAgendas.mensaje.dbRefs[0].id, 'registro_fecha': this.resgistro_fecha, 'usuarios_id' : this.creador , 'tipo': "C" };
@@ -549,7 +548,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
                     this.controladorAsignaciones.Guardar().subscribe(
                       (respuestaAsignaciones : RespuestaInterface) => {
                         if (respuestaAsignaciones.codigo == 200) {
-                          console.log("listo");
+                    
                           alert("Agenda guardada");
                           this.Limpiar();
                         } else {
@@ -584,7 +583,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
       (respuestaAsignaciones: RespuestaInterface) =>{
         switch (respuestaAsignaciones.codigo){
           case 200:
-            console.log(this.controladorAsignaciones.todos,"asignaciones");
+      
 
             let caracteristicasSeguimientos = new EstructuraConsultas();
             caracteristicasSeguimientos.AgregarEnlace( "agendamientos" , "seguimientos" , "agendamientos" );
@@ -594,7 +593,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
               (respuestaSeguimientos: RespuestaInterface) =>{
                 switch(respuestaSeguimientos.codigo){
                   case 200:
-                    console.log("consulta seguimientos lista lista");
+              
                     this.controladorSeguimientos.EstaListo("cargue",true).subscribe((valor:boolean) => {
                       if (this.contador == 0) {
                         this.controladorSeguimientos.todos.forEach(seguimiento => {
@@ -617,7 +616,7 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
                       (respuestaAgendamientos: RespuestaInterface) =>{
                         switch(respuestaAgendamientos.codigo){
                           case 200:
-                            console.log("consulta agendamientos lista");
+                         
   
                             break;
                           default:
@@ -654,23 +653,11 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     // Insercion nuevos seguimientos en el controlador 
     this.registrosAgendados.forEach(element => {
       if (!this.controladorSeguimientos.Encontrar("personas_id", element.id )) {
-        console.log(element.id,"no encontrado");
+   
         let nuevoSeguimiento : SeguimientosInterface = { id: null, actualizacion_fecha: null, observacion: null, tiposobservaciones_id : null , personas_id: element.id};
         this.controladorSeguimientos.Agregar(nuevoSeguimiento);
       }
     });
-    // Eliminacion de seguimientos en el controlador 
-    this.controladorSeguimientos.Primero();
-    while (!this.controladorSeguimientos.esFin) {
-      let encontrado = this.registrosAgendados.find(agendado => agendado.id == this.controladorSeguimientos.actual.personas_id);   
-      if(isUndefined(encontrado)){
-        console.log(this.controladorSeguimientos.actual,"a eliminar");
-        this.controladorAgendamientos.Encontrar("seguimientos_id", this.controladorSeguimientos.actual.id);
-        this.controladorAgendamientos.Eliminar();
-        this.controladorSeguimientos.Eliminar(false);
-      }
-      this.controladorSeguimientos.Siguiente();
-    }
 
     // Modificacion Agenda BD
     this.controladorAgendas.Guardar().subscribe(
@@ -680,10 +667,75 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
           this.controladorAsignaciones.Guardar().subscribe(
             (respuestaAsignaciones : RespuestaInterface) => {
               if (respuestaAsignaciones.codigo == 200) {
+                // Creación seguimientos
+                this.controladorSeguimientos.Guardar().subscribe(
+                  (respuestaSeguimientos : RespuestaInterface) => {
+                    if (respuestaSeguimientos.codigo == 200) {
+                      // Creación de agendamientos 
+                      respuestaSeguimientos.mensaje.dbRefs.forEach(element => {
+                        let nuevoAgendamiento : AgendamientosInterface = {'id': null, 'agendas_id': this.controladorAgendas.actual.id ,'seguimientos_id' : element.id }
+                        this.controladorAgendamientos.Agregar(nuevoAgendamiento);
+                      });
+                      this.controladorAgendamientos.Guardar().subscribe(
+                        (respuestaAgendamientos : RespuestaInterface) => {
+                          if (respuestaAgendamientos.codigo == 200) {
+           
+                            // Eliminacion de seguimientos y agendamientos en el controlador 
+                            this.controladorSeguimientos.Primero();
+                            while (!this.controladorSeguimientos.esFin) {
+                              let encontrado = this.registrosAgendados.find(agendado => agendado.id == this.controladorSeguimientos.actual.personas_id);   
+                              if(isUndefined(encontrado)){
+                          
+                                this.controladorAgendamientos.Encontrar("seguimientos_id", this.controladorSeguimientos.actual.id);
+                                this.controladorAgendamientos.Eliminar();
+                                this.controladorSeguimientos.Eliminar(false);
+                              }
+                              this.controladorSeguimientos.Siguiente();
+                            }  
+                            
+                            // Eliminacion de Agendamientos
+                            this.controladorAgendamientos.Guardar().subscribe(
+                              (respuestaAgendamientosE : RespuestaInterface) => {
+                                if (respuestaAgendamientosE.codigo == 200) {
+                 
+
+                                  // Eliminacion de seguimientos
+                                  this.controladorSeguimientos.Guardar().subscribe(
+                                    (respuestaSeguimientosE : RespuestaInterface) => {
+                                      if (respuestaSeguimientosE.codigo == 200) {
+                       
+                                                          
+                                      
+                                        alert("Cambios de la agenda" + " " + this.controladorAgendas.actual.id + " " + "realizados");
+                                        this.servicioAmbiente.agendaModo.modo = 1;
       
-                console.log(respuestaAsignaciones.mensaje);
-                this.agendaLista = true;
-      
+                                        
+                                      } else {
+                                        alert("Error al Eliminar seguimientos");
+                                      }
+                                    }
+                                  );
+
+
+
+                                } else {
+                                  alert("Error al Eliminar Agendamientos");
+                                }
+                              }
+                            );
+                            
+                          
+                          } else {
+                            alert("Error al guardar Agendamientos");
+                          }
+                        }
+                      );
+
+                    } else {
+                      alert("Error al guardar Agendamientos" +respuestaSeguimientos.mensaje);
+                    }
+                  }
+                );
       
               } else {
                 alert("Error al guardar Agendamientos" +respuestaAsignaciones.mensaje);
