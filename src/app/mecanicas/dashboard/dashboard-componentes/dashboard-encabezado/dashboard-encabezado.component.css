@@ -29,9 +29,10 @@ a{
 }
 
   
-  img.avatar {
-    width: 30px;
-    height: auto;
-    border-radius: 50%;
-    margin: 1.2rem;
-  }
+img.avatar {
+  width: 30px;
+  height: auto;
+  border-radius: 50%;
+  margin: 1.2rem;
+  margin-left: 3rem;
+}

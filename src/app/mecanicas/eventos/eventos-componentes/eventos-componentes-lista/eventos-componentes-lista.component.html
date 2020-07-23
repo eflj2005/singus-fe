@@ -1,11 +1,11 @@
 <div class="container">
     <div class="row">
-        <div>
+        <div class="col-md-12">
             <h1 align='center'>Lista de eventos</h1>
             <form>
                 <div class="form-group form-inline form">
-                    <i class="fa fa-search search"></i><p>Buscar: </p><input class="form-control ml-2" type="text" [formControl]="filter"/>
-                    <button class="btn btn-primary nuevaAgenda" (click)="crear(1)" type="button" ><i class="fa fa-plus-circle"></i> Nuevo evento</button>
+                    <div class="row col-md-10 "><i class="fa fa-search search"></i><p>Buscar: </p><input class="form-control" type="text" [formControl]="filter"/></div>
+                    <button class="btn btn-primary" (click)="crear(1)" type="button" ><i class="fa fa-plus-circle"></i> Nuevo evento</button>
                 </div>
             </form>
 

@@ -61,12 +61,12 @@ button{
 
   .checkmark {
     position: absolute;
-    top: 4px;
+    top: -4px;
     left: 0;
-    height: 25px;
-    width: 25px;
+    height: 15px;
+    width: 15px;
     background-color:  #ccc;
-    border-radius: 20%;
+    border-radius: 15%;
   }
   
  
@@ -78,17 +78,17 @@ button{
   
   .contenedor input:checked ~ .checkmark {
     background-color: #2196F3;
-    border-radius: 20%;
+    border-radius: 15%;
   }
   
 
   .checkmark:after {
     content: "";
     position: absolute;
+
     display: none;
     border-radius: 20%;
   }
-  
 
   .contenedor input:checked ~ .checkmark:after {
     display: block;
@@ -97,8 +97,8 @@ button{
   
 
   .contenedor .checkmark:after {
-    left: 9px;
-    top: 5px;
+    left: 5px;
+    top: 2px;
     width: 5px;
     height: 10px;
     border: solid white;

@@ -7,10 +7,10 @@
     align-items: inherit;
 }
 
-.contenedor input {
+/* .contenedor input {
     display: initial;
     width: 60%;
-}
+} */
 
 .contenedor label {
     text-align: left;
