@@ -25,7 +25,7 @@ import { ActivatedRoute } from '@angular/router';
 
 export class CarguePrincipalComponent implements OnInit  {
 
-
+  tipoCargue: number;
 
   private subscripcionRuta: any;
 
@@ -39,6 +39,15 @@ export class CarguePrincipalComponent implements OnInit  {
   }
 
   ngOnInit() {
+
+    this.subscripcionRuta = this.rutaActiva.params.subscribe( parametros => {
+      this.tipoCargue = parametros['tipo']; 
+
+      console.log ( this.tipoCargue , "TipoRecibido" ); 
+
+      ///ACA BA TODA LA EJECOCIÖN INICIAL DEL COMPONENTE
+    });    
+
   }
 
   ngOnDestroy() {
