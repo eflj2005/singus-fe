@@ -6,7 +6,7 @@
       </a>
       <ul>
         <li *ngFor="let opcionActual of grupo.opciones" class="opciones">
-          <a [routerLink]="[opcionActual.url]" skipLocationChange=true  (click)="Reiniciar()">
+          <a [routerLink]=" opcionActual.parametros==null ? [opcionActual.url] : [opcionActual.url, opcionActual.parametros] " skipLocationChange=true  (click)="Reiniciar()">
             <div class="d-flex flex-row">
                 <div class="icon ">&nbsp;</div>
                 <div class="subicon fa {{opcionActual.icon}} fa-lg">&nbsp;</div>

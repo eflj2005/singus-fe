@@ -26,7 +26,7 @@ const rutas: Routes =[
       { path:'personas', component:PersonasActualizacionPrincipalComponent},
       { path:'agendamiento', component: PersonasAgendamientoPrincipalComponent },
       { path:'subagendamiento', component: PersonasSubagendamientoPrincipalComponent },
-      { path:'cargue', component: CarguePrincipalComponent},
+      { path:'cargue/:tipo', component: CarguePrincipalComponent},
       { path: 'eventos',  component: EventosPrincipalComponent },
       { path:'maestras', component: MaestrasPrincipalComponent },
       { path: 'predefinidos', component: ReportesPredefinidosPrincipalComponent },
