@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CarguePrincipalComponent } from './cargue-principal.component';
+import { CarguesPrincipalComponent } from './cargues-principal.component';
 
-describe('CarguePrincipalComponent', () => {
-  let component: CarguePrincipalComponent;
-  let fixture: ComponentFixture<CarguePrincipalComponent>;
+describe('CarguesPrincipalComponent', () => {
+  let component: CarguesPrincipalComponent|;
+  let fixture: ComponentFixture<CarguesPrincipalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CarguePrincipalComponent ]
+      declarations: [ CarguesPrincipalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CarguePrincipalComponent);
+    fixture = TestBed.createComponent(CarguesPrincipalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

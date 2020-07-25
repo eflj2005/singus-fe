@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardPrincipalComponent } from './dashboard-principal/dashboard-principal.component';
 import {DashboardComponentesModule} from '@mecanicas/dashboard/dashboard-componentes/dashboard-componentes.module'
 import { RouterModule, Routes } from '@angular/router';
-import {  CarguePrincipalComponent } from "@mecanicas/carge/cargue-principal/cargue-principal.component";
+import { CarguesPrincipalComponent } from "@mecanicas/carges/cargues-principal/cargues-principal.component";
 import { PersonasActualizacionPrincipalComponent } from '@mecanicas/personas/personas-actualizacion/personas-actualizacion-principal/personas-actualizacion-principal.component';
 import { PersonasAgendamientoPrincipalComponent } from '../personas/personas-agendamiento/personas-agendamiento-principal/personas-agendamiento-principal.component';
 import { MaestrasPrincipalComponent } from "@mecanicas/maestras/maestras-principal/maestras-principal.component";
@@ -26,7 +26,7 @@ const rutas: Routes =[
       { path:'personas', component:PersonasActualizacionPrincipalComponent},
       { path:'agendamiento', component: PersonasAgendamientoPrincipalComponent },
       { path:'subagendamiento', component: PersonasSubagendamientoPrincipalComponent },
-      { path:'cargue/:tipo', component: CarguePrincipalComponent},
+      { path:'cargues/:tipo', component: CarguesPrincipalComponent},
       { path: 'eventos',  component: EventosPrincipalComponent },
       { path:'maestras', component: MaestrasPrincipalComponent },
       { path: 'predefinidos', component: ReportesPredefinidosPrincipalComponent },

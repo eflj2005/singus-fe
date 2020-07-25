@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { UsuariosModule } from "@mecanicas/usuarios/_usuarios.module";
 import { CommonModule } from '@angular/common';
-import { CargeModule } from "@mecanicas/carge/carge.module";
+import { CargesModule } from "@mecanicas/carges/_carges.module";
 import { EventosModule } from "@mecanicas/eventos/eventos.module";
 import { DashboardModule} from '@mecanicas/dashboard/dashboard.module';
 import { InicioModule } from "@mecanicas/inicio/inicio.module";
@@ -22,7 +22,7 @@ import { AuditoriaModule } from '@mecanicas/auditoria/auditoria.module';
     InicioModule,
     DashboardModule,
     PersonasModule,
-    CargeModule,
+    CargesModule,
     EventosModule,
     MaestrasModule,
     UsuariosModule,

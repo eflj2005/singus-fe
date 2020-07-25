@@ -8,13 +8,13 @@ import { ActivatedRoute } from '@angular/router';
 import {NgbProgressbarConfig} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-cargue-principal',
-  templateUrl: './cargue-principal.component.html',
-  styleUrls: ['./cargue-principal.component.css']
+  selector: 'app-cargues-principal',
+  templateUrl: './cargues-principal.component.html',
+  styleUrls: ['./cargues-principal.component.css']
 })
 
 
-export class CarguePrincipalComponent implements OnInit  {
+export class CarguesPrincipalComponent implements OnInit  {
 
   tipoCargue: number;
   private subscripcionRuta: Subscription;

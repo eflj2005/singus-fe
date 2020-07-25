@@ -38,11 +38,11 @@ export class DashboardMenuComponent {
       case "D":
 
         this.menu  = [ 
-          { opcion: 'Argos'               , url: '/cargue'                , parametros: '1'   ,  icon: "fa-download"                , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
-          { opcion: 'SAP'                 , url: '/cargue'                , parametros: '2'   ,  icon: "fa-cloud-download"          , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
-          { opcion: 'Micrositio'          , url: '/cargue'                , parametros: '3'   ,  icon: "fa-file"                    , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
-          { opcion: 'Empleabilidad'       , url: '/cargue'                , parametros: '4'   ,  icon: "fa-stack-overflow"          , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
-          { opcion: 'Emprendimiento'      , url: '/cargue'                , parametros: '5'   ,  icon: "fa-files-o"                 , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
+          { opcion: 'Argos'               , url: '/cargues'               , parametros: '1'   ,  icon: "fa-download"                , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
+          { opcion: 'SAP'                 , url: '/cargues'               , parametros: '2'   ,  icon: "fa-cloud-download"          , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
+          { opcion: 'Micrositio'          , url: '/cargues'               , parametros: '3'   ,  icon: "fa-file"                    , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
+          { opcion: 'Empleabilidad'       , url: '/cargues'               , parametros: '4'   ,  icon: "fa-stack-overflow"          , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
+          { opcion: 'Emprendimiento'      , url: '/cargues'               , parametros: '5'   ,  icon: "fa-files-o"                 , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
           { opcion: 'Personas'            , url: '/personas'              , parametros: null  ,  icon: "fa-pencil-square-o"         , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"     , orden: 2  },
           { opcion: 'Agendamientos'       , url: '/agendamiento'          , parametros: null  ,  icon: "fa-window-restore"          , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"     , orden: 2  },
           { opcion: 'Subagendamientos'    , url: '/subagendamiento'       , parametros: null  ,  icon: "fa-sitemap"                 , agrupamiento: "Actualización"     ,iconPrincipal:"fa-graduation-cap"     , orden: 2  },          
