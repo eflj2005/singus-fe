@@ -1,20 +1,11 @@
 import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
-import {NgbProgressbarConfig} from '@ng-bootstrap/ng-bootstrap';
-import { ViewChild } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { AmbienteService } from '@servicios/ambiente.service';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { RespuestaInterface } from '@interfaces/respuesta.interface';
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
-import { TiposdocumentosController } from '@controladores/tiposdocumentos.controller';
-import { TiposdocumentosInterface } from '@interfaces/tiposdocumentos.interface';
-import { MunicipiosController } from '@controladores/municipios.controller';
-import { MunicipiosInterface } from '@interfaces/municipios.interface';
-import { ProgramasController } from '@controladores/programas.controller';
-import { ProgramasInterface } from '@interfaces/programas.interface';
 import { ActivatedRoute } from '@angular/router';
+import {NgbProgressbarConfig} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-cargue-principal',
@@ -26,8 +17,10 @@ import { ActivatedRoute } from '@angular/router';
 export class CarguePrincipalComponent implements OnInit  {
 
   tipoCargue: number;
+  private subscripcionRuta: Subscription;
 
-  private subscripcionRuta: any;
+  caracteristicasCargues: { [inndice:string] : any}[] = []; 
+  controlCargue: { [inndice:string] : any}; 
 
   constructor( 
     private servicioAmbiente : AmbienteService,
@@ -35,6 +28,19 @@ export class CarguePrincipalComponent implements OnInit  {
     private utilidadFechas: DatePipe,
     private rutaActiva: ActivatedRoute
   ) { 
+
+    this.caracteristicasCargues.push({
+      tipo: 1,
+      estructura: [ "RECTORIA", "NOMBRE_RECTORIA", "SEDE", "DESCRIPCION_SEDE", "SPRIDEN_ID", "TIPO_DOCUMENTO", "DOCUMENTO", "APELLIDOS", "P_NOMBRE", "S_NOMBRE", "SECUENCIA", "FACULTAD", "PROGRAMA", "NOMBRE_PROGRAMA", "PROGRAMAS_ACREDITADOS", "CARRERA", "CIUDAD_EXP_DOC", "GENERO", "STATUS_RESUL", "FEC_CAMBIO_STATUS", "EDAD", "NIVEL", "JORNADA_DESC", "TEL_RE", "TEL_TR", "TEL_CEL", "MAIL_ESTU", "CREDITOS_TOTAL_INSCRITOS", "CREDITOS_TOTAL_APROBADOS", "PROMEDIO", "STATUS_GRADO", "PER_GRADO", "ANIO_GRADO", "FECHA_GRADO", "ACTA_GRADO", "LIBRO", "FOLIO", "N_DIPLOMA", "SHRDGIH_HONR_CODE" ],
+      tituloProceso : "Graduados - Argos", 
+    });
+
+    this.controlCargue ={
+      cargyeActual: null,
+      progresoActual: 35, 
+      pasoActualValor: 1, 
+      pasoActualProgreso: 0 
+    }
 
   }
 
@@ -44,6 +50,10 @@ export class CarguePrincipalComponent implements OnInit  {
       this.tipoCargue = parametros['tipo']; 
 
       console.log ( this.tipoCargue , "TipoRecibido" ); 
+
+      this.controlCargue.cargueActual =  this.caracteristicasCargues.find( elemento => { return  ( elemento.tipo == 1 )  } );
+
+      console.log ( this.controlCargue , "control" ); 
 
       ///ACA BA TODA LA EJECOCIÖN INICIAL DEL COMPONENTE
     });    
@@ -55,3 +65,4 @@ export class CarguePrincipalComponent implements OnInit  {
   }
 
 }
+

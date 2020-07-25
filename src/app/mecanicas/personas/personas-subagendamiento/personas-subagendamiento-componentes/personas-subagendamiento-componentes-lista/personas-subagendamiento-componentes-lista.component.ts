@@ -7,7 +7,7 @@ import { AutenticacionService } from '@servicios/autenticacion.service';
 import { AgendasController } from '@controladores/agendas.controller';
 import { EstructuraConsultas } from '@generales/estructura-consultas';
 import { AgendamientosController } from '@controladores/agendamientos.controller';
-import { Observable } from 'rxjs';
+import { Observable, Subscribable, Subscription } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { PersonasSubagendamientoComponentesProcesarComponent } from '../personas-subagendamiento-componentes-procesar/personas-subagendamiento-componentes-procesar.component';
@@ -46,6 +46,8 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
   @Input() controladorAgendas:AgendasController;
   @Input() controladorSeguimientos:SeguimientosController;
   @Input() agenda:Observable<number>;
+  private subscripcionAgenda: Subscription;
+
   datosBaseAgenda:DatosIntercambioInterface = { agenda_id: null, creador_id: null, nivel: null };
 
   agendaEncontrada:boolean;
@@ -100,7 +102,7 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
 
   ngOnInit() {
 
-    this.agenda.subscribe( idAgenda => {
+    this.subscripcionAgenda = this.agenda.subscribe( idAgenda => {
       if(this.controladorSeguimientos.EstaListo('cargue')){
         this.agendaEncontrada = this.controladorAgendas.Encontrar("id", idAgenda);
         if(this.agendaEncontrada){
@@ -120,6 +122,11 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
     });
     
   }
+
+  ngOnDestroy() {
+    this.subscripcionAgenda.unsubscribe();
+  }
+
 
   EliminarAgenda( ){
     let seguimientos: SeguimientosInterface[];

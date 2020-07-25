@@ -63,13 +63,13 @@ body {
     background-color: rgba(0,0,0,0.04); /* Black w/ opacity */
 }
 
-.contenedor.roundUp {
+.roundUp {
     padding-top: 10px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 }
 
-.contenedor.roundDown {
+.roundDown {
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     padding-bottom: 10px;

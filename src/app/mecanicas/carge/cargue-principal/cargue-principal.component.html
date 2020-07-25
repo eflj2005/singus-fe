@@ -1,10 +1,27 @@
+<div class="container-fluid">
+
+  <h1 class="text-center">Cargue de {{ controlCargue.cargueActual.tituloProceso }}</h1>
+
+
+    <div class="d-flex align-items-center roundUp roundDown container-fluid form mb-2">
+      <div class="pr-1">       <h5>Progreso Total:</h5> </div>
+      <div class="flex-grow-1"> <ngb-progressbar value="{{ controlCargue.progresoActual }}" showValue="true"></ngb-progressbar></div>
+    </div>
+
+
+  <div class="contenedor roundUp roundDown" *ngIf="controlCargue.pasoActualValor == 1">
+    <app-cargue-componentes-precargar>
+      
+    </app-cargue-componentes-precargar>
+  </div>
+
+</div>
 
 
 
 
 
-<!-- 
-<div class="container">
+<!-- <div class="container">
 
   <div class="row">
     <div class="col-sm">
@@ -116,11 +133,11 @@
 
     </div>
 
-  </div> -->
+  </div>  -->
 
   <!-- --------------------------------------------------------  PASO 2 -------------------------------------------------------- -->
-<!-- 
-  <div class="row contenedor" *ngIf="controlCargue.pasoActualValor == 2">
+
+  <!-- <div class="row contenedor" *ngIf="controlCargue.pasoActualValor == 2">
     <div class="col-sm">
 
       <div class="row">
@@ -674,9 +691,6 @@
 
 
 </div>
-
-
-
 
 
  -->

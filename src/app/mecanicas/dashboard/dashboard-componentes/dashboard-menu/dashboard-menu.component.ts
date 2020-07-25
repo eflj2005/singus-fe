@@ -38,8 +38,8 @@ export class DashboardMenuComponent {
       case "D":
 
         this.menu  = [ 
-          { opcion: 'Egresados'           , url: '/cargue'                , parametros: '1'   ,  icon: "fa-download"                , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
-          { opcion: 'Graduados'           , url: '/cargue'                , parametros: '2'   ,  icon: "fa-cloud-download"          , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
+          { opcion: 'Argos'               , url: '/cargue'                , parametros: '1'   ,  icon: "fa-download"                , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
+          { opcion: 'SAP'                 , url: '/cargue'                , parametros: '2'   ,  icon: "fa-cloud-download"          , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
           { opcion: 'Micrositio'          , url: '/cargue'                , parametros: '3'   ,  icon: "fa-file"                    , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
           { opcion: 'Empleabilidad'       , url: '/cargue'                , parametros: '4'   ,  icon: "fa-stack-overflow"          , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },
           { opcion: 'Emprendimiento'      , url: '/cargue'                , parametros: '5'   ,  icon: "fa-files-o"                 , agrupamiento: "Cargue Masivo"     ,iconPrincipal:"fa-wpforms"            , orden: 1  },

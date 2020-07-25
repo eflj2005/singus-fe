@@ -1,200 +1,189 @@
-<div class="container">
+<div class="container-fluid">
 
-  <div class="row">
-    <div class="col-md-12">
-        <h1 align='center'>Maestras</h1>
-    </div>
-  </div>
+  <h1 class="text-center">Maestras</h1>
 
-   <div class="row">
-    <div class="col-md-12">
+  <ngb-tabset >
 
-        <ngb-tabset >
-      
-          <ngb-tab  *ngIf="controladorAreas.EstaListo('campos')">
-            <ng-template ngbTabTitle>Areas</ng-template>
-            <ng-template ngbTabContent>
-              <div class="ngTabContainer">
-                <h1>Lista de Areas</h1><hr>
-                <app-maestras-componentes-lista nombreTabla="areas" [controlador]="controladorAreas"></app-maestras-componentes-lista>
-              </div>
-            </ng-template>
-          </ngb-tab>
+    <ngb-tab  *ngIf="controladorAreas.EstaListo('campos')">
+      <ng-template ngbTabTitle>Areas</ng-template>
+      <ng-template ngbTabContent>
+        <div class="ngTabContainer">
+          <h1>Lista de Areas</h1><hr>
+          <app-maestras-componentes-lista nombreTabla="areas" [controlador]="controladorAreas"></app-maestras-componentes-lista>
+        </div>
+      </ng-template>
+    </ngb-tab>
 
-          <ngb-tab  *ngIf="controladorTiposDocumentos.EstaListo('campos')">
-            <ng-template ngbTabTitle>Tipos de Documentos</ng-template>
-            <ng-template ngbTabContent>
-              <div class="ngTabContainer">
-                <h1>Lista de Tipos de Documentos</h1><hr>
-                <app-maestras-componentes-lista nombreTabla="tiposdocumentos" [controlador]="controladorTiposDocumentos"></app-maestras-componentes-lista>
-              </div>
-            </ng-template>
-          </ngb-tab>        
+    <ngb-tab  *ngIf="controladorTiposDocumentos.EstaListo('campos')">
+      <ng-template ngbTabTitle>Tipos de Documentos</ng-template>
+      <ng-template ngbTabContent>
+        <div class="ngTabContainer">
+          <h1>Lista de Tipos de Documentos</h1><hr>
+          <app-maestras-componentes-lista nombreTabla="tiposdocumentos" [controlador]="controladorTiposDocumentos"></app-maestras-componentes-lista>
+        </div>
+      </ng-template>
+    </ngb-tab>        
 
-          <ngb-tab  *ngIf="controladorCohortes.EstaListo('campos')">
-            <ng-template ngbTabTitle>Cohortes</ng-template>
-            <ng-template ngbTabContent>
-              <div class="ngTabContainer">
-                <h1>Lista de Cohortes</h1><hr>
-                <app-maestras-componentes-lista nombreTabla="cohortes" [controlador]="controladorCohortes"></app-maestras-componentes-lista>
-              </div>
-            </ng-template>
-          </ngb-tab>        
+    <ngb-tab  *ngIf="controladorCohortes.EstaListo('campos')">
+      <ng-template ngbTabTitle>Cohortes</ng-template>
+      <ng-template ngbTabContent>
+        <div class="ngTabContainer">
+          <h1>Lista de Cohortes</h1><hr>
+          <app-maestras-componentes-lista nombreTabla="cohortes" [controlador]="controladorCohortes"></app-maestras-componentes-lista>
+        </div>
+      </ng-template>
+    </ngb-tab>        
 
-          <ngb-tab  *ngIf="controladorProgramas.EstaListo('campos')">
-            <ng-template ngbTabTitle>Programas</ng-template>
-            <ng-template ngbTabContent>
-              <div class="ngTabContainer">
-                <h1>Lista de Programas</h1><hr>
-                <app-maestras-componentes-lista nombreTabla="programas" [controlador]="controladorProgramas"></app-maestras-componentes-lista>
-              </div>
-            </ng-template>
-          </ngb-tab>        
+    <ngb-tab  *ngIf="controladorProgramas.EstaListo('campos')">
+      <ng-template ngbTabTitle>Programas</ng-template>
+      <ng-template ngbTabContent>
+        <div class="ngTabContainer">
+          <h1>Lista de Programas</h1><hr>
+          <app-maestras-componentes-lista nombreTabla="programas" [controlador]="controladorProgramas"></app-maestras-componentes-lista>
+        </div>
+      </ng-template>
+    </ngb-tab>        
 
-          <ngb-tab  *ngIf="controladorInstituciones.EstaListo('campos')">
-            <ng-template ngbTabTitle>Instituciones</ng-template>
-            <ng-template ngbTabContent>
-              <div class="ngTabContainer">
-                <h1>Lista de Instituciones</h1><hr>
-                <app-maestras-componentes-lista nombreTabla="instituciones" [controlador]="controladorInstituciones"></app-maestras-componentes-lista>
-              </div>
-            </ng-template>
-          </ngb-tab>        
+    <ngb-tab  *ngIf="controladorInstituciones.EstaListo('campos')">
+      <ng-template ngbTabTitle>Instituciones</ng-template>
+      <ng-template ngbTabContent>
+        <div class="ngTabContainer">
+          <h1>Lista de Instituciones</h1><hr>
+          <app-maestras-componentes-lista nombreTabla="instituciones" [controlador]="controladorInstituciones"></app-maestras-componentes-lista>
+        </div>
+      </ng-template>
+    </ngb-tab>        
 
-          <ngb-tab  *ngIf="controladorSedes.EstaListo('campos')">
-            <ng-template ngbTabTitle>Sedes</ng-template>
-            <ng-template ngbTabContent>
-              <div class="ngTabContainer">
-                <h1>Lista de Sedes</h1><hr>
-                <app-maestras-componentes-lista nombreTabla="sedes" [controlador]="controladorSedes"></app-maestras-componentes-lista>
-              </div>
-            </ng-template>
-          </ngb-tab>        
+    <ngb-tab  *ngIf="controladorSedes.EstaListo('campos')">
+      <ng-template ngbTabTitle>Sedes</ng-template>
+      <ng-template ngbTabContent>
+        <div class="ngTabContainer">
+          <h1>Lista de Sedes</h1><hr>
+          <app-maestras-componentes-lista nombreTabla="sedes" [controlador]="controladorSedes"></app-maestras-componentes-lista>
+        </div>
+      </ng-template>
+    </ngb-tab>        
 
-          <ngb-tab  *ngIf="controladorTiposestudios.EstaListo('campos')">
-            <ng-template ngbTabTitle>Tipos de Estudios</ng-template>
-            <ng-template ngbTabContent>
-              <div class="ngTabContainer">
-                <h1>Lista de Tipos de Estudios</h1><hr>
-                <app-maestras-componentes-lista nombreTabla="tiposestudios" [controlador]="controladorTiposestudios"></app-maestras-componentes-lista>
-              </div>
-            </ng-template>
-          </ngb-tab>        
+    <ngb-tab  *ngIf="controladorTiposestudios.EstaListo('campos')">
+      <ng-template ngbTabTitle>Tipos de Estudios</ng-template>
+      <ng-template ngbTabContent>
+        <div class="ngTabContainer">
+          <h1>Lista de Tipos de Estudios</h1><hr>
+          <app-maestras-componentes-lista nombreTabla="tiposestudios" [controlador]="controladorTiposestudios"></app-maestras-componentes-lista>
+        </div>
+      </ng-template>
+    </ngb-tab>        
 
-          <ngb-tab  *ngIf="controladorTitulos.EstaListo('campos')">
-            <ng-template ngbTabTitle>Titulos</ng-template>
-            <ng-template ngbTabContent>
-              <div class="ngTabContainer">
-                <h1>Lista de Titulos</h1><hr>
-                <app-maestras-componentes-lista nombreTabla="titulos" [controlador]="controladorTitulos"></app-maestras-componentes-lista>
-              </div>
-            </ng-template>
-          </ngb-tab>        
+    <ngb-tab  *ngIf="controladorTitulos.EstaListo('campos')">
+      <ng-template ngbTabTitle>Titulos</ng-template>
+      <ng-template ngbTabContent>
+        <div class="ngTabContainer">
+          <h1>Lista de Titulos</h1><hr>
+          <app-maestras-componentes-lista nombreTabla="titulos" [controlador]="controladorTitulos"></app-maestras-componentes-lista>
+        </div>
+      </ng-template>
+    </ngb-tab>        
 
-          <ngb-tab  *ngIf="controladorMecanismosgrados.EstaListo('campos')">
-            <ng-template ngbTabTitle>Mecanismos de Grado</ng-template>
-            <ng-template ngbTabContent>
-              <div class="ngTabContainer">
-                <h1>Lista de Mecanismos de Grado</h1><hr>
-                <app-maestras-componentes-lista nombreTabla="mecanismosgrados" [controlador]="controladorMecanismosgrados"></app-maestras-componentes-lista>
-              </div>
-            </ng-template>
-          </ngb-tab>
+    <ngb-tab  *ngIf="controladorMecanismosgrados.EstaListo('campos')">
+      <ng-template ngbTabTitle>Mecanismos de Grado</ng-template>
+      <ng-template ngbTabContent>
+        <div class="ngTabContainer">
+          <h1>Lista de Mecanismos de Grado</h1><hr>
+          <app-maestras-componentes-lista nombreTabla="mecanismosgrados" [controlador]="controladorMecanismosgrados"></app-maestras-componentes-lista>
+        </div>
+      </ng-template>
+    </ngb-tab>
 
-          <ngb-tab  *ngIf="controladorMunicipios.EstaListo('campos')">
-            <ng-template ngbTabTitle>Municipios</ng-template>
-            <ng-template ngbTabContent>
-              <div class="ngTabContainer">
-                <h1>Lista de Municipios</h1><hr>
-                <app-maestras-componentes-lista nombreTabla="municipios" [controlador]="controladorMunicipios"></app-maestras-componentes-lista>
-              </div>
-            </ng-template>
-          </ngb-tab>
+    <ngb-tab  *ngIf="controladorMunicipios.EstaListo('campos')">
+      <ng-template ngbTabTitle>Municipios</ng-template>
+      <ng-template ngbTabContent>
+        <div class="ngTabContainer">
+          <h1>Lista de Municipios</h1><hr>
+          <app-maestras-componentes-lista nombreTabla="municipios" [controlador]="controladorMunicipios"></app-maestras-componentes-lista>
+        </div>
+      </ng-template>
+    </ngb-tab>
 
-          <ngb-tab  *ngIf="controladorDepartamentos.EstaListo('campos')">
-            <ng-template ngbTabTitle>Departamentos</ng-template>
-            <ng-template ngbTabContent>
-              <div class="ngTabContainer">
-                <h1>Lista de Departamentos</h1><hr>
-                <app-maestras-componentes-lista nombreTabla="departamentos" [controlador]="controladorDepartamentos"></app-maestras-componentes-lista>
-              </div>
-            </ng-template>
-          </ngb-tab>
+    <ngb-tab  *ngIf="controladorDepartamentos.EstaListo('campos')">
+      <ng-template ngbTabTitle>Departamentos</ng-template>
+      <ng-template ngbTabContent>
+        <div class="ngTabContainer">
+          <h1>Lista de Departamentos</h1><hr>
+          <app-maestras-componentes-lista nombreTabla="departamentos" [controlador]="controladorDepartamentos"></app-maestras-componentes-lista>
+        </div>
+      </ng-template>
+    </ngb-tab>
 
-          <ngb-tab  *ngIf="controladorPaises.EstaListo('campos')">
-            <ng-template ngbTabTitle>Paises</ng-template>
-            <ng-template ngbTabContent>
-              <div class="ngTabContainer">
-                <h1>Lista de Paises</h1><hr>
-                <app-maestras-componentes-lista nombreTabla="paises" [controlador]="controladorPaises"></app-maestras-componentes-lista>
-              </div>
-            </ng-template>
-          </ngb-tab>
+    <ngb-tab  *ngIf="controladorPaises.EstaListo('campos')">
+      <ng-template ngbTabTitle>Paises</ng-template>
+      <ng-template ngbTabContent>
+        <div class="ngTabContainer">
+          <h1>Lista de Paises</h1><hr>
+          <app-maestras-componentes-lista nombreTabla="paises" [controlador]="controladorPaises"></app-maestras-componentes-lista>
+        </div>
+      </ng-template>
+    </ngb-tab>
 
-          <ngb-tab  *ngIf="controladorSectoreslaborales.EstaListo('campos')">
-            <ng-template ngbTabTitle>Sectores Laborales</ng-template>
-            <ng-template ngbTabContent>
-              <div class="ngTabContainer">
-                <h1>Lista de Sectores Labores</h1><hr>
-                <app-maestras-componentes-lista nombreTabla="sectoreslaborales" [controlador]="controladorSectoreslaborales"></app-maestras-componentes-lista>
-              </div>
-            </ng-template>
-          </ngb-tab>
+    <ngb-tab  *ngIf="controladorSectoreslaborales.EstaListo('campos')">
+      <ng-template ngbTabTitle>Sectores Laborales</ng-template>
+      <ng-template ngbTabContent>
+        <div class="ngTabContainer">
+          <h1>Lista de Sectores Labores</h1><hr>
+          <app-maestras-componentes-lista nombreTabla="sectoreslaborales" [controlador]="controladorSectoreslaborales"></app-maestras-componentes-lista>
+        </div>
+      </ng-template>
+    </ngb-tab>
 
-          <ngb-tab  *ngIf="controladorTiposcontratos.EstaListo('campos')">
-            <ng-template ngbTabTitle>Tipos de Contratos</ng-template>
-            <ng-template ngbTabContent>
-              <div class="ngTabContainer">
-                <h1>Lista de Tipos de Contratos</h1><hr>
-                <app-maestras-componentes-lista nombreTabla="tiposcontratos" [controlador]="controladorTiposcontratos"></app-maestras-componentes-lista>
-              </div>
-            </ng-template>
-          </ngb-tab>
+    <ngb-tab  *ngIf="controladorTiposcontratos.EstaListo('campos')">
+      <ng-template ngbTabTitle>Tipos de Contratos</ng-template>
+      <ng-template ngbTabContent>
+        <div class="ngTabContainer">
+          <h1>Lista de Tipos de Contratos</h1><hr>
+          <app-maestras-componentes-lista nombreTabla="tiposcontratos" [controlador]="controladorTiposcontratos"></app-maestras-componentes-lista>
+        </div>
+      </ng-template>
+    </ngb-tab>
 
-          <ngb-tab  *ngIf="controladorRangosingresos.EstaListo('campos')">
-            <ng-template ngbTabTitle>Rangos Ingresos</ng-template>
-            <ng-template ngbTabContent>
-              <div class="ngTabContainer">
-                <h1>Lista de Rangos de Ingresos</h1><hr>
-                <app-maestras-componentes-lista nombreTabla="rangosingresos" [controlador]="controladorRangosingresos"></app-maestras-componentes-lista>
-              </div>
-            </ng-template>
-          </ngb-tab>
+    <ngb-tab  *ngIf="controladorRangosingresos.EstaListo('campos')">
+      <ng-template ngbTabTitle>Rangos Ingresos</ng-template>
+      <ng-template ngbTabContent>
+        <div class="ngTabContainer">
+          <h1>Lista de Rangos de Ingresos</h1><hr>
+          <app-maestras-componentes-lista nombreTabla="rangosingresos" [controlador]="controladorRangosingresos"></app-maestras-componentes-lista>
+        </div>
+      </ng-template>
+    </ngb-tab>
 
-          <ngb-tab  *ngIf="controladorSectoresasociaciones.EstaListo('campos')">
-            <ng-template ngbTabTitle>Sectores Comun./Asoc.</ng-template>
-            <ng-template ngbTabContent>
-              <div class="ngTabContainer">
-                <h1>Lista de Sectores para Comunidades y/o Asociaciones</h1><hr>
-                <app-maestras-componentes-lista nombreTabla="sectoresasociaciones" [controlador]="controladorSectoresasociaciones"></app-maestras-componentes-lista>
-              </div>
-            </ng-template>
-          </ngb-tab>
+    <ngb-tab  *ngIf="controladorSectoresasociaciones.EstaListo('campos')">
+      <ng-template ngbTabTitle>Sectores Comun./Asoc.</ng-template>
+      <ng-template ngbTabContent>
+        <div class="ngTabContainer">
+          <h1>Lista de Sectores para Comunidades y/o Asociaciones</h1><hr>
+          <app-maestras-componentes-lista nombreTabla="sectoresasociaciones" [controlador]="controladorSectoresasociaciones"></app-maestras-componentes-lista>
+        </div>
+      </ng-template>
+    </ngb-tab>
 
-          <ngb-tab  *ngIf="controladorOfertas.EstaListo('campos')">
-            <ng-template ngbTabTitle>Ofertas</ng-template>
-            <ng-template ngbTabContent>
-              <div class="ngTabContainer">
-                <h1>Lista de Ofertas</h1><hr>
-                <app-maestras-componentes-lista nombreTabla="ofertas" [controlador]="controladorOfertas"></app-maestras-componentes-lista>
-              </div>
-            </ng-template>
-          </ngb-tab>
+    <ngb-tab  *ngIf="controladorOfertas.EstaListo('campos')">
+      <ng-template ngbTabTitle>Ofertas</ng-template>
+      <ng-template ngbTabContent>
+        <div class="ngTabContainer">
+          <h1>Lista de Ofertas</h1><hr>
+          <app-maestras-componentes-lista nombreTabla="ofertas" [controlador]="controladorOfertas"></app-maestras-componentes-lista>
+        </div>
+      </ng-template>
+    </ngb-tab>
 
-          <ngb-tab  *ngIf="controladorTiposobservaciones.EstaListo('campos')">
-            <ng-template ngbTabTitle>Tipos Observaciones</ng-template>
-            <ng-template ngbTabContent>
-              <div class="ngTabContainer">
-                <h1>Lista de Tipos de Observaciones</h1><hr>
-                <app-maestras-componentes-lista nombreTabla="tiposobservaciones" [controlador]="controladorTiposobservaciones"></app-maestras-componentes-lista>
-              </div>
-            </ng-template>
-          </ngb-tab>
+    <ngb-tab  *ngIf="controladorTiposobservaciones.EstaListo('campos')">
+      <ng-template ngbTabTitle>Tipos Observaciones</ng-template>
+      <ng-template ngbTabContent>
+        <div class="ngTabContainer">
+          <h1>Lista de Tipos de Observaciones</h1><hr>
+          <app-maestras-componentes-lista nombreTabla="tiposobservaciones" [controlador]="controladorTiposobservaciones"></app-maestras-componentes-lista>
+        </div>
+      </ng-template>
+    </ngb-tab>
 
-        </ngb-tabset>                     
-      
-    </div>
-  </div>
-
+  </ngb-tabset>                     
 
 </div>

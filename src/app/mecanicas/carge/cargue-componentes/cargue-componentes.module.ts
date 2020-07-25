@@ -11,6 +11,9 @@ import { NgbModule, NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     NgbModule,
     NgbPopoverModule
+  ],
+  exports: [
+    CargueComponentesPrecargarComponent
   ]
 })
 export class CargueComponentesModule { }

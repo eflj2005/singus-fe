@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarguePrincipalComponent } from './cargue-principal/cargue-principal.component';
-import { NgbPopoverModule  } from "@ng-bootstrap/ng-bootstrap";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CargueComponentesModule } from './cargue-componentes/cargue-componentes.module';
 
 
 
@@ -11,8 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     CommonModule,
     NgbModule,
-    NgbPopoverModule
-   
+    CargueComponentesModule
   ],
   exports :[CarguePrincipalComponent ]
 })
