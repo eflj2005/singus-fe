@@ -4,12 +4,6 @@
     background-color: rgba(0,0,0,0.04); /* Black w/ opacity */
 }
 
-.custom-file-input:lang(es)~.custom-file-label::after {
-    content: "Examinar";
-}
-
-.bg-gray {background-color:#cccccc;}
-
 .tablaInformacionA{
     max-height: 270px;
     min-height: 270px;

@@ -1,6 +1,6 @@
 <div class="container-fluid">
 
-  <h1 class="text-center">Cargue de {{ controlCargue.cargueActual.tituloProceso }}</h1>
+  <h1 class="text-center">Cargue de {{ controlCargue.caracteristicas.tituloProceso }}</h1>
 
 
     <div class="d-flex align-items-center roundUp roundDown container-fluid form mb-2">
@@ -8,132 +8,29 @@
       <div class="flex-grow-1"> <ngb-progressbar value="{{ controlCargue.progresoActual }}" showValue="true"></ngb-progressbar></div>
     </div>
 
-
-  <div class="contenedor roundUp roundDown" *ngIf="controlCargue.pasoActualValor == 1">
-    <app-cargues-componentes-precargar>
-      
+  <!-- --------------------------------------------------------  PASO 1 -------------------------------------------------------- -->
+  <div class="contenedor roundUp roundDown mb-2" *ngIf="controlCargue.pasoActualValor == 1">
+    <app-cargues-componentes-precargar
+      [controlCargue] = "controlCargue"
+    >  
     </app-cargues-componentes-precargar>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row justify-content-end">
+      <div class="col-3">
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="CambiarPaso(2)" [disabled]="false">Anterior</button>
+      </div>
+      <div class="col-3">
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="CambiarPaso(2)" [disabled]="false">Siguiente</button>
+      </div>
+    </div>
   </div>
 
 </div>
 
 
 
-
-
-<!-- <div class="container">
-
-  <div class="row">
-    <div class="col-sm">
-      <div class="row">
-        <div class="col-sm">
-          <h1 align='center'>Cargue de {{ controlCargue.nombre }}</h1>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm">
-      <div class="row">
-        <div class="col-sm-2">
-          <h5>Progreso: </h5>
-        </div>
-        <div class="col-sm-10">
-          <ngb-progressbar value="{{ controlCargue.progresoTotal }}" showValue="true"></ngb-progressbar>
-        </div>
-      </div>
-    </div>
-  </div>
- -->
-
-  <!-- --------------------------------------------------------  PASO 1 -------------------------------------------------------- -->
-
-  <!-- <div class="row contenedor" *ngIf="controlCargue.pasoActualValor == 1">
-    <div class="col-sm">
-
-      <div class="row">
-        <div class="col-sm">      
-          <h3 align='center'>Paso {{ controlCargue.pasoActualValor }}: {{ controlCargue.pasoActualNombre }}</h3>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-sm">                
-          <div class="input-group mb-3">
-            <div class="input-group-prepend ">
-                  <span class="input-group-text" id="inputGroupFileAddon01">Buscar archivo</span>
-            </div>
-            <div class="custom-file">
-                <input #inputArchivo type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" (change)="SeleccionarArchivo($event)" accept=".xls,.xlsx" lang="es"> 
-                <label class="custom-file-label" for="inputGroupFile01">{{ datosArchivo==null ? '' : datosArchivo.name }}</label>
-            </div>
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button" (click)="CargarArchivo()" [disabled]="datosArchivo == null">Cargar</button>
-            </div>            
-          </div>
-        </div>  
-      </div>
-
-      <div class="row">
-        <div class="col-sm">
-
-          <div class="row">
-            <div class="col-sm-12">
-              RESUMEN - {{ controlCargue.nombreArchivo }}    
-            </div>
-          </div>
-
-          
-          <div class="row" *ngFor="let registroC of arregloResumen; let indiceCohorte = index">
-            <div class="col-sm-12">
-
-              <div class="row  bg-gray">
-                <div class="col-sm-2">
-                  {{ registroC.cohorte }}
-                </div>
-                <div class="col-sm-8">
-                  &nbsp;
-                </div>
-                <div class="col-sm-2">
-                  {{ registroC.cantidad }} Registros   
-                </div>
-              </div>
-    
-              <div class="row" *ngFor="let registroP of registroC.programas; let indicePrograma = index">
-                <div class="col-sm-2">
-                  &nbsp;
-                  
-                </div>
-                <div class="col-sm-8">
-                  {{ registroP.nombre }}
-                </div>
-                <div class="col-sm-2">
-                  {{ registroP.cantidad }} Registros   
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-      </div>
-   
-      <div class="row">
-        <div class="col-sm">
-          <hr>
-        </div>
-      </div>
-
-      <div class="row justify-content-end">
-        <div class="col-sm-3">
-          <button type="button" class="btn btn-outline-primary btn-block" (click)="CambiarPaso(2)" [disabled]="arregloResumen.length == 0">Siguiente</button>
-        </div>
-      </div>
-
-    </div>
-
-  </div>  -->
 
   <!-- --------------------------------------------------------  PASO 2 -------------------------------------------------------- -->
 

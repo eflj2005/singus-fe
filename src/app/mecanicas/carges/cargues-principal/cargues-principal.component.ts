@@ -19,8 +19,8 @@ export class CarguesPrincipalComponent implements OnInit  {
   tipoCargue: number;
   private subscripcionRuta: Subscription;
 
-  caracteristicasCargues: { [inndice:string] : any}[] = []; 
-  controlCargue: { [inndice:string] : any}; 
+  caracteristicasCargues: { [indice:string] : any}[] = []; 
+  controlCargue: { [indice:string] : any}; 
 
   constructor( 
     private servicioAmbiente : AmbienteService,
@@ -34,9 +34,15 @@ export class CarguesPrincipalComponent implements OnInit  {
       estructura: [ "RECTORIA", "NOMBRE_RECTORIA", "SEDE", "DESCRIPCION_SEDE", "SPRIDEN_ID", "TIPO_DOCUMENTO", "DOCUMENTO", "APELLIDOS", "P_NOMBRE", "S_NOMBRE", "SECUENCIA", "FACULTAD", "PROGRAMA", "NOMBRE_PROGRAMA", "PROGRAMAS_ACREDITADOS", "CARRERA", "CIUDAD_EXP_DOC", "GENERO", "STATUS_RESUL", "FEC_CAMBIO_STATUS", "EDAD", "NIVEL", "JORNADA_DESC", "TEL_RE", "TEL_TR", "TEL_CEL", "MAIL_ESTU", "CREDITOS_TOTAL_INSCRITOS", "CREDITOS_TOTAL_APROBADOS", "PROMEDIO", "STATUS_GRADO", "PER_GRADO", "ANIO_GRADO", "FECHA_GRADO", "ACTA_GRADO", "LIBRO", "FOLIO", "N_DIPLOMA", "SHRDGIH_HONR_CODE" ],
       tituloProceso : "Graduados - Argos", 
     });
+    this.caracteristicasCargues.push({
+      tipo: 2,
+      estructura: [ "RECTORIA", "NOMBRE_RECTORIA", "SEDE", "DESCRIPCION_SEDE", "SPRIDEN_ID", "TIPO_DOCUMENTO", "DOCUMENTO", "APELLIDOS", "P_NOMBRE", "S_NOMBRE", "SECUENCIA", "FACULTAD", "PROGRAMA", "NOMBRE_PROGRAMA", "PROGRAMAS_ACREDITADOS", "CARRERA", "CIUDAD_EXP_DOC", "GENERO", "STATUS_RESUL", "FEC_CAMBIO_STATUS", "EDAD", "NIVEL", "JORNADA_DESC", "TEL_RE", "TEL_TR", "TEL_CEL", "MAIL_ESTU", "CREDITOS_TOTAL_INSCRITOS", "CREDITOS_TOTAL_APROBADOS", "PROMEDIO", "STATUS_GRADO", "PER_GRADO", "ANIO_GRADO", "FECHA_GRADO", "ACTA_GRADO", "LIBRO", "FOLIO", "N_DIPLOMA", "SHRDGIH_HONR_CODE" ],
+      tituloProceso : "Graduados - SAP", 
+    });
 
     this.controlCargue ={
-      cargyeActual: null,
+      caracteristicas: null,
+      datos: [],
       progresoActual: 35, 
       pasoActualValor: 1, 
       pasoActualProgreso: 0 
@@ -51,7 +57,7 @@ export class CarguesPrincipalComponent implements OnInit  {
 
       console.log ( this.tipoCargue , "TipoRecibido" ); 
 
-      this.controlCargue.cargueActual =  this.caracteristicasCargues.find( elemento => { return  ( elemento.tipo == 1 )  } );
+      this.controlCargue.caracteristicas =  this.caracteristicasCargues.find( elemento => { return  ( elemento.tipo == this.tipoCargue )  } );
 
       console.log ( this.controlCargue , "control" ); 
 

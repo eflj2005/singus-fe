@@ -1,1 +1,62 @@
-<p>cargue-componentes-precargar works!</p>
+<div class="container-fluid">
+
+    <h3 class="text-center">Paso 1: Selección de Archivo</h3>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend ">
+            <span class="input-group-text" id="inputGroupFileAddon01">Buscar archivo</span>
+      </div>
+      <div class="custom-file">
+          <input #inputArchivo type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" (change)="SeleccionarArchivo($event)" accept=".xls,.xlsx" lang="es"> 
+          <label class="custom-file-label" for="inputGroupFile01">{{ datosArchivo==null ? '' : datosArchivo.name }}</label>
+      </div>
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" (click)="CargarArchivo()" [disabled]="datosArchivo == null">Cargar</button>
+      </div>            
+    </div>
+
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col">
+          RESUMEN - {{ nombreArchivo }}    
+        </div>
+      </div>
+
+      <ng-container *ngIf="controlCargue.caracteristicas.tipo == 1">
+        <div class="row" *ngFor="let registroC of arregloResumen; let indiceCohorte = index">
+          <div class="col-sm-12">
+
+            <div class="row bg-gray">
+              <div class="col-sm-2">
+                {{ registroC.cohorte }}
+              </div>
+              <div class="col-sm-8">
+                &nbsp;
+              </div>
+              <div class="col-sm-2">
+                {{ registroC.cantidad }} Registros   
+              </div>
+            </div>
+
+            <div class="row" *ngFor="let registroP of registroC.programas; let indicePrograma = index">
+              <div class="col-sm-2">
+                &nbsp;
+                
+              </div>
+              <div class="col-sm-8">
+                {{ registroP.nombre }}
+              </div>
+              <div class="col-sm-2">
+                {{ registroP.cantidad }} Registros   
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </ng-container>
+
+    </div>
+
+ 
+  </div> 
