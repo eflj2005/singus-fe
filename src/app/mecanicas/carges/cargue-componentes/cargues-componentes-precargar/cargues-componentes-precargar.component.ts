@@ -27,13 +27,11 @@ export class CarguesComponentesPrecargarComponent implements OnInit {
 
 
   ngOnInit() {
-    console.log(this.controlCargue);
     this.arregloResumen = [];
   }
 
   SeleccionarArchivo(fileInput: any){
     this.datosArchivo = <File>fileInput.target.files[0];
-    console.log(this.datosArchivo);
   }
 
   CargarArchivo(){
@@ -49,7 +47,6 @@ export class CarguesComponentesPrecargarComponent implements OnInit {
       jsonData = workBook.SheetNames.reduce((initial, name) => {
         const sheet = workBook.Sheets[name];
         if(name == "Datos"){
-          console.log( XLSX.utils.decode_range(sheet['!ref']) );
           initial[name] = XLSX.utils.sheet_to_json( sheet, {defval:"", range: 1, header: this.controlCargue.caracteristicas.estructura} );
         }
         return initial;
@@ -83,7 +80,7 @@ export class CarguesComponentesPrecargarComponent implements OnInit {
           registro.ref = "#"+conteoRef;
           conteoRef++;
 
-          registro.seleccionado = false;
+          // registro.seleccionado = false;
 
           let fechaTemp = this.ExcelDateToJSDate( registro.FECHA_GRADO );
           registro.FECHA_GRADO =  this.utilidadFechas.transform( fechaTemp, 'yyyy-MM-dd');
@@ -100,8 +97,6 @@ export class CarguesComponentesPrecargarComponent implements OnInit {
   }
 
   GenerarResumen(){
-    console.log(this.controlCargue.datos);
-
     switch(this.controlCargue.caracteristicas.tipo){
       case 1:
         this.arregloResumen = [];

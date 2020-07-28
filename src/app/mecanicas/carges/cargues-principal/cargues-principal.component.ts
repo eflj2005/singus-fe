@@ -26,18 +26,27 @@ export class CarguesPrincipalComponent implements OnInit  {
     private servicioAmbiente : AmbienteService,
     private llamadoHttp : HttpClient,
     private utilidadFechas: DatePipe,
-    private rutaActiva: ActivatedRoute
+    private rutaActiva: ActivatedRoute,
+    progreso: NgbProgressbarConfig
   ) { 
+
+    progreso.max      = 100;
+    progreso.striped  = true;
+    progreso.animated = true;
+    progreso.type     = 'info';
+    progreso.height   = '20px';
 
     this.caracteristicasCargues.push({
       tipo: 1,
       estructura: [ "RECTORIA", "NOMBRE_RECTORIA", "SEDE", "DESCRIPCION_SEDE", "SPRIDEN_ID", "TIPO_DOCUMENTO", "DOCUMENTO", "APELLIDOS", "P_NOMBRE", "S_NOMBRE", "SECUENCIA", "FACULTAD", "PROGRAMA", "NOMBRE_PROGRAMA", "PROGRAMAS_ACREDITADOS", "CARRERA", "CIUDAD_EXP_DOC", "GENERO", "STATUS_RESUL", "FEC_CAMBIO_STATUS", "EDAD", "NIVEL", "JORNADA_DESC", "TEL_RE", "TEL_TR", "TEL_CEL", "MAIL_ESTU", "CREDITOS_TOTAL_INSCRITOS", "CREDITOS_TOTAL_APROBADOS", "PROMEDIO", "STATUS_GRADO", "PER_GRADO", "ANIO_GRADO", "FECHA_GRADO", "ACTA_GRADO", "LIBRO", "FOLIO", "N_DIPLOMA", "SHRDGIH_HONR_CODE" ],
       tituloProceso : "Graduados - Argos", 
+      ultimoPaso: 2,
     });
     this.caracteristicasCargues.push({
       tipo: 2,
       estructura: [ "RECTORIA", "NOMBRE_RECTORIA", "SEDE", "DESCRIPCION_SEDE", "SPRIDEN_ID", "TIPO_DOCUMENTO", "DOCUMENTO", "APELLIDOS", "P_NOMBRE", "S_NOMBRE", "SECUENCIA", "FACULTAD", "PROGRAMA", "NOMBRE_PROGRAMA", "PROGRAMAS_ACREDITADOS", "CARRERA", "CIUDAD_EXP_DOC", "GENERO", "STATUS_RESUL", "FEC_CAMBIO_STATUS", "EDAD", "NIVEL", "JORNADA_DESC", "TEL_RE", "TEL_TR", "TEL_CEL", "MAIL_ESTU", "CREDITOS_TOTAL_INSCRITOS", "CREDITOS_TOTAL_APROBADOS", "PROMEDIO", "STATUS_GRADO", "PER_GRADO", "ANIO_GRADO", "FECHA_GRADO", "ACTA_GRADO", "LIBRO", "FOLIO", "N_DIPLOMA", "SHRDGIH_HONR_CODE" ],
       tituloProceso : "Graduados - SAP", 
+      ultimoPaso: 1,
     });
 
     this.controlCargue ={
@@ -59,8 +68,6 @@ export class CarguesPrincipalComponent implements OnInit  {
 
       this.controlCargue.caracteristicas =  this.caracteristicasCargues.find( elemento => { return  ( elemento.tipo == this.tipoCargue )  } );
 
-      console.log ( this.controlCargue , "control" ); 
-
       ///ACA BA TODA LA EJECOCIÖN INICIAL DEL COMPONENTE
     });    
 
@@ -68,6 +75,11 @@ export class CarguesPrincipalComponent implements OnInit  {
 
   ngOnDestroy() {
     this.subscripcionRuta.unsubscribe();
+  }
+
+
+  CambiarPaso( movimiento: number){
+    this.controlCargue.pasoActualValor = this.controlCargue.pasoActualValor + movimiento;
   }
 
 }

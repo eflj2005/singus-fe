@@ -3,26 +3,41 @@
   <h1 class="text-center">Cargue de {{ controlCargue.caracteristicas.tituloProceso }}</h1>
 
 
-    <div class="d-flex align-items-center roundUp roundDown container-fluid form mb-2">
+    <div class="d-flex align-items-center container-fluid contenedor roundUp">
       <div class="pr-1">       <h5>Progreso Total:</h5> </div>
       <div class="flex-grow-1"> <ngb-progressbar value="{{ controlCargue.progresoActual }}" showValue="true"></ngb-progressbar></div>
     </div>
 
   <!-- --------------------------------------------------------  PASO 1 -------------------------------------------------------- -->
-  <div class="contenedor roundUp roundDown mb-2" *ngIf="controlCargue.pasoActualValor == 1">
+  <div class="contenedor roundDown mb-2" *ngIf="controlCargue.pasoActualValor == 1">
     <app-cargues-componentes-precargar
       [controlCargue] = "controlCargue"
     >  
     </app-cargues-componentes-precargar>
   </div>
 
-  <div class="container-fluid">
+  <div class="contenedor roundDown mb-2" *ngIf="controlCargue.pasoActualValor == 2">
+    <ng-container [ngSwitch]="controlCargue.caracteristicas.tipo">
+
+      <ng-container *ngSwitchCase="1">
+        <app-cargues-componentes-analisistipo1
+          [controlCargue] = "controlCargue"
+        >
+        </app-cargues-componentes-analisistipo1>
+      </ng-container>
+      
+    </ng-container>
+  </div>
+
+
+
+  <div class="container-fluid mb-2">
     <div class="row justify-content-end">
-      <div class="col-3">
-        <button type="button" class="btn btn-outline-primary btn-block" (click)="CambiarPaso(2)" [disabled]="false">Anterior</button>
+      <div class="col-3" *ngIf="controlCargue.pasoActualValor != 1">
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="CambiarPaso(-1)" [disabled]="false">Anterior</button>
       </div>
-      <div class="col-3">
-        <button type="button" class="btn btn-outline-primary btn-block" (click)="CambiarPaso(2)" [disabled]="false">Siguiente</button>
+      <div class="col-3" *ngIf="controlCargue.pasoActualValor != controlCargue.caracteristicas.ultimoPaso">
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="CambiarPaso(1)" [disabled]="false">Siguiente</button>
       </div>
     </div>
   </div>
