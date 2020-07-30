@@ -3,10 +3,10 @@
   <h1 class="text-center">Cargue de {{ controlCargue.caracteristicas.tituloProceso }}</h1>
 
 
-    <div class="d-flex align-items-center container-fluid contenedor roundUp">
-      <div class="pr-1">       <h5>Progreso Total:</h5> </div>
-      <div class="flex-grow-1"> <ngb-progressbar value="{{ controlCargue.progresoActual }}" showValue="true"></ngb-progressbar></div>
-    </div>
+  <div class="d-flex align-items-center container-fluid contenedor roundUp">
+    <div class="pr-1">       <h5>Progreso:</h5> </div>
+    <div class="flex-grow-1"> <ngb-progressbar value="{{ controlCargue.progresoActual }}" showValue="true"></ngb-progressbar></div>
+  </div>
 
   <!-- --------------------------------------------------------  PASO 1 -------------------------------------------------------- -->
   <div class="contenedor roundDown mb-2" *ngIf="controlCargue.pasoActualValor == 1">

@@ -1,6 +1,16 @@
 <div class="container-fluid">
 
-    <h3>Paso 1: Selección de Archivo</h3>
+    <div class="d-flex mb-2">
+      <div class="flex-grow-1">
+        <h4 class="my-auto py-0">Paso 1: Selección de Archivo</h4> 
+        <div class="d-flex">
+          <div class="pr-1 py-0 my-auto">       <span>Proceso Activo:</span> </div>
+          <div class="flex-grow-1 py-0 my-auto pr-2"> <ngb-progressbar value="{{ controlCargue.progresoActual }}" showValue="true"></ngb-progressbar></div>
+        </div>        
+      </div>
+      <div class="py-0 w-25 my-auto">&nbsp;</div>        
+    </div>
+  
 
     <div class="input-group mb-3">
       <div class="input-group-prepend ">

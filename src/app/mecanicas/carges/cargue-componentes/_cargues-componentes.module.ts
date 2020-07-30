@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CarguesComponentesPrecargarComponent } from './cargues-componentes-precargar/cargues-componentes-precargar.component';
 import { NgbModule, NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarguesComponentesAnalisistipo1Component } from './cargues-componentes-analisistipo1/cargues-componentes-analisistipo1.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -10,6 +11,7 @@ import { CarguesComponentesAnalisistipo1Component } from './cargues-componentes-
   declarations: [CarguesComponentesPrecargarComponent, CarguesComponentesAnalisistipo1Component],
   imports: [
     CommonModule,
+    FormsModule,
     NgbModule,
     NgbPopoverModule
   ],

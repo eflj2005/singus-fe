@@ -3,11 +3,27 @@
 }
 
 .tablaInformacion{
-  max-height: 600px;
-  min-height: 600px;
+  max-height:  46vh;
 }
 
 .tablaCambios{
   max-height: 170px;
   min-height: 170px;
 }
+
+.controlMasivos{
+  height: 23px !important;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+
+.table-fixed thead tr th { 
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #fde894;
+}
+

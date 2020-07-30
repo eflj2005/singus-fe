@@ -85,6 +85,11 @@ export class CarguesComponentesPrecargarComponent implements OnInit {
           let fechaTemp = this.ExcelDateToJSDate( registro.FECHA_GRADO );
           registro.FECHA_GRADO =  this.utilidadFechas.transform( fechaTemp, 'yyyy-MM-dd');
 
+          registro.foraneas = {};
+          registro.foraneas.tiposdocumentos_id=null;
+          registro.foraneas.municipios_id=null;
+          registro.foraneas.programas_id=null;
+
         });
 
         this.nombreArchivo = this.datosArchivo.name

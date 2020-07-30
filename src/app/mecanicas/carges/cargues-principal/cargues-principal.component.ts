@@ -64,8 +64,6 @@ export class CarguesPrincipalComponent implements OnInit  {
     this.subscripcionRuta = this.rutaActiva.params.subscribe( parametros => {
       this.tipoCargue = parametros['tipo']; 
 
-      console.log ( this.tipoCargue , "TipoRecibido" ); 
-
       this.controlCargue.caracteristicas =  this.caracteristicasCargues.find( elemento => { return  ( elemento.tipo == this.tipoCargue )  } );
 
       ///ACA BA TODA LA EJECOCIÖN INICIAL DEL COMPONENTE
