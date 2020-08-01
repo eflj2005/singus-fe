@@ -10,8 +10,8 @@
     <div class="flex-grow-1">
       <h4 class="my-auto py-0">Paso 2: Analisis de Archivo</h4> 
       <div class="d-flex">
-        <div class="pr-1 py-0 my-auto">       <span>Proceso Activo:</span> </div>
-        <div class="flex-grow-1 py-0 my-auto pr-2"> <ngb-progressbar value="{{ controlCargue.progresoActual }}" showValue="true"></ngb-progressbar></div>
+        <div class="pr-1 py-0 my-auto">       <span>{{ progresoLocal.proceso }}</span> </div>
+        <div class="flex-grow-1 py-0 my-auto pr-2"> <ngb-progressbar value="{{ progresoLocal.valor }}" showValue="true"></ngb-progressbar></div>
       </div>        
     </div>
     <div class="py-0 w-25 my-auto">

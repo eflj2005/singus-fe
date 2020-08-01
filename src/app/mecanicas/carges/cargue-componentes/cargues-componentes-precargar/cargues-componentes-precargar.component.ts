@@ -18,16 +18,19 @@ export class CarguesComponentesPrecargarComponent implements OnInit {
 
   arregloResumen: any[];
 
+  progresoLocal: { valor: number, proceso: string } = { valor: 0, proceso: "" };
+  
 
   constructor(
     private utilidadFechas: DatePipe
   ) { 
-
   }
 
 
   ngOnInit() {
     this.arregloResumen = [];
+    this.controlCargue.desactivarPasos.anterior = true;
+    this.controlCargue.desactivarPasos.siguiente = true;
   }
 
   SeleccionarArchivo(fileInput: any){
@@ -69,6 +72,9 @@ export class CarguesComponentesPrecargarComponent implements OnInit {
 
         conteoRef = 1;
 
+        let pasosProceso: number = this.controlCargue.datos.length;                 //Base de conteo para barra de progreso
+        this.ActualizarProgresoLocal("Explorando Archivo:", pasosProceso, 0 );      //Inicializa barra de proceso
+
         this.controlCargue.datos.forEach((registro: any, indice: any) => {
 
           let posActual: number;
@@ -90,6 +96,8 @@ export class CarguesComponentesPrecargarComponent implements OnInit {
           registro.foraneas.municipios_id=null;
           registro.foraneas.programas_id=null;
 
+          this.ActualizarProgresoLocal("Explorando Archivo:", pasosProceso, indice + 1 );     //Actualiza Proceso barra de proceso
+
         });
 
         this.nombreArchivo = this.datosArchivo.name
@@ -105,6 +113,9 @@ export class CarguesComponentesPrecargarComponent implements OnInit {
     switch(this.controlCargue.caracteristicas.tipo){
       case 1:
         this.arregloResumen = [];
+
+        let pasosProceso: number = this.controlCargue.datos.length;                 //Base de conteo para barra de progreso
+        this.ActualizarProgresoLocal("Generando Resumen:", pasosProceso, 0 );      //Inicializa barra de proceso
 
         this.controlCargue.datos.forEach((registro: any, indice: any) => {
 
@@ -146,6 +157,9 @@ export class CarguesComponentesPrecargarComponent implements OnInit {
           this.arregloResumen[posicionCohorte].cantidad++;
           this.arregloResumen[posicionCohorte].programas[posicionPrograma].cantidad++;
 
+          this.controlCargue.desactivarPasos.siguiente = false;
+
+          this.ActualizarProgresoLocal("Generando Resumen:", pasosProceso, indice + 1 );     //Actualiza Proceso barra de proceso
         });
 
       break;
@@ -163,6 +177,11 @@ export class CarguesComponentesPrecargarComponent implements OnInit {
 
   	return new Date((excelDate - (25567 + 1))*86400*1000);
 
+  }
+
+  ActualizarProgresoLocal( nombreProceso: string, totalPasos: number, pasoActual: number ){
+    this.progresoLocal.proceso = nombreProceso;
+    this.progresoLocal.valor = (pasoActual * 100 ) / totalPasos;
   }
 
 }

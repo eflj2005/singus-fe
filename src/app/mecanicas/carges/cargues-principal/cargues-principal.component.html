@@ -34,10 +34,10 @@
   <div class="container-fluid mb-2">
     <div class="row justify-content-end">
       <div class="col-3" *ngIf="controlCargue.pasoActualValor != 1">
-        <button type="button" class="btn btn-outline-primary btn-block" (click)="CambiarPaso(-1)" [disabled]="false">Anterior</button>
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="CambiarPaso(-1)" [disabled]="controlCargue.desactivarPasos.anterior">Anterior</button>
       </div>
       <div class="col-3" *ngIf="controlCargue.pasoActualValor != controlCargue.caracteristicas.ultimoPaso">
-        <button type="button" class="btn btn-outline-primary btn-block" (click)="CambiarPaso(1)" [disabled]="false">Siguiente</button>
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="CambiarPaso(1)" [disabled]="controlCargue.desactivarPasos.siguiente">Siguiente</button>
       </div>
     </div>
   </div>

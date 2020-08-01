@@ -7,6 +7,7 @@ import { MunicipiosController } from '@controladores/municipios.controller';
 import { ProgramasController } from '@controladores/programas.controller';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { isNull } from 'util';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-cargues-componentes-analisistipo1',
@@ -39,6 +40,8 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
 
   enProceso: boolean;
 
+  progresoLocal: { valor: number, proceso: string } = { valor: 0, proceso: "" };
+
   constructor(
     private servicioAmbiente : AmbienteService,
     private llamadoHttp : HttpClient,
@@ -58,6 +61,9 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
 
   ngOnInit() {
     this.enProceso = true;
+
+    this.controlCargue.desactivarPasos.siguiente = false;
+    this.controlCargue.desactivarPasos.anterior = false;
 
     this.controladorTiposDocumentos.CargarDesdeDB( ).subscribe( (respuestaTD:RespuestaInterface) => { } );           // Carge de Tipos de Documentos      
     this.controladorProgramas.CargarDesdeDB( ).subscribe( (respuestaP:RespuestaInterface) => {  } );       // Carge de Tipos de Documentos 
@@ -91,14 +97,27 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
       datos : datosAnalizados 
     };
    
+    this.ActualizarProgresoLocal("Analizando Registros:", 100, 0 );      //Inicializa barra de proceso
+
+    const temporizador = timer(0, 100);
+    const subscripciónTemporizador = temporizador.subscribe( (valor: any) => { 
+      this.ActualizarProgresoLocal("Segmentando Registros:", 100, valor );      //Actualiza Proceso barra de proceso
+    });
+
     this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php", parametros).subscribe(
       (respuesta: RespuestaInterface) => {
+
+        subscripciónTemporizador.unsubscribe();
+        
         if(respuesta.codigo == 200){
 
           this.arregloNuevasPersonas = [];
           this.arregloNuevosEstudios = [];
           this.arregloCambios = [];
+          let pasosProceso: number;
 
+          pasosProceso = respuesta.mensaje.nuevasPersonas.length;                                      //Base de conteo para barra de progreso
+          this.ActualizarProgresoLocal("Organizando Nuevas Personas:", pasosProceso, 0 );                   //Inicializa barra de proceso
           respuesta.mensaje.nuevasPersonas.forEach((registro: any, indice: any) => {          
 
             let posActual = 0;
@@ -110,8 +129,11 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
 
             if(encontrado) this.arregloNuevasPersonas.push( datosAnalizados[posActual] );
 
+            this.ActualizarProgresoLocal("Organizando Nuevas Personas:", pasosProceso, indice + 1 );      //Actualiza Proceso barra de proceso
           });
 
+          pasosProceso = respuesta.mensaje.nuevosEstudios.length;                                      //Base de conteo para barra de progreso
+          this.ActualizarProgresoLocal("Organizando Nuevos Estudios:", pasosProceso, 0 );                   //Inicializa barra de proceso
           respuesta.mensaje.nuevosEstudios.forEach((registro: any, indice: any) => {    
 
             let posActual = 0;
@@ -123,8 +145,11 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
 
             if(encontrado) this.arregloNuevosEstudios.push(  datosAnalizados[posActual]  );
 
+            this.ActualizarProgresoLocal("Organizando Nuevos Estudios:", pasosProceso, indice + 1 );      //Actualiza Proceso barra de proceso
           });
-          
+
+          pasosProceso = respuesta.mensaje.personasCambios.length;                                      //Base de conteo para barra de progreso
+          this.ActualizarProgresoLocal("Organizando Personas Con Cambios:", pasosProceso, 0 );                   //Inicializa barra de proceso
           respuesta.mensaje.personasCambios.forEach((registro: any, indice: any) => {    
 
             let posActual = 0;
@@ -138,7 +163,7 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
             temporal.cambios = registro.cambios;
 
             if(encontrado) this.arregloCambios.push(  temporal );
-
+            this.ActualizarProgresoLocal("Organizando Personas Con Cambios:", pasosProceso, indice + 1 );      //Actualiza Proceso barra de proceso
           });          
 
           this.enProceso = false;
@@ -165,6 +190,9 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
     this.cambiosMasivos.expDocumento = [];
     this.cambiosMasivos.genero = [];
     this.cambiosMasivos.programa = [];
+
+    let pasosProceso: number = datosAnalizados.length;                 //Base de conteo para barra de progreso
+    this.ActualizarProgresoLocal("Buscando Cambios Masivos:", pasosProceso, 0 );      //Inicializa barra de proceso
 
     datosAnalizados.forEach((registro: any, indice: any) => {          
         
@@ -237,6 +265,8 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
         registro.foraneas.programas_id = this.controladorProgramas.actual.id;
       }
 
+      this.ActualizarProgresoLocal("Buscando Cambios Masivos:", pasosProceso, indice+1 );      //Actualiza Proceso barra de proceso
+
     });
 
     console.log(this.cambiosMasivos);
@@ -267,8 +297,15 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
   }
 
   HayCambiosMasivos(){
+    let validador:boolean;
     let cantidad: number = this.cambiosMasivos.tipoDocumento.length + this.cambiosMasivos.expDocumento.length + this.cambiosMasivos.genero.length + this.cambiosMasivos.programa.length;
-    return ( cantidad > 0 );
+    
+    validador =  ( cantidad > 0 );
+
+    if( validador == true ) this.controlCargue.desactivarPasos.siguiente = true;
+    else                    this.controlCargue.desactivarPasos.siguiente = false;
+
+    return validador;
   }
 
   ControlBloqueoMasivos( registro:any ){
@@ -294,7 +331,11 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
     let posActual = 0;
     let encontrado = false;
 
-    this.controlCargue.datos.forEach( ( registro: any ) => {
+    let pasosProceso: number = this.controlCargue.datos.length;                 //Base de conteo para barra de progreso
+    this.ActualizarProgresoLocal("Aplicando Cambios Masivos:", pasosProceso, 0 );      //Inicializa barra de proceso
+
+
+    this.controlCargue.datos.forEach( ( registro: any, indice: any ) => {
       
       posActual = 0;
       encontrado = false;
@@ -338,6 +379,8 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
         registro.foraneas.programas_id = this.cambiosMasivos.programa[posActual].cambio_id;
      } 
 
+     this.ActualizarProgresoLocal("Aplicando Cambios Masivos:", pasosProceso, indice+1 );      //Actualiza Proceso barra de proceso
+
     });
     this.enProceso = false;
 
@@ -350,6 +393,11 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
 
   CambioRegistroMasivoOtro( registro: any, objeto:any ){
     registro.cambio_texto = objeto.descripcion;
+  }
+
+  ActualizarProgresoLocal( nombreProceso: string, totalPasos: number, pasoActual: number ){
+    this.progresoLocal.proceso = nombreProceso;
+    this.progresoLocal.valor = (pasoActual * 100 ) / totalPasos;
   }
 
 }
