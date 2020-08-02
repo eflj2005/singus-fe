@@ -71,7 +71,7 @@
               </thead>
               <tbody>
 
-                <tr *ngFor="let elemento of arregloNuevasPersonas; let indicePersonas = index;">
+                <tr *ngFor="let elemento of arregloNuevasPersonas; let indicePersonas = index;" [class]="elemento.repetido?'bg-danger':''">
                   <th scope="row">{{ elemento.CARRERA }}</th>
                   <td>{{ elemento.PER_GRADO }}</td>
                   <td>{{ elemento.SPRIDEN_ID }}</td>
@@ -141,7 +141,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let elemento of arregloNuevosEstudios; let indiceEstudios = index;">
+                <tr *ngFor="let elemento of arregloNuevosEstudios; let indiceEstudios = index;" [class]="elemento.repetido?'bg-danger':''">
                   <th scope="row">{{ elemento.SPRIDEN_ID }}</th>
                   <td>{{ elemento.DOCUMENTO }}</td>
                   <td>{{ elemento.APELLIDOS }}</td>
@@ -202,7 +202,7 @@
               </thead>
               <tbody>
 
-                <tr *ngFor="let elemento of arregloCambios; let indicePersonas = index;">
+                <tr *ngFor="let elemento of arregloCambios; let indicePersonas = index;" [class]="elemento.repetido?'bg-danger':''">
                   <th scope="row">{{ elemento.SPRIDEN_ID }}</th>
                   <td>
                     <div [class]="ValidarCampoEnObjeto('DOCUMENTO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('DOCUMENTO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.DOCUMENTO ">{{ elemento.DOCUMENTO }}</div>
@@ -361,7 +361,7 @@
                 <td>{{ elemento.cantidad }}</td>
                 <td>
                   <div class="input-group input-group-sm">
-                    <select class="form-control form-control-sm controlMasivos" [disabled]="elemento.bloqueo" [(ngModel)]="elemento.cambio" (ngModelChange)="CambioRegistroMasivoOtro( elemento, $event )">
+                    <select class="form-control form-control-sm controlMasivos" [disabled]="elemento.bloqueo" [(ngModel)]="elemento.cambio_id" (ngModelChange)="CambioRegistroMasivoOtro( elemento, $event )">
                       <option *ngFor="let elemento of controladorMunicipios.todos; let indiceTListaMunicipios = index" [ngValue]="elemento">{{elemento.descripcion}}</option>
                     </select>  
                     <div class="input-group-append">

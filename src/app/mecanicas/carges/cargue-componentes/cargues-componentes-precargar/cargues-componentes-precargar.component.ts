@@ -86,7 +86,7 @@ export class CarguesComponentesPrecargarComponent implements OnInit {
           registro.ref = "#"+conteoRef;
           conteoRef++;
 
-          // registro.seleccionado = false;
+          registro.repetido = false;
 
           let fechaTemp = this.ExcelDateToJSDate( registro.FECHA_GRADO );
           registro.FECHA_GRADO =  this.utilidadFechas.transform( fechaTemp, 'yyyy-MM-dd');

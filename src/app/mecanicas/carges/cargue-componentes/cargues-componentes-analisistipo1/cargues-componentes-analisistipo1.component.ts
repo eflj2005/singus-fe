@@ -165,8 +165,9 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
             if(encontrado) this.arregloCambios.push(  temporal );
             this.ActualizarProgresoLocal("Organizando Personas Con Cambios:", pasosProceso, indice + 1 );      //Actualiza Proceso barra de proceso
           });          
-
           this.enProceso = false;
+
+          this.BuscarRepetidos();
         }
         else{
           console.log(respuesta);
@@ -176,6 +177,64 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
         
       }
     );
+  }
+
+  BuscarRepetidos(){
+    this.enProceso = true;
+
+    let pasosProceso: number;
+
+console.log(this.arregloNuevasPersonas);
+
+    pasosProceso = this.arregloNuevasPersonas.length;                 //Base de conteo para barra de progreso
+    this.ActualizarProgresoLocal("Buscando Repetidos 1/3:", pasosProceso, 0 );      //Inicializa barra de proceso
+    this.arregloNuevasPersonas.forEach((registro: any, indice: any) => {     
+      let encontrado:boolean = false;
+      let posicion:number = 0;
+      while(posicion < pasosProceso && !encontrado ){
+        if( registro.SPRIDEN_ID == this.arregloNuevasPersonas[posicion].SPRIDEN_ID && indice != posicion )  encontrado = true;
+        else                                                                                                posicion++;
+      }
+      if(encontrado)  registro.repetido=true;
+      this.ActualizarProgresoLocal("Buscando Repetidos 1/3:", pasosProceso, indice + 1 );      //Actualiza Proceso barra de proceso
+    });
+
+
+    pasosProceso = this.arregloNuevosEstudios.length;                 //Base de conteo para barra de progreso
+    this.ActualizarProgresoLocal("Buscando Repetidos 2/3:", pasosProceso, 0 );      //Inicializa barra de proceso
+    this.arregloNuevosEstudios.forEach((registro: any, indice: any) => {     
+      let encontrado:boolean = false;
+      let posicion:number = 0;
+      while(posicion < pasosProceso && !encontrado ){
+        if( 
+          ( registro.SPRIDEN_ID == this.arregloNuevosEstudios[posicion].SPRIDEN_ID && registro.CARRERA == this.arregloNuevosEstudios[posicion].CARRERA ) && 
+          indice != posicion 
+        ) {
+          encontrado = true;
+        }
+        else{
+          posicion++;
+        }
+      }
+      if(encontrado)  registro.repetido=true;
+      this.ActualizarProgresoLocal("Buscando Repetidos 2/3:", pasosProceso, indice + 1 );      //Actualiza Proceso barra de proceso
+    });
+
+    pasosProceso = this.arregloCambios.length;                 //Base de conteo para barra de progreso
+    this.ActualizarProgresoLocal("Buscando Repetidos 3/3:", pasosProceso, 0 );      //Inicializa barra de proceso
+    this.arregloCambios.forEach((registro: any, indice: any) => {     
+      let encontrado:boolean = false;
+      let posicion:number = 0;
+      while(posicion < pasosProceso && !encontrado ){
+        if( registro.SPRIDEN_ID == this.arregloCambios[posicion].SPRIDEN_ID && indice != posicion )  encontrado = true;
+        else                                                                                                posicion++;
+      }
+      if(encontrado)  registro.repetido=true;
+      this.ActualizarProgresoLocal("Buscando Repetidos 3/3:", pasosProceso, indice + 1 );      //Actualiza Proceso barra de proceso
+    });
+
+
+    this.enProceso = false;
   }
 
   BuscarCambiosMasivos(){
@@ -269,8 +328,6 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
 
     });
 
-    console.log(this.cambiosMasivos);
-
     this.enProceso = false;
   }
   
@@ -302,15 +359,30 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
     
     validador =  ( cantidad > 0 );
 
-    if( validador == true ) this.controlCargue.desactivarPasos.siguiente = true;
-    else                    this.controlCargue.desactivarPasos.siguiente = false;
+    if( validador == true ) {
+      this.controlCargue.desactivarPasos.siguiente = true;
+    }
+    else{
+      if( this.HayRepetidos() )  this.controlCargue.desactivarPasos.siguiente = true;
+      else                       this.controlCargue.desactivarPasos.siguiente = false;
+    } 
 
     return validador;
   }
 
+  HayRepetidos():boolean{
+    let conteo: number = 0;
+
+    conteo = conteo + this.arregloNuevasPersonas.filter((registro:any)=>{ return (registro.repetido) }).length;
+    conteo = conteo + this.arregloNuevosEstudios.filter((registro:any)=>{ return (registro.repetido) }).length;
+    conteo = conteo + this.arregloCambios.filter((registro:any)=>{ return (registro.repetido) }).length;
+        
+    return ( conteo > 0 );
+  }
+
   ControlBloqueoMasivos( registro:any ){
-    if( isNull(registro.cambio) ) alert("No puede bloquear el control sin seleccionar una opción");
-    else                          registro.bloqueo = !registro.bloqueo;
+    if( isNull(registro.cambio_id) )  alert("No puede bloquear el control sin seleccionar una opción");
+    else                              registro.bloqueo = !registro.bloqueo;
   }
 
   PendientesMasivos(){
