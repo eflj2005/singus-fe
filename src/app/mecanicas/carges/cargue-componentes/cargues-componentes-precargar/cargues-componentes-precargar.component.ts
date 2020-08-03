@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 
 import * as XLSX from 'xlsx';
 import { DatePipe } from '@angular/common';
+import { CarguesController } from '@controladores/cargues.controller';
 
 @Component({
   selector: 'app-cargues-componentes-precargar',
@@ -10,27 +11,25 @@ import { DatePipe } from '@angular/common';
 })
 export class CarguesComponentesPrecargarComponent implements OnInit {
   @ViewChild('inputArchivo',{static: false}) inputArchivo: ElementRef;
-  @Input() controlCargue : { [inndice:string] : any};
+  @Input() controlVisual : { [inndice:string] : any};
+  @Input() controladorCargues : CarguesController;
+  
   
   datosArchivo: File = null;
-
   nombreArchivo: string = "";
 
   arregloResumen: any[];
 
   progresoLocal: { valor: number, proceso: string } = { valor: 0, proceso: "" };
   
-
-  constructor(
-    private utilidadFechas: DatePipe
-  ) { 
+  constructor(  private utilidadFechas: DatePipe ) { 
   }
 
 
   ngOnInit() {
     this.arregloResumen = [];
-    this.controlCargue.desactivarPasos.anterior = true;
-    this.controlCargue.desactivarPasos.siguiente = true;
+    this.controlVisual.desactivarPasos.anterior = true;
+    this.controlVisual.desactivarPasos.siguiente = true;
   }
 
   SeleccionarArchivo(fileInput: any){
@@ -50,15 +49,15 @@ export class CarguesComponentesPrecargarComponent implements OnInit {
       jsonData = workBook.SheetNames.reduce((initial, name) => {
         const sheet = workBook.Sheets[name];
         if(name == "Datos"){
-          initial[name] = XLSX.utils.sheet_to_json( sheet, {defval:"", range: 1, header: this.controlCargue.caracteristicas.estructura} );
+          initial[name] = XLSX.utils.sheet_to_json( sheet, {defval:"", range: 1, header: this.controladorCargues.caracteristicas.estructura} );
         }
         return initial;
       }, {});
       
       const dataString = JSON.stringify(jsonData);
-      let contendoArchivo: string = dataString;
+      let contenidoArchivo: string = dataString;
 
-      let ObjetoLibro = JSON.parse( contendoArchivo );
+      let ObjetoLibro = JSON.parse( contenidoArchivo );
      
       if( !("Datos" in ObjetoLibro) ) {
         alert("No se encontro hoja 'datos' en archivo");
@@ -68,14 +67,14 @@ export class CarguesComponentesPrecargarComponent implements OnInit {
         // this.arregloResumen = [];
       }
       else{
-        this.controlCargue.datos = ObjetoLibro.Datos;
+        this.controladorCargues.datos = ObjetoLibro.Datos;
 
         conteoRef = 1;
 
-        let pasosProceso: number = this.controlCargue.datos.length;                 //Base de conteo para barra de progreso
+        let pasosProceso: number = this.controladorCargues.datos.length;                 //Base de conteo para barra de progreso
         this.ActualizarProgresoLocal("Explorando Archivo:", pasosProceso, 0 );      //Inicializa barra de proceso
 
-        this.controlCargue.datos.forEach((registro: any, indice: any) => {
+        this.controladorCargues.datos.forEach((registro: any, indice: any) => {
 
           let posActual: number;
           let encontrado: boolean;
@@ -110,14 +109,14 @@ export class CarguesComponentesPrecargarComponent implements OnInit {
   }
 
   GenerarResumen(){
-    switch(this.controlCargue.caracteristicas.tipo){
+    switch(this.controladorCargues.caracteristicas.tipo){
       case 1:
         this.arregloResumen = [];
 
-        let pasosProceso: number = this.controlCargue.datos.length;                 //Base de conteo para barra de progreso
+        let pasosProceso: number = this.controladorCargues.datos.length;                 //Base de conteo para barra de progreso
         this.ActualizarProgresoLocal("Generando Resumen:", pasosProceso, 0 );      //Inicializa barra de proceso
 
-        this.controlCargue.datos.forEach((registro: any, indice: any) => {
+        this.controladorCargues.datos.forEach((registro: any, indice: any) => {
 
           let posActual: number;
           let encontrado: boolean;
@@ -157,7 +156,7 @@ export class CarguesComponentesPrecargarComponent implements OnInit {
           this.arregloResumen[posicionCohorte].cantidad++;
           this.arregloResumen[posicionCohorte].programas[posicionPrograma].cantidad++;
 
-          this.controlCargue.desactivarPasos.siguiente = false;
+          this.controlVisual.desactivarPasos.siguiente = false;
 
           this.ActualizarProgresoLocal("Generando Resumen:", pasosProceso, indice + 1 );     //Actualiza Proceso barra de proceso
         });

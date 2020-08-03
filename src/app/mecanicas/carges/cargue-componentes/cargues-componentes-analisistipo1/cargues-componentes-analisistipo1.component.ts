@@ -8,6 +8,7 @@ import { ProgramasController } from '@controladores/programas.controller';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { isNull } from 'util';
 import { timer } from 'rxjs';
+import { CarguesController } from '@controladores/cargues.controller';
 
 @Component({
   selector: 'app-cargues-componentes-analisistipo1',
@@ -15,7 +16,8 @@ import { timer } from 'rxjs';
   styleUrls: ['./cargues-componentes-analisistipo1.component.css']
 })
 export class CarguesComponentesAnalisistipo1Component implements OnInit {
-  @Input() controlCargue : { [inndice:string] : any};
+  @Input() controlVisual : { [inndice:string] : any};
+  @Input() controladorCargues: CarguesController;
 
   arregloNuevasPersonas: any[];
   arregloNuevosEstudios: any[];
@@ -62,8 +64,8 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
   ngOnInit() {
     this.enProceso = true;
 
-    this.controlCargue.desactivarPasos.siguiente = false;
-    this.controlCargue.desactivarPasos.anterior = false;
+    this.controlVisual.desactivarPasos.siguiente = false;
+    this.controlVisual.desactivarPasos.anterior = false;
 
     this.controladorTiposDocumentos.CargarDesdeDB( ).subscribe( (respuestaTD:RespuestaInterface) => { } );           // Carge de Tipos de Documentos      
     this.controladorProgramas.CargarDesdeDB( ).subscribe( (respuestaP:RespuestaInterface) => {  } );       // Carge de Tipos de Documentos 
@@ -88,7 +90,7 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
     this.BuscarCambiosMasivos();
     this.enProceso = true;
 
-    datosAnalizados = this.controlCargue.datos;
+    datosAnalizados = this.controladorCargues.datos;
 
     let parametros = {
       accion : "registros_cargue_tipo1",
@@ -184,8 +186,6 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
 
     let pasosProceso: number;
 
-console.log(this.arregloNuevasPersonas);
-
     pasosProceso = this.arregloNuevasPersonas.length;                 //Base de conteo para barra de progreso
     this.ActualizarProgresoLocal("Buscando Repetidos 1/3:", pasosProceso, 0 );      //Inicializa barra de proceso
     this.arregloNuevasPersonas.forEach((registro: any, indice: any) => {     
@@ -243,7 +243,7 @@ console.log(this.arregloNuevasPersonas);
 
     this.enProceso = true;
 
-    datosAnalizados = this.controlCargue.datos;
+    datosAnalizados = this.controladorCargues.datos;
 
     this.cambiosMasivos.tipoDocumento = [];
     this.cambiosMasivos.expDocumento = [];
@@ -360,11 +360,11 @@ console.log(this.arregloNuevasPersonas);
     validador =  ( cantidad > 0 );
 
     if( validador == true ) {
-      this.controlCargue.desactivarPasos.siguiente = true;
+      this.controlVisual.desactivarPasos.siguiente = true;
     }
     else{
-      if( this.HayRepetidos() )  this.controlCargue.desactivarPasos.siguiente = true;
-      else                       this.controlCargue.desactivarPasos.siguiente = false;
+      if( this.HayRepetidos() )  this.controlVisual.desactivarPasos.siguiente = true;
+      else                       this.controlVisual.desactivarPasos.siguiente = false;
     } 
 
     return validador;
@@ -403,11 +403,11 @@ console.log(this.arregloNuevasPersonas);
     let posActual = 0;
     let encontrado = false;
 
-    let pasosProceso: number = this.controlCargue.datos.length;                 //Base de conteo para barra de progreso
+    let pasosProceso: number = this.controladorCargues.datos.length;                 //Base de conteo para barra de progreso
     this.ActualizarProgresoLocal("Aplicando Cambios Masivos:", pasosProceso, 0 );      //Inicializa barra de proceso
 
 
-    this.controlCargue.datos.forEach( ( registro: any, indice: any ) => {
+    this.controladorCargues.datos.forEach( ( registro: any, indice: any ) => {
       
       posActual = 0;
       encontrado = false;

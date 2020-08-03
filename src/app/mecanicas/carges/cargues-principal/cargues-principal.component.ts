@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import {NgbProgressbarConfig} from '@ng-bootstrap/ng-bootstrap';
+import { CarguesController } from '@controladores/cargues.controller';
 
 @Component({
   selector: 'app-cargues-principal',
@@ -16,11 +17,10 @@ import {NgbProgressbarConfig} from '@ng-bootstrap/ng-bootstrap';
 
 export class CarguesPrincipalComponent implements OnInit  {
 
-  tipoCargue: number;
   private subscripcionRuta: Subscription;
 
-  caracteristicasCargues: { [indice:string] : any}[] = []; 
-  controlCargue: { [indice:string] : any}; 
+  controladorCargues: CarguesController;
+  controlVisual: { [indice:string] : any}; 
 
   constructor( 
     private servicioAmbiente : AmbienteService,
@@ -36,25 +36,10 @@ export class CarguesPrincipalComponent implements OnInit  {
     progreso.type     = 'info';
     progreso.height   = '20px';
 
-    this.caracteristicasCargues.push({
-      tipo: 1,
-      estructura: [ "RECTORIA", "NOMBRE_RECTORIA", "SEDE", "DESCRIPCION_SEDE", "SPRIDEN_ID", "TIPO_DOCUMENTO", "DOCUMENTO", "APELLIDOS", "P_NOMBRE", "S_NOMBRE", "SECUENCIA", "FACULTAD", "PROGRAMA", "NOMBRE_PROGRAMA", "PROGRAMAS_ACREDITADOS", "CARRERA", "CIUDAD_EXP_DOC", "GENERO", "STATUS_RESUL", "FEC_CAMBIO_STATUS", "EDAD", "NIVEL", "JORNADA_DESC", "TEL_RE", "TEL_TR", "TEL_CEL", "MAIL_ESTU", "CREDITOS_TOTAL_INSCRITOS", "CREDITOS_TOTAL_APROBADOS", "PROMEDIO", "STATUS_GRADO", "PER_GRADO", "ANIO_GRADO", "FECHA_GRADO", "ACTA_GRADO", "LIBRO", "FOLIO", "N_DIPLOMA", "SHRDGIH_HONR_CODE" ],
-      tituloProceso : "Graduados - Argos", 
-      ultimoPaso: 3,
-    });
-    this.caracteristicasCargues.push({
-      tipo: 2,
-      estructura: [ "RECTORIA", "NOMBRE_RECTORIA", "SEDE", "DESCRIPCION_SEDE", "SPRIDEN_ID", "TIPO_DOCUMENTO", "DOCUMENTO", "APELLIDOS", "P_NOMBRE", "S_NOMBRE", "SECUENCIA", "FACULTAD", "PROGRAMA", "NOMBRE_PROGRAMA", "PROGRAMAS_ACREDITADOS", "CARRERA", "CIUDAD_EXP_DOC", "GENERO", "STATUS_RESUL", "FEC_CAMBIO_STATUS", "EDAD", "NIVEL", "JORNADA_DESC", "TEL_RE", "TEL_TR", "TEL_CEL", "MAIL_ESTU", "CREDITOS_TOTAL_INSCRITOS", "CREDITOS_TOTAL_APROBADOS", "PROMEDIO", "STATUS_GRADO", "PER_GRADO", "ANIO_GRADO", "FECHA_GRADO", "ACTA_GRADO", "LIBRO", "FOLIO", "N_DIPLOMA", "SHRDGIH_HONR_CODE" ],
-      tituloProceso : "Graduados - SAP", 
-      ultimoPaso: 1,
-    });
-
-    this.controlCargue ={
-      caracteristicas: null,
-      datos: [],
+    this.controlVisual ={
       progresoActual: 35, 
-      pasoActualValor: 1, 
       pasoActualProgreso: 0,
+      pasoActualValor: 1, 
       desactivarPasos: { anterior: false, siguiente: false }
     }
 
@@ -63,9 +48,8 @@ export class CarguesPrincipalComponent implements OnInit  {
   ngOnInit() {
 
     this.subscripcionRuta = this.rutaActiva.params.subscribe( parametros => {
-      this.tipoCargue = parametros['tipo']; 
-
-      this.controlCargue.caracteristicas =  this.caracteristicasCargues.find( elemento => { return  ( elemento.tipo == this.tipoCargue )  } );
+      
+      this.controladorCargues = new CarguesController( parametros['tipo'] );
 
       ///ACA BA TODA LA EJECOCIÖN INICIAL DEL COMPONENTE
     });    
@@ -76,9 +60,8 @@ export class CarguesPrincipalComponent implements OnInit  {
     this.subscripcionRuta.unsubscribe();
   }
 
-
   CambiarPaso( movimiento: number){
-    this.controlCargue.pasoActualValor = this.controlCargue.pasoActualValor + movimiento;
+    this.controlVisual.pasoActualValor = this.controlVisual.pasoActualValor + movimiento;
   }
 
 }

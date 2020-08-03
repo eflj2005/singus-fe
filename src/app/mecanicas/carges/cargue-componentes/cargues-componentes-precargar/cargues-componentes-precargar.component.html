@@ -31,7 +31,7 @@
         <div class="col">RESUMEN - {{ nombreArchivo }}</div>
       </div>
 
-      <ng-container *ngIf="controlCargue.caracteristicas.tipo == 1">
+      <ng-container *ngIf="controladorCargues.caracteristicas.tipo == 1">
         <div class="row" *ngFor="let registroC of arregloResumen; let indiceCohorte = index">
           <div class="col-sm-12">
             <div class="row bg-gray">
