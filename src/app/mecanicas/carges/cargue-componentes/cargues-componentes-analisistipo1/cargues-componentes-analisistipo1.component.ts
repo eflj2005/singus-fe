@@ -86,19 +86,13 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
 
   AnalizarDatos(){
     var datosAnalizados: any[];
+    let parametros:any = {};
 
     this.BuscarCambiosMasivos();
     this.enProceso = true;
 
     datosAnalizados = this.controladorCargues.datos;
-
-    let parametros = {
-      accion : "registros_cargue_tipo1",
-      conSeguridad: true,
-      modoCargue: 1,
-      datos : datosAnalizados 
-    };
-   
+  
     this.ActualizarProgresoLocal("Analizando Registros:", 100, 0 );      //Inicializa barra de proceso
 
     const temporizador = timer(0, 100);
@@ -106,78 +100,31 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
       this.ActualizarProgresoLocal("Segmentando Registros:", 100, valor );      //Actualiza Proceso barra de proceso
     });
 
-    this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php", parametros).subscribe(
-      (respuesta: RespuestaInterface) => {
+    parametros = {
+      arregloNuevasPersonas : [] ,
+      arregloNuevosEstudios : [],
+      arregloCambios: []
+    }
 
-        subscripciónTemporizador.unsubscribe();
-        
-        if(respuesta.codigo == 200){
+    this.controladorCargues.AnalizarDatos(1, parametros).subscribe(
+      (respuesta: RespuestaInterface) => { 
 
-          this.arregloNuevasPersonas = [];
-          this.arregloNuevosEstudios = [];
-          this.arregloCambios = [];
-          let pasosProceso: number;
+        this.controladorCargues.EstaListo().subscribe(
+          (valor:boolean)=>{
+            if(valor){
 
-          pasosProceso = respuesta.mensaje.nuevasPersonas.length;                                      //Base de conteo para barra de progreso
-          this.ActualizarProgresoLocal("Organizando Nuevas Personas:", pasosProceso, 0 );                   //Inicializa barra de proceso
-          respuesta.mensaje.nuevasPersonas.forEach((registro: any, indice: any) => {          
+              this.arregloNuevasPersonas = parametros.arregloNuevasPersonas;
+              this.arregloNuevosEstudios = parametros.arregloNuevosEstudios;
+              this.arregloCambios = parametros.arregloCambios;
 
-            let posActual = 0;
-            let encontrado = false;
-            while(posActual < datosAnalizados.length && !encontrado ){
-              if( registro == datosAnalizados[posActual].ref )  encontrado = true;
-              else                                                  posActual++;
+              subscripciónTemporizador.unsubscribe();
+              this.enProceso = false;
+              this.BuscarRepetidos();              
             }
-
-            if(encontrado) this.arregloNuevasPersonas.push( datosAnalizados[posActual] );
-
-            this.ActualizarProgresoLocal("Organizando Nuevas Personas:", pasosProceso, indice + 1 );      //Actualiza Proceso barra de proceso
-          });
-
-          pasosProceso = respuesta.mensaje.nuevosEstudios.length;                                      //Base de conteo para barra de progreso
-          this.ActualizarProgresoLocal("Organizando Nuevos Estudios:", pasosProceso, 0 );                   //Inicializa barra de proceso
-          respuesta.mensaje.nuevosEstudios.forEach((registro: any, indice: any) => {    
-
-            let posActual = 0;
-            let encontrado = false;
-            while(posActual < datosAnalizados.length && !encontrado ){
-              if( registro == datosAnalizados[posActual].ref )  encontrado = true;
-              else                                              posActual++;
-            }
-
-            if(encontrado) this.arregloNuevosEstudios.push(  datosAnalizados[posActual]  );
-
-            this.ActualizarProgresoLocal("Organizando Nuevos Estudios:", pasosProceso, indice + 1 );      //Actualiza Proceso barra de proceso
-          });
-
-          pasosProceso = respuesta.mensaje.personasCambios.length;                                      //Base de conteo para barra de progreso
-          this.ActualizarProgresoLocal("Organizando Personas Con Cambios:", pasosProceso, 0 );                   //Inicializa barra de proceso
-          respuesta.mensaje.personasCambios.forEach((registro: any, indice: any) => {    
-
-            let posActual = 0;
-            let encontrado = false;
-            while(posActual < datosAnalizados.length && !encontrado ){
-              if( registro.referencia == datosAnalizados[posActual].ref )  encontrado = true;
-              else                                                         posActual++;
-            }         
-
-            let temporal  =Object.assign({},datosAnalizados[posActual]);
-            temporal.cambios = registro.cambios;
-
-            if(encontrado) this.arregloCambios.push(  temporal );
-            this.ActualizarProgresoLocal("Organizando Personas Con Cambios:", pasosProceso, indice + 1 );      //Actualiza Proceso barra de proceso
-          });          
-          this.enProceso = false;
-
-          this.BuscarRepetidos();
-        }
-        else{
-          console.log(respuesta);
-          alert("Error en proceso de analisis")
-          this.enProceso = false;
-        }
-        
-      }
+          }
+        );
+       
+      }      
     );
   }
 
@@ -469,7 +416,8 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
 
   ActualizarProgresoLocal( nombreProceso: string, totalPasos: number, pasoActual: number ){
     this.progresoLocal.proceso = nombreProceso;
-    this.progresoLocal.valor = (pasoActual * 100 ) / totalPasos;
+    if( totalPasos!= 0 )  this.progresoLocal.valor = (pasoActual * 100 ) / totalPasos;
+    else                  this.progresoLocal.valor = 100;
   }
 
 }

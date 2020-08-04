@@ -108,8 +108,8 @@ export class GenericoModel {
 
     switch(tipo){
       case "campos":
-        if(returnObservable)  resultado = this.listoCampos.value
-        else                  resultado = this.listoCampos;
+        if(returnObservable)  resultado = this.listoCampos;
+        else                  resultado = this.listoCampos.value;
       break;
       case "cargue":
         if(returnObservable)  resultado = this.listoCargue;

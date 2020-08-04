@@ -49,7 +49,7 @@ export class CarguesPrincipalComponent implements OnInit  {
 
     this.subscripcionRuta = this.rutaActiva.params.subscribe( parametros => {
       
-      this.controladorCargues = new CarguesController( parametros['tipo'] );
+      this.controladorCargues = new CarguesController(this.servicioAmbiente, this.llamadoHttp, parametros['tipo']);
 
       ///ACA BA TODA LA EJECOCIÖN INICIAL DEL COMPONENTE
     });    
