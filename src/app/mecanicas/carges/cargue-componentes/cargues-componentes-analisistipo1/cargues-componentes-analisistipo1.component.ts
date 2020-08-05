@@ -88,6 +88,8 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
     var datosAnalizados: any[];
     let parametros:any = {};
 
+    console.log(this.controladorCargues.datos);
+
     this.BuscarCambiosMasivos();
     this.enProceso = true;
 
@@ -120,6 +122,7 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
               subscripciónTemporizador.unsubscribe();
               this.enProceso = false;
               this.BuscarRepetidos();              
+          
             }
           }
         );
@@ -135,51 +138,18 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
 
     pasosProceso = this.arregloNuevasPersonas.length;                 //Base de conteo para barra de progreso
     this.ActualizarProgresoLocal("Buscando Repetidos 1/3:", pasosProceso, 0 );      //Inicializa barra de proceso
-    this.arregloNuevasPersonas.forEach((registro: any, indice: any) => {     
-      let encontrado:boolean = false;
-      let posicion:number = 0;
-      while(posicion < pasosProceso && !encontrado ){
-        if( registro.SPRIDEN_ID == this.arregloNuevasPersonas[posicion].SPRIDEN_ID && indice != posicion )  encontrado = true;
-        else                                                                                                posicion++;
-      }
-      if(encontrado)  registro.repetido=true;
-      this.ActualizarProgresoLocal("Buscando Repetidos 1/3:", pasosProceso, indice + 1 );      //Actualiza Proceso barra de proceso
-    });
-
+    this.controladorCargues.MarcarRepetidos( this.arregloNuevasPersonas,  ["SPRIDEN_ID"] , true );
+    this.ActualizarProgresoLocal("Buscando Repetidos 1/3:", pasosProceso, pasosProceso);      //Actualiza Proceso barra de proceso
 
     pasosProceso = this.arregloNuevosEstudios.length;                 //Base de conteo para barra de progreso
     this.ActualizarProgresoLocal("Buscando Repetidos 2/3:", pasosProceso, 0 );      //Inicializa barra de proceso
-    this.arregloNuevosEstudios.forEach((registro: any, indice: any) => {     
-      let encontrado:boolean = false;
-      let posicion:number = 0;
-      while(posicion < pasosProceso && !encontrado ){
-        if( 
-          ( registro.SPRIDEN_ID == this.arregloNuevosEstudios[posicion].SPRIDEN_ID && registro.CARRERA == this.arregloNuevosEstudios[posicion].CARRERA ) && 
-          indice != posicion 
-        ) {
-          encontrado = true;
-        }
-        else{
-          posicion++;
-        }
-      }
-      if(encontrado)  registro.repetido=true;
-      this.ActualizarProgresoLocal("Buscando Repetidos 2/3:", pasosProceso, indice + 1 );      //Actualiza Proceso barra de proceso
-    });
+    this.controladorCargues.MarcarRepetidos( this.arregloNuevosEstudios,  ["SPRIDEN_ID", "CARRERA"]  );
+    this.ActualizarProgresoLocal("Buscando Repetidos 2/3:", pasosProceso, pasosProceso);      //Actualiza Proceso barra de proceso
 
     pasosProceso = this.arregloCambios.length;                 //Base de conteo para barra de progreso
     this.ActualizarProgresoLocal("Buscando Repetidos 3/3:", pasosProceso, 0 );      //Inicializa barra de proceso
-    this.arregloCambios.forEach((registro: any, indice: any) => {     
-      let encontrado:boolean = false;
-      let posicion:number = 0;
-      while(posicion < pasosProceso && !encontrado ){
-        if( registro.SPRIDEN_ID == this.arregloCambios[posicion].SPRIDEN_ID && indice != posicion )  encontrado = true;
-        else                                                                                                posicion++;
-      }
-      if(encontrado)  registro.repetido=true;
-      this.ActualizarProgresoLocal("Buscando Repetidos 3/3:", pasosProceso, indice + 1 );      //Actualiza Proceso barra de proceso
-    });
-
+    this.controladorCargues.MarcarRepetidos( this.arregloCambios, ["SPRIDEN_ID"] );
+    this.ActualizarProgresoLocal("Buscando Repetidos 3/3:", pasosProceso, pasosProceso);      //Actualiza Proceso barra de proceso
 
     this.enProceso = false;
   }

@@ -91,7 +91,10 @@ export class CarguesController {
                     if( registro == this.datosArchivo[posActual].ref )    encontrado = true;
                     else                                                  posActual++;
                   }
-                  if(encontrado) parametrosRecibidos.arregloNuevasPersonas.push( this.datosArchivo[posActual] );
+                  if(encontrado) {
+                    let temporal =  Object.assign( {}, this.datosArchivo[posActual] );
+                    parametrosRecibidos.arregloNuevasPersonas.push( temporal );
+                  }
                 });
 
                 respuesta.mensaje.nuevosEstudios.forEach((registro: any, indice: any) => {    
@@ -101,7 +104,10 @@ export class CarguesController {
                     if( registro == this.datosArchivo[posActual].ref )  encontrado = true;
                     else                                                posActual++;
                   }
-                  if(encontrado) parametrosRecibidos.arregloNuevosEstudios.push(  this.datosArchivo[posActual]  );
+                  if(encontrado) {
+                    let temporal =  Object.assign( {}, this.datosArchivo[posActual] );
+                    parametrosRecibidos.arregloNuevosEstudios.push( temporal);
+                  }
                 });
 
                 respuesta.mensaje.personasCambios.forEach((registro: any, indice: any) => {    
@@ -111,9 +117,11 @@ export class CarguesController {
                     if( registro.referencia == this.datosArchivo[posActual].ref )  encontrado = true;
                     else                                                          posActual++;
                   }         
-                  let temporal  =Object.assign({},this.datosArchivo[posActual]);
-                  temporal.cambios = registro.cambios;
-                  if(encontrado) parametrosRecibidos.arregloCambios.push( temporal );
+                  if(encontrado) {
+                    let temporal =  Object.assign( {}, this.datosArchivo[posActual] );
+                    temporal.cambios = registro.cambios;
+                    parametrosRecibidos.arregloCambios.push( temporal );
+                  }
                 });               
                 this.procesoTerminado.next( true );
 
@@ -131,6 +139,62 @@ export class CarguesController {
     }
     
     return llamado;
+  }
+
+  MarcarRepetidos( arregloBase:any[], camposBuscados: string[], elminiarRepetidos:boolean = false ){
+
+    arregloBase.forEach((registro: any, indiceR: any) => {     
+      let encontrado:boolean = false;
+      let posicion:number = 0;
+      while(posicion < arregloBase.length && !encontrado ){
+        let validaciones:number = 0;
+        camposBuscados.forEach((campo: any, indiceC: any) => {
+          if(registro[campo] == arregloBase[posicion][campo]) validaciones++;
+        });
+
+        if( ( validaciones == camposBuscados.length ) && ( indiceR != posicion ) )  encontrado = true;
+        else                                                                        posicion++;
+      }
+      if(encontrado)  registro.repetido=true;
+
+    });
+
+    if(elminiarRepetidos) this.EliminarRepetidos(arregloBase, camposBuscados);
+
+  }
+
+  private EliminarRepetidos(arregloBase:any[], camposBuscados: string[]){
+    let posicionBase:number;
+    let posicionEliminacion:number;
+
+    posicionBase = 0;
+    while( posicionBase < arregloBase.length ){
+
+      if( arregloBase[posicionBase].repetido ){
+
+        posicionEliminacion = posicionBase + 1;
+        while( posicionEliminacion < arregloBase.length ){       
+
+          let validaciones:number = 0;
+          camposBuscados.forEach((campo: any, indiceC: any) => {
+            if(arregloBase[posicionBase][campo] == arregloBase[posicionEliminacion][campo]) validaciones++;
+          });
+  
+          if( validaciones == camposBuscados.length ){
+            arregloBase.splice(posicionEliminacion,1);
+            posicionEliminacion = posicionBase + 1;
+          }
+          else{
+            posicionEliminacion++;
+          } 
+   
+        }
+
+      }
+
+      posicionBase++;
+    }
+
   }
 
 }
