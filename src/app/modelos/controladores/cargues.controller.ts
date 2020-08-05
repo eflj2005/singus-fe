@@ -192,6 +192,7 @@ export class CarguesController {
 
       }
 
+      arregloBase[posicionBase].repetido = false;
       posicionBase++;
     }
 
