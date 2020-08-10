@@ -1,0 +1,44 @@
+<div class="container-fluid">
+
+  <div class="d-flex mb-2">
+    <div class="flex-grow-1">
+      <h4 class="my-auto py-0">Paso 3: Procesando Archivo</h4> 
+      <div class="d-flex">
+        <div class="pr-1 py-0 my-auto">       <span>{{ progresoLocal.proceso }}</span> </div>
+        <div class="flex-grow-1 py-0 my-auto pr-2"> <ngb-progressbar value="{{ progresoLocal.valor }}" showValue="true"></ngb-progressbar></div>
+      </div>        
+    </div>
+    <div class="py-0 w-25 my-auto">&nbsp;</div>        
+  </div>
+
+  <div class="container-fluid" *ngIf="arregloResumen.length != 0">
+
+    <div class="row">
+      <div class="col">RESUMEN DE CARGUE - {{ nombreArchivo }}</div>
+    </div>
+
+    <ng-container *ngIf="controladorCargues.caracteristicas.tipo == 1">
+
+      <div>resumen</div>
+
+
+      <!-- <div class="row" *ngFor="let registroC of arregloResumen; let indiceCohorte = index">
+        <div class="col-sm-12">
+          <div class="row bg-gray">
+            <div class="col-sm-2">  {{ registroC.cohorte }}</div>
+            <div class="col-sm-8">  &nbsp;  </div>
+            <div class="col-sm-2">  {{ registroC.cantidad }} Registros   </div>
+          </div>
+          <div class="row" *ngFor="let registroP of registroC.programas; let indicePrograma = index">
+            <div class="col-sm-2">  &nbsp;  </div>
+            <div class="col-sm-8">  {{ registroP.nombre }}  </div>
+            <div class="col-sm-2">  {{ registroP.cantidad }} Registros  </div>
+          </div>
+        </div>
+      </div> -->
+    </ng-container>
+
+  </div>
+
+
+</div> 

@@ -14,6 +14,7 @@ export class CarguesController {
 
   private indiceCaracteristicas: number;
   private datosArchivo: any[];
+  private datosAdicionales: objetoGenericoInterface;
 
   private procesoTerminado: BehaviorSubject<boolean>;
   
@@ -22,6 +23,8 @@ export class CarguesController {
     private llamadoHttp : HttpClient, 
     tipoCargeRecibido: number
   ) { 
+
+    this.datosAdicionales = {};
 
     this.datosArchivo = [];
     this.procesoTerminado = new BehaviorSubject(false);
@@ -54,24 +57,37 @@ export class CarguesController {
     this.datosArchivo = registros;
   }
 
+  public get adicionales():objetoGenericoInterface{
+    return this.datosAdicionales;
+  }
+
+  public set adicionales( objetoDatos: objetoGenericoInterface ){
+    this.datosAdicionales = objetoDatos;
+  }
+
   public EstaListo():Observable<boolean>{
     return this.procesoTerminado;
   }
 
-  public AnalizarDatos( nodoRecibido: number, parametrosRecibidos: any ):Observable<any>{
+  public ProcesarDatos( modoRecibido: number, parametrosRecibidos: any ):Observable<any>{
 
     var llamado: any;
 
     let parametrosLlamado = {
       accion : "",
       conSeguridad: true,
-      modoCargue: nodoRecibido,
-      datos : this.datosArchivo 
+      modoCargue: modoRecibido,
+      datos : null 
     };
     
     switch(this.caracteristicas.tipo){
       case 1:
-        parametrosLlamado.accion = "registros_cargue_tipo1"
+
+        //AJUSTE DE PARAMETROS
+        parametrosLlamado.accion = "registros_cargue_tipo1";
+        if(modoRecibido == 1) parametrosLlamado.datos = this.datosArchivo;
+        else                  parametrosLlamado.datos = this.datosAdicionales;
+
         this.procesoTerminado.next( false );
     
         llamado = this.llamadoHttp.post<any>( this.servicioAmbiente.GetUrlRecursos() + "pasarela.php", parametrosLlamado).pipe(
@@ -80,54 +96,58 @@ export class CarguesController {
 
               if( respuesta.codigo == 200 ) {
                 
-                parametrosRecibidos.arregloNuevasPersonas = [];
-                parametrosRecibidos.arregloNuevosEstudios = [];
-                parametrosRecibidos.arregloCambios = [];
+                if(modoRecibido == 1) {
+                  this.adicionales.arregloNuevasPersonas = [];
+                  this.adicionales.arregloNuevosEstudios = [];
+                  this.adicionales.arregloCambios = [];
 
-                respuesta.mensaje.nuevasPersonas.forEach((registro: any, indice: any) => {          
-                  let posActual = 0;
-                  let encontrado = false;
-                  while(posActual < this.datosArchivo.length && !encontrado ){
-                    if( registro == this.datosArchivo[posActual].ref )    encontrado = true;
-                    else                                                  posActual++;
-                  }
-                  if(encontrado) {
-                    let temporal =  Object.assign( {}, this.datosArchivo[posActual] );
-                    parametrosRecibidos.arregloNuevasPersonas.push( temporal );
-                  }
-                });
+                  respuesta.mensaje.nuevasPersonas.forEach((registro: any, indice: any) => {          
+                    let posActual = 0;
+                    let encontrado = false;
+                    while(posActual < this.datosArchivo.length && !encontrado ){
+                      if( registro == this.datosArchivo[posActual].ref )    encontrado = true;
+                      else                                                  posActual++;
+                    }
+                    if(encontrado) {
+                      let temporal =  Object.assign( {}, this.datosArchivo[posActual] );
+                      this.adicionales.arregloNuevasPersonas.push( temporal );
+                    }
+                  });
 
-                respuesta.mensaje.nuevosEstudios.forEach((registro: any, indice: any) => {    
-                  let posActual = 0;
-                  let encontrado = false;
-                  while(posActual < this.datosArchivo.length && !encontrado ){
-                    if( registro == this.datosArchivo[posActual].ref )  encontrado = true;
-                    else                                                posActual++;
-                  }
-                  if(encontrado) {
-                    let temporal =  Object.assign( {}, this.datosArchivo[posActual] );
-                    parametrosRecibidos.arregloNuevosEstudios.push( temporal);
-                  }
-                });
+                  // respuesta.mensaje.nuevosEstudios.forEach((registro: any, indice: any) => {    
+                  //   let posActual = 0;
+                  //   let encontrado = false;
+                  //   while(posActual < this.datosArchivo.length && !encontrado ){
+                  //     if( registro == this.datosArchivo[posActual].ref )  encontrado = true;
+                  //     else                                                posActual++;
+                  //   }
+                  //   if(encontrado) {
+                  //     let temporal =  Object.assign( {}, this.datosArchivo[posActual] );
+                  //     this.adicionales.arregloNuevosEstudios.push( temporal);
+                  //   }
+                  // });
 
-                respuesta.mensaje.personasCambios.forEach((registro: any, indice: any) => {    
-                  let posActual = 0;
-                  let encontrado = false;
-                  while(posActual < this.datosArchivo.length && !encontrado ){
-                    if( registro.referencia == this.datosArchivo[posActual].ref )  encontrado = true;
-                    else                                                          posActual++;
-                  }         
-                  if(encontrado) {
-                    let temporal =  Object.assign( {}, this.datosArchivo[posActual] );
-                    temporal.cambios = registro.cambios;
-                    parametrosRecibidos.arregloCambios.push( temporal );
-                  }
-                });               
-                this.procesoTerminado.next( true );
-
+                  // respuesta.mensaje.personasCambios.forEach((registro: any, indice: any) => {    
+                  //   let posActual = 0;
+                  //   let encontrado = false;
+                  //   while(posActual < this.datosArchivo.length && !encontrado ){
+                  //     if( registro.referencia == this.datosArchivo[posActual].ref )  encontrado = true;
+                  //     else                                                          posActual++;
+                  //   }         
+                  //   if(encontrado) {
+                  //     let temporal =  Object.assign( {}, this.datosArchivo[posActual] );
+                  //     temporal.cambios = registro.cambios;
+                  //     this.adicionales.arregloCambios.push( temporal );
+                  //   }
+                  // });               
+                  this.procesoTerminado.next( true );
+                }
+                if(modoRecibido == 2) {
+                  this.procesoTerminado.next( true );
+                }
               }
               else{
-                console.log("Error En Analisis");
+                console.log("Error En Proceso de Datos");
                 console.log(respuesta,"error");
               }
 
@@ -135,6 +155,10 @@ export class CarguesController {
             }
           )          
         );
+      break;
+      case 4:
+
+
       break;
     }
     

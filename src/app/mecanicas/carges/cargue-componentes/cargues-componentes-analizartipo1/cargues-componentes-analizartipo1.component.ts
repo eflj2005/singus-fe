@@ -11,11 +11,11 @@ import { timer } from 'rxjs';
 import { CarguesController } from '@controladores/cargues.controller';
 
 @Component({
-  selector: 'app-cargues-componentes-analisistipo1',
-  templateUrl: './cargues-componentes-analisistipo1.component.html',
-  styleUrls: ['./cargues-componentes-analisistipo1.component.css']
+  selector: 'app-cargues-componentes-analizartipo1',
+  templateUrl: './cargues-componentes-analizartipo1.component.html',
+  styleUrls: ['./cargues-componentes-analizartipo1.component.css']
 })
-export class CarguesComponentesAnalisistipo1Component implements OnInit {
+export class CarguesComponentesAnalizartipo1Component implements OnInit {
   @Input() controlVisual : { [inndice:string] : any};
   @Input() controladorCargues: CarguesController;
 
@@ -51,10 +51,6 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
   ) {
     this.enProceso = false;
 
-    this.arregloNuevasPersonas = [];
-    this.arregloNuevosEstudios = [];
-    this.arregloCambios = [];
-
     this.controladorTiposDocumentos = new TiposdocumentosController( llamadoHttp , servicioAmbiente );
     this.controladorMunicipios = new MunicipiosController( llamadoHttp , servicioAmbiente );
     this.controladorProgramas = new ProgramasController( llamadoHttp , servicioAmbiente );
@@ -66,6 +62,17 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
 
     this.controlVisual.desactivarPasos.siguiente = false;
     this.controlVisual.desactivarPasos.anterior = false;
+    this.controlVisual.desactivarPasos.inicio = true;
+    this.controlVisual.controlPasos.anterior = false;
+    this.controlVisual.controlPasos.siguiente = true;
+
+
+    this.controladorCargues.adicionales = {
+      arregloNuevasPersonas : [] ,
+      arregloNuevosEstudios : [],
+      arregloCambios: []
+    }
+
 
     this.controladorTiposDocumentos.CargarDesdeDB( ).subscribe( (respuestaTD:RespuestaInterface) => { } );           // Carge de Tipos de Documentos      
     this.controladorProgramas.CargarDesdeDB( ).subscribe( (respuestaP:RespuestaInterface) => {  } );       // Carge de Tipos de Documentos 
@@ -88,8 +95,6 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
     var datosAnalizados: any[];
     let parametros:any = {};
 
-    console.log(this.controladorCargues.datos);
-
     this.BuscarCambiosMasivos();
     this.enProceso = true;
 
@@ -102,22 +107,12 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
       this.ActualizarProgresoLocal("Segmentando Registros:", 100, valor );      //Actualiza Proceso barra de proceso
     });
 
-    parametros = {
-      arregloNuevasPersonas : [] ,
-      arregloNuevosEstudios : [],
-      arregloCambios: []
-    }
-
-    this.controladorCargues.AnalizarDatos(1, parametros).subscribe(
+    this.controladorCargues.ProcesarDatos(1, null).subscribe(
       (respuesta: RespuestaInterface) => { 
 
         this.controladorCargues.EstaListo().subscribe(
           (valor:boolean)=>{
             if(valor){
-
-              this.arregloNuevasPersonas = parametros.arregloNuevasPersonas;
-              this.arregloNuevosEstudios = parametros.arregloNuevosEstudios;
-              this.arregloCambios = parametros.arregloCambios;
 
               subscripciónTemporizador.unsubscribe();
               this.enProceso = false;
@@ -136,19 +131,19 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
 
     let pasosProceso: number;
 
-    pasosProceso = this.arregloNuevasPersonas.length;                 //Base de conteo para barra de progreso
+    pasosProceso = this.controladorCargues.adicionales.arregloNuevasPersonas.length;                 //Base de conteo para barra de progreso
     this.ActualizarProgresoLocal("Buscando Repetidos 1/3:", pasosProceso, 0 );      //Inicializa barra de proceso
-    this.controladorCargues.MarcarRepetidos( this.arregloNuevasPersonas,  ["SPRIDEN_ID"] , true );
+    this.controladorCargues.MarcarRepetidos( this.controladorCargues.adicionales.arregloNuevasPersonas,  ["SPRIDEN_ID"] , true );
     this.ActualizarProgresoLocal("Buscando Repetidos 1/3:", pasosProceso, pasosProceso);      //Actualiza Proceso barra de proceso
 
-    pasosProceso = this.arregloNuevosEstudios.length;                 //Base de conteo para barra de progreso
+    pasosProceso = this.controladorCargues.adicionales.arregloNuevosEstudios.length;                 //Base de conteo para barra de progreso
     this.ActualizarProgresoLocal("Buscando Repetidos 2/3:", pasosProceso, 0 );      //Inicializa barra de proceso
-    this.controladorCargues.MarcarRepetidos( this.arregloNuevosEstudios,  ["SPRIDEN_ID", "CARRERA"]  );
+    this.controladorCargues.MarcarRepetidos( this.controladorCargues.adicionales.arregloNuevosEstudios,  ["SPRIDEN_ID", "CARRERA"]  );
     this.ActualizarProgresoLocal("Buscando Repetidos 2/3:", pasosProceso, pasosProceso);      //Actualiza Proceso barra de proceso
 
-    pasosProceso = this.arregloCambios.length;                 //Base de conteo para barra de progreso
+    pasosProceso = this.controladorCargues.adicionales.arregloCambios.length;                 //Base de conteo para barra de progreso
     this.ActualizarProgresoLocal("Buscando Repetidos 3/3:", pasosProceso, 0 );      //Inicializa barra de proceso
-    this.controladorCargues.MarcarRepetidos( this.arregloCambios, ["SPRIDEN_ID"] );
+    this.controladorCargues.MarcarRepetidos( this.controladorCargues.adicionales.arregloCambios, ["SPRIDEN_ID"] );
     this.ActualizarProgresoLocal("Buscando Repetidos 3/3:", pasosProceso, pasosProceso);      //Actualiza Proceso barra de proceso
 
     this.enProceso = false;
@@ -290,9 +285,9 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
   HayRepetidos():boolean{
     let conteo: number = 0;
 
-    conteo = conteo + this.arregloNuevasPersonas.filter((registro:any)=>{ return (registro.repetido) }).length;
-    conteo = conteo + this.arregloNuevosEstudios.filter((registro:any)=>{ return (registro.repetido) }).length;
-    conteo = conteo + this.arregloCambios.filter((registro:any)=>{ return (registro.repetido) }).length;
+    conteo = conteo + this.controladorCargues.adicionales.arregloNuevasPersonas.filter((registro:any)=>{ return (registro.repetido) }).length;
+    conteo = conteo + this.controladorCargues.adicionales.arregloNuevosEstudios.filter((registro:any)=>{ return (registro.repetido) }).length;
+    conteo = conteo + this.controladorCargues.adicionales.arregloCambios.filter((registro:any)=>{ return (registro.repetido) }).length;
         
     return ( conteo > 0 );
   }
@@ -375,19 +370,39 @@ export class CarguesComponentesAnalisistipo1Component implements OnInit {
 
     this.AnalizarDatos();
   }
-  
-  CambioRegistroMasivoTipoDocumento( registro: any, objeto:any ){
-    registro.cambio_texto = objeto.sigla;
-  }
 
-  CambioRegistroMasivoOtro( registro: any, objeto:any ){
-    registro.cambio_texto = objeto.descripcion;
+  CambioRegistroMasivo( registro: any, valor: number, tipoElemento: string ){
+    switch(tipoElemento){
+      case "documento":
+        this.controladorTiposDocumentos.Encontrar("id",valor);
+        registro.cambio_id = valor;
+        registro.cambio_texto = this.controladorTiposDocumentos.actual.sigla;
+      break;
+      case "expedicion":
+        this.controladorMunicipios.Encontrar("id",valor);
+        registro.cambio_id = valor;
+        registro.cambio_texto = this.controladorMunicipios.actual.descripcion;
+      break;
+      case "programa":
+        this.controladorProgramas.Encontrar("id",valor);
+        registro.cambio_id = valor;
+        registro.cambio_texto = this.controladorProgramas.actual.descripcion;
+      break;
+    }
   }
 
   ActualizarProgresoLocal( nombreProceso: string, totalPasos: number, pasoActual: number ){
     this.progresoLocal.proceso = nombreProceso;
     if( totalPasos!= 0 )  this.progresoLocal.valor = (pasoActual * 100 ) / totalPasos;
     else                  this.progresoLocal.valor = 100;
+  }
+
+  AsignarMedellin(){
+    this.cambiosMasivos.expDocumento.forEach((registro:any) => {
+      registro.cambio_id = "5005";
+      registro.cambio_texto = "MEDELLIN";
+      registro.bloqueo = true;
+    });
   }
 
 }

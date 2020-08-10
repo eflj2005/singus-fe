@@ -22,25 +22,40 @@
     <ng-container [ngSwitch]="controladorCargues.caracteristicas.tipo">
 
       <ng-container *ngSwitchCase="1">
-        <app-cargues-componentes-analisistipo1
+        <app-cargues-componentes-analizartipo1
           [controlVisual] = "controlVisual" 
           [controladorCargues] = "controladorCargues"
         >
-        </app-cargues-componentes-analisistipo1>
+        </app-cargues-componentes-analizartipo1>
       </ng-container>
       
     </ng-container>
   </div>
 
+  <div class="contenedor roundDown mb-2" *ngIf="controlVisual.pasoActualValor == 3">
+    <ng-container [ngSwitch]="controladorCargues.caracteristicas.tipo">
 
+      <ng-container *ngSwitchCase="1">
+        <app-carges-componentes-procesar
+          [controlVisual] = "controlVisual" 
+          [controladorCargues] = "controladorCargues"
+        >
+        </app-carges-componentes-procesar>
+      </ng-container>
+      
+    </ng-container>
+  </div>
 
   <div class="container-fluid mb-2">
     <div class="row justify-content-end">
-      <div class="col-3" *ngIf="controlVisual.pasoActualValor != 1">
+      <div class="col-3" *ngIf="controlVisual.pasoActualValor != 1 || controlVisual.pasoActualValor == controladorCargues.caracteristicas.totalPasos">
         <button type="button" class="btn btn-outline-primary btn-block" (click)="CambiarPaso(-1)" [disabled]="controlVisual.desactivarPasos.anterior">Anterior</button>
       </div>
       <div class="col-3" *ngIf="controlVisual.pasoActualValor != controladorCargues.caracteristicas.totalPasos">
         <button type="button" class="btn btn-outline-primary btn-block" (click)="CambiarPaso(1)" [disabled]="controlVisual.desactivarPasos.siguiente">Siguiente</button>
+      </div>
+      <div class="col-3" *ngIf="controlVisual.pasoActualValor == controladorCargues.caracteristicas.totalPasos">
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="CambiarPaso(0)" [disabled]="controlVisual.desactivarPasos.inicio">Inicio</button>
       </div>
     </div>
   </div>

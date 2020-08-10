@@ -40,7 +40,8 @@ export class CarguesPrincipalComponent implements OnInit  {
       progresoActual: 35, 
       pasoActualProgreso: 0,
       pasoActualValor: 1, 
-      desactivarPasos: { anterior: false, siguiente: false }
+      desactivarPasos: { anterior: false, siguiente: false, inicio: false },
+      controlPasos: { anterior: false, siguiente: false }
     }
 
   }
@@ -61,7 +62,29 @@ export class CarguesPrincipalComponent implements OnInit  {
   }
 
   CambiarPaso( movimiento: number){
-    this.controlVisual.pasoActualValor = this.controlVisual.pasoActualValor + movimiento;
+
+    console.log(this.controlVisual.pasoActualValor,"PasoAnt");
+    var nuevoValor: number;
+
+    nuevoValor = this.controlVisual.pasoActualValor;
+
+    if( movimiento == 0 ){
+      nuevoValor = 1;
+    }
+    else{
+      let validacion:Boolean = true;
+      if(movimiento == 1 && this.controlVisual.controlPasos.siguiente){
+        validacion = confirm("¿Esta seguro de continuar?, la acción no podra ser reversada");
+      }
+      if(movimiento == -1 && this.controlVisual.controlPasos.anterior){
+        validacion = confirm("¿Esta seguro de continuar?, la acción no podra ser reversada");
+      }      
+      if(validacion)  nuevoValor = nuevoValor + movimiento;
+    }
+
+    this.controlVisual.pasoActualValor = nuevoValor;
+    console.log(this.controlVisual.pasoActualValor,"PasDes");
+    
   }
 
 }

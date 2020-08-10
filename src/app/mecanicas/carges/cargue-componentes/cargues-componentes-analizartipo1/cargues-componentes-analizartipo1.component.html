@@ -30,7 +30,7 @@
   <ngb-tabset>
 
     <ngb-tab>
-      <ng-template ngbTabTitle>Nuevas Personas ( {{arregloNuevasPersonas.length }} de {{ controladorCargues.datos.length }} )</ng-template>
+      <ng-template ngbTabTitle>Nuevas Personas ( {{ controladorCargues.adicionales.arregloNuevasPersonas.length }} de {{ controladorCargues.datos.length }} )</ng-template>
       <ng-template ngbTabContent>
         <div class="ngTabContainer">
 
@@ -71,7 +71,7 @@
               </thead>
               <tbody>
 
-                <tr *ngFor="let elemento of arregloNuevasPersonas; let indicePersonas = index;" [class]="elemento.repetido?'bg-danger':''">
+                <tr *ngFor="let elemento of controladorCargues.adicionales.arregloNuevasPersonas; let indicePersonas = index;" [class]="elemento.repetido?'bg-danger':''">
                   <th scope="row">{{ elemento.CARRERA }}</th>
                   <td>{{ elemento.PER_GRADO }}</td>
                   <td>{{ elemento.SPRIDEN_ID }}</td>
@@ -102,7 +102,7 @@
     </ngb-tab>
 
     <ngb-tab>
-      <ng-template ngbTabTitle>Nuevos Estudios ( {{arregloNuevosEstudios.length }} de {{ controladorCargues.datos.length }} )</ng-template>
+      <ng-template ngbTabTitle>Nuevos Estudios ( {{ controladorCargues.adicionales.arregloNuevosEstudios.length }} de {{ controladorCargues.datos.length }} )</ng-template>
       <ng-template ngbTabContent>
         <div class="ngTabContainer">
           
@@ -141,7 +141,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let elemento of arregloNuevosEstudios; let indiceEstudios = index;" [class]="elemento.repetido?'bg-danger':''">
+                <tr *ngFor="let elemento of controladorCargues.adicionales.arregloNuevosEstudios; let indiceEstudios = index;" [class]="elemento.repetido?'bg-danger':''">
                   <th scope="row">{{ elemento.SPRIDEN_ID }}</th>
                   <td>{{ elemento.DOCUMENTO }}</td>
                   <td>{{ elemento.APELLIDOS }}</td>
@@ -169,7 +169,7 @@
     </ngb-tab>
 
     <ngb-tab>
-      <ng-template ngbTabTitle>Registros con Cambios ( {{arregloCambios.length }} de {{ controladorCargues.datos.length }} )</ng-template>
+      <ng-template ngbTabTitle>Registros con Cambios ( {{ controladorCargues.adicionales.arregloCambios.length }} de {{ controladorCargues.datos.length }} )</ng-template>
       <ng-template ngbTabContent>
         <div class="ngTabContainer">
 
@@ -202,7 +202,7 @@
               </thead>
               <tbody>
 
-                <tr *ngFor="let elemento of arregloCambios; let indicePersonas = index;" [class]="elemento.repetido?'bg-danger':''">
+                <tr *ngFor="let elemento of controladorCargues.adicionales.arregloCambios; let indicePersonas = index;" [class]="elemento.repetido?'bg-danger':''">
                   <th scope="row">{{ elemento.SPRIDEN_ID }}</th>
                   <td>
                     <div [class]="ValidarCampoEnObjeto('DOCUMENTO',elemento.cambios)?'conCambio':''" *ngIf = " ValidarCampoEnObjeto('DOCUMENTO',elemento.cambios) " data-toggle="tooltip" data-placement="right" [title]="'Valor Recibido: ' + elemento.cambios.DOCUMENTO ">{{ elemento.DOCUMENTO }}</div>
@@ -325,8 +325,8 @@
                 <td>{{ elemento.cantidad }}</td>
                 <td>
                   <div class="input-group input-group-sm">
-                    <select class="form-control form-control-sm controlMasivos" [disabled]="elemento.bloqueo" [(ngModel)]="elemento.cambio_id" (ngModelChange)="CambioRegistroMasivoTipoDocumento( elemento, $event )">
-                      <option *ngFor="let elemento of controladorTiposDocumentos.todos; let indiceListaTiposDocumentos = index" [ngValue]="elemento">{{elemento.descripcion}}</option>
+                    <select class="form-control form-control-sm controlMasivos" [disabled]="elemento.bloqueo"  [(ngModel)]="elemento.cambio_id" (ngModelChange)="CambioRegistroMasivo( elemento, $event, 'documento')">
+                      <option *ngFor="let elementoOption of controladorTiposDocumentos.todos; let indiceListaTiposDocumentos = index" [value]="elementoOption.id">{{elementoOption.descripcion}}</option>
                     </select>  
                     <div class="input-group-append">
                       <button type="button" class="btn btn-outline-primary py-0 my-0"  (click)="ControlBloqueoMasivos(elemento)">
@@ -345,7 +345,7 @@
 
       <div class="col-sm-6">
         <h5 class="text-center">Expedición Documento</h5>
-
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="AsignarMedellin()">Medellin</button>
         <div class="table-responsive tablaCambios">
           <table class="table table-sm table-striped table-fixed">
             <thead>
@@ -360,10 +360,10 @@
                 <td scope="row">{{ elemento.valor }}</td>
                 <td>{{ elemento.cantidad }}</td>
                 <td>
-                  <div class="input-group input-group-sm">
-                    <select class="form-control form-control-sm controlMasivos" [disabled]="elemento.bloqueo" [(ngModel)]="elemento.cambio_id" (ngModelChange)="CambioRegistroMasivoOtro( elemento, $event )">
-                      <option *ngFor="let elemento of controladorMunicipios.todos; let indiceTListaMunicipios = index" [ngValue]="elemento">{{elemento.descripcion}}</option>
-                    </select>  
+                  <div class="input-group input-group-sm">            
+                    <select class="form-control form-control-sm controlMasivos" [disabled]="elemento.bloqueo" [(ngModel)]="elemento.cambio_id" (ngModelChange)="CambioRegistroMasivo( elemento,  $event, 'expedicion')">
+                      <ng-container *ngTemplateOutlet="plantillaOptionsMunicipios"></ng-container>          
+                    </select>
                     <div class="input-group-append">
                       <button type="button" class="btn btn-outline-primary py-0 my-0"  (click)="ControlBloqueoMasivos(elemento)">
                         <i *ngIf="!elemento.bloqueo" class="fa fa-unlock" aria-hidden="true"></i>
@@ -438,8 +438,8 @@
                 <td>{{ elemento.cantidad }}</td>
                 <td>
                   <div class="input-group input-group-sm">
-                    <select class="form-control form-control-sm controlMasivos" [disabled]="elemento.bloqueo" [(ngModel)]="elemento.cambio_id" (ngModelChange)="CambioRegistroMasivoOtro( elemento, $event )">
-                      <option *ngFor="let elemento of controladorProgramas.todos; let indiceTListaProgramas = index" [ngValue]="elemento">{{elemento.codigo}}</option>
+                    <select class="form-control form-control-sm controlMasivos" [disabled]="elemento.bloqueo" [(ngModel)]="elemento.cambio_id" (ngModelChange)="CambioRegistroMasivo( elemento, $event, 'programa' )">
+                      <option *ngFor="let elementoOption of controladorProgramas.todos; let indiceTListaProgramas = index" [value]="elementoOption.id">{{elementoOption.codigo}}</option>
                     </select>  
                     <div class="input-group-append">
                       <button type="button" class="btn btn-outline-primary py-0 my-0"  (click)="ControlBloqueoMasivos(elemento)">
@@ -465,4 +465,6 @@
   </div>
 </ng-template>
 
-
+<ng-template #plantillaOptionsMunicipios>
+  <option *ngFor="let elementoOption of controladorMunicipios.todos; let indiceTListaMunicipios = index" [value]="elementoOption.id">{{elementoOption.descripcion}}</option>
+</ng-template>

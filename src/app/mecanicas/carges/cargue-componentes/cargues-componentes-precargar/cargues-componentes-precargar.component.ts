@@ -30,6 +30,9 @@ export class CarguesComponentesPrecargarComponent implements OnInit {
     this.arregloResumen = [];
     this.controlVisual.desactivarPasos.anterior = true;
     this.controlVisual.desactivarPasos.siguiente = true;
+    this.controlVisual.desactivarPasos.inicio = true;
+    this.controlVisual.controlPasos.anterior = false;
+    this.controlVisual.controlPasos.siguiente = false;
   }
 
   SeleccionarArchivo(fileInput: any){
