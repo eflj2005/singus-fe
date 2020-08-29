@@ -125,7 +125,7 @@ export class CarguesController {
                   //     let temporal =  Object.assign( {}, this.datosArchivo[posActual] );
                   //     this.adicionales.arregloNuevosEstudios.push( temporal);
                   //   }
-                  // });
+                  // }); 
 
                   // respuesta.mensaje.personasCambios.forEach((registro: any, indice: any) => {    
                   //   let posActual = 0;
@@ -139,7 +139,8 @@ export class CarguesController {
                   //     temporal.cambios = registro.cambios;
                   //     this.adicionales.arregloCambios.push( temporal );
                   //   }
-                  // });               
+                  // });
+                                 
                   this.procesoTerminado.next( true );
                 }
                 if(modoRecibido == 2) {

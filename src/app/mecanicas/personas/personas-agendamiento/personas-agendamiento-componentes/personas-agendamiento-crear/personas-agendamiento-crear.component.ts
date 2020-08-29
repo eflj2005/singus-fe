@@ -312,6 +312,8 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
     caracteristicas.AgregarEnlace( "sedes" ,     "sedes" ,     "estudios" );
     caracteristicas.AgregarEnlace( "programas" , "programas" , "ofertas" );  
   
+    caracteristicas.AgregarFiltro( "", "personas" , "habeasdata" , "<>", "N" );
+
     this.controladorPersonas.CargarDesdeDB(true, "A", caracteristicas ).subscribe(
       (respuesta: RespuestaInterface) =>{
         switch (respuesta.codigo){
