@@ -7,12 +7,15 @@ import { ReportesAlertasModule } from "./reportes-alertas/reportes-alertas.modul
 import { ReportesPersonalizadoModule } from "./reportes-personalizado/reportes-personalizado.module";
 import { ReportesAlertasPrincipalComponent } from "./reportes-alertas/reportes-alertas-principal/reportes-alertas-principal.component";
 import { ReportesPredefinidosPrincipalComponent } from "./reportes-predefinidos/reportes-predefinidos-principal/reportes-predefinidos-principal.component";
+import { ReportesPersonalizadoPrincipalComponent } from './reportes-personalizado/reportes-personalizado-principal/reportes-personalizado-principal.component';
+import { ReportesSeleccionVistasComponent } from './reportes-personalizado/reportes-personalizados-componentes/reportes-seleccion-vistas/reportes-seleccion-vistas.component'
 
 const rutas: Routes =[
   
   { path:'', component: ReportesPredefinidosPrincipalComponent , children:[
     { path:'predefinidos', component: ReportesPredefinidosPrincipalComponent},
-    { path:'alertas', component: ReportesAlertasPrincipalComponent}
+    { path:'alertas', component: ReportesAlertasPrincipalComponent},
+    
   ]}
 ];
 

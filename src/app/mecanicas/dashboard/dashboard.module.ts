@@ -17,6 +17,7 @@ import { ReportesPredefinidosPrincipalComponent } from "@mecanicas/reportes/repo
 import { ReportesPersonalizadoPrincipalComponent } from "@mecanicas/reportes/reportes-personalizado/reportes-personalizado-principal/reportes-personalizado-principal.component";
 import { AuditoriaPrincipalComponent } from "@mecanicas/auditoria/auditoria-principal/auditoria-principal.component";
 import { PersonasSubagendamientoPrincipalComponent } from '@mecanicas/personas/personas-subagendamiento/personas-subagendamiento-principal/personas-subagendamiento-principal.component';
+import { ReportesSeleccionVistasComponent } from '@mecanicas/reportes/reportes-personalizado/reportes-personalizados-componentes/reportes-seleccion-vistas/reportes-seleccion-vistas.component';
 // import { ReportesModule } from "@mecanicas/reportes/reportes.module";
 //Rutas para redirecciones por url
 const rutas: Routes =[

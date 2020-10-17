@@ -142,7 +142,6 @@ export class PersonasAgendamientoCrearComponent implements OnInit {
      
 
 
-      
       // this.CargarAgenda(this.servicioAmbiente.agendaModo.datos);
 
     }
