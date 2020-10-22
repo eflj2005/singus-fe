@@ -41,14 +41,21 @@ export class MaestrasComponentesListaComponent implements OnInit {
 
     this.controlador.foraneas.forEach( ( nombreForanea: string ) => {
 
-      caracteristicasConsultas.AgregarColumna( nombreForanea, "descripcion", nombreForanea + "_des");
-      caracteristicasConsultas.AgregarEnlace( nombreForanea, nombreForanea, this.controlador.nombreTabla );
+      let nombreAnalizado:string[] = nombreForanea.split("-");
 
+      if( nombreAnalizado.length == 1 ){
+        caracteristicasConsultas.AgregarColumna( nombreForanea, "descripcion", nombreForanea + "_des");
+        caracteristicasConsultas.AgregarEnlace( nombreForanea, nombreForanea, this.controlador.nombreTabla );
+      }
+      else{
+        caracteristicasConsultas.AgregarColumna( nombreAnalizado[0]+nombreAnalizado[1], "descripcion", nombreAnalizado[0]+nombreAnalizado[1] + "_des");
+        caracteristicasConsultas.AgregarEnlace( nombreAnalizado[0], nombreAnalizado[0], this.controlador.nombreTabla, nombreAnalizado[0]+nombreAnalizado[1], "FK" );
+      }
 
-      // this.controlador.CargarForanea(nombreForanea);
+      this.controlador.CargarForanea(nombreForanea);
     });
 
-    
+    console.log(caracteristicasConsultas);
 
     this.controlador.CargarDesdeDB(true,'A',caracteristicasConsultas).subscribe(
       (respuesta: RespuestaInterface) =>{

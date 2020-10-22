@@ -450,26 +450,29 @@ export class PersonasSubagendamientoComponentesProcesarComponent implements OnIn
     let listaResultado:any[];
     switch(nombreLista){
       case 'disponibles':
-        listaResultado = this.listaSeguimientosDisponibles.filter(registro => 
-          String(registro.uniminutoId).includes( this.estructuraFiltro.disponibles.uniId )
-           && registro.nombreCompleto.toLowerCase().includes( this.estructuraFiltro.disponibles.nombre.toLowerCase() )
-           && registro.programa.toLowerCase().includes( this.estructuraFiltro.disponibles.programa.toLowerCase() )
-           && registro.cohorte.toLowerCase().includes( this.estructuraFiltro.disponibles.cohorte )
-           && registro.sede.toLowerCase().includes( this.estructuraFiltro.disponibles.sede.toLowerCase() )
-           && registro.fechaActualizacion.toLowerCase().includes( this.estructuraFiltro.disponibles.ultimoCambio )                                                 
-        );
+        // listaResultado = this.listaSeguimientosDisponibles.filter(registro => 
+        //   String(registro.uniminutoId).includes( this.estructuraFiltro.disponibles.uniId )
+        //    && registro.nombreCompleto.toLowerCase().includes( this.estructuraFiltro.disponibles.nombre.toLowerCase() )
+        //    && registro.programa.toLowerCase().includes( this.estructuraFiltro.disponibles.programa.toLowerCase() )
+        //    && registro.cohorte.toLowerCase().includes( this.estructuraFiltro.disponibles.cohorte )
+        //    && registro.sede.toLowerCase().includes( this.estructuraFiltro.disponibles.sede.toLowerCase() )
+        //   //  && registro.fechaActualizacion.toLowerCase().includes( this.estructuraFiltro.disponibles.ultimoCambio )                                                 
+        // );
+        listaResultado=this.listaSeguimientosDisponibles;
       break;
       case 'asignados':
-        listaResultado = this.listaSeguimientosAsignados.filter(registro => 
-          String(registro.uniminutoId).includes( this.estructuraFiltro.asignados.uniId )
-           && registro.nombreCompleto.toLowerCase().includes( this.estructuraFiltro.asignados.nombre.toLowerCase() )
-           && registro.programa.toLowerCase().includes( this.estructuraFiltro.asignados.programa.toLowerCase() )
-           && registro.cohorte.toLowerCase().includes( this.estructuraFiltro.asignados.cohorte )
-           && registro.sede.toLowerCase().includes( this.estructuraFiltro.asignados.sede.toLowerCase() )
-           && registro.fechaActualizacion.toLowerCase().includes( this.estructuraFiltro.asignados.ultimoCambio )                                                 
-        );        
+        // listaResultado = this.listaSeguimientosAsignados.filter(registro => 
+        //   String(registro.uniminutoId).includes( this.estructuraFiltro.asignados.uniId )
+        //    && registro.nombreCompleto.toLowerCase().includes( this.estructuraFiltro.asignados.nombre.toLowerCase() )
+        //    && registro.programa.toLowerCase().includes( this.estructuraFiltro.asignados.programa.toLowerCase() )
+        //    && registro.cohorte.toLowerCase().includes( this.estructuraFiltro.asignados.cohorte )
+        //    && registro.sede.toLowerCase().includes( this.estructuraFiltro.asignados.sede.toLowerCase() )
+        //   //  && registro.fechaActualizacion.toLowerCase().includes( this.estructuraFiltro.asignados.ultimoCambio )                                                 
+        // );     
+        listaResultado=this.listaSeguimientosAsignados;
       break;   
     }
+    
     return listaResultado;
   }
 

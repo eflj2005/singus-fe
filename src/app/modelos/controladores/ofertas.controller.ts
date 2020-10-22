@@ -8,6 +8,7 @@ import { GenericoModel } from './generico.model';
 import { TiposestudiosController } from './tiposestudios.controller';
 import { ProgramasController } from './programas.controller';
 import { InstitucionesController } from './instituciones.controller';
+import { TitulosController } from './titulos.controller';
 
 
 
@@ -30,8 +31,8 @@ export class OfertasController extends GenericoModel {
     this.AgregarForanea( new TiposestudiosController(instanciaHttpClient,InstanciaAmbienteService)  );
     this.AgregarForanea( new ProgramasController(instanciaHttpClient,InstanciaAmbienteService)  );
     this.AgregarForanea( new InstitucionesController(instanciaHttpClient,InstanciaAmbienteService)  );
-
-    
+    this.AgregarForanea( new TitulosController(instanciaHttpClient,InstanciaAmbienteService) , "m" );
+    this.AgregarForanea( new TitulosController(instanciaHttpClient,InstanciaAmbienteService) , "f" );
   }  
 
 }

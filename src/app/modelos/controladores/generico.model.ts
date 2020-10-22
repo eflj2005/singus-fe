@@ -95,8 +95,8 @@ export class GenericoModel {
   public get foraneas():string[]{
     let nombresForaneas: string[] = [];
 
-    for (let nombreFforanea in this.controladoresForaneos) {  
-      nombresForaneas.push ( nombreFforanea );
+    for (let nombreForanea in this.controladoresForaneos) {  
+      nombresForaneas.push ( nombreForanea );
     }
     return nombresForaneas;
   }
@@ -175,8 +175,9 @@ export class GenericoModel {
     return encontrado;
   }
 
-  public AgregarForanea(controlador:any){
-    this.controladoresForaneos[controlador.nombreTabla] = controlador;
+  public AgregarForanea(controlador:any , campo:string = null){
+    if (isNull(campo))  this.controladoresForaneos[controlador.nombreTabla] = controlador;
+    else                this.controladoresForaneos[controlador.nombreTabla + "-" + campo] = controlador;
   }
 
   public ReemplazarForanea( nombre : string , controladorForanero : any ){

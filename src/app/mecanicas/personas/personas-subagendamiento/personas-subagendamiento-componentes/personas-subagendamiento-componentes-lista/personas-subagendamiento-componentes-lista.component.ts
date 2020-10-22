@@ -283,6 +283,8 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
       else                                          registro.seguimiento="";
     })
 
+    console.log(listaRespuesta);
+
     listaRespuesta=this.FiltradoAdicional(listaRespuesta);
     
     return listaRespuesta;
@@ -292,13 +294,13 @@ export class PersonasSubagendamientoComponentesListaComponent implements OnInit 
   FiltradoAdicional(arregloRecibido: any[]): any[] {
     return arregloRecibido.filter(registro => 
             String(registro.uniminutoId).includes( this.estructuraFiltro.uniId )
-             && registro.nombreCompleto.toLowerCase().includes( this.estructuraFiltro.nombre.toLowerCase() )
-             && registro.programa.toLowerCase().includes( this.estructuraFiltro.programa.toLowerCase() )
-             && registro.cohorte.toLowerCase().includes( this.estructuraFiltro.cohorte )
-             && registro.sede.toLowerCase().includes( this.estructuraFiltro.sede.toLowerCase() )
-             && registro.fechaRegistro.toLowerCase().includes( this.estructuraFiltro.creacion )
-             && registro.fechaActualizacion.toLowerCase().includes( this.estructuraFiltro.ultimoCambio )                                                 
-             && registro.seguimiento.toLowerCase().includes( this.estructuraFiltro.seguimiento.toLowerCase() )              
+            //  && registro.nombreCompleto.toLowerCase().includes( this.estructuraFiltro.nombre.toLowerCase() )
+            //  && registro.programa.toLowerCase().includes( this.estructuraFiltro.programa.toLowerCase() )
+            //  && registro.cohorte.toLowerCase().includes( this.estructuraFiltro.cohorte )
+            //  && registro.sede.toLowerCase().includes( this.estructuraFiltro.sede.toLowerCase() )
+            //  && registro.fechaRegistro.toLowerCase().includes( this.estructuraFiltro.creacion )
+            //  && registro.fechaActualizacion.toLowerCase().includes( this.estructuraFiltro.ultimoCambio )                                                 
+            //  && registro.seguimiento.toLowerCase().includes( this.estructuraFiltro.seguimiento.toLowerCase() )              
     );
   }
 

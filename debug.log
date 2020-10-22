@@ -4,3 +4,6 @@
 [0809/121351.990:ERROR:process_info.cc(359)] UncheckedAllocate
 [0809/121352.720:ERROR:process_info.cc(359)] UncheckedAllocate
 [0809/121354.090:ERROR:process_info.cc(359)] UncheckedAllocate
+[0928/130432.211:ERROR:process_info.cc(359)] UncheckedAllocate
+[1013/174554.011:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)
+[1022/141237.824:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)

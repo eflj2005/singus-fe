@@ -114,18 +114,18 @@ export class CarguesController {
                     }
                   });
 
-                  // respuesta.mensaje.nuevosEstudios.forEach((registro: any, indice: any) => {    
-                  //   let posActual = 0;
-                  //   let encontrado = false;
-                  //   while(posActual < this.datosArchivo.length && !encontrado ){
-                  //     if( registro == this.datosArchivo[posActual].ref )  encontrado = true;
-                  //     else                                                posActual++;
-                  //   }
-                  //   if(encontrado) {
-                  //     let temporal =  Object.assign( {}, this.datosArchivo[posActual] );
-                  //     this.adicionales.arregloNuevosEstudios.push( temporal);
-                  //   }
-                  // }); 
+                  respuesta.mensaje.nuevosEstudios.forEach((registro: any, indice: any) => {    
+                    let posActual = 0;
+                    let encontrado = false;
+                    while(posActual < this.datosArchivo.length && !encontrado ){
+                      if( registro == this.datosArchivo[posActual].ref )  encontrado = true;
+                      else                                                posActual++;
+                    }
+                    if(encontrado) {
+                      let temporal =  Object.assign( {}, this.datosArchivo[posActual] );
+                      this.adicionales.arregloNuevosEstudios.push( temporal);
+                    }
+                  }); 
 
                   // respuesta.mensaje.personasCambios.forEach((registro: any, indice: any) => {    
                   //   let posActual = 0;

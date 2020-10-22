@@ -23,6 +23,8 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
   numeroModelo:string;
   correoModelo:string;  
 
+  procesando:boolean;
+
   constructor(
     private utilidadFechas: DatePipe
   ) 
@@ -32,7 +34,7 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
     this.numeroModelo="^[0-9]*$";
     this.correoModelo="^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$";
 
-
+    this.procesando = false;
   }
 
   ngOnInit() {
@@ -48,7 +50,6 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
       this.controlador.CargarForanea(nombreForanea);
     });
 
-
   }
 
 
@@ -57,12 +58,15 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
     if(this.modo==1) this.controlador.Agregar(this.datos);
     if(this.modo==2) this.controlador.Modificar(this.datos);
 
+    this.procesando = true;
+
     this.controlador.Guardar().subscribe(
       (notificacion:RespuestaInterface) => {
         switch (notificacion.codigo){
           case 200:         //login ok         
 
             alert("GUARDADO");
+            this.procesando = false;
             this.modal.close('GUARDAR');
           break;
           case 400:         //autenticación erronea / Usuario Bloqueado / Usuario Inactivo
@@ -108,4 +112,14 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
     
     return optionText;
   }
+
+  EstoyListo(){
+    let validador:boolean = false;
+
+    validador = this.controlador.EstaListo("cargue") && !this.procesando;
+
+    return validador;
+  }
+
 }
+

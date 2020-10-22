@@ -126,17 +126,8 @@ export class PersonasSubagendamientoPrincipalComponent implements OnInit {
       "programa"
     );
     caracteristicasConsultas.AgregarColumna(
-      null, 
-      "("+
-        "SELECT cohortes.descripcion AS cohorte " +
-        "FROM estudios INNER JOIN ofertas ON ofertas.id = estudios.ofertas_id INNER JOIN cohortes ON estudios.cohortes_id = cohortes.id " +
-        "WHERE estudios.personas_id = seguimientos.personas_id " +
-        "AND estudios.id = ( " +
-                            "SELECT id FROM estudios " +
-                            "WHERE grado_fecha = ( SELECT MAX(grado_fecha) FROM estudios WHERE personas_id = seguimientos.personas_id) " +
-                            "AND personas_id = seguimientos.personas_id LIMIT 1 " +
-                          ")" +
-      ")", 
+      null,
+      "(SELECT MAX(cohortes.descripcion) FROM estudios INNER JOIN cohortes ON cohortes.id = estudios.cohortes_id WHERE estudios.personas_id = seguimientos.personas_id LIMIT 1)",
       "cohorte"
     );
     caracteristicasConsultas.AgregarColumna(

@@ -130,6 +130,7 @@
 
 
 
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { isNull } from 'util';
 
 export class EstructuraConsultas {
@@ -188,9 +189,9 @@ export class EstructuraConsultas {
     this.columnas.push( { tabla: nombreTabla , columna: nombreColumna , alias: aliasColumna, esNumerico: esNumerico } );
   }
 
-  public AgregarEnlace( tablaEnlace:string, tablaConPK:string, tablaConFK:string, tablaAlias:string = "" ){
+  public AgregarEnlace( tablaEnlace:string, tablaConPK:string, tablaConFK:string, tablaAlias:string = "", modoAlias:string = "FK" ){
     if( isNull( this.enlaces ) ) this.enlaces = [];
-    this.enlaces.push( { tablaE: tablaEnlace , tablaPk: tablaConPK , tablaFk: tablaConFK, tablaAlss: tablaAlias } );
+    this.enlaces.push( { tablaE: tablaEnlace , tablaPk: tablaConPK , tablaFk: tablaConFK, tablaAlias: tablaAlias, modoAlias: modoAlias } );
   }
 
   public AgregarFiltro( operadorLogico:string, nombreTabla:string, campoFiltrado:string, condicionAplicada:string, valorBuscado:string){

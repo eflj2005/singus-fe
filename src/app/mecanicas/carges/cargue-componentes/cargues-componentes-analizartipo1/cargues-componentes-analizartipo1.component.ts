@@ -9,6 +9,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { isNull } from 'util';
 import { timer } from 'rxjs';
 import { CarguesController } from '@controladores/cargues.controller';
+import { CohortesController } from '@controladores/cohortes.controller';
+import { TitulosController } from '@controladores/titulos.controller';
 
 @Component({
   selector: 'app-cargues-componentes-analizartipo1',
@@ -33,12 +35,16 @@ export class CarguesComponentesAnalizartipo1Component implements OnInit {
     tipoDocumento: [],
     expDocumento: [],
     genero: [],
-    programa: []
+    programa: [],
+    cohorte: []
   }
 
   controladorTiposDocumentos: TiposdocumentosController;
   controladorMunicipios: MunicipiosController;
   controladorProgramas: ProgramasController;
+  controladorCohortes: CohortesController;
+  controladorTitulos: TitulosController;
+
 
   enProceso: boolean;
 
@@ -54,6 +60,8 @@ export class CarguesComponentesAnalizartipo1Component implements OnInit {
     this.controladorTiposDocumentos = new TiposdocumentosController( llamadoHttp , servicioAmbiente );
     this.controladorMunicipios = new MunicipiosController( llamadoHttp , servicioAmbiente );
     this.controladorProgramas = new ProgramasController( llamadoHttp , servicioAmbiente );
+    this.controladorCohortes = new CohortesController( llamadoHttp , servicioAmbiente );
+    this.controladorTitulos = new TitulosController( llamadoHttp , servicioAmbiente );
 
   }
 
@@ -75,16 +83,22 @@ export class CarguesComponentesAnalizartipo1Component implements OnInit {
 
 
     this.controladorTiposDocumentos.CargarDesdeDB( ).subscribe( (respuestaTD:RespuestaInterface) => { } );           // Carge de Tipos de Documentos      
-    this.controladorProgramas.CargarDesdeDB( ).subscribe( (respuestaP:RespuestaInterface) => {  } );       // Carge de Tipos de Documentos 
-    this.controladorMunicipios.CargarDesdeDB( ).subscribe( (respuestaM:RespuestaInterface) => { } );          // Carge de Tipos de Documentos 
+    this.controladorProgramas.CargarDesdeDB( ).subscribe( (respuestaP:RespuestaInterface) => {  } );       // Carge de Programas 
+    this.controladorMunicipios.CargarDesdeDB( ).subscribe( (respuestaM:RespuestaInterface) => { } );          // Carge de Municipios 
+    this.controladorCohortes.CargarDesdeDB( ).subscribe( (respuestaC:RespuestaInterface) => { } );          // Carge de Cohortes 
+    this.controladorTitulos.CargarDesdeDB( ).subscribe( (respuestaT:RespuestaInterface) => { } );          // Carge de Titulos 
 
     this.controladorTiposDocumentos.EstaListo("cargue",true).subscribe( (valorTD:boolean) => {
       this.controladorProgramas.EstaListo("cargue",true).subscribe( (valorP:boolean) => {
         this.controladorMunicipios.EstaListo("cargue",true).subscribe( (valorM:boolean) => {
-          if(valorTD && valorP && valorM){
-            this.enProceso = false;
-            this.AnalizarDatos();
-          }
+          this.controladorCohortes.EstaListo("cargue",true).subscribe( (valorC:boolean) => {
+            this.controladorTitulos.EstaListo("cargue",true).subscribe( (valorT:boolean) => {
+              if(valorTD && valorP && valorM && valorC && valorT ){
+                this.enProceso = false;
+                this.AnalizarDatos();
+              }
+            });    
+          });    
         });
       });
     });
@@ -236,6 +250,43 @@ export class CarguesComponentesAnalizartipo1Component implements OnInit {
         registro.foraneas.programas_id = this.controladorProgramas.actual.id;
       }
 
+
+
+      encontrado = this.controladorCohortes.Encontrar( "descripcion", registro.PER_GRADO );
+      if(!encontrado) {    
+        let posActual = 0;
+        let encontrado = false;
+        while(posActual < this.cambiosMasivos.cohorte.length && !encontrado ){
+          if( registro.PER_GRADO == this.cambiosMasivos.cohorte[posActual].valor )  encontrado = true;
+          else                                                                      posActual++;
+        }
+              
+        if(encontrado)  this.cambiosMasivos.cohorte[posActual].cantidad++;
+        else            this.cambiosMasivos.cohorte.push( { valor: registro.PER_GRADO , cantidad: 1, cambio_id: null, cambio_texto: null, bloqueado: false } );
+      }              
+      else{
+        registro.foraneas.cohortes_id = this.controladorCohortes.actual.id;
+      }
+
+
+
+      encontrado = this.controladorCohortes.Encontrar( "descripcion", registro.PER_GRADO );
+      if(!encontrado) {    
+        let posActual = 0;
+        let encontrado = false;
+        while(posActual < this.cambiosMasivos.cohorte.length && !encontrado ){
+          if( registro.PER_GRADO == this.cambiosMasivos.cohorte[posActual].valor )  encontrado = true;
+          else                                                                      posActual++;
+        }
+              
+        if(encontrado)  this.cambiosMasivos.cohorte[posActual].cantidad++;
+        else            this.cambiosMasivos.cohorte.push( { valor: registro.PER_GRADO , cantidad: 1, cambio_id: null, cambio_texto: null, bloqueado: false } );
+      }              
+      else{
+        registro.foraneas.cohortes_id = this.controladorCohortes.actual.id;
+      }     
+
+      
       this.ActualizarProgresoLocal("Buscando Cambios Masivos:", pasosProceso, indice+1 );      //Actualiza Proceso barra de proceso
 
     });
@@ -259,6 +310,7 @@ export class CarguesComponentesAnalizartipo1Component implements OnInit {
       this.controladorTiposDocumentos.EstaListo("cargue") &&
       this.controladorMunicipios.EstaListo("cargue")      &&
       this.controladorProgramas.EstaListo("cargue")       && 
+      this.controladorCohortes.EstaListo("cargue")        &&
       !this.enProceso 
     );
 
@@ -267,7 +319,7 @@ export class CarguesComponentesAnalizartipo1Component implements OnInit {
 
   HayCambiosMasivos(){
     let validador:boolean;
-    let cantidad: number = this.cambiosMasivos.tipoDocumento.length + this.cambiosMasivos.expDocumento.length + this.cambiosMasivos.genero.length + this.cambiosMasivos.programa.length;
+    let cantidad: number = this.cambiosMasivos.tipoDocumento.length + this.cambiosMasivos.expDocumento.length + this.cambiosMasivos.genero.length + this.cambiosMasivos.programa.length + this.cambiosMasivos.cohorte.length;
     
     validador =  ( cantidad > 0 );
 
