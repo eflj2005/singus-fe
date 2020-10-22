@@ -108,7 +108,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
           || agenda.responsable.toLowerCase().includes(term) ;
 
     });
-  }
+  } 
 
   ngOnInit() {
   }
@@ -153,8 +153,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
 
           alert("GUARDADO");
           this.controladorAgendas.todos.find(element => element.id == this.agendaEncontrada.id).cierre_fecha = this.agendaEncontrada.cierre_fecha;
-         
-
+          
           break;
            case 400:         //autenticación erronea / Usuario Bloqueado / Usuario Inactivo
           alert(notificacion.asunto + ": " + notificacion.mensaje);
@@ -172,9 +171,10 @@ export class PersonasAgendamientoListaComponent implements OnInit {
     if(fechaCierreOriginal >= this.agendaEncontrada.cierre_fecha ){
       this.notificacionActiva = true;
       this.notificacionMensaje = "La nueva fecha de cierre debe ser mayor a la fecha anterior";
-    }   
+    }
 
   }
+
 
   ConsultarEstadisticas(){
     
@@ -206,6 +206,7 @@ export class PersonasAgendamientoListaComponent implements OnInit {
       }
     );
   }
+  
 
   EstoyListo(){
     let validador:boolean = false;

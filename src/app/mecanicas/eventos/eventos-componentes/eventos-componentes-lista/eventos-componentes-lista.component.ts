@@ -36,7 +36,6 @@ interface Modificacion extends AsistenciasInterface {
 )
 export class EventosComponentesListaComponent implements OnInit {
 
-  registrosEventos: EventoInterface[];
   registrosEventos$: Observable<EventoInterface[]>;
   controladorEventos: EventosController;
   controladorAsistencias: AsistenciaController;
@@ -44,7 +43,7 @@ export class EventosComponentesListaComponent implements OnInit {
   modificacion: Modificacion[];  
 
   asistencia: Asistencia[];
-  personas:Asistencia[]; //PersonasInterface[];
+  // personas:Asistencia[]; //PersonasInterface[];
   personas$: Observable<Asistencia[]>;
   evento: Number;
   filter = new FormControl('');
@@ -57,17 +56,37 @@ export class EventosComponentesListaComponent implements OnInit {
               private servicioAmbiente: AmbienteService
               )           
   {
-    this.registrosEventos  = [];
+    // this.registrosEventos  = [];
     this.asistencia = [];
-    this.personas = [];
+    // this.personas = [];
     this.modificacion = [];
-    this.consultarEventos();
-    this.AplicarFiltros();
+    // this.consultarEventos();
+
+    this.controladorEventos = new EventosController(this.llamadoHttp,this.servicioAmbiente);
+    this.controladorEventos.CargarDesdeDB().subscribe(
+      (respuesta: RespuestaInterface) =>{
+        switch(respuesta.codigo){
+          case 200:
+            this.controladorEventos.EstaListo("cargue",true).subscribe((valor:boolean) => {
+              this.AplicarFiltros();
+            });
+
+            // this.registrosEventos = this.controladorEventos.todos;
+            
+            break;
+          default:
+            alert("Error: "+respuesta.mensaje);
+            break;
+        }
+      }
+    );
+
+    // this.AplicarFiltros();
 
    }
 
   buscar(text: string , pipe: PipeTransform):EventoInterface[] {
-    return this.registrosEventos.filter(evento => {
+    return this.controladorEventos.todos.filter(evento => {
       const term = text.toLowerCase();
       return pipe.transform(evento.id).includes(term)
           || evento.nombre.toLowerCase().includes(term)
@@ -77,7 +96,7 @@ export class EventosComponentesListaComponent implements OnInit {
   }
 
   buscarPersonas(text: string , pipe: PipeTransform): Asistencia[] {
-    return this.personas.filter(persona => {
+    return this.controladorPersonas.todos.filter(persona => {
       const term = text.toLowerCase();
       return pipe.transform(persona.id).includes(term)
           || pipe.transform(persona.iduniminuto).includes(term)
@@ -90,7 +109,7 @@ export class EventosComponentesListaComponent implements OnInit {
   verModal(agregador, idEvento)
   {
     this.asistencia = [];
-    this.personas = [];
+    // this.personas = [];
     this.modificacion = [];
     this.AplicarFiltros();
     this.evento = idEvento;
@@ -110,7 +129,6 @@ export class EventosComponentesListaComponent implements OnInit {
     if(modo != 1){
       this.servicioAmbiente.eventosModo.datos = datosEvento.id;
     }
-
   }
 
   // Add aplicar filtros con los nuevos datos 
@@ -119,7 +137,7 @@ export class EventosComponentesListaComponent implements OnInit {
     this.registrosEventos$ = this.filter.valueChanges.pipe(
       startWith(''),
       map(text => this.buscar(text, this.pipe)));
-      
+
       this.personas$ = this.filterPersonas.valueChanges.pipe(
         startWith(''),
        map(text => this.buscarPersonas(text, this.pipe))
@@ -127,14 +145,15 @@ export class EventosComponentesListaComponent implements OnInit {
   };
 
   consultarAsistencia(idEvento){
-        
+   
+
     this.controladorAsistencias = new AsistenciaController(this.llamadoHttp,this.servicioAmbiente);
     let caracteristicas = new EstructuraConsultas();
     caracteristicas.AgregarColumna( "asistencias", "id" , null );
-    caracteristicas.AgregarColumna( "personas", "id" , "personas_id" );
+    // caracteristicas.AgregarColumna( "personas", "id" , "personas_id" );
     caracteristicas.AgregarColumna( "personas", "iduniminuto" , null);
-    caracteristicas.AgregarColumna( null, "CONCAT( personas.nombres , ' ' , personas.apellidos )" , "nombreCompleto" );
-    caracteristicas.AgregarEnlace( "eventos" , "eventos" , "asistencias" );
+    // caracteristicas.AgregarColumna( null, "CONCAT( personas.nombres , ' ' , personas.apellidos )" , "nombreCompleto" );
+    // caracteristicas.AgregarEnlace( "eventos" , "eventos" , "asistencias" );
     caracteristicas.AgregarEnlace( "personas" , "personas" , "asistencias" );   
     caracteristicas.AgregarFiltro( "", "asistencias" , "eventos_id" , "=", idEvento );
 
@@ -143,10 +162,14 @@ export class EventosComponentesListaComponent implements OnInit {
 
         switch(respuesta.codigo){
           case 200:
-            this.asistencia = this.controladorAsistencias.todos;
-            console.log(this.asistencia);
+            console.log("aqui");
+            this.controladorAsistencias.EstaListo("cargue",true).subscribe((valor:boolean) => {
+              this.asistencia = this.controladorAsistencias.todos;
+              console.log(this.asistencia);;
+            });
             break;
-          default:
+          default: 
+          
             alert("Error: "+respuesta.mensaje);
             break;
         }
@@ -166,13 +189,10 @@ export class EventosComponentesListaComponent implements OnInit {
       (respuesta: RespuestaInterface) =>{
         switch(respuesta.codigo){
           case 200:
-            this.personas = this.controladorPersonas.todos;
-            console.log(this.personas);
+            this.controladorPersonas.EstaListo("cargue",true).subscribe((valor:boolean) => {
+              this.AplicarFiltros();
+            });
             this.actualizarSeleccion();
-            this.personas$ = this.filterPersonas.valueChanges.pipe(
-               startWith(''),
-              map(text => this.buscarPersonas(text, this.pipe))
-             )
             break;
           default:
             alert("Error: "+respuesta.mensaje);
@@ -183,26 +203,6 @@ export class EventosComponentesListaComponent implements OnInit {
 
   }
 
-  consultarEventos(){
-    this.controladorEventos = new EventosController(this.llamadoHttp,this.servicioAmbiente);
-    this.controladorEventos.CargarDesdeDB().subscribe(
-      (respuesta: RespuestaInterface) =>{
-        switch(respuesta.codigo){
-          case 200:
-            this.registrosEventos = this.controladorEventos.todos;
-            
-            this.registrosEventos$ = this.filter.valueChanges.pipe(
-              startWith(''),
-              map(text => this.buscar(text, this.pipe))
-            )
-            break;
-          default:
-            alert("Error: "+respuesta.mensaje);
-            break;
-        }
-      }
-    );
-  }
 
   actualizarSeleccion(){
     let posicion = 0;
@@ -213,9 +213,9 @@ export class EventosComponentesListaComponent implements OnInit {
    
     for (let i = 0; posicion < this.asistencia.length;) {
  
-      if (this.personas[i].id == this.asistencia[posicion].personas_id){
-        this.personas[i].Seleccionado = true;
-        this.personas[i].Asistencia = this.asistencia[posicion].id;
+      if (this.controladorPersonas.todos[i].id == this.asistencia[posicion].personas_id){
+        this.controladorPersonas.todos[i].Seleccionado = true;
+        this.controladorPersonas.todos[i].Asistencia = this.asistencia[posicion].id;
         posicion++;
         i = 0;
       }else i++; 
@@ -261,7 +261,7 @@ export class EventosComponentesListaComponent implements OnInit {
 
   limpiar(){
     this.asistencia = [];
-    this.personas = [];
+    // this.personas = [];
     this.modificacion = [];
     this.AplicarFiltros();
     this.modal.dismissAll('NO');
@@ -319,8 +319,23 @@ export class EventosComponentesListaComponent implements OnInit {
     // // this.controladorAsistencias.Eliminar(eliminar);
     // console.log(agregar);
     // console.log(eliminar);
- 
-
   };
 
+  EstoyListo(controlador:String){
+  
+    let validador:boolean = false;
+    
+    switch(controlador){
+      case "eventos":
+        validador =  this.controladorEventos.EstaListo("cargue");
+        break;
+      
+      case "personas":
+        validador =  this.controladorPersonas.EstaListo("cargue");
+        break;
+    }
+
+    return validador;
+  }
+  
 }

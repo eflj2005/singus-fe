@@ -1,3 +1,8 @@
+<div class="blackout" *ngIf="!EstoyListo('eventos')">
+  <div class="spinner spinner-grow text-primary" role="status">
+  </div>
+</div>
+
 <div class="container-fluid">
 
   <h1 class='text-center'>Lista de eventos</h1>
@@ -50,6 +55,11 @@
 
 <ng-template #agregador let-modal>
 
+  <div class="blackout" *ngIf="!EstoyListo('personas')">
+    <div class="spinner spinner-grow text-primary" role="status">
+    </div>
+  </div>
+  
     <div class="modal-header">
         <h4 class="modal-title">Crear Asistencia</h4>
     </div>

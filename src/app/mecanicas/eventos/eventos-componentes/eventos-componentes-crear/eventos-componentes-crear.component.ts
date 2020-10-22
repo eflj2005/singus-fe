@@ -18,7 +18,7 @@ export class EventosComponentesCrearComponent implements OnInit {
   titulo:string;
   controladorEventos: EventosController;
   datos: EventoInterface;
-  today: Date ;  
+  today: Date ;
   img: any;
 
   constructor(private servicioAmbiente : AmbienteService, private llamadoHttp : HttpClient) {
@@ -128,5 +128,17 @@ export class EventosComponentesCrearComponent implements OnInit {
     this.datos.imagen = this.pruebaImagen[0].name;
   }
  
+  estoyListo(controlador:String){
+  
+    let validador:boolean = false;
+    
+    validador =  this.controladorEventos.EstaListo("cargue");
+
+    if(this.servicioAmbiente.eventosModo.modo == 1){
+      validador = true;
+    }
+
+    return validador;
+  }
 
 }
