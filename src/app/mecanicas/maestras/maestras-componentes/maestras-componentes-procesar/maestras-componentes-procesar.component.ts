@@ -93,8 +93,9 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
 
   ProcesarSelectId( campo:string ){
     let partes:string[] = campo.split("_");
+    console.log(this.controlador.ObtenerForanea(partes[0]));
     var opciones:any[] = this.controlador.ObtenerForanea(partes[0]).todos;
-
+    console.log(opciones);
     // console.log(partes,"partes");
 
     return opciones;

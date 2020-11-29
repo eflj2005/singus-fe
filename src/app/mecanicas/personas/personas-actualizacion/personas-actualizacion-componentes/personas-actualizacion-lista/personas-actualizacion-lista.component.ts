@@ -121,5 +121,14 @@ export class PersonasActualizacionListaComponent implements OnInit {
     this.servicioAmbiente.controlMecanicasPersonas.origen = this.enrutador.url
 
   }
+
+  EstoyListo(controlador:String){
+  
+    let validador:boolean = false;
+
+        validador =  this.controladorPersonas.EstaListo("cargue");
+
+    return validador;
+  }
   
 }

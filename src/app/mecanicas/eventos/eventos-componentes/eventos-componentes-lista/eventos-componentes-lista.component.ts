@@ -14,6 +14,7 @@ import { PersonasInterface } from '@interfaces/personas.interface';
 import { AsistenciaController } from '@controladores/asistencia.controller';
 import { PersonasController } from '@controladores/personas.controller';
 import { AsistenciasInterface } from '@interfaces/asistencias.interface';
+import { EstudiosController } from '@controladores/estudios.controller';
 
 
 interface Asistencia extends PersonasInterface {
@@ -40,6 +41,7 @@ export class EventosComponentesListaComponent implements OnInit {
   controladorEventos: EventosController;
   controladorAsistencias: AsistenciaController;
   controladorPersonas:  PersonasController;
+  controladorEstudios: EstudiosController;
   modificacion: Modificacion[];  
 
   asistencia: Asistencia[];
@@ -145,15 +147,15 @@ export class EventosComponentesListaComponent implements OnInit {
   };
 
   consultarAsistencia(idEvento){
-   
 
     this.controladorAsistencias = new AsistenciaController(this.llamadoHttp,this.servicioAmbiente);
+
     let caracteristicas = new EstructuraConsultas();
-    caracteristicas.AgregarColumna( "asistencias", "id" , null );
-    // caracteristicas.AgregarColumna( "personas", "id" , "personas_id" );
+
+    caracteristicas.AgregarColumna( "personas", "id" , "personas_id" );
     caracteristicas.AgregarColumna( "personas", "iduniminuto" , null);
-    // caracteristicas.AgregarColumna( null, "CONCAT( personas.nombres , ' ' , personas.apellidos )" , "nombreCompleto" );
-    // caracteristicas.AgregarEnlace( "eventos" , "eventos" , "asistencias" );
+    caracteristicas.AgregarColumna( null, "CONCAT( personas.nombres , ' ' , personas.apellidos )" , "nombreCompleto" );
+    caracteristicas.AgregarEnlace( "eventos" , "eventos" , "asistencias" );
     caracteristicas.AgregarEnlace( "personas" , "personas" , "asistencias" );   
     caracteristicas.AgregarFiltro( "", "asistencias" , "eventos_id" , "=", idEvento );
 
@@ -162,7 +164,6 @@ export class EventosComponentesListaComponent implements OnInit {
 
         switch(respuesta.codigo){
           case 200:
-            console.log("aqui");
             this.controladorAsistencias.EstaListo("cargue",true).subscribe((valor:boolean) => {
               this.asistencia = this.controladorAsistencias.todos;
               console.log(this.asistencia);;
@@ -203,8 +204,8 @@ export class EventosComponentesListaComponent implements OnInit {
 
   }
 
-
   actualizarSeleccion(){
+
     let posicion = 0;
 
     for (let i = 0; i < this.asistencia.length ; i++) {
@@ -268,11 +269,19 @@ export class EventosComponentesListaComponent implements OnInit {
   }
 
   actualizarAsistencia(){
+
+    this.controladorEstudios = new EstudiosController(this.llamadoHttp,this.servicioAmbiente);
+
     this.controladorAsistencias.LimpiarTodo();
     
     for (let i = 0; i < this.modificacion.length; i++) {
       
-      if(this.modificacion[i].tipo == "agregar" ) this.controladorAsistencias.Agregar(this.modificacion[i]);
+      if(this.modificacion[i].tipo == "agregar" ) {
+        this.controladorAsistencias.Agregar(this.modificacion[i]);
+        // this.modificacion.forEach(element => {
+        //   this.controladorEstudios.Agregar();
+        // });
+      }
       else{ 
         this.modificacion[i].modo = "E";
         this.controladorAsistencias.registros.push(this.modificacion[i]);
