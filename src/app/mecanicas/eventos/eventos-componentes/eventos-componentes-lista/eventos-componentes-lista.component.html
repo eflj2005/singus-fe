@@ -42,7 +42,7 @@
           </button>
         </td>
         <td>
-          <button class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Registrar asistencia" (click)="verModal(agregador, evento.id)" >
+          <button *ngIf="evento.ofertas_id != null" class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Registrar asistencia" (click)="verModal(agregador, evento.id)" >
             <i class="fa fa-address-book-o"></i>
           </button>
         </td>

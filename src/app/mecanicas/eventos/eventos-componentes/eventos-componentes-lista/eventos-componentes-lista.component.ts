@@ -84,7 +84,6 @@ export class EventosComponentesListaComponent implements OnInit {
     );
 
     // this.AplicarFiltros();
-
    }
 
   buscar(text: string , pipe: PipeTransform):EventoInterface[] {
@@ -273,14 +272,24 @@ export class EventosComponentesListaComponent implements OnInit {
     this.controladorEstudios = new EstudiosController(this.llamadoHttp,this.servicioAmbiente);
 
     this.controladorAsistencias.LimpiarTodo();
+
+    let caracteristicas = new  EstructuraConsultas();
+
+    this.controladorEventos.Encontrar("id", this.evento);
+
+    console.log( this.controladorEventos.actual.ofertas_id );
+
+    caracteristicas.AgregarFiltro("","estudios","ofertas_id","=", this.controladorEventos.actual.ofertas_id );
     
+
     for (let i = 0; i < this.modificacion.length; i++) {
-      
+
       if(this.modificacion[i].tipo == "agregar" ) {
         this.controladorAsistencias.Agregar(this.modificacion[i]);
-        // this.modificacion.forEach(element => {
-        //   this.controladorEstudios.Agregar();
-        // });
+                
+        this.modificacion.forEach(element => {
+          
+        });
       }
       else{ 
         this.modificacion[i].modo = "E";
