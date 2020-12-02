@@ -48,8 +48,8 @@ export class MaestrasComponentesListaComponent implements OnInit {
         caracteristicasConsultas.AgregarEnlace( nombreForanea, nombreForanea, this.controlador.nombreTabla );
       }
       else{
-        caracteristicasConsultas.AgregarColumna( nombreAnalizado[0]+nombreAnalizado[1], "descripcion", nombreAnalizado[0]+nombreAnalizado[1] + "_des");
-        caracteristicasConsultas.AgregarEnlace( nombreAnalizado[0], nombreAnalizado[0], this.controlador.nombreTabla, nombreAnalizado[0]+nombreAnalizado[1], "FK" );
+        caracteristicasConsultas.AgregarColumna( nombreAnalizado[0]+nombreAnalizado[1], "descripcion", nombreAnalizado[0] + "_des_"+nombreAnalizado[1]);
+        caracteristicasConsultas.AgregarEnlace( nombreAnalizado[0], nombreAnalizado[0], this.controlador.nombreTabla, nombreAnalizado[0]+nombreAnalizado[1], "PK",  nombreAnalizado[1]);
       }
 
       this.controlador.CargarForanea(nombreForanea);
@@ -66,7 +66,6 @@ export class MaestrasComponentesListaComponent implements OnInit {
             this.controlador.EstaListo('cargue',true).subscribe( (valor: Boolean ) => {
              
               this.AplicarFiltros();
-
             });
 
           break;
@@ -143,8 +142,15 @@ export class MaestrasComponentesListaComponent implements OnInit {
 
   AjustarNombreCampo( nombreCampo:string, sufijo: string){
     let nombre:string[] = nombreCampo.split("_");
+    let nuevoNombre:string  ="";
 
-    return nombre[0]+"_"+sufijo;
+    if(nombre.length == 2){
+      nuevoNombre = nombre[0]+"_"+sufijo;
+    }
+    else{
+      nuevoNombre = nombre[0]+"_"+sufijo+"_"+nombre[2];
+    }
+    return nuevoNombre;
   }
 
 

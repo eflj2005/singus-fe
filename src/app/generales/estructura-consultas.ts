@@ -189,9 +189,9 @@ export class EstructuraConsultas {
     this.columnas.push( { tabla: nombreTabla , columna: nombreColumna , alias: aliasColumna, esNumerico: esNumerico } );
   }
 
-  public AgregarEnlace( tablaEnlace:string, tablaConPK:string, tablaConFK:string, tablaAlias:string = "", modoAlias:string = "FK" ){
+  public AgregarEnlace( tablaEnlace:string, tablaConPK:string, tablaConFK:string, tablaAlias:string = "", modoAlias:string = "", sufijoFK:string = "" ){
     if( isNull( this.enlaces ) ) this.enlaces = [];
-    this.enlaces.push( { tablaE: tablaEnlace , tablaPk: tablaConPK , tablaFk: tablaConFK, tablaAlias: tablaAlias, modoAlias: modoAlias } );
+    this.enlaces.push( { tablaE: tablaEnlace , tablaPk: tablaConPK , tablaFk: tablaConFK, tablaAlias: tablaAlias, modoAlias: modoAlias, sufijoFK: sufijoFK } );
   }
 
   public AgregarFiltro( operadorLogico:string, nombreTabla:string, campoFiltrado:string, condicionAplicada:string, valorBuscado:string){

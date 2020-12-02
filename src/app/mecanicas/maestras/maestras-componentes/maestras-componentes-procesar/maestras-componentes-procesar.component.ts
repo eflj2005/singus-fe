@@ -60,6 +60,8 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
 
     this.procesando = true;
 
+    console.log(this.controlador.todos);
+
     this.controlador.Guardar().subscribe(
       (notificacion:RespuestaInterface) => {
         switch (notificacion.codigo){
@@ -93,7 +95,16 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
 
   ProcesarSelectId( campo:string ){
     let partes:string[] = campo.split("_");
-    var opciones:any[] = this.controlador.ObtenerForanea(partes[0]).todos;
+    let nombreControlador: string = "";
+    
+    if(partes.length==2){
+      nombreControlador = partes[0];
+    }
+    if(partes.length==3){
+      nombreControlador = partes[0]+"-"+partes[2];
+    }   
+
+    var opciones:any[] = this.controlador.ObtenerForanea(nombreControlador).todos;
 
     // console.log(partes,"partes");
 

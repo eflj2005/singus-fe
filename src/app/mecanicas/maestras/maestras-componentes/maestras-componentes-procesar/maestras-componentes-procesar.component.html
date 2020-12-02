@@ -37,6 +37,7 @@
           <label for="{{campo.nombre}}" class="col-sm-3 col-form-label col-form-label-sm text-wrap">{{campo.nombre}} :</label>
           <div class="col-sm">
             <select id="{{campo.nombre}}" [(ngModel)]="datos[campo.nombre]" class="form-control form-control-sm">
+              <option> Seleccione {{campo.nombre}}</option>
               <option *ngFor="let opcion of ProcesarSelectEnum(campo.tipo); index as opcionesIndex" [value]="opcion">{{ ObtenerOptionTextEnum(opcion,campo.comentarios) }}</option>
             </select>
           </div>     
@@ -48,11 +49,14 @@
           <label for="{{campo.nombre}}" class="col-sm-3 col-form-label col-form-label-sm text-wrap">{{campo.nombre}} :</label>
           <div class="col-sm">
             <select id="{{campo.nombre}}" [(ngModel)]="datos[campo.nombre]" class="form-control form-control-sm">
+              <option> Seleccione {{campo.nombre}}</option>
               <option *ngFor="let opcion of ProcesarSelectId(campo.nombre); index as opcionesIndex" [value]="opcion.id">{{opcion.descripcion}}</option>
             </select>  
           </div>     
       
-        </ng-container>        
+        </ng-container>          
+     
+
 
       </div>
     
