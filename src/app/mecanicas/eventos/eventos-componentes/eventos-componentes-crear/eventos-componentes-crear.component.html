@@ -1,4 +1,4 @@
-<div class="blackout" *ngIf="!estoyListo()">
+<div class="blackout" *ngIf="!estoyListo('eventos')">
     <div class="spinner spinner-grow text-primary" role="status">
     </div>
 </div>
@@ -32,7 +32,29 @@
                                 <label> Sede:</label>
                                 <input type="text" class="form-control" [(ngModel)]="datos.lugar" required>
                         </div>
+                       
                     </div>
+
+                    <div class="row margin-top">
+                        <div class="col">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch1" [(ngModel)]="tieneCertificado">
+                                <label class="custom-control-label" for="customSwitch1">Tiene certificado </label>
+                            </div>
+                            <div *ngIf="tieneCertificado && !estoyListo('ofertas')" class="spinner-border text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <div *ngIf="tieneCertificado && estoyListo('ofertas')">
+                                <input id="ofertasInput" class="form-control custom-select" placeholder="Elija una oferta" list="listaOfertas" [(ngModel)]="ofertaSeleccionada">
+                                <datalist id="listaOfertas">
+                                    <ng-container *ngFor="let oferta of controladorOfertas.registros">
+                                        <option value="{{oferta.descripcion}}"></option>
+                                    </ng-container>
+                                </datalist>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row margin-top">
                         <div class="col">
                             <div class="input-group" >

@@ -42,7 +42,7 @@
           </button>
         </td>
         <td>
-          <button class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Registrar asistencia" (click)="verModal(agregador, evento.id)" >
+          <button *ngIf="evento.ofertas_id != null" class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Registrar asistencia" (click)="verModal(agregador, evento.id)" >
             <i class="fa fa-address-book-o"></i>
           </button>
         </td>
@@ -79,8 +79,8 @@
                             <div class="form-group form-inline form ">
                                 <div class="row">
                                     <div class="col align-middle a">
-                                        <i class="fa fa-search search col-md-2 "></i>
-                                        <p>Buscar: </p>
+                                        <i class="fa fa-search search col"></i>
+                                        <p>Buscar:</p>
                                     </div>
                                     <div class="col"> <input class="form-control" type="text" [formControl]="filterPersonas"/></div>
                                 </div>
@@ -99,7 +99,7 @@
                             <tbody>
                             <tr *ngFor="let persona of  personas$ | async; index as i">
                             <td><ngb-highlight [result]="persona.id  | number" [term]="filterPersonas.value"></ngb-highlight></td>
-                            <td><ngb-highlight [result]="persona.iduniminuto | number" [term]="filterPersonas.value"></ngb-highlight></td>
+                            <td><ngb-highlight [result]="persona.iduniminuto" [term]="filterPersonas.value"></ngb-highlight></td>
                             <td><ngb-highlight [result]="persona.nombres" [term]="filterPersonas.value"></ngb-highlight></td>
                             <td><ngb-highlight [result]="persona.apellidos" [term]="filterPersonas.value"></ngb-highlight></td>
                             <td>                                        

@@ -6,6 +6,7 @@ export interface EventoInterface {
   imagen:String;
   evento_fecha:String;
   creacion_fecha:String;
+  ofertas_id:Number;
   modo?:String;
   dbRef?:String;
 }

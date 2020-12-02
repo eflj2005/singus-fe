@@ -106,6 +106,7 @@ export class MaestrasComponentesProcesarComponent implements OnInit {
 
     var opciones:any[] = this.controlador.ObtenerForanea(nombreControlador).todos;
 
+    console.log(opciones);
     // console.log(partes,"partes");
 
     return opciones;
