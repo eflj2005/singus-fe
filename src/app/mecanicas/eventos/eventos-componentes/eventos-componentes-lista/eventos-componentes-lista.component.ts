@@ -15,6 +15,10 @@ import { AsistenciaController } from '@controladores/asistencia.controller';
 import { PersonasController } from '@controladores/personas.controller';
 import { AsistenciasInterface } from '@interfaces/asistencias.interface';
 import { EstudiosController } from '@controladores/estudios.controller';
+import { EstudiosInterface } from '@interfaces/estudios.interface';
+import { CohortesController } from '@controladores/cohortes.controller';
+import { SedesController } from '@controladores/sedes.controller';
+import { TitulosController } from '@controladores/titulos.controller';
 
 
 interface Asistencia extends PersonasInterface {
@@ -42,6 +46,10 @@ export class EventosComponentesListaComponent implements OnInit {
   controladorAsistencias: AsistenciaController;
   controladorPersonas:  PersonasController;
   controladorEstudios: EstudiosController;
+  controladorCohortes: CohortesController;
+  controladorSedes: SedesController;
+  controladorTitulos: TitulosController;
+
   modificacion: Modificacion[];  
 
   asistencia: Asistencia[];
@@ -51,6 +59,9 @@ export class EventosComponentesListaComponent implements OnInit {
   filter = new FormControl('');
   filterPersonas = new FormControl('');
 
+  modo: Number; // para modal: 0 = lista asistencia - 1 = aplicar estudios
+  estudio:EstudiosInterface;
+  cargando:boolean;
 
   constructor(private modal: NgbModal ,
               private pipe: DecimalPipe, 
@@ -58,11 +69,14 @@ export class EventosComponentesListaComponent implements OnInit {
               private servicioAmbiente: AmbienteService
               )           
   {
+    
+    this.modo = 0;
     // this.registrosEventos  = [];
     this.asistencia = [];
     // this.personas = [];
     this.modificacion = [];
     // this.consultarEventos();
+    this.cargando = false;
 
     this.controladorEventos = new EventosController(this.llamadoHttp,this.servicioAmbiente);
     this.controladorEventos.CargarDesdeDB().subscribe(
@@ -114,10 +128,88 @@ export class EventosComponentesListaComponent implements OnInit {
     this.modificacion = [];
     this.AplicarFiltros();
     this.evento = idEvento;
-    this.consultarAsistencia(idEvento)
+    this.controladorEventos.Encontrar("id",this.evento);
+    this.consultarAsistencia(idEvento);
     this.consultarPersonas();
     const respuesta  = this.modal.open(agregador, { centered: true , backdropClass: 'light-blue-backdrop', size: 'xl' } );
-  
+  }
+
+  cambiarModo(modoRecibido:Number){
+    this.modo = modoRecibido;
+    if(modoRecibido == 1){
+      let today:Date = new Date();
+
+      this.estudio = {
+        id: null,           //noApli
+        personas_id: null,  //ciclo
+        cohortes_id: null,  //seleccionar-
+        titulos_id: null,   //insertar-
+        grado_fecha: null,  //insertar
+        mecanismosgrados_id: 0, 
+        descripcionmecanismo: "sin Descripción", // insertar
+        ofertas_id: this.controladorEventos.actual.ofertas_id,
+        sedes_id: null,     //Seleccionar-
+        registro_fecha: today.getFullYear() + "-" + this.ElCero(today.getMonth()  + 1) + "-" + this.ElCero(today.getDate()), 
+        promedio: null,     //noApli
+        acta: null,         //noApli
+        libro: null,        //noApli
+        folio: null,        //noApli
+        diploma: null,      //noApli
+      }
+    
+
+      this.controladorCohortes = new CohortesController(this.llamadoHttp,this.servicioAmbiente);
+      this.controladorCohortes.CargarDesdeDB().subscribe(()=>{
+        this.controladorCohortes.EstaListo("cargue",true);
+      });
+
+      this.controladorSedes =new SedesController(this.llamadoHttp,this.servicioAmbiente);
+      this.controladorSedes.CargarDesdeDB().subscribe(()=>{
+        this.controladorSedes.EstaListo("cargue",true);
+      });;
+
+      this.controladorTitulos = new TitulosController(this.llamadoHttp,this.servicioAmbiente);
+      this.controladorTitulos.CargarDesdeDB().subscribe(()=>{
+        this.controladorTitulos.EstaListo("cargue",true);
+      });;
+    }
+    else{
+      this.consultarAsistencia(this.evento);
+      this.consultarPersonas();
+    }
+  }
+
+  aplicarEstudios(){
+    this.controladorEstudios = new EstudiosController(this.llamadoHttp,this.servicioAmbiente);
+    
+    this.asistencia.forEach(persona => {      
+      this.estudio.personas_id = persona.personas_id; 
+      this.controladorEstudios.Agregar(Object.assign({} , this.estudio));
+    });
+
+    this.controladorEstudios.Guardar().subscribe(
+      (notificacion:RespuestaInterface) => {
+        switch (notificacion.codigo){
+          case 200:
+            alert("GUARDADO");
+            this.cargando = false;
+            this.limpiar();
+          break;
+            case 400:
+          alert(notificacion.asunto + ": " + notificacion.mensaje);
+            break;
+          }
+        }
+      ); 
+  }
+
+  ElCero(numero){
+    if(numero<10){
+      numero = "0"+numero;
+    }
+
+    console.log(numero);
+    return numero;
   }
 
   ngOnInit() {
@@ -165,8 +257,18 @@ export class EventosComponentesListaComponent implements OnInit {
           case 200:
             this.controladorAsistencias.EstaListo("cargue",true).subscribe((valor:boolean) => {
               this.asistencia = this.controladorAsistencias.todos;
-              console.log(this.asistencia);;
+              console.log(this.asistencia);
             });
+            if (this.modo == 1) {
+              if (this.asistencia.length > 0) {
+                this.aplicarEstudios();
+              }
+              else{
+                alert("No hay personas seleccioadas");
+                this.cargando = false;
+                this.cambiarModo(0);
+              }
+            }
             break;
           default: 
           
@@ -260,6 +362,7 @@ export class EventosComponentesListaComponent implements OnInit {
   }
 
   limpiar(){
+    this.modo = 0;
     this.asistencia = [];
     // this.personas = [];
     this.modificacion = [];
@@ -267,29 +370,16 @@ export class EventosComponentesListaComponent implements OnInit {
     this.modal.dismissAll('NO');
   }
 
+
   actualizarAsistencia(){
-
-    this.controladorEstudios = new EstudiosController(this.llamadoHttp,this.servicioAmbiente);
-
-    this.controladorAsistencias.LimpiarTodo();
-
-    let caracteristicas = new  EstructuraConsultas();
-
-    this.controladorEventos.Encontrar("id", this.evento);
-
-    console.log( this.controladorEventos.actual.ofertas_id );
-
-    caracteristicas.AgregarFiltro("","estudios","ofertas_id","=", this.controladorEventos.actual.ofertas_id );
-    
+    if (this.modo == 0) {
+      this.cargando = true;
+    }
 
     for (let i = 0; i < this.modificacion.length; i++) {
 
       if(this.modificacion[i].tipo == "agregar" ) {
         this.controladorAsistencias.Agregar(this.modificacion[i]);
-                
-        this.modificacion.forEach(element => {
-          
-        });
       }
       else{ 
         this.modificacion[i].modo = "E";
@@ -298,15 +388,19 @@ export class EventosComponentesListaComponent implements OnInit {
       
     }
 
-    console.log(this.controladorAsistencias.registros);
-
     this.controladorAsistencias.Guardar().subscribe(
       (notificacion:RespuestaInterface) => {
         switch (notificacion.codigo){
-          case 200:         //login ok         
-
-            alert("GUARDADO");
-            this.limpiar();
+          case 200:         //login ok
+            this.controladorAsistencias.LimpiarTodo();
+            if (this.modo == 0) {
+              alert("GUARDADO");
+              this.cargando = false;
+              this.limpiar();
+            }
+            else{
+              this.consultarAsistencia(this.evento);
+            }
           break;
           case 400:         //autenticación erronea / Usuario Bloqueado / Usuario Inactivo
             alert(notificacion.asunto + ": " + notificacion.mensaje);
@@ -314,30 +408,25 @@ export class EventosComponentesListaComponent implements OnInit {
         }
       }
     );
-    // let agregar: Modificacion[] ;
-    // let eliminar: Modificacion[] ;
-    // agregar = [];
-    // eliminar = [];
-    // for (let i = 0; i < this.modificacion.length; i++) {
-    //   if ( this.modificacion[i].tipo == "agregar" ) {
-    //     agregar.push(Object.assign(this.modificacion[i]))
-    //   }else{
-    //     eliminar.push(Object.assign(this.modificacion[i]))
-    //   }
-    // }
+  }
 
-    // if (!(agregar.length == 0) && !(eliminar.length == 0)) {
-    //   this.controladorAsistencias.Agregar(agregar);
+  comprobar(tipo:Number){ //1-actualizar asitencia 2-aplicar estudios
+    if(tipo ==2){
+      if (this.estudio.sedes_id != null && this.estudio.titulos_id != null && this.estudio.cohortes_id != null && this.estudio.grado_fecha != null) {
+        if(confirm("¿Esta seguro que desea aplicar elestudio a las personas seleccionadas en la asistencia? (esto tambien actualizara la asistencia con las personas seleccionadas.)")){
+          this.cargando = true;
+          this.actualizarAsistencia();
+        }
+      }
+      else{
+        alert("Debe ingresar toda la informacio del formulario para poder aplicar el estudio");
+      }
+    }
+    else{
+      this.actualizarAsistencia();
+    }
+  }
 
-    // } else {
-      
-    // }
-
-    // this.controladorAsistencias.Agregar(agregar);
-    // // this.controladorAsistencias.Eliminar(eliminar);
-    // console.log(agregar);
-    // console.log(eliminar);
-  };
 
   EstoyListo(controlador:String){
   
@@ -351,8 +440,19 @@ export class EventosComponentesListaComponent implements OnInit {
       case "personas":
         validador =  this.controladorPersonas.EstaListo("cargue");
         break;
-    }
 
+      case "sedes":
+        validador =  this.controladorCohortes.EstaListo("cargue");
+        break;
+      
+      case "cohortes":
+        validador =  this.controladorSedes.EstaListo("cargue");
+        break;
+      
+      case "titulos":
+        validador = this.controladorTitulos.EstaListo("cargue");
+        break;
+    }
     return validador;
   }
   

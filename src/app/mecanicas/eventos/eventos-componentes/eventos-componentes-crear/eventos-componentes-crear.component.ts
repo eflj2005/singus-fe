@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { EstructuraConsultas } from '@generales/estructura-consultas';
 import { OfertasController } from '@controladores/ofertas.controller';
 import { OfertasInterface } from '@interfaces/ofertas.interface';
+import { exception } from 'console';
+import { error } from 'protractor';
 
 
 @Component({
@@ -52,10 +54,6 @@ export class EventosComponentesCrearComponent implements OnInit {
     }else{
       this.titulo="Modificar Evento";
       this.ConsultarEvento(this.servicioAmbiente.eventosModo.datos);
-      
-      if(this.datos.ofertas_id != null){       
-        this.tieneCertificado = true;
-      }
     } 
 
     this.controladorOfertas = new OfertasController(this.llamadoHttp,this.servicioAmbiente);
@@ -73,34 +71,39 @@ export class EventosComponentesCrearComponent implements OnInit {
   }
 
   Procesar(){
-    this.PonerOferta();
+    try {
+      this.PonerOferta();
 
-    if(this.servicioAmbiente.eventosModo.modo == 1){
-      this.datos.creacion_fecha =  this.today.getFullYear() + "-" + this.ElCero(this.today.getMonth()  + 1) + "-" + this.ElCero(this.today.getDate());
-      console.log(this.datos);
-      this.controladorEventos.Agregar(this.datos);
-    } 
-    else{ 
-      this.controladorEventos.Modificar(this.datos) ;
-    }
+      if(this.servicioAmbiente.eventosModo.modo == 1){
+        this.datos.creacion_fecha =  this.today.getFullYear() + "-" + this.ElCero(this.today.getMonth()  + 1) + "-" + this.ElCero(this.today.getDate());
+        console.log(this.datos);
+        this.controladorEventos.Agregar(this.datos);
+      } 
+      else{ 
+        if(this.tieneCertificado == false) this.datos.ofertas_id = null;
+        this.controladorEventos.Modificar(this.datos) ;
+      }
 
-     this.controladorEventos.Guardar().subscribe(
-       (notificacion:RespuestaInterface) => {
-         switch (notificacion.codigo){
-           case 200:         //login ok               
+      this.controladorEventos.Guardar().subscribe(
+        (notificacion:RespuestaInterface) => {
+          switch (notificacion.codigo){
+            case 200:         //login ok               
 
-             alert("GUARDADO");
- 
-           break;
-            case 400:         //autenticación erronea / Usuario Bloqueado / Usuario Inactivo
-           alert(notificacion.asunto + ": " + notificacion.mensaje);
+              alert("GUARDADO");
+  
             break;
+              case 400:         //autenticación erronea / Usuario Bloqueado / Usuario Inactivo
+            alert(notificacion.asunto + ": " + notificacion.mensaje);
+              break;
+            }
           }
-        }
-      ); 
+        ); 
 
-      this.Atras();  
-     
+        this.Atras();
+
+     } catch (error) {
+      alert(error + ": Debe debe seleccionar una de las oferta de la lista.");
+    }
   }
 
   PonerOferta(){
@@ -108,8 +111,11 @@ export class EventosComponentesCrearComponent implements OnInit {
       if(this.ofertaSeleccionada == oferta.descripcion){
         this.datos.ofertas_id = oferta.id;
       }  
+    });
+
+    if(this.tieneCertificado && this.datos.ofertas_id == null){
+      throw "Oferta invalida";
     }
-    );
   }
 
   ElCero(numero){
@@ -135,6 +141,8 @@ export class EventosComponentesCrearComponent implements OnInit {
             this.controladorEventos.EstaListo("cargue",true).subscribe((valor:boolean) => {
               this.datos = this.controladorEventos.actual;
               if (this.datos.imagen.length == 0) this.datos.imagen  =  "predeterminada.png" ;
+              if (this.datos.ofertas_id != null) this.tieneCertificado = true;
+
             });
             break;
           default:
@@ -146,14 +154,12 @@ export class EventosComponentesCrearComponent implements OnInit {
   }
 
   buscarOfertas(){
-    this.tieneCertificado = true;
     this.controladorOfertas.CargarDesdeDB().subscribe(
       (respuesta: RespuestaInterface) =>{
         switch(respuesta.codigo){
           case 200:
             this.controladorOfertas.EstaListo("cargue",true).subscribe(()=>{
               if(this.datos.ofertas_id != null){
-                
                 this.controladorOfertas.registros.forEach(oferta => {
                   if(oferta.id == this.datos.ofertas_id) this.ofertaSeleccionada = oferta.descripcion;
                 });

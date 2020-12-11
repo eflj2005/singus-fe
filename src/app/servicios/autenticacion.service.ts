@@ -15,16 +15,34 @@ import { Router } from '@angular/router';
 })
 export class AutenticacionService {
 
-  private usuarioActualIntermediario: BehaviorSubject<UsuarioInterface>;
-  public usuarioActual: Observable<UsuarioInterface>
+  private usuarioActualIntermediario: BehaviorSubject<UsuarioInterface> = null;
+  public usuarioActual: Observable<UsuarioInterface> = null;
 
   constructor(
     private llamadoHttp: HttpClient,
     private datosAmbiente: AmbienteService,
     private enrutador: Router
   ) { 
-    this.usuarioActualIntermediario = new BehaviorSubject<UsuarioInterface>(JSON.parse(localStorage.getItem('usuarioActual')));
-    this.usuarioActual = this.usuarioActualIntermediario.asObservable();
+    
+      this.usuarioActualIntermediario = new BehaviorSubject<UsuarioInterface>(JSON.parse(localStorage.getItem('usuarioActual')));
+      this.usuarioActual = this.usuarioActualIntermediario.asObservable();
+
+    if (this.usuarioActualIntermediario.value != null) {
+      this.validarToken();
+    }
+  }
+
+  validarToken(){
+      let decoded = jwt_decode(this.usuarioActualIntermediario.value.token);
+      let expToken = new Date(decoded[0].exp);
+      let fechaActual = new Date();
+
+      // console.log(expToken);
+      // console.log(fechaActual);
+
+      if (expToken.getTime < fechaActual.getTime) {
+        this.CerrarSesion();
+      }
   }
 
   public get UsuarioActualValor(): UsuarioInterface {

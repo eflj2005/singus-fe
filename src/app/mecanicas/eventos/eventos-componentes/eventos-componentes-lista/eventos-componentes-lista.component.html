@@ -42,7 +42,7 @@
           </button>
         </td>
         <td>
-          <button *ngIf="evento.ofertas_id != null" class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Registrar asistencia" (click)="verModal(agregador, evento.id)" >
+          <button class="btn btn-outline-secondary mr-2 "  placement="left" ngbTooltip="Registrar asistencia" (click)="verModal(agregador, evento.id)" >
             <i class="fa fa-address-book-o"></i>
           </button>
         </td>
@@ -54,16 +54,34 @@
 
 
 <ng-template #agregador let-modal>
+  <ng-container *ngIf="modo == 0">
+    <div class="blackout" *ngIf="!EstoyListo('personas')">
+      <div class="spinner spinner-grow text-primary" role="status">
+      </div>
+    </div>
+  </ng-container>
 
-  <div class="blackout" *ngIf="!EstoyListo('personas')">
-    <div class="spinner spinner-grow text-primary" role="status">
+  <ng-container *ngIf="modo == 1">
+    <div class="blackout" *ngIf="!(EstoyListo('sedes') && EstoyListo('cohortes') && EstoyListo('titulos'))">
+      <div class="spinner spinner-grow text-primary" role="status">
+      </div>
     </div>
-  </div>
-  
+  </ng-container>
+
+  <ng-container >
+    <div class="blackout" *ngIf="cargando">
+      <div class="spinner spinner-grow text-primary" role="status">
+      </div>
+    </div>
+  </ng-container>
+
     <div class="modal-header">
-        <h4 class="modal-title">Crear Asistencia</h4>
+        <h4 *ngIf="modo == 0" class="modal-title">Crear Asistencia</h4>
+        <h4 *ngIf="modo == 1" class="modal-title">Aplicar estudios</h4>
     </div>
-    <div class="modal-body">
+
+    <div *ngIf="modo == 0" class="modal-body">
+      
         <div class="container">
             <div class="row">
                 <div class="col text-center">
@@ -96,7 +114,7 @@
                                 <th scope="col"></th> 
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody>                            
                             <tr *ngFor="let persona of  personas$ | async; index as i">
                             <td><ngb-highlight [result]="persona.id  | number" [term]="filterPersonas.value"></ngb-highlight></td>
                             <td><ngb-highlight [result]="persona.iduniminuto" [term]="filterPersonas.value"></ngb-highlight></td>
@@ -138,10 +156,65 @@
                 </div>
             </div>
         </div>
+      </div>
+
+    <div *ngIf="modo == 1" class="modal-body">
+      <div class="row">
+        <div class="col">
+          <div>
+            <p>Sede:</p>
+            <select class="form-control custom-select" [(ngModel)]="estudio.sedes_id">
+              <option value="null" selected>Seleccione una sede</option>
+              <ng-container *ngFor="let sede of controladorSedes.registros">
+                <option value="{{sede.id}}">{{sede.descripcion}}</option>
+              </ng-container>
+            </select>
+          </div>
+
+          <div>
+            <p>Cohorte:</p>
+            <select class="form-control custom-select" [(ngModel)]="estudio.cohortes_id">
+              <option value="null" selected>Seleccione una cohorte</option>
+              <ng-container *ngFor="let cohorte of controladorCohortes.registros">
+                <option value="{{cohorte.id}}">{{cohorte.descripcion}}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+    
+        <div class="col">
+          <div>
+            <p>Titulo:</p>
+            <select class="form-control custom-select" [(ngModel)]="estudio.titulos_id">
+              <option value="null" selected>Seleccione un titulo</option>
+              <ng-container *ngFor="let titulo of controladorTitulos.registros">
+                <option value="{{titulo.id}}">{{titulo.descripcion}}</option>
+              </ng-container>
+            </select>
+          </div>
+
+          <div>
+            <p>Fecha de grado:</p>
+            <input type="date" class="form-control form-control-sm" [(ngModel)]="estudio.grado_fecha">
+          </div>
+        </div>
+      </div>
     </div>
+
     <div class="modal-footer">
+      <ng-container *ngIf="modo == 0">
         <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="limpiar()">Atras</button> 
-        <button type="button" class="btn btn-primary" (click)="actualizarAsistencia()">Actualizar</button>                
+        <button type="button" class="btn btn-info" (click)="cambiarModo(1)" *ngIf="controladorEventos.actual.ofertas_id != null">Aplicar estudios</button> 
+        <button type="button" class="btn btn-primary" (click)="comprobar(1)">Actualizar</button>
+      </ng-container>
+
+      <ng-container *ngIf="modo == 1">
+        <button type="button" ngbAutofocus  class="btn btn-outline-dark" (click)="cambiarModo(0)">Atras</button> 
+        <button type="button" ngbAutofocus  class="btn btn-danger" (click)="limpiar()">Cancelar</button>
+        <button type="button" ngbAutofocus  class="btn btn-primary" (click)="comprobar(2)">Guardar</button> 
+      </ng-container>
     </div>
+
+
 
 </ng-template>

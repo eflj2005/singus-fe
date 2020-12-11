@@ -1,6 +1,6 @@
 export interface EstudiosInterface {
   id                    : number;
-  personas_id           : number;
+  personas_id           : Number;
   cohortes_id           : number;
   titulos_id            : number;
   grado_fecha           : string;
