@@ -30,9 +30,8 @@ export class DashboardMenuComponent {
     private servicioAmbiente : AmbienteService
   )
   {
- 
+    if(autenticador.validarToken()){
     console.log ( this.autenticador.UsuarioActualValor  ) ;
-
 
     switch( this.autenticador.UsuarioActualValor.rol ){
       case "D":
@@ -116,7 +115,10 @@ export class DashboardMenuComponent {
       this.nuevoMenu.push(grupo);  
      
     }
-    
+    }
+    else{
+      this.CerrarSesion();
+    }
 }
 
   CerrarSesion(){
