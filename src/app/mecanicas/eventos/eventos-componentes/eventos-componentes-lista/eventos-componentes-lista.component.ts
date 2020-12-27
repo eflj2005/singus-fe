@@ -142,13 +142,13 @@ export class EventosComponentesListaComponent implements OnInit {
       this.estudio = {
         id: null,           //noApli
         personas_id: null,  //ciclo
-        cohortes_id: null,  //seleccionar-
-        titulos_id: null,   //insertar-
+        cohortes_id: null,  //seleccionar
+        titulos_id: null,   //insertar
         grado_fecha: null,  //insertar
         mecanismosgrados_id: 0, 
-        descripcionmecanismo: "sin Descripción", // insertar
+        descripcionmecanismo: "sin Descripción", // defecto
         ofertas_id: this.controladorEventos.actual.ofertas_id,
-        sedes_id: null,     //Seleccionar-
+        sedes_id: null,     //Seleccionar
         registro_fecha: today.getFullYear() + "-" + this.ElCero(today.getMonth()  + 1) + "-" + this.ElCero(today.getDate()), 
         promedio: null,     //noApli
         acta: null,         //noApli
@@ -157,6 +157,33 @@ export class EventosComponentesListaComponent implements OnInit {
         diploma: null,      //noApli
       }
     
+      this.controladorEstudios = new EstudiosController(this.llamadoHttp,this.servicioAmbiente);
+
+      this.controladorEventos.Encontrar("id",this.evento);
+      if(this.controladorEventos.actual.ofertas_id){
+        this.cargando = true;
+        let caracteristicas = new EstructuraConsultas();
+
+        caracteristicas.AgregarFiltro("", "estudios", "ofertas_id", "=", this.controladorEventos.actual.ofertas_id);
+
+        this.controladorEstudios.CargarDesdeDB(true, "S", caracteristicas).subscribe((respuesta: RespuestaInterface) =>{
+          this.controladorEstudios.EstaListo("cargue",true).subscribe((valor:boolean) => {
+            if(this.controladorEstudios.registros.length > 0){
+              let estudioDatos = this.controladorEstudios.registros[0];
+              this.estudio.cohortes_id = estudioDatos.cohortes_id;
+              this.estudio.titulos_id = estudioDatos.titulos_id;
+              this.estudio.grado_fecha = estudioDatos.grado_fecha;
+              this.estudio.sedes_id = estudioDatos.sedes_id;
+              this.cargando = false;
+            }
+            else{
+              this.cargando = false;
+            }
+          });
+        }
+        );
+      }
+      
 
       this.controladorCohortes = new CohortesController(this.llamadoHttp,this.servicioAmbiente);
       this.controladorCohortes.CargarDesdeDB().subscribe(()=>{
@@ -180,11 +207,11 @@ export class EventosComponentesListaComponent implements OnInit {
   }
 
   aplicarEstudios(){
-    this.controladorEstudios = new EstudiosController(this.llamadoHttp,this.servicioAmbiente);
-    
-    this.asistencia.forEach(persona => {      
-      this.estudio.personas_id = persona.personas_id; 
-      this.controladorEstudios.Agregar(Object.assign({} , this.estudio));
+    this.asistencia.forEach(asistencia => {
+      if(!(this.controladorEstudios.Encontrar( "personas_id", asistencia.personas_id))){
+        this.estudio.personas_id = asistencia.personas_id; 
+        this.controladorEstudios.Agregar(Object.assign({} , this.estudio));
+      }
     });
 
     this.controladorEstudios.Guardar().subscribe(
@@ -208,7 +235,7 @@ export class EventosComponentesListaComponent implements OnInit {
       numero = "0"+numero;
     }
 
-    console.log(numero);
+    // console.log(numero);
     return numero;
   }
 
@@ -413,7 +440,7 @@ export class EventosComponentesListaComponent implements OnInit {
   comprobar(tipo:Number){ //1-actualizar asitencia 2-aplicar estudios
     if(tipo ==2){
       if (this.estudio.sedes_id != null && this.estudio.titulos_id != null && this.estudio.cohortes_id != null && this.estudio.grado_fecha != null) {
-        if(confirm("¿Esta seguro que desea aplicar elestudio a las personas seleccionadas en la asistencia? (esto tambien actualizara la asistencia con las personas seleccionadas.)")){
+        if(confirm("¿Esta seguro que desea aplicar elestudio a las personas seleccionadas en la asistencia? (esto tambien actualizara la asistencia con las personas seleccionadas).")){
           this.cargando = true;
           this.actualizarAsistencia();
         }
