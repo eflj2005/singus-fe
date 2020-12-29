@@ -28,7 +28,6 @@ import { FormControl } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
-
   ],
   imports: [
     BrowserModule,

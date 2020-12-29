@@ -6,7 +6,7 @@
         <div class="form text-center mb-12 border-bottom-55">seleccionadas</div>
 
         <div class="row mb-2">
-            <div class="col-sm-6" *ngFor="let vista of vistas"> 
+            <div class="col-sm-6" *ngFor="let vista of controladorVistas.vistas"> 
                 <div class="card ">
                     <div class="card-body">
                         <h5 class="card-title text-center">{{vista.titulo}}</h5>
@@ -15,8 +15,8 @@
                                 <tr *ngFor="let columna of vista.columnasVista">
                                     <th>{{columna.nombre}}</th>
                                     <th>
-                                        <button [ngClass]="!columna.estado?'btn btn-success fa fa-plus-square':'btn btn-danger fa fa-minus-square'">
-                                        </button> {{columna.estado}}
+                                        <button (click)="cambiarSeleccionColumna(vista.titulo,columna.nombre)" [ngClass]="!columna.estado?'btn btn-success fa fa-plus-square':'btn btn-danger fa fa-minus-square'">
+                                        </button>
                                     </th>
                                 </tr>
                             </tbody>
