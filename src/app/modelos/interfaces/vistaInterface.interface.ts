@@ -5,9 +5,9 @@ interface Columnas {
 
 interface VistaInterface {
     // id:Number;
+    seleccionada: boolean;
+    relacionable: boolean;
     titulo: string;
     nombreTablaVista:String;
     columnasVista: Columnas[];
 }
-  
-  

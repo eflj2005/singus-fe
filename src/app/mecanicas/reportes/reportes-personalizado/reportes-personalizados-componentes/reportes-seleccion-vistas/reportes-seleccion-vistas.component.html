@@ -1,3 +1,8 @@
+<div class="blackout" *ngIf="!EstoyListo()">
+    <div class="spinner spinner-grow text-primary" role="status">
+    </div>
+</div>
+
 <div class="container-fluid">
 
    <h1 class="text-center">Reportes personalizado</h1>
@@ -5,18 +10,21 @@
    <div>
         <div class="form text-center mb-12 border-bottom-55">seleccionadas</div>
 
-        <div class="row mb-2">
+        <div class="row my-3">
             <div class="col-sm-6" *ngFor="let vista of controladorVistas.vistas"> 
-                <div class="card ">
+                <div class="card my-3">
                     <div class="card-body">
-                        <h5 class="card-title text-center">{{vista.titulo}}</h5>
+                        <div class="row">
+                            <h5 class="card-title text-center mx-3">{{vista.titulo}}</h5>
+                            <button (click)="cambiarEstadoVista(vista.titulo)" [ngClass]="!vista.seleccionada?'btn btn-success fa fa-plus-square mb-3':'btn btn-danger fa fa-minus-square mb-3'"></button>
+                        </div>
+                        
                         <table class="table table-striped">
                             <tbody class="tbody">
                                 <tr *ngFor="let columna of vista.columnasVista">
                                     <th>{{columna.nombre}}</th>
                                     <th>
-                                        <button (click)="cambiarSeleccionColumna(vista.titulo,columna.nombre)" [ngClass]="!columna.estado?'btn btn-success fa fa-plus-square':'btn btn-danger fa fa-minus-square'">
-                                        </button>
+                                        <button (click)="cambiarSeleccionColumna(vista.titulo,columna.nombre)" [ngClass]="!columna.estado?'btn btn-success fa fa-plus-square':'btn btn-danger fa fa-minus-square'"></button>
                                     </th>
                                 </tr>
                             </tbody>

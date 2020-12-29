@@ -13,9 +13,7 @@ import { AmbienteService } from '@servicios/ambiente.service';
 
 export class ReportesSeleccionVistasComponent implements OnInit {
 
-  registros:any[];
-
-  vistasSeleccionadas:VistaInterface[]=[];
+  vistasSeleccionadas:VistaInterface[] = [];
 
   controladorVistas:VistasController;
 
@@ -28,19 +26,43 @@ export class ReportesSeleccionVistasComponent implements OnInit {
     
   }
 
-  cambiarSeleccionColumna(titulovista:string, campo:string){
-    console.log(titulovista + "-" + campo)
+  cambiarSeleccionColumna(tituloVista:string, campo:string){
     this.controladorVistas.vistas.forEach(vista => {
-      if (vista.titulo == titulovista) {
+      if (vista.titulo == tituloVista) {
         vista.columnasVista.forEach(campos => {
           if(campos.nombre == campo){
-            console.log(campos.estado);
-            (campos.estado)?campos.estado=false : campos.estado=true;
-            console.log(campos.estado);
+            (campos.estado)?campos.estado = false : campos.estado = true;
           }
         });
       }
     });
+  }
+
+  cambiarEstadoVista(tituloVista:string){
+    this.controladorVistas.vistas.forEach(vista => {
+      if (vista.titulo == tituloVista) {
+        if(vista.seleccionada){
+          vista.seleccionada = false;
+          for (let i = 0; i < this.vistasSeleccionadas.length; i++) {
+           if (this.vistasSeleccionadas[i].titulo == tituloVista) {
+             this.vistasSeleccionadas.splice(i,1);
+           }
+          }
+        }
+        else{
+          vista.seleccionada = true;
+          this.vistasSeleccionadas.push(this.controladorVistas.EncontrarVista(tituloVista));
+        }
+      }
+    });
+
+  }
+
+
+  EstoyListo(){
+    let validador:boolean = false;
+    validador =  this.controladorVistas.EstanlistasVitas();
+    return validador;
   }
 
 }

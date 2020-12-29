@@ -11,6 +11,8 @@ export class VistasController extends GenericoModel{
 
   vistas: VistaInterface[] = [];
 
+  estaListoVistas: boolean = false;
+
   constructor( 
     private instanciaHttpClient :HttpClient,
     private InstanciaAmbienteService :AmbienteService 
@@ -25,6 +27,8 @@ export class VistasController extends GenericoModel{
         switch(respuesta.codigo){
           case 200:
             let vistaTemp:VistaInterface = {
+              "seleccionada": false,
+              "relacionable": true,
               "titulo":this.tablasVistas[i].split("_")[1],
               "nombreTablaVista": this.nombreTabla,
               "columnasVista": respuesta.mensaje
@@ -41,6 +45,36 @@ export class VistasController extends GenericoModel{
       }
       );
     }
-    
+    this.nombreTabla = null;
+    this.EstanlistasVitas(true);
+  }
+
+  EstanlistasVitas(estado:boolean = false){
+    if (estado) {
+      function compare(a, b){
+        if (a.titulo > b.titulo) {
+          return 1;
+        }
+        if (a.titulo < b.titulo) {
+          return -1;
+        }
+        return 0;
+      }
+      this.vistas.sort(compare);
+
+      this.estaListoVistas = true;
+    }
+    return this.estaListoVistas;
+  }
+
+  EncontrarVista(titulo:string){
+    let vistaEncontrada  = null;
+    this.vistas.forEach(vista => {
+      if (vista.titulo == titulo) {
+        vistaEncontrada = vista;
+      }
+    });
+
+    return vistaEncontrada;
   }
 }
