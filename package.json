@@ -27,7 +27,7 @@
     "@progress/kendo-theme-default": "latest",
     "angular-jwt": "^0.1.11",
     "bootstrap": "^4.3.1",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "chartjs-plugin-labels": "^1.1.0",
     "jwt-decode": "^2.2.0",
     "moment": "^2.25.3",
